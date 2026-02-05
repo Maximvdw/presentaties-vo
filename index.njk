@@ -1,0 +1,79 @@
+---
+layout: null
+title: Presentaties
+subtitle: Maxim Van de Wynckel
+author: Maxim Van de Wynckel
+---
+
+<!DOCTYPE html>
+<html lang="nl">
+  {% include "head.njk" %}
+  <link rel="stylesheet" href="/css/vlaanderen-theme.css">
+  <link rel="stylesheet" href="/css/vlaanderen-icons.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <body>
+    <header class="page-hero">
+      <div class="container hero-content">
+        <div class="hero-icon">
+          <i class="vl-vi vl-vi-vlaanderen"></i>
+        </div>
+        <div>
+          <h1>{{ title }}</h1>
+          <p class="subtitle">{{ subtitle }}</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <div class="container">
+        {% set presentations = collections.all | sort(attribute="url") %}
+        {% set current_year = "" %}
+        {% set has_presentations = false %}
+        {% for item in presentations %}
+          {% if item.data.layout == "presentation.njk" %}
+            {% set has_presentations = true %}
+            {% set parts = item.url | split('/') %}
+            {% set year = parts[1] or "" %}
+            {% if year != current_year %}
+              {% if current_year %}
+                </div>
+              {% endif %}
+              <h2 class="year-heading">{{ year }}</h2>
+              <div class="cards">
+              {% set current_year = year %}
+            {% endif %}
+            <article class="card">
+              <div class="card-header">
+                <h3 class="card-title">{{ item.data.title }}</h3>
+                {% if item.data.status %}
+                {% set statusText = item.data.status | lower | replace(' ', '-') %}
+                {% set statusLabel = 'Ontwerp' if statusText == 'wip' else ('Concept' if statusText == 'draft' else ('Gepubliceerd' if statusText == 'published' else item.data.status)) %}
+                <span class="card-badge card-badge--{{ statusText }}">{{ statusLabel }}</span>
+                {% endif %}
+              </div>
+              {% if item.data.subtitle %}
+              <p class="card-subtitle">{{ item.data.subtitle }}</p>
+              {% endif %}
+              <div class="card-meta">
+                <i class="vl-vi vl-vi-calendar"></i>
+                <span>{{ item.data.presentationDate or "Geen datum" }}</span>
+              </div>
+              <a class="card-link" href="{{ item.url }}">
+                Bekijk presentatie
+                <i class="vl-vi vl-vi-arrow-right"></i>
+              </a>
+            </article>
+          {% endif %}
+        {% endfor %}
+        {% if has_presentations %}
+          </div>
+        {% else %}
+          <div class="empty-state">
+            Er zijn nog geen presentaties beschikbaar.
+          </div>
+        {% endif %}
+      </div>
+    </main>
+  </body>
+</html>
+

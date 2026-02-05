@@ -1,0 +1,13 @@
+{
+  "author": "Maxim Van de Wynckel",
+  "organization": "Departement Omgeving",
+  "theme": "vlaanderen",
+  "center": false,
+  "transition": "slide",
+  "slide_number": true,
+  "controls": true,
+  "progress": true,
+  "history": true,
+  "width": 1280,
+  "height": 720
+}

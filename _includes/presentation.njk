@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="nl">
+  {% include "head.njk" %}
+  {% set active_theme = theme or defaults.theme or 'vlaanderen' %}
+  <body>
+    <link rel="stylesheet" href="/reveal.js/dist/reset.css">
+    <link rel="stylesheet" href="/reveal.js/dist/reveal.css">
+    {% if active_theme and active_theme != 'vlaanderen' and active_theme != 'omgeving' %}
+    <link rel="stylesheet" href="/reveal.js/dist/theme/{{ active_theme }}.css">
+    {% endif %}
+    <link rel="stylesheet" href="/reveal.js/plugin/highlight/monokai.css">
+    {% if active_theme == 'vlaanderen' or not active_theme %}
+    <link rel="stylesheet" href="/css/vlaanderen-theme.css">
+    <link rel="stylesheet" href="/css/vlaanderen-icons.css">
+    {% endif %}
+    {% if active_theme == 'omgeving' %}
+    <link rel="stylesheet" href="/css/vlaanderen-theme.css">
+    <link rel="stylesheet" href="/css/omgeving-theme.css">
+    <link rel="stylesheet" href="/css/vlaanderen-icons.css">
+    {% endif %}
+    {% if custom_css %}
+    <link rel="stylesheet" href="{{ custom_css }}">
+    {% endif %}
+
+    <div class="reveal {% if active_theme == 'omgeving' %}omgeving{% endif %}">
+      <div class="slides">
+        <div class="slide-corner-icon slide-corner-icon--fixed">
+          <i class="vl-vi vl-vi-vlaanderen"></i>
+        </div>
+        {% if not hide_title_slide %}
+        <section class="title-slide center" data-timing="15">
+          <div class="slide-wrapper">
+            <div class="slide-content">
+              <h1>{{ title }}</h1>
+              {% if subtitle %}
+              <h3>{{ subtitle }}</h3>
+              {% endif %}
+              {% if author or defaults.author %}
+              <p class="author">{{ author or defaults.author }}</p>
+              {% endif %}
+              {% if organization or defaults.organization %}
+              <p class="organization">{{ organization or defaults.organization }}</p>
+              {% endif %}
+              {% if presentationDate %}
+              <p class="date">{{ presentationDate }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </section>
+        {% endif %}
+
+        {{ content | safe }}
+
+      </div>
+    </div>
+
+    <script src="/reveal.js/dist/reveal.js"></script>
+    <script src="/reveal.js/plugin/notes/notes.js"></script>
+    <script src="/reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="/reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="/reveal.js/plugin/zoom/zoom.js"></script>
+    <script src="/reveal.js/plugin/search/search.js"></script>
+    
+    <!-- Expose Reveal globally for decktape compatibility -->
+    <script>
+      window.Reveal = Reveal;
+    </script>
+    
+    <script type="module">
+      import { default as Mermaid } from '/js/mermaid/mermaid.esm.min.mjs';
+      import { initPresentation, initMermaid } from '/js/presentation.js';
+      
+      // Make mermaid available globally
+      window.mermaidInstance = Mermaid;
+      
+      Mermaid.initialize({ 
+        startOnLoad: false, 
+        theme: 'default',
+        securityLevel: 'loose',
+        fontFamily: 'Flanders Art Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif',
+        fontSize: 12,
+        flowchart: {
+          useMaxWidth: true
+        },
+        themeVariables: {
+          fontFamily: 'Flanders Art Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif',
+          fontSize: '12px'
+        }
+      });
+
+      const options = {
+        center: false,
+        margin: 0.08,
+        transition: '{{ transition or defaults.transition or "slide" }}',
+        slideNumber: {{ slide_number if slide_number is defined else (defaults.slide_number if defaults.slide_number is defined else 'false') }},
+        width: {{ width if width is defined else (defaults.width if defaults.width is defined else 1280) }},
+        height: {{ height if height is defined else (defaults.height if defaults.height is defined else 720) }},
+        controls: {{ controls if controls is defined else (defaults.controls if defaults.controls is defined else 'true') }},
+        progress: {{ progress if progress is defined else (defaults.progress if defaults.progress is defined else 'true') }},
+        history: {{ history if history is defined else (defaults.history if defaults.history is defined else 'true') }},
+        plugins: [ 
+          RevealMarkdown, 
+          RevealHighlight, 
+          RevealNotes,
+          RevealZoom,
+          RevealSearch
+        ],
+        {% if reveal_options %}
+        {{ reveal_options | safe }}
+        {% endif %}
+      };
+
+      // Initialize presentation
+      initPresentation({ initialize: () => Reveal.initialize(options) });
+      
+      // Initialize Mermaid after Reveal is ready
+      Reveal.on('ready', () => {
+        if (window.mermaidInstance) {
+          initMermaid(window.mermaidInstance);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,153 @@
+/**
+ * Omgeving theme extensie voor Reveal.js
+ * Gebaseerd op Vlaanderen theme met Departement Omgeving branding
+ */
+
+:root {
+  /* Departement Omgeving primaire kleur */
+  --omg-groen-primair: #447a6d;
+  --omg-groen-donker: #2d5957;
+  --omg-groen-licht: #f6f5f3;
+  --vl-wit: #f6f5f3;
+}
+
+/* Override van specifieke elementen met Omgeving groen */
+.reveal.omgeving .slides section:not(.title-slide) h2,
+.reveal.omgeving section:not(.title-slide) h2 {
+  display: block;
+  position: relative;
+  margin: -40px 0 0.8em 0;
+  padding: 0.8em 60px;
+  box-sizing: border-box;
+  color: var(--vl-wit);
+  font-weight: 700;
+  z-index: 1;
+}
+
+.reveal.omgeving .slides section:not(.title-slide) h2::before,
+.reveal.omgeving section:not(.title-slide) h2::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 200vw;
+  height: 100%;
+  background-color: var(--omg-groen-primair);
+  z-index: -1;
+}
+
+.reveal.omgeving section:not(.title-slide) h3 {
+  display: block;
+  position: relative;
+  margin: 0.8em 0 0.8em 0;
+  padding: 0.5em 60px;
+  box-sizing: border-box;
+  color: var(--vl-wit);
+  z-index: 1;
+}
+
+.reveal.omgeving section:not(.title-slide) h3::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 200vw;
+  height: 100%;
+  background-color: var(--omg-groen-primair);
+  z-index: -1;
+}
+
+.reveal.omgeving section:not(.title-slide) h4 {
+  display: block;
+  position: relative;
+  margin: 0.8em 0 0.8em 0;
+  padding: 0.5em 60px;
+  box-sizing: border-box;
+  color: var(--vl-wit);
+  z-index: 1;
+}
+
+.reveal.omgeving section:not(.title-slide) h4::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 200vw;
+  height: 100%;
+  background-color: var(--omg-groen-primair);
+  z-index: -1;
+}
+
+.reveal.omgeving h3,
+.reveal.omgeving h4 {
+  color: var(--omg-groen-primair);
+}
+
+/* Title slide: green background with white corner and white text */
+.reveal.omgeving .title-slide {
+  background-color: var(--omg-groen-primair);
+  color: var(--vl-wit);
+  border-left: 8px solid var(--vl-wit);
+}
+
+/* Title slide decoratie: white corner */
+.reveal.omgeving .slides .title-slide::before {
+  border-left-color: var(--vl-wit);
+}
+
+.reveal.omgeving .slides .title-slide::after {
+  color: var(--omg-groen-primair);
+}
+
+/* Title slide logo in green */
+.reveal.omgeving.is-title-slide .slide-corner-icon {
+  color: var(--omg-groen-primair);
+}
+
+/* Title slide text in white */
+.reveal.omgeving .title-slide h1,
+.reveal.omgeving .title-slide h3,
+.reveal.omgeving .title-slide .author,
+.reveal.omgeving .title-slide .organization,
+.reveal.omgeving .title-slide .date {
+  color: var(--vl-wit);
+}
+
+.reveal.omgeving strong {
+  color: var(--omg-groen-primair);
+}
+
+.reveal.omgeving a {
+  color: var(--omg-groen-primair);
+}
+
+.reveal.omgeving a:hover {
+  color: var(--omg-groen-donker);
+}
+
+/* Progress bar in Omgeving groen */
+.reveal.omgeving .progress {
+  background: rgba(68, 122, 109, 0.3);
+}
+
+.reveal.omgeving .progress span {
+  background: var(--omg-groen-primair);
+}
+
+/* Code block accenten */
+.reveal.omgeving pre {
+  border-left: 4px solid var(--omg-groen-primair);
+}
+
+/* Button styles */
+.reveal.omgeving .controls button {
+  color: var(--omg-groen-primair);
+}
+
+.reveal.omgeving .controls button:hover {
+  color: var(--omg-groen-donker);
+  text-shadow: 0 0 2px rgba(68, 122, 109, 0.5);
+}

@@ -1,0 +1,617 @@
+/**
+ * Vlaanderen theme voor Reveal.js
+ * Gebaseerd op de officiële Vlaamse overheid huisstijl
+ */
+
+@font-face {
+  font-family: 'Flanders Art Sans';
+  src: url('/fonts/Flanders Art Sans webfonts/Flanders Art Sans Regular/FlandersArtSans-Regular.woff') format('woff'),
+       url('/fonts/Flanders Art Sans webfonts/Flanders Art Sans Regular/FlandersArtSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Flanders Art Sans';
+  src: url('/fonts/Flanders Art Sans webfonts/Flanders Art Sans Medium/FlandersArtSans-Medium.woff') format('woff'),
+       url('/fonts/Flanders Art Sans webfonts/Flanders Art Sans Medium/FlandersArtSans-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Flanders Art Sans';
+  src: url('/fonts/Flanders Art Sans webfonts/Flanders Art Sans Bold/FlandersArtSans-Bold.woff') format('woff'),
+       url('/fonts/Flanders Art Sans webfonts/Flanders Art Sans Bold/FlandersArtSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'vlaanderen-icon';
+  src: url('/fonts/vlaanderen-icons/vlaanderen-icon.eea3757.woff2') format('woff2'),
+       url('/fonts/vlaanderen-icons/vlaanderen-icon.3e433a0.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+:root {
+  /* Vlaamse overheid kleuren */
+  --vl-geel: #FFED00;
+  --vl-geel-donker: #e4d505;
+  --vl-blauw-donker: #05246C;
+  --vl-blauw: #0055CC;
+  --vl-blauw-licht: #E8EBEE;
+  --vl-grijs-donker: #333332;
+  --vl-grijs: #687483;
+  --vl-grijs-licht: #CBD2DA;
+  --vl-wit: #ffffff;
+  --vl-zwart: #3c3d3c;
+}
+
+html,
+body {
+  background-color: var(--vl-wit);
+}
+
+.reveal {
+  font-family: 'Flanders Art Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--vl-zwart);
+  background-color: var(--vl-wit);
+  text-align: left;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+.reveal .slides,
+.reveal .slides section {
+  overflow: visible;
+}
+
+/* Titelpagina - gebaseerd op PPTX template */
+.reveal .title-slide {
+  text-align: left;
+  background-color: var(--vl-wit);
+  color: var(--vl-zwart);
+  padding: 0 !important;
+  position: relative;
+}
+
+.reveal .title-slide .slide-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 80px 100px 80px 380px; /* Meer ruimte links voor de decoratie */
+  z-index: 1;
+}
+
+.reveal .slides .title-slide::before {
+  content: '\F118';
+  position: absolute;
+  left: -100px;
+  bottom: -150px;
+  width: 0;
+  height: 0;
+  border-left: 420px solid var(--vl-geel);
+  border-top: 1520px solid transparent; /* 78° hoek */
+  pointer-events: none;
+  z-index: 0; /* Achter tekst */
+}
+
+.reveal .slides .title-slide::after {
+  content: '';
+  position: absolute;
+  left: -130px;
+  bottom: 150px;
+  font-family: 'vlaanderen-icon' !important;
+  font-size: 140px;
+  color: white;
+  z-index: 2;
+  display: inline-block;
+  line-height: 1;
+  vertical-align: middle;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* Voorkom dubbele decoratie in reveal.js backgrounds */
+.reveal .backgrounds .slide-background.title-slide::before {
+  display: none;
+}
+
+/* Icon linksonder op alle slides */
+.reveal .slide-corner-icon {
+  bottom: 24px;
+  left: 24px;
+  z-index: 100;
+  pointer-events: none;
+  color: var(--vl-zwart);
+  font-size: 60px;
+  line-height: 1;
+}
+
+.reveal .slide-corner-icon--fixed {
+  position: absolute;
+}
+
+/* Titel-slide: 3x groter */
+.reveal.is-title-slide .slide-corner-icon {
+  bottom: 70px;
+  left: 50px;
+  font-size: 150px;
+}
+
+.reveal .slide-corner-icon .vl-vi {
+  display: inline-block;
+  font-family: 'vlaanderen-icon' !important;
+  line-height: 1;
+  vertical-align: middle;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.reveal .slide-corner-icon .vl-vi::after {
+    content: '';
+    display: inline-block;
+    width: 1px;
+    height: 1em;
+    margin-left: 10px;
+    vertical-align: middle;
+    background-color: var(--vl-zwart);
+    transform: skewX(12deg);
+}
+
+/* Hide border on title slide */
+.reveal.is-title-slide .slide-corner-icon .vl-vi::after {
+    display: none;
+}
+
+/* Content moet boven de decoratie */
+.reveal .title-slide .slide-content {
+  position: relative;
+  z-index: 2;
+  max-width: 70%;
+}
+
+.reveal .title-slide h1 {
+  font-size: 3em;
+  margin-bottom: 0.4em;
+  color: var(--vl-zwart);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.reveal .title-slide h3 {
+  font-size: 1.6em;
+  color: var(--vl-zwart);
+  margin-bottom: 2em;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.reveal .title-slide .author,
+.reveal .title-slide .organization,
+.reveal .title-slide .date {
+  font-size: 1em;
+  color: var(--vl-grijs);
+  margin: 0.3em 0;
+  font-weight: 400;
+}
+
+/* Utility class voor subtekst */
+.reveal .subtext {
+  color: var(--vl-grijs);
+  font-size: 0.8em;
+}
+
+/* Small tag styling */
+.reveal small {
+  color: var(--vl-grijs);
+  font-size: 0.75em;
+  display: inline-block;
+}
+
+.reveal strong,
+.reveal b {
+  font-weight: 700;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  font-family: 'Flanders Art Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--vl-zwart);
+  margin: 0 0 20px 0;
+}
+
+.reveal h1 {
+  font-size: 2.5em;
+  font-weight: 700;
+}
+
+.reveal h2 {
+  font-size: 1.8em;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 0.8em;
+}
+
+.reveal h3 {
+  font-size: 1.4em;
+  font-weight: 500;
+}
+
+.reveal section:not(.title-slide) h3 {
+  display: block;
+  position: relative;
+  margin: 0.8em 0 0.8em 0;
+  padding: 0.5em 60px;
+  box-sizing: border-box;
+  color: var(--vl-zwart);
+  z-index: 1;
+}
+
+.reveal section:not(.title-slide) h3::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 200vw;
+  height: 100%;
+  background-color: var(--vl-geel);
+  z-index: -1;
+}
+
+.reveal h4 {
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.reveal section:not(.title-slide) h4 {
+  display: block;
+  position: relative;
+  margin: 0.8em 0 0.8em 0;
+  padding: 0.5em 60px;
+  box-sizing: border-box;
+  color: var(--vl-zwart);
+  z-index: 1;
+}
+
+.reveal section:not(.title-slide) h4::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 200vw;
+  height: 100%;
+  background-color: var(--vl-geel);
+  z-index: -1;
+}
+
+/* Slides layout */
+.reveal .slides section {
+  text-align: left;
+  padding: 40px 60px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Vertical stacks: avoid double padding on parent */
+.reveal .slides section.stack {
+  padding: 0;
+}
+
+.reveal .slides section.stack > section {
+  padding: 40px 60px;
+}
+
+/* Parent title display for vertical subsections */
+.reveal .parent-title {
+    font-size: 0.9em;
+    color: var(--vl-grijs);
+    font-weight: 500;
+    margin: -20px 0 16px 0;
+    padding: 0 60px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* H2 in slides - geel blok full-width */
+.reveal .slides section:not(.title-slide) h2,
+.reveal section:not(.title-slide) h2 {
+  display: block;
+  position: relative;
+  margin: -40px 0 0.8em 0;
+  padding: 0.8em 60px;
+  box-sizing: border-box;
+  color: var(--vl-zwart);
+  font-size: 1.8em;
+  font-weight: 700;
+  z-index: 1;
+}
+
+.reveal .slides section:not(.title-slide) h2::before,
+.reveal section:not(.title-slide) h2::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -35px;
+  transform: translateX(-50%);
+  width: 200vw;
+  height: calc(100% + 15px);
+  background-color: var(--vl-geel);
+  z-index: -1;
+}
+
+.reveal .slides section p {
+  margin: 0.5em 0;
+}
+
+.reveal .slides section ul,
+.reveal .slides section ol {
+  margin: 0.5em 0 0 1.5em;
+}
+
+/* Links */
+.reveal a {
+  color: var(--vl-blauw);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.reveal a:hover {
+  color: var(--vl-blauw-donker);
+  text-decoration: underline;
+}
+
+/* Lijsten */
+.reveal ul,
+.reveal ol {
+  text-align: left;
+  margin: 0 0 0 1em;
+}
+
+.reveal ul li,
+.reveal ol li {
+  margin-bottom: 0.5em;
+}
+
+.reveal ul li::marker {
+  color: var(--vl-geel);
+}
+
+/* Code */
+.reveal pre {
+  background-color: #1e1e1e;
+  border-left: 4px solid var(--vl-geel);
+  padding: 15px;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 85%;
+  color: #d4d4d4;
+  overflow-x: auto;
+}
+
+.reveal code {
+  font-family: 'Monaco', 'Courier New', monospace;
+  color: #d4d4d4;
+  background-color: #1e1e1e;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.75em;
+}
+
+.reveal pre code {
+  background-color: transparent;
+  padding: 0;
+  font-size: 0.6em;
+  line-height: 1.4;
+  color: #d4d4d4;
+}
+
+/* Syntax highlighting for JSON */
+.reveal code.json {
+  color: #d4d4d4;
+}
+
+.reveal pre code .string {
+  color: #ce9178;
+}
+
+.reveal pre code .number {
+  color: #b5cea8;
+}
+
+.reveal pre code .literal {
+  color: #569cd6;
+}
+
+.reveal pre code .key {
+  color: #9cdcfe;
+}
+
+/* Tabellen */
+.reveal table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.reveal table th {
+  background-color: var(--vl-blauw-donker);
+  color: var(--vl-wit);
+  font-weight: 600;
+  padding: 10px 15px;
+}
+
+.reveal table td {
+  padding: 10px 15px;
+  border-bottom: 1px solid var(--vl-grijs-licht);
+}
+
+.reveal table tr:nth-child(even) {
+  background-color: var(--vl-blauw-licht);
+}
+
+/* Blockquotes */
+.reveal blockquote {
+  background-color: var(--vl-blauw-licht);
+  border-left: 5px solid var(--vl-geel);
+  margin: 20px 0;
+  padding: 15px 20px;
+  font-style: italic;
+  color: var(--vl-grijs-donker);
+}
+
+/* Controls */
+.reveal .controls {
+  color: var(--vl-geel);
+}
+
+.reveal .controls button {
+  color: var(--vl-geel);
+}
+
+.reveal .controls button:hover {
+  color: var(--vl-geel-donker);
+}
+
+/* Progress bar */
+.reveal .progress {
+  background-color: var(--vl-grijs-licht);
+  color: var(--vl-geel);
+}
+
+.reveal .progress span {
+  background-color: var(--vl-geel);
+}
+
+/* Slide number */
+.reveal .slide-number {
+  background-color: transparent;
+  color: var(--vl-grijs);
+  font-size: 14px;
+}
+
+/* Fragmenten */
+.reveal .fragment.highlight-current-blue {
+  opacity: 1;
+  visibility: inherit;
+}
+
+.reveal .fragment.highlight-current-blue.current-fragment {
+  color: var(--vl-blauw);
+}
+
+/* Emphasis classes */
+.reveal .text-yellow {
+  color: var(--vl-geel-donker);
+}
+
+.reveal .text-blue {
+  color: var(--vl-blauw);
+}
+
+.reveal .text-blue-dark {
+  color: var(--vl-blauw-donker);
+}
+
+/* Mermaid diagrams */
+.reveal .mermaid {
+  width: calc(100% + 120px);
+  height: calc(100% + 80px);
+  min-height: 520px;
+  max-width: none;
+  max-height: none;
+  margin: -40px -60px;
+  padding: 0;
+  overflow: visible;
+  position: relative;
+  pointer-events: auto;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  contain: layout;
+  font-size: 10px;
+}
+
+.reveal .mermaid svg {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  margin: 0;
+  user-select: none;
+}
+
+/* Scale down Mermaid text */
+.reveal .mermaid text {
+  font-size: 10px !important;
+}
+
+.reveal .mermaid .nodeLabel {
+  font-size: 10px !important;
+}
+
+.reveal .mermaid .edgeLabel {
+  font-size: 10px !important;
+}
+
+.reveal .mermaid .flowchartTitleText {
+  font-size: 12px !important;
+}
+
+.reveal .mermaid .label text {
+  font-size: 10px !important;
+}
+
+.reveal .bg-yellow {
+  background-color: var(--vl-geel);
+  padding: 5px 10px;
+  color: var(--vl-blauw-donker);
+}
+
+.reveal .bg-blue {
+  background-color: var(--vl-blauw);
+  padding: 5px 10px;
+}
+
+/* Force font embedding for PDF export */
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  body, html, .reveal {
+    font-family: 'Flanders Art Sans', serif !important;
+  }
+}
+
+/* Center slides in fullscreen mode */
+.reveal.full-screen .slides {
+  position: absolute;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) scale(var(--slide-scale, 1)) !important;
+}
