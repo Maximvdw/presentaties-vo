@@ -6,9 +6,7 @@
  */
 
 import { execSync, spawn } from 'child_process';
-import { PDFDocument } from 'pdf-lib';
 import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
-import { createCanvas } from '@napi-rs/canvas';
 import fs from 'fs';
 import path from 'path';
 import http from 'http';
@@ -22,9 +20,6 @@ const SITE_DIR = path.join(__dirname, '..', '_site');
 const BASE_URL = 'http://localhost:8080';
 const BASE_WIDTH = 1280;
 const BASE_HEIGHT = 720;
-const PDF_RASTER_SCALE = Number(process.env.PDF_RASTER_SCALE || 2);
-const CMAP_DIR = path.join(__dirname, '..', 'node_modules', 'pdfjs-dist', 'cmaps');
-const STANDARD_FONTS_DIR = path.join(__dirname, '..', 'node_modules', 'pdfjs-dist', 'standard_fonts');
 
 let serverProcess = null;
 
@@ -160,14 +155,15 @@ async function main() {
 
     try {
       execSync(
-        `npx decktape reveal "${url}" "${outputPath}" --size=${BASE_WIDTH}x${BASE_HEIGHT} --load-pause 8000 --chrome-arg=--disable-dev-shm-usage --chrome-arg=--single-process --chrome-arg=--font-render-hinting=none --chrome-arg=--disable-font-subpixel-positioning --chrome-arg=--disable-lcd-text --chrome-arg=--disable-gpu --chrome-arg=--print-to-pdf-no-header --chrome-arg=--allow-file-access-from-files`,
+        `npx decktape reveal "${url}" "${outputPath}" --size=${BASE_WIDTH}x${BASE_HEIGHT} --load-pause 8000 --chrome-arg=--disable-dev-shm-usage --chrome-arg=--single-process --chrome-arg=--disable-gpu --chrome-arg=--print-to-pdf-no-header --chrome-arg=--allow-file-access-from-files`,
         { stdio: 'inherit' }
       );
       console.log(`✅ Succesvol geëxporteerd!`);
-
-      const rasterOutputPath = outputPath.replace(/\.pdf$/i, '-confluence.pdf');
-      await rasterizePdfToPdf(outputPath, rasterOutputPath, PDF_RASTER_SCALE);
-      console.log(`✅ Raster PDF gemaakt: ${rasterOutputPath}\n`);
+      
+      // Copy PDF for Confluence (without rasterization to preserve fonts)
+      const confluenceOutputPath = outputPath.replace(/\.pdf$/i, '-confluence.pdf');
+      fs.copyFileSync(outputPath, confluenceOutputPath);
+      console.log(`✅ Confluence PDF gemaakt (kopie): ${confluenceOutputPath}\n`);
     } catch (error) {
       console.error(`❌ Fout bij exporteren van ${presentation}`);
       console.error(error?.stack || error);
@@ -186,49 +182,6 @@ async function main() {
   }
   
   process.exit(0);
-}
-
-async function rasterizePdfToPdf(inputPath, outputPath, scale) {
-  console.log(`🧩 Rasterizing PDF at ${scale}x for Confluence...`);
-  const data = new Uint8Array(fs.readFileSync(inputPath));
-  const pdf = await pdfjsLib.getDocument({
-    data,
-    cMapUrl: `${CMAP_DIR}${path.sep}`,
-    cMapPacked: true,
-    standardFontDataUrl: `${STANDARD_FONTS_DIR}${path.sep}`,
-    disableFontFace: false,
-    useSystemFonts: true,
-  }).promise;
-  const rasterDoc = await PDFDocument.create();
-
-  for (let pageNum = 1; pageNum <= pdf.numPages; pageNum += 1) {
-    const page = await pdf.getPage(pageNum);
-    const viewport = page.getViewport({ scale });
-    const width = Math.round(viewport.width);
-    const height = Math.round(viewport.height);
-    const canvas = createCanvas(width, height);
-    const ctx = canvas.getContext('2d');
-
-    // Zet witte achtergrond en verbeter rendering kwaliteit
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, width, height);
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
-
-    await page.render({ canvasContext: ctx, viewport }).promise;
-    const pngBuffer = canvas.toBuffer('image/png');
-    const image = await rasterDoc.embedPng(pngBuffer);
-    const rasterPage = rasterDoc.addPage([width, height]);
-    rasterPage.drawImage(image, {
-      x: 0,
-      y: 0,
-      width,
-      height,
-    });
-  }
-
-  const rasterBytes = await rasterDoc.save();
-  fs.writeFileSync(outputPath, rasterBytes);
 }
 
 main().catch(err => {

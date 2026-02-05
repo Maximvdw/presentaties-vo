@@ -113,12 +113,57 @@
       // Initialize presentation
       initPresentation({ initialize: () => Reveal.initialize(options) });
       
-      // Initialize Mermaid after Reveal is ready
-      Reveal.on('ready', () => {
-        if (window.mermaidInstance) {
-          initMermaid(window.mermaidInstance);
-        }
-      });
+      // Initialize Mermaid configuration first
+      if (window.mermaidInstance) {
+        initMermaid(window.mermaidInstance);
+        
+        // Assign unique IDs to all mermaid diagrams
+        let diagramCounter = 0;
+        document.querySelectorAll('.mermaid').forEach(diagram => {
+          if (!diagram.id) {
+            diagram.id = `mermaid-${diagramCounter++}`;
+          }
+        });
+        
+        const renderedDiagrams = new Set();
+        
+        // Render diagrams when a slide is shown
+        const renderDiagramsOnSlide = async () => {
+          const currentSlide = Reveal.getCurrentSlide();
+          if (!currentSlide) return;
+          
+          const diagrams = currentSlide.querySelectorAll('.mermaid');
+          
+          for (const diagram of diagrams) {
+            const diagramId = diagram.id;
+            
+            // Only render if not already rendered
+            if (!renderedDiagrams.has(diagramId)) {
+              renderedDiagrams.add(diagramId);
+              
+              // Wait a tick to ensure layout is ready
+              await new Promise(resolve => setTimeout(resolve, 50));
+              
+              try {
+                await window.mermaidInstance.run({
+                  nodes: [diagram],
+                });
+                
+                // Setup pan/zoom after rendering
+                if (window.setupMermaidPanZoom) {
+                  window.setupMermaidPanZoom();
+                }
+              } catch (error) {
+                console.error('Mermaid rendering error for ' + diagramId + ':', error);
+              }
+            }
+          }
+        };
+        
+        // Render on ready and on slide changes
+        Reveal.on('ready', renderDiagramsOnSlide);
+        Reveal.on('slidechanged', renderDiagramsOnSlide);
+      }
     </script>
   </body>
 </html>

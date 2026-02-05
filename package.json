@@ -17,10 +17,8 @@
     "markdown-it": "^14.1.0"
   },
   "dependencies": {
-    "@napi-rs/canvas": "^0.1.68",
     "reveal.js": "^5.2.1",
     "mermaid": "^11.12.2",
-    "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^4.10.38"
   }
 }

@@ -1,4 +1,6 @@
-# Reveal.js Presentaties
+# Kennisdeling - Maxim Van de Wynckel
+
+> Deze repo bevat alle persoonlijke presentaties van Maxim Van de Wynckel binnen het team ApoCow. Deze repo wordt persoonlijk gebruikt maar wordt ook gelinked vanaf https://www.milieuinfo.be/confluence/display/AEO/TAC+-+Kennisdeling
 
 Reveal.js presentaties met Nunjucks templates en Eleventy static site generator in Vlaamse overheid huisstijl.
 
