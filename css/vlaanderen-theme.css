@@ -5,8 +5,8 @@
 
 @font-face {
   font-family: 'Flanders Art Sans';
-  src: url('/fonts/Flanders Art Sans webfonts/Flanders Art Sans Regular/FlandersArtSans-Regular.woff') format('woff'),
-       url('/fonts/Flanders Art Sans webfonts/Flanders Art Sans Regular/FlandersArtSans-Regular.ttf') format('truetype');
+    src: url('../fonts/Flanders Art Sans webfonts/Flanders Art Sans Regular/FlandersArtSans-Regular.woff') format('woff'),
+      url('../fonts/Flanders Art Sans webfonts/Flanders Art Sans Regular/FlandersArtSans-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: block;
@@ -14,8 +14,8 @@
 
 @font-face {
   font-family: 'Flanders Art Sans';
-  src: url('/fonts/Flanders Art Sans webfonts/Flanders Art Sans Medium/FlandersArtSans-Medium.woff') format('woff'),
-       url('/fonts/Flanders Art Sans webfonts/Flanders Art Sans Medium/FlandersArtSans-Medium.ttf') format('truetype');
+    src: url('../fonts/Flanders Art Sans webfonts/Flanders Art Sans Medium/FlandersArtSans-Medium.woff') format('woff'),
+      url('../fonts/Flanders Art Sans webfonts/Flanders Art Sans Medium/FlandersArtSans-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: block;
@@ -23,8 +23,8 @@
 
 @font-face {
   font-family: 'Flanders Art Sans';
-  src: url('/fonts/Flanders Art Sans webfonts/Flanders Art Sans Bold/FlandersArtSans-Bold.woff') format('woff'),
-       url('/fonts/Flanders Art Sans webfonts/Flanders Art Sans Bold/FlandersArtSans-Bold.ttf') format('truetype');
+    src: url('../fonts/Flanders Art Sans webfonts/Flanders Art Sans Bold/FlandersArtSans-Bold.woff') format('woff'),
+      url('../fonts/Flanders Art Sans webfonts/Flanders Art Sans Bold/FlandersArtSans-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: block;
@@ -32,8 +32,8 @@
 
 @font-face {
   font-family: 'vlaanderen-icon';
-  src: url('/fonts/vlaanderen-icons/vlaanderen-icon.eea3757.woff2') format('woff2'),
-       url('/fonts/vlaanderen-icons/vlaanderen-icon.3e433a0.woff') format('woff');
+    src: url('../fonts/vlaanderen-icons/vlaanderen-icon.eea3757.woff2') format('woff2'),
+      url('../fonts/vlaanderen-icons/vlaanderen-icon.3e433a0.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: block;
