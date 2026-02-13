@@ -3,20 +3,20 @@
   {% include "head.njk" %}
   {% set active_theme = theme or defaults.theme or 'vlaanderen' %}
   <body>
-    <link rel="stylesheet" href="/reveal.js/dist/reset.css">
-    <link rel="stylesheet" href="/reveal.js/dist/reveal.css">
+    <link rel="stylesheet" href="{{ site.baseUrl }}/reveal.js/dist/reset.css">
+    <link rel="stylesheet" href="{{ site.baseUrl }}/reveal.js/dist/reveal.css">
     {% if active_theme and active_theme != 'vlaanderen' and active_theme != 'omgeving' %}
     <link rel="stylesheet" href="/reveal.js/dist/theme/{{ active_theme }}.css">
     {% endif %}
-    <link rel="stylesheet" href="/reveal.js/plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="{{ site.baseUrl }}/reveal.js/plugin/highlight/monokai.css">
     {% if active_theme == 'vlaanderen' or not active_theme %}
-    <link rel="stylesheet" href="/css/vlaanderen-theme.css">
-    <link rel="stylesheet" href="/css/vlaanderen-icons.css">
+    <link rel="stylesheet" href="{{ site.baseUrl }}/css/vlaanderen-theme.css">
+    <link rel="stylesheet" href="{{ site.baseUrl }}/css/vlaanderen-icons.css">
     {% endif %}
     {% if active_theme == 'omgeving' %}
-    <link rel="stylesheet" href="/css/vlaanderen-theme.css">
-    <link rel="stylesheet" href="/css/omgeving-theme.css">
-    <link rel="stylesheet" href="/css/vlaanderen-icons.css">
+    <link rel="stylesheet" href="{{ site.baseUrl }}/css/vlaanderen-theme.css">
+    <link rel="stylesheet" href="{{ site.baseUrl }}/css/omgeving-theme.css">
+    <link rel="stylesheet" href="{{ site.baseUrl }}/css/vlaanderen-icons.css">
     {% endif %}
     {% if custom_css %}
     <link rel="stylesheet" href="{{ custom_css }}">
@@ -54,12 +54,12 @@
       </div>
     </div>
 
-    <script src="/reveal.js/dist/reveal.js"></script>
-    <script src="/reveal.js/plugin/notes/notes.js"></script>
-    <script src="/reveal.js/plugin/markdown/markdown.js"></script>
-    <script src="/reveal.js/plugin/highlight/highlight.js"></script>
-    <script src="/reveal.js/plugin/zoom/zoom.js"></script>
-    <script src="/reveal.js/plugin/search/search.js"></script>
+    <script src="{{ site.baseUrl }}/reveal.js/dist/reveal.js"></script>
+    <script src="{{ site.baseUrl }}/reveal.js/plugin/notes/notes.js"></script>
+    <script src="{{ site.baseUrl }}/reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="{{ site.baseUrl }}/reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="{{ site.baseUrl }}/reveal.js/plugin/zoom/zoom.js"></script>
+    <script src="{{ site.baseUrl }}/reveal.js/plugin/search/search.js"></script>
     
     <!-- Expose Reveal globally for decktape compatibility -->
     <script>
@@ -67,8 +67,8 @@
     </script>
     
     <script type="module">
-      import { default as Mermaid } from '/js/mermaid/mermaid.esm.min.mjs';
-      import { initPresentation, initMermaid } from '/js/presentation.js';
+      import { default as Mermaid } from '{{ site.baseUrl }}/js/mermaid/mermaid.esm.min.mjs';
+      import { initPresentation, initMermaid } from '{{ site.baseUrl }}/js/presentation.js';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;
@@ -145,7 +145,7 @@
               await new Promise(resolve => setTimeout(resolve, 50));
               
               try {
-                await window.mermaidInstance.run({
+                        await window.mermaidInstance.run({
                   nodes: [diagram],
                 });
                 
