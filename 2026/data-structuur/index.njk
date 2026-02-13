@@ -1,0 +1,221 @@
+---
+layout: presentation.njk
+title: "RIE-IEPR: Visuele datastructuur"
+subtitle: Meeting APOCOW
+presentationDate: 19 februari 2026
+status: WIP
+theme: omgeving
+---
+
+<section>
+  <section>
+    {% markdown %}
+    ## Visueel proces
+    ```mermaid
+    flowchart LR
+      STOF1(["Meel"])
+      STOF2(["Water"])
+      STOF3(["Brood"])
+
+      class STOF1,STOF2,STOF3 data;
+
+      classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+      classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+
+      EP1(["Schouw 1"])
+      EP2(["Lozingspunt 1"])
+
+      class EP1,EP2 emission;
+
+      PROCES1["Deeg maken"]
+      PROCES2["Brood bakken"]
+
+      STOF1 --> PROCES1
+      STOF2 --> PROCES1
+      PROCES1 --> PROCES2
+      PROCES1 --> EP2
+      PROCES2 --> EP1
+
+      PROCES2 --> STOF3
+    ```
+    {% endmarkdown %}
+  </section>
+  <section>
+    {% markdown %}
+    ### Achterliggende data (1)
+    ```mermaid
+    flowchart LR
+      STOF1(["**ProcesVariabele** <br> Meel"])
+      STOF2(["**ProcesVariabele** <br> Water"])
+      STOF3(["**ProcesVariabele** <br> Brood"])
+
+      class STOF1,STOF2,STOF3,STOF4 data;
+
+      classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+      classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+
+      EP1(["**Emissiepunt** <br> Schouw 1"])
+      EP2(["**Emissiepunt** <br> Lozingspunt 1"])
+
+      class EP1,EP2 emission;
+
+      PROCES1["**Proces** <br> type=VERWERKING <br> benaming=Deeg maken"]
+      PROCES2["**Proces** <br> type=VERWERKING <br> benaming=Brood bakken"]
+    
+      PROCES1 -->|"heeftInvoer"| STOF1
+      PROCES1 -->|"heeftInvoer"| STOF2
+      OVERBRENGING1["**Proces** <br> type=TRANSPORT"]
+      PROCES1 --> OVERBRENGING1
+      OVERBRENGING1 --> PROCES2
+      EMISSIE1["**Proces** <br> type=EMISSIE"]
+      EMISSIE2["**Proces** <br> type=EMISSIE"]
+      PROCES1 --> EMISSIE1
+      EMISSIE1 --> EP2
+      PROCES2 --> EMISSIE2
+      EMISSIE2 --> EP1
+
+      PROCES2 -->|"heeftUitvoer"| STOF3
+    ```
+    {% endmarkdown %}
+  </section>
+  <section>
+    {% markdown %}
+    ### Achterliggende data (2)
+    ```mermaid
+    flowchart LR
+      STOF1(["**ProcesVariabele** <br> Meel"])
+      STOF2(["**ProcesVariabele** <br> Water"])
+      STOF3(["**ProcesVariabele** <br> Brood"])
+
+      class STOF1,STOF2,STOF3,STOF4,STOF5 data;
+
+      classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+      classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+
+      EP1(["**Emissiepunt** <br> Schouw 1"])
+      EP2(["**Emissiepunt** <br> Lozingspunt 1"])
+
+      class EP1,EP2 emission;
+
+      PROCES1["**Proces** <br> type=VERWERKING <br> benaming=Deeg maken"]
+      PROCES2["**Proces** <br> type=VERWERKING <br> benaming=Brood bakken"]
+    
+      PROCES1 -->|"heeftInvoer"| STOF1
+      PROCES1 -->|"heeftInvoer"| STOF2
+      OVERBRENGING1["**Proces** <br> type=TRANSPORT"]
+      OVERBRENGING1 -->|"voorgaandeStap"| PROCES1
+      PROCES2 -->|"voorgaandeStap"| OVERBRENGING1
+      EMISSIE1["**Proces** <br> type=EMISSIE"]
+      EMISSIE2["**Proces** <br> type=EMISSIE"]
+      
+      EMISSIE1 -->|"voorgaandeStap"| PROCES1
+      EMISSIE2 -->|"voorgaandeStap"| PROCES2
+      EMISSIE1 --> EP2
+      EMISSIE2 --> EP1
+
+      PROCES2 -->|"heeftUitvoer"| STOF3
+    ```
+    {% endmarkdown %}
+  </section>
+  <section>
+    {% markdown %}
+    ### Achterliggende data (4)
+    ```mermaid
+    flowchart LR
+      STOF1(["**ProcesVariabele** <br> Meel"])
+      STOF2(["**ProcesVariabele** <br> Water"])
+      STOF3(["**ProcesVariabele** <br> Brood"])
+
+      class STOF1,STOF2,STOF3,STOF4,STOF5 data;
+
+      classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+      classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+
+      EP1(["**Emissiepunt** <br> Schouw 1"])
+      EP2(["**Emissiepunt** <br> Lozingspunt 1"])
+
+      class EP1,EP2 emission;
+
+      PROCES1["**Proces** <br> type=VERWERKING <br> benaming=Deeg maken"]
+      PROCES2["**Proces** <br> type=VERWERKING <br> benaming=Brood bakken"]
+    
+      PROCES1 -->|"heeftInvoer"| STOF1
+      PROCES1 -->|"heeftInvoer"| STOF2
+      OVERBRENGING1["**Proces** <br> type=TRANSPORT"]
+      OVERBRENGING1 -->|"voorgaandeStap"| PROCES1
+      PROCES2 -->|"voorgaandeStap"| OVERBRENGING1
+      EMISSIE1["**Proces** <br> type=EMISSIE"]
+      EMISSIE2["**Proces** <br> type=EMISSIE"]
+      
+      EMISSIE1 -->|"voorgaandeStap"| PROCES1
+      EMISSIE2 -->|"voorgaandeStap"| PROCES2
+      EMISSIE1 -->|"gebruikt"| EP2
+      EMISSIE2 -->|"gebruikt"| EP1
+      PROCES2 -->|"gebruikt"| OVEN
+      OVEN(["**Apparaat** <br> Oven"])
+      classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
+      class OVEN apparaat;
+
+      PROCES2 -->|"heeftUitvoer"| STOF3
+    ```
+    {% endmarkdown %}
+  </section>
+  <section>
+    {% markdown %}
+    ### Achterliggende data (4)
+    ```mermaid
+    flowchart LR
+      STOF1(["**ProcesVariabele** <br> Meel"])
+      STOF2(["**ProcesVariabele** <br> Water"])
+      STOF3(["**ProcesVariabele** <br> Brood"])
+
+      class STOF1,STOF2,STOF3 data;
+
+      classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+      classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+
+      EP1(["**Emissiepunt** <br> Schouw 1"])
+      EP2(["**Emissiepunt** <br> Lozingspunt 1"])
+
+      class EP1,EP2 emission;
+
+      PROCES1["**Proces** <br> type=VERWERKING <br> benaming=Deeg maken"]
+      PROCES2["**Proces** <br> type=VERWERKING <br> benaming=Brood bakken"]
+    
+      PROCES1 -->|"heeftInvoer"| STOF1
+      PROCES1 -->|"heeftInvoer"| STOF2
+      OVERBRENGING1["**Proces** <br> type=TRANSPORT"]
+      OVERBRENGING1 -->|"voorgaandeStap"| PROCES1
+      PROCES2 -->|"voorgaandeStap"| OVERBRENGING1
+      EMISSIE1["**Proces** <br> type=EMISSIE"]
+      EMISSIE2["**Proces** <br> type=EMISSIE"]
+      
+      EMISSIE1 -->|"voorgaandeStap"| PROCES1
+      EMISSIE2 -->|"voorgaandeStap"| PROCES2
+      EMISSIE1 -->|"gebruikt"| EP2
+      EMISSIE2 -->|"gebruikt"| EP1
+      PROCES2 -->|"gebruikt"| OVEN
+      OVEN(["**Apparaat** <br> Oven"])
+      classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
+      class OVEN apparaat;
+
+      PROCES2 -->|"heeftUitvoer"| STOF3
+
+      STOF4(["**ProcesVariabele** <br> Afvalwater"])
+      STOF5(["**ProcesVariabele** <br> CO2"])
+      STOF6(["**ProcesVariabele** <br> Deeg"])
+      class STOF4,STOF5,STOF6 data;
+      EMISSIE1 -->|"heeftInvoer"| STOF4
+      EMISSIE1 -->|"heeftUitvoer"| STOF4
+      PROCES1 -->|"heeftUitvoer"| STOF4
+      PROCES1 -->|"heeftUitvoer"| STOF5
+      EMISSIE2 -->|"heeftInvoer"| STOF5
+      EMISSIE2 -->|"heeftUitvoer"| STOF5
+      PROCES1 -->|"heeftUitvoer"| STOF6
+      OVERBRENGING1 -->|"heeftInvoer"| STOF6
+      OVERBRENGING1 -->|"heeftUitvoer"| STOF6
+      PROCES2 -->|"heeftInvoer"| STOF6
+    ```
+    {% endmarkdown %}
+  </section>
+</section>

@@ -1,20 +1,71 @@
 import markdownIt from 'markdown-it';
+import nunjucks from 'nunjucks';
+import njkMarkdown from 'nunjucks-markdown';
 
-export default function(eleventyConfig) {
+export default async function(eleventyConfig) {
   // Markdown-it configuratie
   const markdownItOptions = {
     html: true,
     breaks: true,
     linkify: true
   };
-  
-  eleventyConfig.setLibrary("md", markdownIt(markdownItOptions));
-  
+
+  // Create a single markdown-it instance and customize fence rendering
+  const md = markdownIt(markdownItOptions);
+
+  // Try to load a markdown-it mermaid plugin if available. This is optional —
+  // if the package isn't installed we'll fall back to the custom fence renderer below.
+  try {
+    const mod = await import('markdown-it-mermaid');
+    const mermaidPlugin = mod && (mod.default || mod);
+    if (typeof mermaidPlugin === 'function') {
+      md.use(mermaidPlugin);
+    }
+  } catch (e) {
+    // plugin not installed — continue with fallback
+  }
+
+  // Preserve default fence renderer
+  const defaultFence = md.renderer.rules.fence || function(tokens, idx, options, env, slf) {
+    const token = tokens[idx];
+    const info = token.info ? token.info.trim() : '';
+    const langName = info ? info.split(/\s+/g)[0] : '';
+    return `<pre><code class="${options.langPrefix}${md.utils.escapeHtml(langName)}">` + md.utils.escapeHtml(token.content) + '</code></pre>';
+  };
+
+  // Render mermaid fences as <div class="mermaid"> so client-side Mermaid can process them
+  md.renderer.rules.fence = function(tokens, idx, options, env, slf) {
+    const token = tokens[idx];
+    const info = token.info ? token.info.trim() : '';
+    const lang = info.split(/\s+/g)[0];
+    if (lang === 'mermaid') {
+      // Output raw content (don't HTML-escape) so the client-side Mermaid parser
+      // receives the original diagram source.
+      return `<div class="mermaid">\n${token.content}\n</div>`;
+    }
+    return defaultFence(tokens, idx, options, env, slf);
+  };
+
+  eleventyConfig.setLibrary("md", md);
+
   // Custom markdown filter voor inline markdown in Nunjucks
   eleventyConfig.addFilter("markdown", (content) => {
-    const md = markdownIt(markdownItOptions);
     return md.render(content);
   });
+
+
+
+  // Setup a Nunjucks environment and register markdown rendering so
+  // `{% markdown %}...{% endmarkdown %}` works in Nunjucks templates.
+  try {
+    const njkEnv = new nunjucks.Environment(new nunjucks.FileSystemLoader("_includes"));
+    njkMarkdown.register(njkEnv, (src) => {
+      return md.render(src);
+    });
+    eleventyConfig.setLibrary("njk", njkEnv);
+  } catch (e) {
+    // If nunjucks-markdown isn't available, fall back to default behavior.
+  }
 
   eleventyConfig.addFilter("split", (value, delimiter = "/") => {
     if (typeof value !== "string") {
@@ -35,7 +86,6 @@ export default function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("fonts");
   eleventyConfig.addPassthroughCopy("images");
   eleventyConfig.addPassthroughCopy("js");
-  eleventyConfig.addPassthroughCopy("2026");
   eleventyConfig.addPassthroughCopy("css");
   
   // Watch for changes in CSS
