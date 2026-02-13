@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <title>LDES</title>
+  
+  
+  
+  
+</head>
+
+  
+  <body>
+    <link rel="stylesheet" href="/reveal.js/dist/reset.css">
+    <link rel="stylesheet" href="/reveal.js/dist/reveal.css">
+    
+    <link rel="stylesheet" href="/reveal.js/plugin/highlight/monokai.css">
+    
+    <link rel="stylesheet" href="/css/vlaanderen-theme.css">
+    <link rel="stylesheet" href="/css/vlaanderen-icons.css">
+    
+    
+    
+
+    <div class="reveal ">
+      <div class="slides">
+        <div class="slide-corner-icon slide-corner-icon--fixed">
+          <i class="vl-vi vl-vi-vlaanderen"></i>
+        </div>
+        
+        <section class="title-slide center" data-timing="15">
+          <div class="slide-wrapper">
+            <div class="slide-content">
+              <h1>LDES</h1>
+              
+              <h3>RIE-IEPR afname via LDES</h3>
+              
+              
+              <p class="author">Maxim Van de Wynckel</p>
+              
+              
+              <p class="organization">Departement Omgeving</p>
+              
+              
+              <p class="date">9 februari 2026</p>
+              
+            </div>
+          </div>
+        </section>
+        
+
+        
+
+      </div>
+    </div>
+
+    <script src="/reveal.js/dist/reveal.js"></script>
+    <script src="/reveal.js/plugin/notes/notes.js"></script>
+    <script src="/reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="/reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="/reveal.js/plugin/zoom/zoom.js"></script>
+    <script src="/reveal.js/plugin/search/search.js"></script>
+    
+    <!-- Expose Reveal globally for decktape compatibility -->
+    <script>
+      window.Reveal = Reveal;
+    </script>
+    
+    <script type="module">
+      import { default as Mermaid } from '/js/mermaid/mermaid.esm.min.mjs';
+      import { initPresentation, initMermaid } from '/js/presentation.js';
+      
+      // Make mermaid available globally
+      window.mermaidInstance = Mermaid;
+      
+      Mermaid.initialize({ 
+        startOnLoad: false, 
+        theme: 'default',
+        securityLevel: 'loose',
+        fontFamily: 'Flanders Art Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif',
+        fontSize: 12,
+        flowchart: {
+          useMaxWidth: true
+        },
+        themeVariables: {
+          fontFamily: 'Flanders Art Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif',
+          fontSize: '12px'
+        }
+      });
+
+      const options = {
+        center: false,
+        margin: 0.08,
+        transition: 'slide',
+        slideNumber: true,
+        width: 1280,
+        height: 720,
+        controls: true,
+        progress: true,
+        history: true,
+        plugins: [ 
+          RevealMarkdown, 
+          RevealHighlight, 
+          RevealNotes,
+          RevealZoom,
+          RevealSearch
+        ],
+        
+      };
+
+      // Initialize presentation
+      initPresentation({ initialize: () => Reveal.initialize(options) });
+      
+      // Initialize Mermaid configuration first
+      if (window.mermaidInstance) {
+        initMermaid(window.mermaidInstance);
+        
+        // Assign unique IDs to all mermaid diagrams
+        let diagramCounter = 0;
+        document.querySelectorAll('.mermaid').forEach(diagram => {
+          if (!diagram.id) {
+            diagram.id = `mermaid-${diagramCounter++}`;
+          }
+        });
+        
+        const renderedDiagrams = new Set();
+        
+        // Render diagrams when a slide is shown
+        const renderDiagramsOnSlide = async () => {
+          const currentSlide = Reveal.getCurrentSlide();
+          if (!currentSlide) return;
+          
+          const diagrams = currentSlide.querySelectorAll('.mermaid');
+          
+          for (const diagram of diagrams) {
+            const diagramId = diagram.id;
+            
+            // Only render if not already rendered
+            if (!renderedDiagrams.has(diagramId)) {
+              renderedDiagrams.add(diagramId);
+              
+              // Wait a tick to ensure layout is ready
+              await new Promise(resolve => setTimeout(resolve, 50));
+              
+              try {
+                await window.mermaidInstance.run({
+                  nodes: [diagram],
+                });
+                
+                // Setup pan/zoom after rendering
+                if (window.setupMermaidPanZoom) {
+                  window.setupMermaidPanZoom();
+                }
+              } catch (error) {
+                console.error('Mermaid rendering error for ' + diagramId + ':', error);
+              }
+            }
+          }
+        };
+        
+        // Render on ready and on slide changes
+        Reveal.on('ready', renderDiagramsOnSlide);
+        Reveal.on('slidechanged', renderDiagramsOnSlide);
+      }
+    </script>
+  </body>
+</html>

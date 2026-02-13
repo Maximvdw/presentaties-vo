@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <title>RIE-IEPR: Visuele datastructuur</title>
+  
+  
+  
+  
+</head>
+
+  
+  <body>
+    <link rel="stylesheet" href="/reveal.js/dist/reset.css">
+    <link rel="stylesheet" href="/reveal.js/dist/reveal.css">
+    
+    <link rel="stylesheet" href="/reveal.js/plugin/highlight/monokai.css">
+    
+    
+    <link rel="stylesheet" href="/css/vlaanderen-theme.css">
+    <link rel="stylesheet" href="/css/omgeving-theme.css">
+    <link rel="stylesheet" href="/css/vlaanderen-icons.css">
+    
+    
+
+    <div class="reveal omgeving">
+      <div class="slides">
+        <div class="slide-corner-icon slide-corner-icon--fixed">
+          <i class="vl-vi vl-vi-vlaanderen"></i>
+        </div>
+        
+        <section class="title-slide center" data-timing="15">
+          <div class="slide-wrapper">
+            <div class="slide-content">
+              <h1>RIE-IEPR: Visuele datastructuur</h1>
+              
+              <h3>Meeting APOCOW</h3>
+              
+              
+              <p class="author">Maxim Van de Wynckel</p>
+              
+              
+              <p class="organization">Departement Omgeving</p>
+              
+              
+              <p class="date">19 februari 2026</p>
+              
+            </div>
+          </div>
+        </section>
+        
+
+        
+<section>
+  <section>
+    <h2>Visueel proces</h2>
+<div class="mermaid">
+flowchart LR
+STOF1(["Meel"])
+STOF2(["Water"])
+STOF3(["Brood"])
+
+class STOF1,STOF2,STOF3 data;
+
+classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+
+EP1(["Schouw 1"])
+EP2(["Lozingspunt 1"])
+
+class EP1,EP2 emission;
+
+PROCES1["Deeg maken"]
+PROCES2["Brood bakken"]
+
+STOF1 --> PROCES1
+STOF2 --> PROCES1
+PROCES1 --> PROCES2
+PROCES1 --> EP2
+PROCES2 --> EP1
+
+PROCES2 --> STOF3
+
+</div>
+  </section>
+  <section>
+    <h3>Achterliggende data (1)</h3>
+<div class="mermaid">
+flowchart LR
+STOF1(["**ProcesVariabele** <br> Meel"])
+STOF2(["**ProcesVariabele** <br> Water"])
+STOF3(["**ProcesVariabele** <br> Brood"])
+
+class STOF1,STOF2,STOF3,STOF4 data;
+
+classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+
+EP1(["**Emissiepunt** <br> Schouw 1"])
+EP2(["**Emissiepunt** <br> Lozingspunt 1"])
+
+class EP1,EP2 emission;
+
+PROCES1["**Proces** <br> type=VERWERKING <br> benaming=Deeg maken"]
+PROCES2["**Proces** <br> type=VERWERKING <br> benaming=Brood bakken"]
+
+PROCES1 -->|"heeftInvoer"| STOF1
+PROCES1 -->|"heeftInvoer"| STOF2
+OVERBRENGING1["**Proces** <br> type=TRANSPORT"]
+PROCES1 --> OVERBRENGING1
+OVERBRENGING1 --> PROCES2
+EMISSIE1["**Proces** <br> type=EMISSIE"]
+EMISSIE2["**Proces** <br> type=EMISSIE"]
+PROCES1 --> EMISSIE1
+EMISSIE1 --> EP2
+PROCES2 --> EMISSIE2
+EMISSIE2 --> EP1
+
+PROCES2 -->|"heeftUitvoer"| STOF3
+
+</div>
+  </section>
+  <section>
+    <h3>Achterliggende data (2)</h3>
+<div class="mermaid">
+flowchart LR
+STOF1(["**ProcesVariabele** <br> Meel"])
+STOF2(["**ProcesVariabele** <br> Water"])
+STOF3(["**ProcesVariabele** <br> Brood"])
+
+class STOF1,STOF2,STOF3,STOF4,STOF5 data;
+
+classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+
+EP1(["**Emissiepunt** <br> Schouw 1"])
+EP2(["**Emissiepunt** <br> Lozingspunt 1"])
+
+class EP1,EP2 emission;
+
+PROCES1["**Proces** <br> type=VERWERKING <br> benaming=Deeg maken"]
+PROCES2["**Proces** <br> type=VERWERKING <br> benaming=Brood bakken"]
+
+PROCES1 -->|"heeftInvoer"| STOF1
+PROCES1 -->|"heeftInvoer"| STOF2
+OVERBRENGING1["**Proces** <br> type=TRANSPORT"]
+OVERBRENGING1 -->|"voorgaandeStap"| PROCES1
+PROCES2 -->|"voorgaandeStap"| OVERBRENGING1
+EMISSIE1["**Proces** <br> type=EMISSIE"]
+EMISSIE2["**Proces** <br> type=EMISSIE"]
+
+EMISSIE1 -->|"voorgaandeStap"| PROCES1
+EMISSIE2 -->|"voorgaandeStap"| PROCES2
+EMISSIE1 --> EP2
+EMISSIE2 --> EP1
+
+PROCES2 -->|"heeftUitvoer"| STOF3
+
+</div>
+  </section>
+  <section>
+    <h3>Achterliggende data (3)</h3>
+<div class="mermaid">
+flowchart LR
+STOF1(["**ProcesVariabele** <br> Meel"])
+STOF2(["**ProcesVariabele** <br> Water"])
+STOF3(["**ProcesVariabele** <br> Brood"])
+
+class STOF1,STOF2,STOF3,STOF4,STOF5 data;
+
+classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+
+EP1(["**Emissiepunt** <br> Schouw 1"])
+EP2(["**Emissiepunt** <br> Lozingspunt 1"])
+
+class EP1,EP2 emission;
+
+PROCES1["**Proces** <br> type=VERWERKING <br> benaming=Deeg maken"]
+PROCES2["**Proces** <br> type=VERWERKING <br> benaming=Brood bakken"]
+
+PROCES1 -->|"heeftInvoer"| STOF1
+PROCES1 -->|"heeftInvoer"| STOF2
+OVERBRENGING1["**Proces** <br> type=TRANSPORT"]
+OVERBRENGING1 -->|"voorgaandeStap"| PROCES1
+PROCES2 -->|"voorgaandeStap"| OVERBRENGING1
+EMISSIE1["**Proces** <br> type=EMISSIE"]
+EMISSIE2["**Proces** <br> type=EMISSIE"]
+
+EMISSIE1 -->|"voorgaandeStap"| PROCES1
+EMISSIE2 -->|"voorgaandeStap"| PROCES2
+EMISSIE1 -->|"gebruikt"| EP2
+EMISSIE2 -->|"gebruikt"| EP1
+PROCES2 -->|"gebruikt"| OVEN
+OVEN(["**Apparaat** <br> Oven"])
+classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
+class OVEN apparaat;
+
+PROCES2 -->|"heeftUitvoer"| STOF3
+
+</div>
+  </section>
+  <section>
+    <h3>Achterliggende data (4)</h3>
+<div class="mermaid">
+flowchart LR
+STOF1(["**ProcesVariabele** <br> Meel"])
+STOF2(["**ProcesVariabele** <br> Water"])
+STOF3(["**ProcesVariabele** <br> Brood"])
+
+class STOF1,STOF2,STOF3 data;
+
+classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+
+EP1(["**Emissiepunt** <br> Schouw 1"])
+EP2(["**Emissiepunt** <br> Lozingspunt 1"])
+
+class EP1,EP2 emission;
+
+PROCES1["**Proces** <br> type=VERWERKING <br> benaming=Deeg maken"]
+PROCES2["**Proces** <br> type=VERWERKING <br> benaming=Brood bakken"]
+
+PROCES1 -->|"heeftInvoer"| STOF1
+PROCES1 -->|"heeftInvoer"| STOF2
+OVERBRENGING1["**Proces** <br> type=TRANSPORT"]
+OVERBRENGING1 -->|"voorgaandeStap"| PROCES1
+PROCES2 -->|"voorgaandeStap"| OVERBRENGING1
+EMISSIE1["**Proces** <br> type=EMISSIE"]
+EMISSIE2["**Proces** <br> type=EMISSIE"]
+
+EMISSIE1 -->|"voorgaandeStap"| PROCES1
+EMISSIE2 -->|"voorgaandeStap"| PROCES2
+EMISSIE1 -->|"gebruikt"| EP2
+EMISSIE2 -->|"gebruikt"| EP1
+PROCES2 -->|"gebruikt"| OVEN
+OVEN(["**Apparaat** <br> Oven"])
+classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
+class OVEN apparaat;
+
+PROCES2 -->|"heeftUitvoer"| STOF3
+
+STOF4(["**ProcesVariabele** <br> Afvalwater"])
+STOF5(["**ProcesVariabele** <br> CO2"])
+STOF6(["**ProcesVariabele** <br> Deeg"])
+class STOF4,STOF5,STOF6 data;
+EMISSIE1 -->|"heeftInvoer"| STOF4
+EMISSIE1 -->|"heeftUitvoer"| STOF4
+PROCES1 -->|"heeftUitvoer"| STOF4
+PROCES1 -->|"heeftUitvoer"| STOF5
+EMISSIE2 -->|"heeftInvoer"| STOF5
+EMISSIE2 -->|"heeftUitvoer"| STOF5
+PROCES1 -->|"heeftUitvoer"| STOF6
+OVERBRENGING1 -->|"heeftInvoer"| STOF6
+OVERBRENGING1 -->|"heeftUitvoer"| STOF6
+PROCES2 -->|"heeftInvoer"| STOF6
+
+</div>
+  </section>
+</section>
+
+
+      </div>
+    </div>
+
+    <script src="/reveal.js/dist/reveal.js"></script>
+    <script src="/reveal.js/plugin/notes/notes.js"></script>
+    <script src="/reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="/reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="/reveal.js/plugin/zoom/zoom.js"></script>
+    <script src="/reveal.js/plugin/search/search.js"></script>
+    
+    <!-- Expose Reveal globally for decktape compatibility -->
+    <script>
+      window.Reveal = Reveal;
+    </script>
+    
+    <script type="module">
+      import { default as Mermaid } from '/js/mermaid/mermaid.esm.min.mjs';
+      import { initPresentation, initMermaid } from '/js/presentation.js';
+      
+      // Make mermaid available globally
+      window.mermaidInstance = Mermaid;
+      
+      Mermaid.initialize({ 
+        startOnLoad: false, 
+        theme: 'default',
+        securityLevel: 'loose',
+        fontFamily: 'Flanders Art Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif',
+        fontSize: 12,
+        flowchart: {
+          useMaxWidth: true
+        },
+        themeVariables: {
+          fontFamily: 'Flanders Art Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif',
+          fontSize: '12px'
+        }
+      });
+
+      const options = {
+        center: false,
+        margin: 0.08,
+        transition: 'slide',
+        slideNumber: true,
+        width: 1280,
+        height: 720,
+        controls: true,
+        progress: true,
+        history: true,
+        plugins: [ 
+          RevealMarkdown, 
+          RevealHighlight, 
+          RevealNotes,
+          RevealZoom,
+          RevealSearch
+        ],
+        
+      };
+
+      // Initialize presentation
+      initPresentation({ initialize: () => Reveal.initialize(options) });
+      
+      // Initialize Mermaid configuration first
+      if (window.mermaidInstance) {
+        initMermaid(window.mermaidInstance);
+        
+        // Assign unique IDs to all mermaid diagrams
+        let diagramCounter = 0;
+        document.querySelectorAll('.mermaid').forEach(diagram => {
+          if (!diagram.id) {
+            diagram.id = `mermaid-${diagramCounter++}`;
+          }
+        });
+        
+        const renderedDiagrams = new Set();
+        
+        // Render diagrams when a slide is shown
+        const renderDiagramsOnSlide = async () => {
+          const currentSlide = Reveal.getCurrentSlide();
+          if (!currentSlide) return;
+          
+          const diagrams = currentSlide.querySelectorAll('.mermaid');
+          
+          for (const diagram of diagrams) {
+            const diagramId = diagram.id;
+            
+            // Only render if not already rendered
+            if (!renderedDiagrams.has(diagramId)) {
+              renderedDiagrams.add(diagramId);
+              
+              // Wait a tick to ensure layout is ready
+              await new Promise(resolve => setTimeout(resolve, 50));
+              
+              try {
+                await window.mermaidInstance.run({
+                  nodes: [diagram],
+                });
+                
+                // Setup pan/zoom after rendering
+                if (window.setupMermaidPanZoom) {
+                  window.setupMermaidPanZoom();
+                }
+              } catch (error) {
+                console.error('Mermaid rendering error for ' + diagramId + ':', error);
+              }
+            }
+          }
+        };
+        
+        // Render on ready and on slide changes
+        Reveal.on('ready', renderDiagramsOnSlide);
+        Reveal.on('slidechanged', renderDiagramsOnSlide);
+      }
+    </script>
+  </body>
+</html>
