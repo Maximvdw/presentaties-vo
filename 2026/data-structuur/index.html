@@ -13,15 +13,15 @@
 
   
   <body>
-    <link rel="stylesheet" href="/reveal.js/dist/reset.css">
-    <link rel="stylesheet" href="/reveal.js/dist/reveal.css">
+    <link rel="stylesheet" href="/presentaties-vo/reveal.js/dist/reset.css">
+    <link rel="stylesheet" href="/presentaties-vo/reveal.js/dist/reveal.css">
     
-    <link rel="stylesheet" href="/reveal.js/plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
     
     
-    <link rel="stylesheet" href="/css/vlaanderen-theme.css">
-    <link rel="stylesheet" href="/css/omgeving-theme.css">
-    <link rel="stylesheet" href="/css/vlaanderen-icons.css">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css">
+    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css">
     
     
 
@@ -265,12 +265,12 @@ PROCES2 -->|"heeftInvoer"| STOF6
       </div>
     </div>
 
-    <script src="/reveal.js/dist/reveal.js"></script>
-    <script src="/reveal.js/plugin/notes/notes.js"></script>
-    <script src="/reveal.js/plugin/markdown/markdown.js"></script>
-    <script src="/reveal.js/plugin/highlight/highlight.js"></script>
-    <script src="/reveal.js/plugin/zoom/zoom.js"></script>
-    <script src="/reveal.js/plugin/search/search.js"></script>
+    <script src="/presentaties-vo/reveal.js/dist/reveal.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/notes/notes.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/zoom/zoom.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/search/search.js"></script>
     
     <!-- Expose Reveal globally for decktape compatibility -->
     <script>
@@ -278,8 +278,8 @@ PROCES2 -->|"heeftInvoer"| STOF6
     </script>
     
     <script type="module">
-      import { default as Mermaid } from '/js/mermaid/mermaid.esm.min.mjs';
-      import { initPresentation, initMermaid } from '/js/presentation.js';
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;
@@ -354,7 +354,7 @@ PROCES2 -->|"heeftInvoer"| STOF6
               await new Promise(resolve => setTimeout(resolve, 50));
               
               try {
-                await window.mermaidInstance.run({
+                        await window.mermaidInstance.run({
                   nodes: [diagram],
                 });
                 
