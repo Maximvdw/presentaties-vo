@@ -81,6 +81,9 @@ export default async function(eleventyConfig) {
     "node_modules/mermaid/dist": "js/mermaid"
   });
   
+  // Copy misc files
+  eleventyConfig.addPassthroughCopy(".nojekyll");
+
   // Copy custom CSS and fonts
   eleventyConfig.addPassthroughCopy("css");
   eleventyConfig.addPassthroughCopy("fonts");
