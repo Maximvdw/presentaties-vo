@@ -100,8 +100,8 @@ export async function initMermaid(mermaid) {
 
       // Helper to calculate initial translation and scale
       function getInitialPanZoom() {
-        let vbW = svg.clientWidth || 800;
-        let vbH = svg.clientHeight || 600;
+        let viewBox = svg.getAttribute('viewBox');
+        const [vbX, vbY, vbW, vbH] = viewBox.split(/\s+|,/).map(Number);
         let bbox = svg.getBBox();
         let cWidth = container.offsetWidth || 800;
         let cHeight = container.offsetHeight || 600;
@@ -109,10 +109,8 @@ export async function initMermaid(mermaid) {
         let scaleY = cHeight / (bbox.height || vbH);
         let fitScale = Math.max(Math.min(scaleX, scaleY, max_scale), 1);
         let initX = (cWidth - bbox.width) / 2 - bbox.x;
-        let initY = (cHeight - bbox.height) / 2 - bbox.y;
         initX = Math.max(initX, 0);
-        initY = Math.min(initY, 0);
-        return { scale: fitScale, currentTranslate: { x: initX, y: initY } };
+        return { scale: fitScale, currentTranslate: { x: initX, y: 0 } };
       }
 
       let state = getInitialPanZoom();
