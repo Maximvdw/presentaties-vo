@@ -11,6 +11,12 @@
   
 </head>
 
+<script>
+  if (window.hljs) hljs.highlightAll();
+</script>
+
+<link rel="stylesheet" href="/css/hljs.css">
+
   
   <body>
     <link rel="stylesheet" href="/presentaties-vo/reveal.js/dist/reset.css">
@@ -32,6 +38,7 @@
         </div>
         
         <section class="title-slide center" data-timing="15">
+          <div class="title-slide-before-bar"></div>
           <div class="slide-wrapper">
             <div class="slide-content">
               <h1>RIE-IEPR: Visuele datastructuur</h1>
@@ -55,33 +62,131 @@
         
 <section>
   <section>
+    <h2>Ontologie Gedreven Ontwerp</h2>
+<p><strong>Doelstellingen</strong></p>
+<ul>
+<li>Semantische correctheid voor afnemers</li>
+<li>Gebaseerd op bestaande standaarden</li>
+<li>Eenvoudig implementeerbaar in de applicatie en operationele databank</li>
+<li>Eenvoudige data transformatie in het dataplatform</li>
+<li>Toekomstbestendig en uitbreidbaar</li>
+</ul>
+
+  </section>
+  <section>
+    <h3>Ontwikkeling</h3>
+<p><strong>Groen = manueel, Blauw = automatisch</strong></p>
+<div class="mermaid">
+flowchart LR
+subgraph DataModel [Data Model]
+  CONCEPTEN([&quot;Business Concepten&quot;])
+  ONTOLOGIE([&quot;RIE-IEPR Ontologie (OWL)&quot;])
+end
+
+subgraph Implementatie
+  DATABANK([&quot;Relationele Databank&quot;])
+  CLASSEN([&quot;Objectgeoriënteerde Klassen&quot;])
+end
+
+subgraph Extractie
+  REASONING[&quot;OWL Reasoning&quot;]
+  REASONING --&gt; EXTRACTIE_CLASSEN
+  REASONING --&gt; EXTRACTIE_RELATIES
+  REASONING --&gt; EXTRACTIE_ID
+  EXTRACTIE_CLASSEN([&quot;Extractie klassenhierarchie&quot;])
+  EXTRACTIE_RELATIES([&quot;Extractie relaties en kardinaliteiten&quot;])
+  EXTRACTIE_ID([&quot;Extractie identificatie&quot;])
+end
+
+ONTOLOGIE --&gt; Extractie
+Extractie --&gt; AutomatischeTransformatie
+subgraph AutomatischeTransformatie [&quot;Automatische Transformatie&quot;]
+  TRANSFORMATIE_REGELS([&quot;Transformatie regels&quot;])
+  TRANSFORMATIE_SQL([&quot;SQL Schema&quot;])
+  TRANSFORMATIE_CLASSEN([&quot;OO-klassen&quot;])
+  TRANSFORMATIE_REGELS -.-&gt; TRANSFORMATIE_SQL
+  TRANSFORMATIE_REGELS -.-&gt; TRANSFORMATIE_CLASSEN
+  TRANSFORMATIE_SQL --&gt; DATABANK
+  TRANSFORMATIE_CLASSEN --&gt; CLASSEN
+  TRANSFORMATIE_DOCUMENTATIE([&quot;Gegeneerde documentatie&quot;])
+
+  TRANSFORMATIE_DOCUMENTATIE --&gt; TRANSFORMATIE_SQL
+  TRANSFORMATIE_DOCUMENTATIE --&gt; TRANSFORMATIE_CLASSEN
+end
+CONCEPTEN --&gt; AutomatischeTransformatie
+
+classDef INVOER fill:#cfc,stroke:#333,stroke-width:1px
+class ONTOLOGIE,CONCEPTEN,TRANSFORMATIE_REGELS INVOER
+
+
+</div>
+  </section>
+  <section>
+    <h3>Voorbeeld: Exploitatie</h3>
+<pre class="hljs language-turtle"><span class="hljs-symbol">:Exploitatie</span> <span class="hljs-built_in">a</span> <span class="hljs-symbol">owl:Class</span> ;
+  <span class="hljs-symbol">rdfs:label</span> <span class="hljs-string">&quot;Exploitatie&quot;</span><span class="hljs-type">@nl</span> ;
+  <span class="hljs-symbol">rdfs:comment</span> <span class="hljs-string">&quot;Een exploitatie is de uitrol van middelen door een exploitant op een exploitatie locatie leidend tot een milieueffect.&quot;</span><span class="hljs-type">@nl</span> ;
+  % Klassenhierarchie afgeleid van OWL subclass relaties (en reasoning)
+  <span class="hljs-symbol">rdfs:subClassOf</span> <span class="hljs-symbol">ssn:Deployment</span> ;
+  % Primary key(s) afgeleid van mappings in de URI
+  <span class="hljs-symbol">hydra:search</span> [ <span class="hljs-built_in">a</span> <span class="hljs-symbol">hydra:IriTemplate</span> ;
+      <span class="hljs-symbol">hydra:template</span> <span class="hljs-string">&quot;https://data.riepr.omgeving.vlaanderen.be/id/exploitatie/{exploitatielocatie}/{localId}&quot;</span><span class="hljs-type">^^hydra:Rfc6570Template</span> ;
+      <span class="hljs-symbol">hydra:mapping</span> [ <span class="hljs-symbol">hydra:variable</span> <span class="hljs-string">&quot;exploitatielocatie&quot;</span> ; <span class="hljs-symbol">hydra:property</span> <span class="hljs-symbol">sosa:isHostedBy</span> ; <span class="hljs-symbol">hydra:required</span> <span class="hljs-literal">true</span> ] ,
+                    [ <span class="hljs-symbol">hydra:variable</span> <span class="hljs-string">&quot;localId&quot;</span> ; <span class="hljs-symbol">hydra:property</span> <span class="hljs-symbol">adms:identifier</span> ; <span class="hljs-symbol">hydra:required</span> <span class="hljs-literal">true</span> ]
+  ] ;
+  % Kardinaliteiten afgeleid van OWL restricties
+  <span class="hljs-symbol">rdfs:subClassOf</span> [ <span class="hljs-built_in">a</span> <span class="hljs-symbol">owl:Restriction</span> ;
+      <span class="hljs-symbol">owl:onProperty</span> <span class="hljs-symbol">rdfs:label</span> ;
+      <span class="hljs-symbol">owl:minCardinality</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-type">^^xsd:nonNegativeInteger</span>
+  ] ;
+  <span class="hljs-symbol">rdfs:subClassOf</span> [ <span class="hljs-built_in">a</span> <span class="hljs-symbol">owl:Restriction</span> ;
+      <span class="hljs-symbol">owl:onProperty</span> <span class="hljs-symbol">ssn:deployedSystem</span> ;
+      <span class="hljs-symbol">owl:someValuesFrom</span> <span class="hljs-symbol">ssn:System</span> ;
+      <span class="hljs-symbol">owl:minCardinality</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-type">^^xsd:nonNegativeInteger</span> ;
+  ] .
+</pre>
+  </section>
+  <section>
+    <h3>Transformatie regels</h3>
+<p><strong>Voorbeelden</strong>:</p>
+<ul>
+<li><code>adms:identifier</code> → &quot;aparte key value tabel&quot;</li>
+<li>Voeg versionering toe aan <code>locn:Address</code></li>
+<li>Genegeerde properties</li>
+</ul>
+
+  </section>
+</section>
+
+<section>
+  <section>
     <h2>Visueel proces</h2>
 <div class="mermaid">
 flowchart LR
-STOF1(["Meel"])
-STOF2(["Water"])
-STOF3(["Brood"])
+STOF1([&quot;Meel&quot;])
+STOF2([&quot;Water&quot;])
+STOF3([&quot;Brood&quot;])
 
 class STOF1,STOF2,STOF3 data;
 
 classDef data fill:#f9f,stroke:#333,stroke-width:2px;
 classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
 
-EP1(["Schouw 1"])
-EP2(["Lozingspunt 1"])
+EP1([&quot;Schouw 1&quot;])
+EP2([&quot;Lozingspunt 1&quot;])
 
 class EP1,EP2 emission;
 
-PROCES1["Deeg maken"]
-PROCES2["Brood bakken"]
+PROCES1[&quot;Deeg maken&quot;]
+PROCES2[&quot;Brood bakken&quot;]
 
-STOF1 --> PROCES1
-STOF2 --> PROCES1
-PROCES1 --> PROCES2
-PROCES1 --> EP2
-PROCES2 --> EP1
+STOF1 --&gt; PROCES1
+STOF2 --&gt; PROCES1
+PROCES1 --&gt; PROCES2
+PROCES1 --&gt; EP2
+PROCES2 --&gt; EP1
 
-PROCES2 --> STOF3
+PROCES2 --&gt; STOF3
 
 </div>
   </section>
@@ -89,36 +194,36 @@ PROCES2 --> STOF3
     <h3>Achterliggende data (1)</h3>
 <div class="mermaid">
 flowchart LR
-STOF1(["**ProcesVariabele** <br> Meel"])
-STOF2(["**ProcesVariabele** <br> Water"])
-STOF3(["**ProcesVariabele** <br> Brood"])
+STOF1([&quot;**ProcesVariabele** &lt;br&gt; type=Meel&quot;])
+STOF2([&quot;**ProcesVariabele** &lt;br&gt; type=Water&quot;])
+STOF3([&quot;**ProcesVariabele** &lt;br&gt; type=Brood&quot;])
 
 class STOF1,STOF2,STOF3,STOF4 data;
 
 classDef data fill:#f9f,stroke:#333,stroke-width:2px;
 classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
 
-EP1(["**Emissiepunt** <br> Schouw 1"])
-EP2(["**Emissiepunt** <br> Lozingspunt 1"])
+EP1([&quot;**Emissiepunt** &lt;br&gt; Schouw 1&quot;])
+EP2([&quot;**Emissiepunt** &lt;br&gt; Lozingspunt 1&quot;])
 
 class EP1,EP2 emission;
 
-PROCES1["**Proces** <br> type=VERWERKING <br> benaming=Deeg maken"]
-PROCES2["**Proces** <br> type=VERWERKING <br> benaming=Brood bakken"]
+PROCES1[&quot;**Proces** &lt;br&gt; type=VERWERKING &lt;br&gt; benaming=Deeg maken&quot;]
+PROCES2[&quot;**Proces** &lt;br&gt; type=VERWERKING &lt;br&gt; benaming=Brood bakken&quot;]
 
-PROCES1 -->|"heeftInvoer"| STOF1
-PROCES1 -->|"heeftInvoer"| STOF2
-OVERBRENGING1["**Proces** <br> type=TRANSPORT"]
-PROCES1 --> OVERBRENGING1
-OVERBRENGING1 --> PROCES2
-EMISSIE1["**Proces** <br> type=EMISSIE"]
-EMISSIE2["**Proces** <br> type=EMISSIE"]
-PROCES1 --> EMISSIE1
-EMISSIE1 --> EP2
-PROCES2 --> EMISSIE2
-EMISSIE2 --> EP1
+PROCES1 --&gt;|&quot;heeftInvoer&quot;| STOF1
+PROCES1 --&gt;|&quot;heeftInvoer&quot;| STOF2
+OVERBRENGING1[&quot;**Proces** &lt;br&gt; type=TRANSPORT&quot;]
+PROCES1 --&gt; OVERBRENGING1
+OVERBRENGING1 --&gt; PROCES2
+EMISSIE1[&quot;**Proces** &lt;br&gt; type=EMISSIE&quot;]
+EMISSIE2[&quot;**Proces** &lt;br&gt; type=EMISSIE&quot;]
+PROCES1 --&gt; EMISSIE1
+EMISSIE1 --&gt; EP2
+PROCES2 --&gt; EMISSIE2
+EMISSIE2 --&gt; EP1
 
-PROCES2 -->|"heeftUitvoer"| STOF3
+PROCES2 --&gt;|&quot;heeftUitvoer&quot;| STOF3
 
 </div>
   </section>
@@ -126,37 +231,37 @@ PROCES2 -->|"heeftUitvoer"| STOF3
     <h3>Achterliggende data (2)</h3>
 <div class="mermaid">
 flowchart LR
-STOF1(["**ProcesVariabele** <br> Meel"])
-STOF2(["**ProcesVariabele** <br> Water"])
-STOF3(["**ProcesVariabele** <br> Brood"])
+STOF1([&quot;**ProcesVariabele** &lt;br&gt; type=Meel&quot;])
+STOF2([&quot;**ProcesVariabele** &lt;br&gt; type=Water&quot;])
+STOF3([&quot;**ProcesVariabele** &lt;br&gt; type=Brood&quot;])
 
 class STOF1,STOF2,STOF3,STOF4,STOF5 data;
 
 classDef data fill:#f9f,stroke:#333,stroke-width:2px;
 classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
 
-EP1(["**Emissiepunt** <br> Schouw 1"])
-EP2(["**Emissiepunt** <br> Lozingspunt 1"])
+EP1([&quot;**Emissiepunt** &lt;br&gt; Schouw 1&quot;])
+EP2([&quot;**Emissiepunt** &lt;br&gt; Lozingspunt 1&quot;])
 
 class EP1,EP2 emission;
 
-PROCES1["**Proces** <br> type=VERWERKING <br> benaming=Deeg maken"]
-PROCES2["**Proces** <br> type=VERWERKING <br> benaming=Brood bakken"]
+PROCES1[&quot;**Proces** &lt;br&gt; type=VERWERKING &lt;br&gt; benaming=Deeg maken&quot;]
+PROCES2[&quot;**Proces** &lt;br&gt; type=VERWERKING &lt;br&gt; benaming=Brood bakken&quot;]
 
-PROCES1 -->|"heeftInvoer"| STOF1
-PROCES1 -->|"heeftInvoer"| STOF2
-OVERBRENGING1["**Proces** <br> type=TRANSPORT"]
-OVERBRENGING1 -->|"voorgaandeStap"| PROCES1
-PROCES2 -->|"voorgaandeStap"| OVERBRENGING1
-EMISSIE1["**Proces** <br> type=EMISSIE"]
-EMISSIE2["**Proces** <br> type=EMISSIE"]
+PROCES1 --&gt;|&quot;heeftInvoer&quot;| STOF1
+PROCES1 --&gt;|&quot;heeftInvoer&quot;| STOF2
+OVERBRENGING1[&quot;**Proces** &lt;br&gt; type=TRANSPORT&quot;]
+OVERBRENGING1 --&gt;|&quot;voorgaandeStap&quot;| PROCES1
+PROCES2 --&gt;|&quot;voorgaandeStap&quot;| OVERBRENGING1
+EMISSIE1[&quot;**Proces** &lt;br&gt; type=EMISSIE&quot;]
+EMISSIE2[&quot;**Proces** &lt;br&gt; type=EMISSIE&quot;]
 
-EMISSIE1 -->|"voorgaandeStap"| PROCES1
-EMISSIE2 -->|"voorgaandeStap"| PROCES2
-EMISSIE1 --> EP2
-EMISSIE2 --> EP1
+EMISSIE1 --&gt;|&quot;voorgaandeStap&quot;| PROCES1
+EMISSIE2 --&gt;|&quot;voorgaandeStap&quot;| PROCES2
+EMISSIE1 --&gt; EP2
+EMISSIE2 --&gt; EP1
 
-PROCES2 -->|"heeftUitvoer"| STOF3
+PROCES2 --&gt;|&quot;heeftUitvoer&quot;| STOF3
 
 </div>
   </section>
@@ -164,41 +269,41 @@ PROCES2 -->|"heeftUitvoer"| STOF3
     <h3>Achterliggende data (3)</h3>
 <div class="mermaid">
 flowchart LR
-STOF1(["**ProcesVariabele** <br> Meel"])
-STOF2(["**ProcesVariabele** <br> Water"])
-STOF3(["**ProcesVariabele** <br> Brood"])
+STOF1([&quot;**ProcesVariabele** &lt;br&gt; type=Meel&quot;])
+STOF2([&quot;**ProcesVariabele** &lt;br&gt; type=Water&quot;])
+STOF3([&quot;**ProcesVariabele** &lt;br&gt; type=Brood&quot;])
 
 class STOF1,STOF2,STOF3,STOF4,STOF5 data;
 
 classDef data fill:#f9f,stroke:#333,stroke-width:2px;
 classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
 
-EP1(["**Emissiepunt** <br> Schouw 1"])
-EP2(["**Emissiepunt** <br> Lozingspunt 1"])
+EP1([&quot;**Emissiepunt** &lt;br&gt; Schouw 1&quot;])
+EP2([&quot;**Emissiepunt** &lt;br&gt; Lozingspunt 1&quot;])
 
 class EP1,EP2 emission;
 
-PROCES1["**Proces** <br> type=VERWERKING <br> benaming=Deeg maken"]
-PROCES2["**Proces** <br> type=VERWERKING <br> benaming=Brood bakken"]
+PROCES1[&quot;**Proces** &lt;br&gt; type=VERWERKING &lt;br&gt; benaming=Deeg maken&quot;]
+PROCES2[&quot;**Proces** &lt;br&gt; type=VERWERKING &lt;br&gt; benaming=Brood bakken&quot;]
 
-PROCES1 -->|"heeftInvoer"| STOF1
-PROCES1 -->|"heeftInvoer"| STOF2
-OVERBRENGING1["**Proces** <br> type=TRANSPORT"]
-OVERBRENGING1 -->|"voorgaandeStap"| PROCES1
-PROCES2 -->|"voorgaandeStap"| OVERBRENGING1
-EMISSIE1["**Proces** <br> type=EMISSIE"]
-EMISSIE2["**Proces** <br> type=EMISSIE"]
+PROCES1 --&gt;|&quot;heeftInvoer&quot;| STOF1
+PROCES1 --&gt;|&quot;heeftInvoer&quot;| STOF2
+OVERBRENGING1[&quot;**Proces** &lt;br&gt; type=TRANSPORT&quot;]
+OVERBRENGING1 --&gt;|&quot;voorgaandeStap&quot;| PROCES1
+PROCES2 --&gt;|&quot;voorgaandeStap&quot;| OVERBRENGING1
+EMISSIE1[&quot;**Proces** &lt;br&gt; type=EMISSIE&quot;]
+EMISSIE2[&quot;**Proces** &lt;br&gt; type=EMISSIE&quot;]
 
-EMISSIE1 -->|"voorgaandeStap"| PROCES1
-EMISSIE2 -->|"voorgaandeStap"| PROCES2
-EMISSIE1 -->|"gebruikt"| EP2
-EMISSIE2 -->|"gebruikt"| EP1
-PROCES2 -->|"gebruikt"| OVEN
-OVEN(["**Apparaat** <br> Oven"])
+EMISSIE1 --&gt;|&quot;voorgaandeStap&quot;| PROCES1
+EMISSIE2 --&gt;|&quot;voorgaandeStap&quot;| PROCES2
+EMISSIE1 --&gt;|&quot;geimplementeerdDoor&quot;| EP2
+EMISSIE2 --&gt;|&quot;geimplementeerdDoor&quot;| EP1
+PROCES2 --&gt;|&quot;geimplementeerdDoor&quot;| OVEN
+OVEN([&quot;**Apparaat** &lt;br&gt; Oven&quot;])
 classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
 class OVEN apparaat;
 
-PROCES2 -->|"heeftUitvoer"| STOF3
+PROCES2 --&gt;|&quot;heeftUitvoer&quot;| STOF3
 
 </div>
   </section>
@@ -206,60 +311,217 @@ PROCES2 -->|"heeftUitvoer"| STOF3
     <h3>Achterliggende data (4)</h3>
 <div class="mermaid">
 flowchart LR
-STOF1(["**ProcesVariabele** <br> Meel"])
-STOF2(["**ProcesVariabele** <br> Water"])
-STOF3(["**ProcesVariabele** <br> Brood"])
+STOF1([&quot;**ProcesVariabele** &lt;br&gt; type=Meel&quot;])
+STOF2([&quot;**ProcesVariabele** &lt;br&gt; type=Water&quot;])
+STOF3([&quot;**ProcesVariabele** &lt;br&gt; type=Brood&quot;])
 
 class STOF1,STOF2,STOF3 data;
 
 classDef data fill:#f9f,stroke:#333,stroke-width:2px;
 classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
 
-EP1(["**Emissiepunt** <br> Schouw 1"])
-EP2(["**Emissiepunt** <br> Lozingspunt 1"])
+EP1([&quot;**Emissiepunt** &lt;br&gt; Schouw 1&quot;])
+EP2([&quot;**Emissiepunt** &lt;br&gt; Lozingspunt 1&quot;])
 
 class EP1,EP2 emission;
 
-PROCES1["**Proces** <br> type=VERWERKING <br> benaming=Deeg maken"]
-PROCES2["**Proces** <br> type=VERWERKING <br> benaming=Brood bakken"]
+PROCES1[&quot;**Proces** &lt;br&gt; type=VERWERKING &lt;br&gt; benaming=Deeg maken&quot;]
+PROCES2[&quot;**Proces** &lt;br&gt; type=VERWERKING &lt;br&gt; benaming=Brood bakken&quot;]
 
-PROCES1 -->|"heeftInvoer"| STOF1
-PROCES1 -->|"heeftInvoer"| STOF2
-OVERBRENGING1["**Proces** <br> type=TRANSPORT"]
-OVERBRENGING1 -->|"voorgaandeStap"| PROCES1
-PROCES2 -->|"voorgaandeStap"| OVERBRENGING1
-EMISSIE1["**Proces** <br> type=EMISSIE"]
-EMISSIE2["**Proces** <br> type=EMISSIE"]
+PROCES1 --&gt;|&quot;heeftInvoer&quot;| STOF1
+PROCES1 --&gt;|&quot;heeftInvoer&quot;| STOF2
+OVERBRENGING1[&quot;**Proces** &lt;br&gt; type=TRANSPORT&quot;]
+OVERBRENGING1 --&gt;|&quot;voorgaandeStap&quot;| PROCES1
+PROCES2 --&gt;|&quot;voorgaandeStap&quot;| OVERBRENGING1
+EMISSIE1[&quot;**Proces** &lt;br&gt; type=EMISSIE&quot;]
+EMISSIE2[&quot;**Proces** &lt;br&gt; type=EMISSIE&quot;]
 
-EMISSIE1 -->|"voorgaandeStap"| PROCES1
-EMISSIE2 -->|"voorgaandeStap"| PROCES2
-EMISSIE1 -->|"gebruikt"| EP2
-EMISSIE2 -->|"gebruikt"| EP1
-PROCES2 -->|"gebruikt"| OVEN
-OVEN(["**Apparaat** <br> Oven"])
+EMISSIE1 --&gt;|&quot;voorgaandeStap&quot;| PROCES1
+EMISSIE2 --&gt;|&quot;voorgaandeStap&quot;| PROCES2
+EMISSIE1 --&gt;|&quot;geimplementeerdDoor&quot;| EP2
+EMISSIE2 --&gt;|&quot;geimplementeerdDoor&quot;| EP1
+PROCES2 --&gt;|&quot;geimplementeerdDoor&quot;| OVEN
+OVEN([&quot;**Apparaat** &lt;br&gt; Oven&quot;])
 classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
 class OVEN apparaat;
 
-PROCES2 -->|"heeftUitvoer"| STOF3
+PROCES2 --&gt;|&quot;heeftUitvoer&quot;| STOF3
 
-STOF4(["**ProcesVariabele** <br> Afvalwater"])
-STOF5(["**ProcesVariabele** <br> CO2"])
-STOF6(["**ProcesVariabele** <br> Deeg"])
+STOF4([&quot;**ProcesVariabele** &lt;br&gt; type=Afvalwater&quot;])
+STOF5([&quot;**ProcesVariabele** &lt;br&gt; type=CO2&quot;])
+STOF6([&quot;**ProcesVariabele** &lt;br&gt; type=Deeg&quot;])
 class STOF4,STOF5,STOF6 data;
-EMISSIE1 -->|"heeftInvoer"| STOF4
-EMISSIE1 -->|"heeftUitvoer"| STOF4
-PROCES1 -->|"heeftUitvoer"| STOF4
-PROCES1 -->|"heeftUitvoer"| STOF5
-EMISSIE2 -->|"heeftInvoer"| STOF5
-EMISSIE2 -->|"heeftUitvoer"| STOF5
-PROCES1 -->|"heeftUitvoer"| STOF6
-OVERBRENGING1 -->|"heeftInvoer"| STOF6
-OVERBRENGING1 -->|"heeftUitvoer"| STOF6
-PROCES2 -->|"heeftInvoer"| STOF6
+EMISSIE1 --&gt;|&quot;heeftInvoer&quot;| STOF4
+EMISSIE1 --&gt;|&quot;heeftUitvoer&quot;| STOF4
+PROCES1 --&gt;|&quot;heeftUitvoer&quot;| STOF4
+PROCES1 --&gt;|&quot;heeftUitvoer&quot;| STOF5
+EMISSIE2 --&gt;|&quot;heeftInvoer&quot;| STOF5
+EMISSIE2 --&gt;|&quot;heeftUitvoer&quot;| STOF5
+PROCES1 --&gt;|&quot;heeftUitvoer&quot;| STOF6
+OVERBRENGING1 --&gt;|&quot;heeftInvoer&quot;| STOF6
+OVERBRENGING1 --&gt;|&quot;heeftUitvoer&quot;| STOF6
+PROCES2 --&gt;|&quot;heeftInvoer&quot;| STOF6
+
+</div>
+  </section>
+  <section>
+    <h3>Achterliggende data (5)</h3>
+<div class="mermaid">
+flowchart LR
+STOF1([&quot;**ProcesVariabele** &lt;br&gt; type=Meel&quot;])
+STOF2([&quot;**ProcesVariabele** &lt;br&gt; type=Water&quot;])
+STOF3([&quot;**ProcesVariabele** &lt;br&gt; type=Brood&quot;])
+
+class STOF1,STOF2,STOF3,STOF4,STOF5 data;
+
+classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+
+EP1([&quot;**Emissiepunt** &lt;br&gt; Schouw 1&quot;])
+EP2([&quot;**Emissiepunt** &lt;br&gt; Lozingspunt 1&quot;])
+
+class EP1,EP2 emission;
+
+PROCES_PARENT[&quot;**Proces** &lt;br&gt; benaming=Broodproductie&quot;]
+PROCES1[&quot;**Proces** &lt;br&gt; type=VERWERKING &lt;br&gt; benaming=Deeg maken&quot;]
+PROCES2[&quot;**Proces** &lt;br&gt; type=VERWERKING &lt;br&gt; benaming=Brood bakken&quot;]
+
+PROCES1 --&gt;|&quot;heeftInvoer&quot;| STOF1
+PROCES1 --&gt;|&quot;heeftInvoer&quot;| STOF2
+OVERBRENGING1[&quot;**Proces** &lt;br&gt; type=TRANSPORT&quot;]
+OVERBRENGING1 --&gt;|&quot;voorgaandeStap&quot;| PROCES1
+PROCES2 --&gt;|&quot;voorgaandeStap&quot;| OVERBRENGING1
+EMISSIE1[&quot;**Proces** &lt;br&gt; type=EMISSIE&quot;]
+EMISSIE2[&quot;**Proces** &lt;br&gt; type=EMISSIE&quot;]
+
+EMISSIE1 --&gt;|&quot;voorgaandeStap&quot;| PROCES1
+EMISSIE2 --&gt;|&quot;voorgaandeStap&quot;| PROCES2
+EMISSIE1 --&gt;|&quot;geimplementeerdDoor&quot;| EP2
+EMISSIE2 --&gt;|&quot;geimplementeerdDoor&quot;| EP1
+PROCES2 --&gt;|&quot;geimplementeerdDoor&quot;| OVEN
+OVEN([&quot;**Apparaat** &lt;br&gt; Oven&quot;])
+classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
+class OVEN apparaat;
+
+PROCES2 --&gt;|&quot;heeftUitvoer&quot;| STOF3
+PROCES1 --&gt;|&quot;onderdeelVan&quot;| PROCES_PARENT
+OVERBRENGING1 --&gt;|&quot;onderdeelVan&quot;| PROCES_PARENT
+PROCES2 --&gt;|&quot;onderdeelVan&quot;| PROCES_PARENT
+EMISSIE1 --&gt;|&quot;onderdeelVan&quot;| PROCES_PARENT
+EMISSIE2 --&gt;|&quot;onderdeelVan&quot;| PROCES_PARENT
 
 </div>
   </section>
 </section>
+
+<section>
+  <section>
+    <h2>Classendiagram (minimaal)</h2>
+<div class="mermaid">
+---
+config:
+theme: default
+layout: elk
+elk:
+nodePlacementStrategy: SIMPLE
+---
+%% Auto-generated from OWL/SHACL
+classDiagram
+direction LR
+
+class Apparaat:::system {
+  string uuid
+  string uri
+  string benaming
+  string geometrie
+}
+class Emissiepunt:::system {
+  string uuid
+  string uri
+  string benaming
+  string type
+  string geometrie
+}
+class Installatie:::system {
+  string uuid
+  string uri
+  ISysteem[] heeftSubSysteem 
+  Proces[] implementeert 
+  string benaming
+  Date aangemaaktOp
+}
+class Meetpunt:::system {
+  string uuid
+  string uri
+  string benaming
+  string type
+  Date aangemaaktOp
+  string geometrie
+}
+class Onttrekkingspunt:::system {
+  string uuid
+  string uri
+  string benaming
+  string type
+  Date aangemaaktOp
+  string geometrie
+}
+class Proces:::procedure {
+  string uuid
+  string uri
+  Date aangemaaktOp
+  string benaming
+  Procedure type
+  ProcesVariabele[] heeftInvoer 
+  ProcesVariabele[] heeftUitvoer 
+  Proces[] onderdeelVan 
+  ISysteem geimplementeerdDoor 
+}
+class ProcesVariabele {
+  string uuid
+  string uri
+  Date aangemaaktOp
+  string benaming
+  string type
+  number eenheid
+  string waarde
+}
+class ISysteem:::system {
+  &lt;&lt;interface&gt;&gt;
+  string uuid
+  string uri
+}
+
+class Procedure:::procedure {
+  &lt;&lt;enumerable&gt;&gt;
+  VERWERKING
+  TRANSPORT
+  VERBRUIK
+  EMISSIE
+}
+Proces --&gt; Procedure : type
+
+ISysteem &lt;|.. Apparaat
+ISysteem &lt;|.. Emissiepunt
+ISysteem &lt;|.. Installatie
+ISysteem &lt;|.. Meetpunt
+ISysteem &lt;|.. Onttrekkingspunt
+Proces --&gt; ProcesVariabele : heeft invoer
+Proces --&gt; ProcesVariabele : heeft uitvoer
+Proces --&gt; Proces : onderdeel van
+Proces --&gt; ISysteem : geimplementeerd door
+Installatie --&gt; ISysteem : heeft subsysteem
+Installatie --&gt; Proces : implementeert
+
+%% System green
+classDef system fill:#cfc,stroke:#333,stroke-width:1px
+%% Procedure blue
+classDef procedure fill:#ccf,stroke:#333,stroke-width:1px
+
+</div>
+  </section>
+</section>
+
 
 
       </div>
