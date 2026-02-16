@@ -163,18 +163,6 @@ export async function initMermaid(mermaid) {
       if (!container.querySelector('.mermaid-controls')) {
         const controls = document.createElement('div');
         controls.className = 'mermaid-controls';
-        controls.style.position = 'absolute';
-        controls.style.top = '12px';
-        controls.style.right = '12px';
-        controls.style.zIndex = '10';
-        controls.style.display = 'flex';
-        controls.style.gap = '8px';
-        controls.style.background = 'rgba(255,255,255,0.7)';
-        controls.style.borderRadius = '6px';
-        controls.style.padding = '4px 8px';
-        controls.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
-        controls.style.fontSize = '18px';
-        controls.style.userSelect = 'none';
 
         // Zoom in
         const zoomIn = document.createElement('button');
