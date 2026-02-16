@@ -10,6 +10,106 @@ theme: omgeving
 <section>
   <section>
     {% markdown %}
+    ## Ontologie Gedreven Ontwerp
+    **Doelstellingen**
+    - Semantische correctheid voor afnemers
+    - Gebaseerd op bestaande standaarden
+    - Eenvoudig implementeerbaar in de applicatie en operationele databank
+    - Eenvoudige data transformatie in het dataplatform
+    - Toekomstbestendig en uitbreidbaar
+    {% endmarkdown %}
+  </section>
+  <section>
+    {% markdown %}
+    ### Ontwikkeling
+    **Groen = manueel, Blauw = automatisch**
+    ```mermaid
+    flowchart LR
+      subgraph DataModel [Data Model]
+        CONCEPTEN(["Business Concepten"])
+        ONTOLOGIE(["RIE-IEPR Ontologie (OWL)"])
+      end
+    
+      subgraph Implementatie
+        DATABANK(["Relationele Databank"])
+        CLASSEN(["Objectgeoriënteerde Klassen"])
+      end
+
+      subgraph Extractie
+        REASONING["OWL Reasoning"]
+        REASONING --> EXTRACTIE_CLASSEN
+        REASONING --> EXTRACTIE_RELATIES
+        REASONING --> EXTRACTIE_ID
+        EXTRACTIE_CLASSEN(["Extractie klassenhierarchie"])
+        EXTRACTIE_RELATIES(["Extractie relaties en kardinaliteiten"])
+        EXTRACTIE_ID(["Extractie identificatie"])
+      end
+
+      ONTOLOGIE --> Extractie
+      Extractie --> AutomatischeTransformatie
+      subgraph AutomatischeTransformatie ["Automatische Transformatie"]
+        TRANSFORMATIE_REGELS(["Transformatie regels"])
+        TRANSFORMATIE_SQL(["SQL Schema"])
+        TRANSFORMATIE_CLASSEN(["OO-klassen"])
+        TRANSFORMATIE_REGELS -.-> TRANSFORMATIE_SQL
+        TRANSFORMATIE_REGELS -.-> TRANSFORMATIE_CLASSEN
+        TRANSFORMATIE_SQL --> DATABANK
+        TRANSFORMATIE_CLASSEN --> CLASSEN
+        TRANSFORMATIE_DOCUMENTATIE(["Gegeneerde documentatie"])
+
+        TRANSFORMATIE_DOCUMENTATIE --> TRANSFORMATIE_SQL
+        TRANSFORMATIE_DOCUMENTATIE --> TRANSFORMATIE_CLASSEN
+      end
+      CONCEPTEN --> AutomatischeTransformatie
+
+      classDef INVOER fill:#cfc,stroke:#333,stroke-width:1px
+      class ONTOLOGIE,CONCEPTEN,TRANSFORMATIE_REGELS INVOER
+
+    ```
+    {% endmarkdown %}
+  </section>
+  <section>
+    {% markdown %}
+    ### Voorbeeld: Exploitatie
+    ```turtle
+    :Exploitatie a owl:Class ;
+        rdfs:label "Exploitatie"@nl ;
+        rdfs:comment "Een exploitatie is de uitrol van middelen door een exploitant op een exploitatie locatie leidend tot een milieueffect."@nl ;
+        % Klassenhierarchie afgeleid van OWL subclass relaties (en reasoning)
+        rdfs:subClassOf ssn:Deployment ;
+        % Primary key(s) afgeleid van mappings in de URI
+        hydra:search [ a hydra:IriTemplate ;
+            hydra:template "https://data.riepr.omgeving.vlaanderen.be/id/exploitatie/{exploitatielocatie}/{localId}"^^hydra:Rfc6570Template ;
+            hydra:mapping [ hydra:variable "exploitatielocatie" ; hydra:property sosa:isHostedBy ; hydra:required true ] ,
+                          [ hydra:variable "localId" ; hydra:property adms:identifier ; hydra:required true ]
+        ] ;
+        % Kardinaliteiten afgeleid van OWL restricties
+        rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty rdfs:label ;
+            owl:minCardinality "1"^^xsd:nonNegativeInteger
+        ] ;
+        rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty ssn:deployedSystem ;
+            owl:someValuesFrom ssn:System ;
+            owl:minCardinality "0"^^xsd:nonNegativeInteger ;
+        ] .
+    ```
+    {% endmarkdown %}
+  </section>
+  <section>
+    {% markdown %}
+    ### Transformatie regels
+    **Voorbeelden**:
+    - `adms:identifier` → "aparte key value tabel"
+    - Voeg versionering toe aan `locn:Address`
+    - Genegeerde properties
+    {% endmarkdown %}
+  </section>
+</section>
+
+<section>
+  <section>
+    {% markdown %}
     ## Visueel proces
     ```mermaid
     flowchart LR
@@ -45,9 +145,9 @@ theme: omgeving
     ### Achterliggende data (1)
     ```mermaid
     flowchart LR
-      STOF1(["**ProcesVariabele** <br> Meel"])
-      STOF2(["**ProcesVariabele** <br> Water"])
-      STOF3(["**ProcesVariabele** <br> Brood"])
+      STOF1(["**ProcesVariabele** <br> type=Meel"])
+      STOF2(["**ProcesVariabele** <br> type=Water"])
+      STOF3(["**ProcesVariabele** <br> type=Brood"])
 
       class STOF1,STOF2,STOF3,STOF4 data;
 
@@ -83,9 +183,9 @@ theme: omgeving
     ### Achterliggende data (2)
     ```mermaid
     flowchart LR
-      STOF1(["**ProcesVariabele** <br> Meel"])
-      STOF2(["**ProcesVariabele** <br> Water"])
-      STOF3(["**ProcesVariabele** <br> Brood"])
+      STOF1(["**ProcesVariabele** <br> type=Meel"])
+      STOF2(["**ProcesVariabele** <br> type=Water"])
+      STOF3(["**ProcesVariabele** <br> type=Brood"])
 
       class STOF1,STOF2,STOF3,STOF4,STOF5 data;
 
@@ -122,9 +222,9 @@ theme: omgeving
     ### Achterliggende data (3)
     ```mermaid
     flowchart LR
-      STOF1(["**ProcesVariabele** <br> Meel"])
-      STOF2(["**ProcesVariabele** <br> Water"])
-      STOF3(["**ProcesVariabele** <br> Brood"])
+      STOF1(["**ProcesVariabele** <br> type=Meel"])
+      STOF2(["**ProcesVariabele** <br> type=Water"])
+      STOF3(["**ProcesVariabele** <br> type=Brood"])
 
       class STOF1,STOF2,STOF3,STOF4,STOF5 data;
 
@@ -149,9 +249,9 @@ theme: omgeving
       
       EMISSIE1 -->|"voorgaandeStap"| PROCES1
       EMISSIE2 -->|"voorgaandeStap"| PROCES2
-      EMISSIE1 -->|"gebruikt"| EP2
-      EMISSIE2 -->|"gebruikt"| EP1
-      PROCES2 -->|"gebruikt"| OVEN
+      EMISSIE1 -->|"geimplementeerdDoor"| EP2
+      EMISSIE2 -->|"geimplementeerdDoor"| EP1
+      PROCES2 -->|"geimplementeerdDoor"| OVEN
       OVEN(["**Apparaat** <br> Oven"])
       classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
       class OVEN apparaat;
@@ -165,9 +265,9 @@ theme: omgeving
     ### Achterliggende data (4)
     ```mermaid
     flowchart LR
-      STOF1(["**ProcesVariabele** <br> Meel"])
-      STOF2(["**ProcesVariabele** <br> Water"])
-      STOF3(["**ProcesVariabele** <br> Brood"])
+      STOF1(["**ProcesVariabele** <br> type=Meel"])
+      STOF2(["**ProcesVariabele** <br> type=Water"])
+      STOF3(["**ProcesVariabele** <br> type=Brood"])
 
       class STOF1,STOF2,STOF3 data;
 
@@ -192,18 +292,18 @@ theme: omgeving
       
       EMISSIE1 -->|"voorgaandeStap"| PROCES1
       EMISSIE2 -->|"voorgaandeStap"| PROCES2
-      EMISSIE1 -->|"gebruikt"| EP2
-      EMISSIE2 -->|"gebruikt"| EP1
-      PROCES2 -->|"gebruikt"| OVEN
+      EMISSIE1 -->|"geimplementeerdDoor"| EP2
+      EMISSIE2 -->|"geimplementeerdDoor"| EP1
+      PROCES2 -->|"geimplementeerdDoor"| OVEN
       OVEN(["**Apparaat** <br> Oven"])
       classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
       class OVEN apparaat;
 
       PROCES2 -->|"heeftUitvoer"| STOF3
 
-      STOF4(["**ProcesVariabele** <br> Afvalwater"])
-      STOF5(["**ProcesVariabele** <br> CO2"])
-      STOF6(["**ProcesVariabele** <br> Deeg"])
+      STOF4(["**ProcesVariabele** <br> type=Afvalwater"])
+      STOF5(["**ProcesVariabele** <br> type=CO2"])
+      STOF6(["**ProcesVariabele** <br> type=Deeg"])
       class STOF4,STOF5,STOF6 data;
       EMISSIE1 -->|"heeftInvoer"| STOF4
       EMISSIE1 -->|"heeftUitvoer"| STOF4
@@ -218,4 +318,163 @@ theme: omgeving
     ```
     {% endmarkdown %}
   </section>
+  <section>
+    {% markdown %}
+    ### Achterliggende data (5)
+    ```mermaid
+    flowchart LR
+      STOF1(["**ProcesVariabele** <br> type=Meel"])
+      STOF2(["**ProcesVariabele** <br> type=Water"])
+      STOF3(["**ProcesVariabele** <br> type=Brood"])
+
+      class STOF1,STOF2,STOF3,STOF4,STOF5 data;
+
+      classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+      classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+
+      EP1(["**Emissiepunt** <br> Schouw 1"])
+      EP2(["**Emissiepunt** <br> Lozingspunt 1"])
+
+      class EP1,EP2 emission;
+
+      PROCES_PARENT["**Proces** <br> benaming=Broodproductie"]
+      PROCES1["**Proces** <br> type=VERWERKING <br> benaming=Deeg maken"]
+      PROCES2["**Proces** <br> type=VERWERKING <br> benaming=Brood bakken"]
+    
+      PROCES1 -->|"heeftInvoer"| STOF1
+      PROCES1 -->|"heeftInvoer"| STOF2
+      OVERBRENGING1["**Proces** <br> type=TRANSPORT"]
+      OVERBRENGING1 -->|"voorgaandeStap"| PROCES1
+      PROCES2 -->|"voorgaandeStap"| OVERBRENGING1
+      EMISSIE1["**Proces** <br> type=EMISSIE"]
+      EMISSIE2["**Proces** <br> type=EMISSIE"]
+      
+      EMISSIE1 -->|"voorgaandeStap"| PROCES1
+      EMISSIE2 -->|"voorgaandeStap"| PROCES2
+      EMISSIE1 -->|"geimplementeerdDoor"| EP2
+      EMISSIE2 -->|"geimplementeerdDoor"| EP1
+      PROCES2 -->|"geimplementeerdDoor"| OVEN
+      OVEN(["**Apparaat** <br> Oven"])
+      classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
+      class OVEN apparaat;
+
+      PROCES2 -->|"heeftUitvoer"| STOF3
+      PROCES1 -->|"onderdeelVan"| PROCES_PARENT
+      OVERBRENGING1 -->|"onderdeelVan"| PROCES_PARENT
+      PROCES2 -->|"onderdeelVan"| PROCES_PARENT
+      EMISSIE1 -->|"onderdeelVan"| PROCES_PARENT
+      EMISSIE2 -->|"onderdeelVan"| PROCES_PARENT
+    ```
+    {% endmarkdown %}
+  </section>
 </section>
+
+<section>
+  <section>
+    {% markdown %}
+    ## Classendiagram (minimaal)
+    ```mermaid
+---
+config:
+  theme: default
+  layout: elk
+  elk:
+    nodePlacementStrategy: SIMPLE
+---
+%% Auto-generated from OWL/SHACL
+classDiagram
+    direction LR
+
+      class Apparaat:::system {
+        string uuid
+        string uri
+        string benaming
+        string geometrie
+    }
+      class Emissiepunt:::system {
+        string uuid
+        string uri
+        string benaming
+        string type
+        string geometrie
+    }
+      class Installatie:::system {
+        string uuid
+        string uri
+        ISysteem[] heeftSubSysteem 
+        Proces[] implementeert 
+        string benaming
+        Date aangemaaktOp
+    }
+      class Meetpunt:::system {
+        string uuid
+        string uri
+        string benaming
+        string type
+        Date aangemaaktOp
+        string geometrie
+    }
+      class Onttrekkingspunt:::system {
+        string uuid
+        string uri
+        string benaming
+        string type
+        Date aangemaaktOp
+        string geometrie
+    }
+      class Proces:::procedure {
+        string uuid
+        string uri
+        Date aangemaaktOp
+        string benaming
+        Procedure type
+        ProcesVariabele[] heeftInvoer 
+        ProcesVariabele[] heeftUitvoer 
+        Proces[] onderdeelVan 
+        ISysteem geimplementeerdDoor 
+    }
+      class ProcesVariabele {
+        string uuid
+        string uri
+        Date aangemaaktOp
+        string benaming
+        string type
+        number eenheid
+        string waarde
+    }
+      class ISysteem:::system {
+        <<interface>>
+        string uuid
+        string uri
+    }
+
+    class Procedure:::procedure {
+        <<enumerable>>
+        VERWERKING
+        TRANSPORT
+        VERBRUIK
+        EMISSIE
+    }
+    Proces --> Procedure : type
+
+    ISysteem <|.. Apparaat
+    ISysteem <|.. Emissiepunt
+    ISysteem <|.. Installatie
+    ISysteem <|.. Meetpunt
+    ISysteem <|.. Onttrekkingspunt
+    Proces --> ProcesVariabele : heeft invoer
+    Proces --> ProcesVariabele : heeft uitvoer
+    Proces --> Proces : onderdeel van
+    Proces --> ISysteem : geimplementeerd door
+    Installatie --> ISysteem : heeft subsysteem
+    Installatie --> Proces : implementeert
+
+    %% System green
+    classDef system fill:#cfc,stroke:#333,stroke-width:1px
+    %% Procedure blue
+    classDef procedure fill:#ccf,stroke:#333,stroke-width:1px
+    ```
+    {% endmarkdown %}
+  </section>
+</section>
+

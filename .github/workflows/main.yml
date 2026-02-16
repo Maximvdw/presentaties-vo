@@ -10,8 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      # Explicit base path used when publishing to GitHub Pages (project site)
-      BASE_URL: "/presentaties-vo"
+      BASE_URL: "/${{ github.event.repository.name }}"
 
     steps:
     - uses: actions/checkout@v3

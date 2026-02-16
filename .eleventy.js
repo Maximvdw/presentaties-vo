@@ -1,13 +1,27 @@
 import markdownIt from 'markdown-it';
 import nunjucks from 'nunjucks';
 import njkMarkdown from 'nunjucks-markdown';
+import hljs from 'highlight.js';
+
+import { hljsDefineTurtle } from './scripts/vendor/turtle.js';
+
 
 export default async function(eleventyConfig) {
+  hljs.registerLanguage('turtle', hljsDefineTurtle);
+
   // Markdown-it configuratie
   const markdownItOptions = {
     html: true,
     breaks: true,
-    linkify: true
+    linkify: true,
+    highlight: function (str, lang) {
+      if (lang && hljs.getLanguage(lang)) {
+        const highlighted = hljs.highlight(str, { language: lang, ignoreIllegals: true }).value;
+        return nunjucks.runtime.markSafe('<pre class="hljs language-' + lang + '">' + highlighted + '</pre>');
+      }
+      // fallback: plain escaped code
+      return '<pre><code>' + md.utils.escapeHtml(str) + '</code></pre>';
+    }
   };
 
   // Create a single markdown-it instance and customize fence rendering
@@ -25,25 +39,24 @@ export default async function(eleventyConfig) {
     // plugin not installed — continue with fallback
   }
 
-  // Preserve default fence renderer
-  const defaultFence = md.renderer.rules.fence || function(tokens, idx, options, env, slf) {
-    const token = tokens[idx];
-    const info = token.info ? token.info.trim() : '';
-    const langName = info ? info.split(/\s+/g)[0] : '';
-    return `<pre><code class="${options.langPrefix}${md.utils.escapeHtml(langName)}">` + md.utils.escapeHtml(token.content) + '</code></pre>';
-  };
-
   // Render mermaid fences as <div class="mermaid"> so client-side Mermaid can process them
   md.renderer.rules.fence = function(tokens, idx, options, env, slf) {
     const token = tokens[idx];
     const info = token.info ? token.info.trim() : '';
     const lang = info.split(/\s+/g)[0];
+    let content = token.content;
+    // HTML encode all special characters for Mermaid diagrams
     if (lang === 'mermaid') {
-      // Output raw content (don't HTML-escape) so the client-side Mermaid parser
-      // receives the original diagram source.
-      return `<div class="mermaid">\n${token.content}\n</div>`;
+      // Use markdown-it's built-in HTML escape utility
+      content = md.utils.escapeHtml(content);
+      return `<div class="mermaid">\n${content}\n</div>`;
     }
-    return defaultFence(tokens, idx, options, env, slf);
+    // Use markdown-it's highlight function for all other code blocks, and mark as safe
+    const highlighted = md.options.highlight(content, lang);
+    if (typeof nunjucks !== 'undefined' && nunjucks.runtime && nunjucks.runtime.markSafe) {
+      return nunjucks.runtime.markSafe(highlighted);
+    }
+    return highlighted;
   };
 
   eleventyConfig.setLibrary("md", md);
@@ -60,7 +73,8 @@ export default async function(eleventyConfig) {
   try {
     const njkEnv = new nunjucks.Environment(new nunjucks.FileSystemLoader("_includes"));
     njkMarkdown.register(njkEnv, (src) => {
-      return md.render(src);
+      // Mark output as safe to prevent escaping
+      return nunjucks.runtime.markSafe(md.render(src));
     });
     eleventyConfig.setLibrary("njk", njkEnv);
   } catch (e) {
@@ -89,6 +103,7 @@ export default async function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("fonts");
   eleventyConfig.addPassthroughCopy("images");
   eleventyConfig.addPassthroughCopy("js");
+  eleventyConfig.addPassthroughCopy("js/vendor");
   eleventyConfig.addPassthroughCopy("css");
   
   // Watch for changes in CSS

@@ -5,8 +5,8 @@
 
 @font-face {
   font-family: 'Flanders Art Sans';
-    src: url('../fonts/Flanders Art Sans webfonts/Flanders Art Sans Regular/FlandersArtSans-Regular.woff') format('woff'),
-      url('../fonts/Flanders Art Sans webfonts/Flanders Art Sans Regular/FlandersArtSans-Regular.ttf') format('truetype');
+      src: url('../fonts/Flanders%20Art%20Sans%20webfonts/Flanders%20Art%20Sans%20Regular/FlandersArtSans-Regular.woff') format('woff'),
+        url('../fonts/Flanders%20Art%20Sans%20webfonts/Flanders%20Art%20Sans%20Regular/FlandersArtSans-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: block;
@@ -14,8 +14,8 @@
 
 @font-face {
   font-family: 'Flanders Art Sans';
-    src: url('../fonts/Flanders Art Sans webfonts/Flanders Art Sans Medium/FlandersArtSans-Medium.woff') format('woff'),
-      url('../fonts/Flanders Art Sans webfonts/Flanders Art Sans Medium/FlandersArtSans-Medium.ttf') format('truetype');
+      src: url('../fonts/Flanders%20Art%20Sans%20webfonts/Flanders%20Art%20Sans%20Medium/FlandersArtSans-Medium.woff') format('woff'),
+        url('../fonts/Flanders%20Art%20Sans%20webfonts/Flanders%20Art%20Sans%20Medium/FlandersArtSans-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: block;
@@ -23,8 +23,8 @@
 
 @font-face {
   font-family: 'Flanders Art Sans';
-    src: url('../fonts/Flanders Art Sans webfonts/Flanders Art Sans Bold/FlandersArtSans-Bold.woff') format('woff'),
-      url('../fonts/Flanders Art Sans webfonts/Flanders Art Sans Bold/FlandersArtSans-Bold.ttf') format('truetype');
+      src: url('../fonts/Flanders%20Art%20Sans%20webfonts/Flanders%20Art%20Sans%20Bold/FlandersArtSans-Bold.woff') format('woff'),
+        url('../fonts/Flanders%20Art%20Sans%20webfonts/Flanders%20Art%20Sans%20Bold/FlandersArtSans-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: block;
@@ -32,8 +32,8 @@
 
 @font-face {
   font-family: 'vlaanderen-icon';
-    src: url('../fonts/vlaanderen-icons/vlaanderen-icon.eea3757.woff2') format('woff2'),
-      url('../fonts/vlaanderen-icons/vlaanderen-icon.3e433a0.woff') format('woff');
+      src: url('../fonts/vlaanderen-icons/vlaanderen-icon.eea3757.woff2') format('woff2'),
+        url('../fonts/vlaanderen-icons/vlaanderen-icon.3e433a0.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -81,6 +81,18 @@ body {
   color: var(--vl-zwart);
   padding: 0 !important;
   position: relative;
+}
+
+.reveal .title-slide-before-bar {
+  content: '';
+  position: absolute;
+  left: -1200px;
+  top: -200px;
+  width: 1150px;
+  height: 1400px;
+  background: var(--vl-geel);
+  z-index: -2;
+  pointer-events: none;
 }
 
 .reveal .title-slide .slide-wrapper {
@@ -399,7 +411,8 @@ body {
   color: var(--vl-geel);
 }
 
-/* Code */
+
+/* Code block styling for highlight.js output in <pre.hljs> */
 .reveal pre {
   background-color: #1e1e1e;
   border-left: 4px solid var(--vl-geel);
@@ -409,45 +422,42 @@ body {
   max-width: 85%;
   color: #d4d4d4;
   overflow-x: auto;
-}
-
-.reveal code {
   font-family: 'Monaco', 'Courier New', monospace;
-  color: #d4d4d4;
-  background-color: #1e1e1e;
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-size: 0.75em;
+  font-size: 0.6em;
+  line-height: 1.1;
+  border-radius: 4px;
 }
 
 .reveal pre code {
-  background-color: transparent;
+  background: none;
   padding: 0;
-  font-size: 0.6em;
-  line-height: 1.4;
-  color: #d4d4d4;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
 }
 
-/* Syntax highlighting for JSON */
-.reveal code.json {
-  color: #d4d4d4;
-}
-
-.reveal pre code .string {
-  color: #ce9178;
-}
-
-.reveal pre code .number {
-  color: #b5cea8;
-}
-
-.reveal pre code .literal {
-  color: #569cd6;
-}
-
-.reveal pre code .key {
-  color: #9cdcfe;
-}
+/* Highlight.js token colors (adjust as needed) */
+.reveal pre.hljs .hljs-string { color: #ce9178; }
+.reveal pre.hljs .hljs-number { color: #b5cea8; }
+.reveal pre.hljs .hljs-literal { color: #569cd6; }
+.reveal pre.hljs .hljs-keyword { color: #569cd6; }
+.reveal pre.hljs .hljs-symbol { color: #9cdcfe; }
+.reveal pre.hljs .hljs-type { color: #4ec9b0; }
+.reveal pre.hljs .hljs-built_in { color: #b5cea8; }
+.reveal pre.hljs .hljs-comment { color: #6a9955; font-style: italic; }
+.reveal pre.hljs .hljs-title { color: #dcdcaa; }
+.reveal pre.hljs .hljs-section { color: #d7ba7d; }
+.reveal pre.hljs .hljs-attribute { color: #9cdcfe; }
+.reveal pre.hljs .hljs-meta { color: #d4d4d4; }
+.reveal pre.hljs .hljs-tag { color: #569cd6; }
+.reveal pre.hljs .hljs-name { color: #d7ba7d; }
+.reveal pre.hljs .hljs-selector-id { color: #d7ba7d; }
+.reveal pre.hljs .hljs-selector-class { color: #d7ba7d; }
+.reveal pre.hljs .hljs-variable { color: #9cdcfe; }
+.reveal pre.hljs .hljs-template-variable { color: #d7ba7d; }
+.reveal pre.hljs .hljs-link { color: #d7ba7d; text-decoration: underline; }
+.reveal pre.hljs .hljs-emphasis { font-style: italic; }
+.reveal pre.hljs .hljs-strong { font-weight: bold; }
 
 /* Tabellen */
 .reveal table {
@@ -536,22 +546,66 @@ body {
 
 /* Mermaid diagrams */
 .reveal .mermaid {
-  width: 100%;
-  height: 100%;
-  min-height: 500px;
+  height: 100vh;
+  height: 100vh;
+  max-height: 100vh;
+  margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
+  background: none;
+  font-size: 10px;
   position: relative;
   pointer-events: auto;
-  cursor: grab;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   contain: layout;
-  font-size: 10px;
 }
 
-/* Scale down Mermaid text */
+.reveal .mermaid svg {
+  display: block;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+}
+
+/* Pan/zoom controls for Mermaid diagrams */
+.reveal .mermaid-controls {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 20;
+  display: flex;
+  gap: 8px;
+  background: rgba(255,255,255,0.85);
+  border-radius: 6px;
+  padding: 4px 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  font-size: 18px;
+  user-select: none;
+}
+.reveal .mermaid-controls button {
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 1.2em;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.reveal .mermaid-controls button:hover {
+  background: #e0e0e0;
+}
+
+
+.reveal .mermaid svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin: 0;
+}
+
 .reveal .mermaid text {
   font-size: 10px !important;
 }

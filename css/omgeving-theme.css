@@ -1,3 +1,8 @@
+/* Override bullet color for Omgeving theme */
+.reveal.omgeving ul li::marker,
+.reveal.omgeving ol li::marker {
+  color: var(--omg-groen-primair);
+}
 /**
  * Omgeving theme extensie voor Reveal.js
  * Gebaseerd op Vlaanderen theme met Departement Omgeving branding
@@ -150,4 +155,8 @@
 .reveal.omgeving .controls button:hover {
   color: var(--omg-groen-donker);
   text-shadow: 0 0 2px rgba(68, 122, 109, 0.5);
+}
+
+.reveal .title-slide-before-bar {
+  background-color: var(--vl-wit);
 }

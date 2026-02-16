@@ -19,6 +19,7 @@
     "nunjucks-markdown": "^2.0.1"
   },
   "dependencies": {
+    "highlight.js": "^11.9.0",
     "mermaid": "^11.12.2",
     "pdfjs-dist": "^4.10.38",
     "reveal.js": "^5.2.1"

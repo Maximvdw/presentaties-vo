@@ -2,10 +2,12 @@
  * Custom presentation functionality
  */
 
+const max_scale = 5; // Maximum zoom level
+
 // Initialize presentation features after Reveal.js is ready
 export function initPresentation({ initialize }) {
   const revealRoot = document.querySelector('.reveal');
-  
+
   // Get initial slide based on URL hash
   const getInitialSlide = () => {
     const hash = window.location.hash || '';
@@ -44,7 +46,7 @@ export function initPresentation({ initialize }) {
       const parentH2 = stack.querySelector(':scope > section > h2');
       if (!parentH2) return;
       const parentTitle = parentH2.textContent;
-      
+
       const subsections = stack.querySelectorAll(':scope > section:not(:first-child)');
       subsections.forEach(subsection => {
         const h3 = subsection.querySelector('h3');
@@ -82,91 +84,160 @@ export async function initMermaid(mermaid) {
   });
 
   // Setup pan & zoom for all mermaid containers (even before rendering)
-  // This will be called after each diagram renders
+  // Dit wordt na elke diagram-render aangeroepen
+
   const setupPanZoom = () => {
     document.querySelectorAll('.mermaid svg').forEach(svg => {
       // Skip if already setup
       if (svg.dataset.panZoomSetup === 'true') return;
       svg.dataset.panZoomSetup = 'true';
-      
+
       const container = svg.closest('.mermaid');
       if (!container) return;
-      
+
       svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-      
-      let isPanning = false;
-      let startPoint = { x: 0, y: 0 };
-      let currentTranslate = { x: 0, y: 0 };
-      let scale = 1;
-      
-      svg.style.transformOrigin = '50% 50%';
-      svg.style.transform = 'translate(0, 0) scale(1)';
-      svg.style.overflow = 'visible';
-      
-      function updateTransform() {
-        svg.style.transform = `translate(${currentTranslate.x}px, ${currentTranslate.y}px) scale(${scale})`;
+
+
+      // Helper to calculate initial translation and scale
+      function getInitialPanZoom() {
+        let vbW = svg.clientWidth || 800;
+        let vbH = svg.clientHeight || 600;
+        let bbox = svg.getBBox();
+        let cWidth = container.offsetWidth || 800;
+        let cHeight = container.offsetHeight || 600;
+        let scaleX = cWidth / (bbox.width || vbW);
+        let scaleY = cHeight / (bbox.height || vbH);
+        let fitScale = Math.max(Math.min(scaleX, scaleY, max_scale), 1);
+        let initX = (cWidth - bbox.width) / 2 - bbox.x;
+        initX = Math.max(initX, 0);
+        return { scale: fitScale, currentTranslate: { x: initX, y: 0 } };
       }
-      
+
+      let state = getInitialPanZoom();
+
+      function updateTransform() {
+        svg.style.transform = `scale(${state.scale}) translate(${state.currentTranslate.x / state.scale}px, ${state.currentTranslate.y}px)`;
+      }
+      updateTransform();
+
       container.addEventListener('wheel', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        
+
         const delta = e.deltaY > 0 ? 0.9 : 1.1;
-        const newScale = Math.max(0.3, Math.min(scale * delta, 5));
-        
-        if (newScale !== scale) {
+        const newScale = Math.max(0.3, Math.min(state.scale * delta, max_scale));
+
+        if (newScale !== state.scale) {
           const rect = container.getBoundingClientRect();
           const mouseX = e.clientX - rect.left;
           const mouseY = e.clientY - rect.top;
-          
-          const scaleChange = newScale / scale;
-          currentTranslate.x = mouseX - (mouseX - currentTranslate.x) * scaleChange;
-          currentTranslate.y = mouseY - (mouseY - currentTranslate.y) * scaleChange;
-          
-          scale = newScale;
+
+          const scaleChange = newScale / state.scale;
+          state.currentTranslate.x = mouseX - (mouseX - state.currentTranslate.x) * scaleChange;
+          state.currentTranslate.y = mouseY - (mouseY - state.currentTranslate.y) * scaleChange;
+
+          state.scale = newScale;
           updateTransform();
         }
       }, { passive: false });
-      
+
       container.addEventListener('mousedown', (e) => {
         const rect = container.getBoundingClientRect();
         const mouseX = e.clientX - rect.left;
         const mouseY = e.clientY - rect.top;
-        
-        isPanning = true;
-        startPoint = {
-          x: mouseX - currentTranslate.x,
-          y: mouseY - currentTranslate.y
+
+        state.isPanning = true;
+        state.startPoint = {
+          x: mouseX - state.currentTranslate.x,
+          y: mouseY - state.currentTranslate.y
         };
         container.style.cursor = 'grabbing';
         e.preventDefault();
       });
-      
-      document.addEventListener('mousemove', (e) => {
-        if (!isPanning) return;
-        
+
+      // Enable panning by dragging on either the SVG or the container
+      // Only allow panning when dragging the SVG, not the container (so scrollbars work)
+      // Add pan/zoom controls in the top-right corner
+      if (!container.querySelector('.mermaid-controls')) {
+        const controls = document.createElement('div');
+        controls.className = 'mermaid-controls';
+        controls.style.position = 'absolute';
+        controls.style.top = '12px';
+        controls.style.right = '12px';
+        controls.style.zIndex = '10';
+        controls.style.display = 'flex';
+        controls.style.gap = '8px';
+        controls.style.background = 'rgba(255,255,255,0.7)';
+        controls.style.borderRadius = '6px';
+        controls.style.padding = '4px 8px';
+        controls.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+        controls.style.fontSize = '18px';
+        controls.style.userSelect = 'none';
+
+        // Zoom in
+        const zoomIn = document.createElement('button');
+        zoomIn.innerHTML = '＋';
+        zoomIn.title = 'Zoom in';
+        zoomIn.onclick = () => {
+          state.scale = Math.min(state.scale * 1.2, max_scale);
+          updateTransform();
+        };
+        controls.appendChild(zoomIn);
+
+        // Zoom out
+        const zoomOut = document.createElement('button');
+        zoomOut.innerHTML = '－';
+        zoomOut.title = 'Zoom out';
+        zoomOut.onclick = () => {
+          state.scale = Math.max(state.scale * 0.8, 0.3);
+          updateTransform();
+        };
+        controls.appendChild(zoomOut);
+
+        // Reset
+        const reset = document.createElement('button');
+        reset.innerHTML = '⟳';
+        reset.title = 'Reset pan/zoom';
+        reset.onclick = () => {
+          state = getInitialPanZoom();
+          updateTransform();
+        };
+        controls.appendChild(reset);
+
+        container.appendChild(controls);
+      }
+      svg.addEventListener('mousedown', (e) => {
         const rect = container.getBoundingClientRect();
         const mouseX = e.clientX - rect.left;
         const mouseY = e.clientY - rect.top;
-        
-        currentTranslate.x = mouseX - startPoint.x;
-        currentTranslate.y = mouseY - startPoint.y;
-        updateTransform();
+        state.isPanning = true;
+        state.startPoint = {
+          x: mouseX - state.currentTranslate.x,
+          y: mouseY - state.currentTranslate.y
+        };
+        container.style.cursor = 'grabbing';
+        e.preventDefault();
       });
-      
-      const stopPanning = () => {
-        isPanning = false;
+
+      function doPan(e) {
+        if (!state.isPanning) return;
+        const rect = container.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        state.currentTranslate.x = mouseX - state.startPoint.x;
+        state.currentTranslate.y = mouseY - state.startPoint.y;
+        window.requestAnimationFrame(updateTransform);
+      }
+      window.addEventListener('mousemove', doPan);
+
+      function stopPanning() {
+        state.isPanning = false;
         container.style.cursor = 'grab';
-      };
-      
-      document.addEventListener('mouseup', stopPanning);
+      }
+      window.addEventListener('mouseup', stopPanning);
       container.addEventListener('mouseleave', stopPanning);
     });
-  };
-  
-  // Setup pan/zoom initially for any already-rendered diagrams
-  setupPanZoom();
-  
-  // Export the function so it can be called after each slide's diagrams render
+  }
+  // Maak setupPanZoom globaal beschikbaar zodat deze na rendering kan worden aangeroepen
   window.setupMermaidPanZoom = setupPanZoom;
 }
