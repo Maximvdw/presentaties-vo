@@ -5,8 +5,24 @@ import hljs from 'highlight.js';
 
 import { hljsDefineTurtle } from './scripts/vendor/turtle.js';
 
-
-export default async function(eleventyConfig) {
+export default async function (eleventyConfig) {
+  // Add a 'date' filter for Nunjucks (supports 'U' for unix timestamp, 'iso', or custom format)
+  eleventyConfig.addFilter('date', function (value, format = 'U') {
+    const date = value ? new Date(value) : new Date();
+    if (format === 'U') {
+      return Math.floor(date.getTime() / 1000);
+    }
+    if (format === 'iso') {
+      return date.toISOString();
+    }
+    // Use Intl.DateTimeFormat for custom formats (limited)
+    // Example: 'nl-NL', { year: 'numeric', month: '2-digit', day: '2-digit' }
+    try {
+      return new Intl.DateTimeFormat('nl-NL').format(date);
+    } catch (e) {
+      return date.toString();
+    }
+  });
   hljs.registerLanguage('turtle', hljsDefineTurtle);
 
   // Markdown-it configuratie
@@ -40,7 +56,7 @@ export default async function(eleventyConfig) {
   }
 
   // Render mermaid fences as <div class="mermaid"> so client-side Mermaid can process them
-  md.renderer.rules.fence = function(tokens, idx, options, env, slf) {
+  md.renderer.rules.fence = function (tokens, idx, options, env, slf) {
     const token = tokens[idx];
     const info = token.info ? token.info.trim() : '';
     const lang = info.split(/\s+/g)[0];
@@ -87,14 +103,14 @@ export default async function(eleventyConfig) {
     }
     return value.split(delimiter);
   });
-  
+
   // Copy reveal.js directory to output
   eleventyConfig.addPassthroughCopy({
     "node_modules/reveal.js/dist": "reveal.js/dist",
     "node_modules/reveal.js/plugin": "reveal.js/plugin",
     "node_modules/mermaid/dist": "js/mermaid"
   });
-  
+
   // Copy misc files
   eleventyConfig.addPassthroughCopy(".nojekyll");
 
@@ -105,21 +121,21 @@ export default async function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("js");
   eleventyConfig.addPassthroughCopy("js/vendor");
   eleventyConfig.addPassthroughCopy("css");
-  
+
   // Watch for changes in CSS
   eleventyConfig.addWatchTarget("css/");
-  
+
   // Ignore README files
   eleventyConfig.ignores.add("**/README.md");
   eleventyConfig.ignores.add("fonts/.gitkeep");
-  
+
   // Disable index.html redirect for folder structure
   const disableLiveReload = process.env.ELEVENTY_DISABLE_LIVERELOAD === 'true';
   eleventyConfig.setServerOptions({
     showAllHosts: true,
     liveReload: !disableLiveReload,
   });
-  
+
   return {
     dir: {
       input: ".",

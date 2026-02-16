@@ -109,8 +109,16 @@ export async function initMermaid(mermaid) {
         let scaleY = cHeight / (bbox.height || vbH);
         let fitScale = Math.max(Math.min(scaleX, scaleY, max_scale), 1);
         let initX = (cWidth - bbox.width) / 2 - bbox.x;
-        initX = Math.max(initX, 0);
-        return { scale: fitScale, currentTranslate: { x: initX, y: 0 } };
+        let initY = (cHeight - bbox.height) / 2 - bbox.y;
+        if (initX < 0) {
+          initX = 0;
+          initY = initY - vbH / 2;
+        } else {
+          initY = 0;
+        }
+        
+        console.log('Initial pan/zoom:', { fitScale, initX, initY });
+        return { scale: fitScale, currentTranslate: { x: initX, y: initY } };
       }
 
       let state = getInitialPanZoom();

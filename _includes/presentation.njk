@@ -2,6 +2,8 @@
 <html lang="nl">
   {% include "head.njk" %}
   {% set active_theme = theme or defaults.theme or 'vlaanderen' %}
+  {# Use the date filter for builddate (Unix timestamp) for cache busting. #}
+  {% set builddate = builddate or ('' | date('U')) %}
   <body>
     <link rel="stylesheet" href="{{ site.baseUrl }}/reveal.js/dist/reset.css">
     <link rel="stylesheet" href="{{ site.baseUrl }}/reveal.js/dist/reveal.css">
@@ -10,16 +12,16 @@
     {% endif %}
     <link rel="stylesheet" href="{{ site.baseUrl }}/reveal.js/plugin/highlight/monokai.css">
     {% if active_theme == 'vlaanderen' or not active_theme %}
-    <link rel="stylesheet" href="{{ site.baseUrl }}/css/vlaanderen-theme.css">
-    <link rel="stylesheet" href="{{ site.baseUrl }}/css/vlaanderen-icons.css">
+    <link rel="stylesheet" href="{{ site.baseUrl }}/css/vlaanderen-theme.css?{{ builddate }}">
+    <link rel="stylesheet" href="{{ site.baseUrl }}/css/vlaanderen-icons.css?{{ builddate }}">
     {% endif %}
     {% if active_theme == 'omgeving' %}
-    <link rel="stylesheet" href="{{ site.baseUrl }}/css/vlaanderen-theme.css">
-    <link rel="stylesheet" href="{{ site.baseUrl }}/css/omgeving-theme.css">
-    <link rel="stylesheet" href="{{ site.baseUrl }}/css/vlaanderen-icons.css">
+    <link rel="stylesheet" href="{{ site.baseUrl }}/css/vlaanderen-theme.css?{{ builddate }}">
+    <link rel="stylesheet" href="{{ site.baseUrl }}/css/omgeving-theme.css?{{ builddate }}">
+    <link rel="stylesheet" href="{{ site.baseUrl }}/css/vlaanderen-icons.css?{{ builddate }}">
     {% endif %}
     {% if custom_css %}
-    <link rel="stylesheet" href="{{ custom_css }}">
+    <link rel="stylesheet" href="{{ custom_css }}?{{ builddate }}">
     {% endif %}
 
     <div class="reveal {% if active_theme == 'omgeving' %}omgeving{% endif %}">
@@ -68,8 +70,8 @@
     </script>
     
     <script type="module">
-      import { default as Mermaid } from '{{ site.baseUrl }}/js/mermaid/mermaid.esm.min.mjs';
-      import { initPresentation, initMermaid } from '{{ site.baseUrl }}/js/presentation.js';
+      import { default as Mermaid } from '{{ site.baseUrl }}/js/mermaid/mermaid.esm.min.mjs?{{ builddate }}';
+      import { initPresentation, initMermaid } from '{{ site.baseUrl }}/js/presentation.js?{{ builddate }}';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;
