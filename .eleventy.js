@@ -120,7 +120,9 @@ export default async function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("images");
   eleventyConfig.addPassthroughCopy("js");
   eleventyConfig.addPassthroughCopy("js/vendor");
-  eleventyConfig.addPassthroughCopy("css");
+  // Copy all .json and .js files to output
+  eleventyConfig.addPassthroughCopy("**/*.json");
+  eleventyConfig.addPassthroughCopy("**/*.js");
 
   // Watch for changes in CSS
   eleventyConfig.addWatchTarget("css/");

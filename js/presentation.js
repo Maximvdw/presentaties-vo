@@ -88,11 +88,6 @@ export async function initMermaid(mermaid) {
 
   const setupPanZoom = () => {
     document.querySelectorAll('.mermaid svg').forEach(svg => {
-        // Remove width/height attributes and styles to prevent double-scaling
-        svg.removeAttribute('width');
-        svg.removeAttribute('height');
-        svg.style.width = 'auto';
-        svg.style.height = 'auto';
       // Skip if already setup
       if (svg.dataset.panZoomSetup === 'true') return;
       svg.dataset.panZoomSetup = 'true';
@@ -100,25 +95,15 @@ export async function initMermaid(mermaid) {
       const container = svg.closest('.mermaid');
       if (!container) return;
 
-      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-
-
       // Helper to calculate initial translation and scale
       function getInitialPanZoom() {
         let viewBox = svg.getAttribute('viewBox');
-        const [vbX, vbY, vbW, vbH] = viewBox.split(/\s+|,/).map(Number);
-        let bbox = svg.getBBox();
         let cWidth = container.offsetWidth || 800;
         let cHeight = container.offsetHeight || 600;
-        // Prefer bounding box for scaling/centering if it is valid
-        let boxX = bbox && bbox.width > 0 && bbox.height > 0 ? bbox.x : vbX;
-        let boxY = bbox && bbox.width > 0 && bbox.height > 0 ? bbox.y : vbY;
-        let boxW = bbox && bbox.width > 0 && bbox.height > 0 ? bbox.width : vbW;
-        let boxH = bbox && bbox.width > 0 && bbox.height > 0 ? bbox.height : vbH;
-        let svgWidth = svg.clientWidth || vbW;
-        let svgHeight = svg.clientHeight || vbH;
-        let scaleX = 1;
-        let scaleY = cHeight / boxH;
+        let svgWidth = svg.clientWidth;
+        let svgHeight = svg.clientHeight;
+        let scaleX = cWidth / svgWidth;
+        let scaleY = cHeight / svgHeight;
         let fitScale = Math.min(scaleX, scaleY, max_scale);
         // Center both horizontally and vertically, accounting for box origin
         let initX = (cWidth - svgWidth * fitScale) / 2;
