@@ -544,15 +544,31 @@ body {
   color: var(--vl-blauw-donker);
 }
 
+.reveal .slides {
+  height: 100%;
+  top: 0;
+  margin-top: 0;
+}
+
+.reveal .slides>section {
+  min-height: 90%;
+  max-height: 90%;
+}
+
+.reveal .hljs {
+  min-height: auto;
+}
+
+.reveal .slides>section>section {
+  min-height: 100%;
+  max-height: 100%;
+  height: 100%;
+}
 
 h2:has(+ .mermaid),
 h3:has(+ .mermaid),
 p:has(+ .mermaid) {
   margin-bottom: 0.1em !important;
-}
-
-.reveal section {
-  height: calc(100% - 40px) !important;
 }
 
 /* Mermaid diagrams */
@@ -561,6 +577,7 @@ p:has(+ .mermaid) {
   margin: 0;
   padding: 0;
   display: flex;
+  flex: 1;
   justify-content: center;
   align-items: center;
   overflow: hidden;
@@ -572,6 +589,7 @@ p:has(+ .mermaid) {
 
 .reveal .mermaid svg {
   display: block;
+  height: auto;
   margin: auto;
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
