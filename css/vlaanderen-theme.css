@@ -1,3 +1,8 @@
+h2:has(+ .mermaid),
+h3:has(+ .mermaid),
+p:has(+ .mermaid) {
+  margin-bottom: 0.1em !important;
+}
 /**
  * Vlaanderen theme voor Reveal.js
  * Gebaseerd op de officiële Vlaamse overheid huisstijl
@@ -544,6 +549,7 @@ body {
   color: var(--vl-blauw-donker);
 }
 
+
 /* Mermaid diagrams */
 .reveal .mermaid {
   height: 100vh;
@@ -607,8 +613,6 @@ body {
 
 
 .reveal .mermaid svg {
-  width: 100%;
-  height: 100%;
   display: block;
   margin: 0;
 }

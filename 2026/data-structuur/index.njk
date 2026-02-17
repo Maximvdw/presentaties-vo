@@ -75,15 +75,15 @@ theme: omgeving
     :Exploitatie a owl:Class ;
         rdfs:label "Exploitatie"@nl ;
         rdfs:comment "Een exploitatie is de uitrol van middelen door een exploitant op een exploitatie locatie leidend tot een milieueffect."@nl ;
-        % Klassenhierarchie afgeleid van OWL subclass relaties (en reasoning)
+        # Klassenhierarchie afgeleid van OWL subclass relaties (en reasoning)
         rdfs:subClassOf ssn:Deployment ;
-        % Primary key(s) afgeleid van mappings in de URI
+        # Primary key(s) afgeleid van mappings in de URI
         hydra:search [ a hydra:IriTemplate ;
             hydra:template "https://data.riepr.omgeving.vlaanderen.be/id/exploitatie/{exploitatielocatie}/{localId}"^^hydra:Rfc6570Template ;
             hydra:mapping [ hydra:variable "exploitatielocatie" ; hydra:property sosa:isHostedBy ; hydra:required true ] ,
                           [ hydra:variable "localId" ; hydra:property adms:identifier ; hydra:required true ]
         ] ;
-        % Kardinaliteiten afgeleid van OWL restricties
+        # Kardinaliteiten afgeleid van OWL restricties
         rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty rdfs:label ;
             owl:minCardinality "1"^^xsd:nonNegativeInteger
@@ -368,7 +368,91 @@ theme: omgeving
     {% endmarkdown %}
   </section>
 </section>
+<section>
+  <section>
+    {% markdown %}
+    ## Meetpunt
+    **Meetpunt hangt op een proces**
+    ```mermaid
+    flowchart LR
+      STOF1(["Meel"])
+      STOF2(["Water"])
+      STOF3(["Brood"])
 
+      class STOF1,STOF2,STOF3 data;
+
+      classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+      classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+
+      EP1(["Schouw 1"])
+      EP2(["Lozingspunt 1"])
+
+      class EP1,EP2 emission;
+
+      PROCES1["Deeg maken"]
+      PROCES2["Brood bakken"]
+
+      STOF1 --> PROCES1
+      STOF2 --> PROCES1
+      PROCES1 --> PROCES2
+      PROCES1 --> EP2
+      PROCES2 --- MP1
+      MP1@{ shape: framed-circle, label: "MP1" }
+      MP1 --> EP1
+
+      PROCES2 --> STOF3
+    ```
+    {% endmarkdown %}
+  </section>
+  <section>
+    {% markdown %}
+    ### Onzichtbaar meetproces
+    ```mermaid
+    flowchart LR
+      STOF1(["**ProcesVariabele** <br> type=Meel"])
+      STOF2(["**ProcesVariabele** <br> type=Water"])
+      STOF3(["**ProcesVariabele** <br> type=Brood"])
+
+      MP1@{ shape: framed-circle, label: "MP1" }
+      class STOF1,STOF2,STOF3,STOF4,STOF5 data;
+
+      classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+      classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+
+      EP1(["**Emissiepunt** <br> Schouw 1"])
+      EP2(["**Emissiepunt** <br> Lozingspunt 1"])
+
+      class EP1,EP2 emission;
+
+      PROCES1["**Proces** <br> type=VERWERKING <br> benaming=Deeg maken"]
+      PROCES2["**Proces** <br> type=VERWERKING <br> benaming=Brood bakken"]
+
+      MEETPROCES["**Proces** <br> type=MEET"]
+    
+      PROCES1 -->|"heeftInvoer"| STOF1
+      PROCES1 -->|"heeftInvoer"| STOF2
+      OVERBRENGING1["**Proces** <br> type=TRANSPORT"]
+      OVERBRENGING1 -->|"voorgaandeStap"| PROCES1
+      PROCES2 -->|"voorgaandeStap"| OVERBRENGING1
+      EMISSIE1["**Proces** <br> type=EMISSIE"]
+      EMISSIE2["**Proces** <br> type=EMISSIE"]
+      MEETPROCES -->|"voorgaandeStap"| EMISSIE2
+      MEETPROCES -->|"geimplementeerdDoor"| MP1
+      
+      EMISSIE1 -->|"voorgaandeStap"| PROCES1
+      EMISSIE2 -->|"voorgaandeStap"| PROCES2
+      EMISSIE1 -->|"geimplementeerdDoor"| EP2
+      EMISSIE2 -->|"geimplementeerdDoor"| EP1
+      PROCES2 -->|"geimplementeerdDoor"| OVEN
+      OVEN(["**Apparaat** <br> Oven"])
+      classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
+      class OVEN apparaat;
+
+      PROCES2 -->|"heeftUitvoer"| STOF3
+    ```
+    {% endmarkdown %}
+  </section>
+</section>
 <section>
   <section>
     {% markdown %}
