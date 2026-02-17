@@ -69,7 +69,7 @@ export async function initMermaid(mermaid) {
     securityLevel: 'loose',
     suppressErrors: true,
     flowchart: {
-      useMaxWidth: true,
+      useMaxWidth: false,
       htmlLabels: true,
       curve: 'linear',
       fontSize: 12,
@@ -88,6 +88,11 @@ export async function initMermaid(mermaid) {
 
   const setupPanZoom = () => {
     document.querySelectorAll('.mermaid svg').forEach(svg => {
+        // Remove width/height attributes and styles to prevent double-scaling
+        svg.removeAttribute('width');
+        svg.removeAttribute('height');
+        svg.style.width = 'auto';
+        svg.style.height = 'auto';
       // Skip if already setup
       if (svg.dataset.panZoomSetup === 'true') return;
       svg.dataset.panZoomSetup = 'true';
@@ -105,26 +110,28 @@ export async function initMermaid(mermaid) {
         let bbox = svg.getBBox();
         let cWidth = container.offsetWidth || 800;
         let cHeight = container.offsetHeight || 600;
-        let scaleX = cWidth / (bbox.width || vbW);
-        let scaleY = cHeight / (bbox.height || vbH);
-        let fitScale = Math.max(Math.min(scaleX, scaleY, max_scale), 1);
-        let initX = (cWidth - bbox.width) / 2 - bbox.x;
-        let initY = (cHeight - bbox.height) / 2 - bbox.y;
-        if (initX < 0) {
-          initX = 0;
-          initY = initY - vbH / 2;
-        } else {
-          initY = 0;
-        }
-        
-        console.log('Initial pan/zoom:', { fitScale, initX, initY });
+        // Prefer bounding box for scaling/centering if it is valid
+        let boxX = bbox && bbox.width > 0 && bbox.height > 0 ? bbox.x : vbX;
+        let boxY = bbox && bbox.width > 0 && bbox.height > 0 ? bbox.y : vbY;
+        let boxW = bbox && bbox.width > 0 && bbox.height > 0 ? bbox.width : vbW;
+        let boxH = bbox && bbox.width > 0 && bbox.height > 0 ? bbox.height : vbH;
+        let svgWidth = svg.clientWidth || vbW;
+        let svgHeight = svg.clientHeight || vbH;
+        let scaleX = 1;
+        let scaleY = cHeight / boxH;
+        let fitScale = Math.min(scaleX, scaleY, max_scale);
+        // Center both horizontally and vertically, accounting for box origin
+        let initX = (cWidth - svgWidth * fitScale) / 2;
+        let initY = (cHeight - svgHeight * fitScale) / 2;
         return { scale: fitScale, currentTranslate: { x: initX, y: initY } };
       }
 
       let state = getInitialPanZoom();
 
       function updateTransform() {
-        svg.style.transform = `scale(${state.scale}) translate(${state.currentTranslate.x / state.scale}px, ${state.currentTranslate.y}px)`;
+        // Transform origin at top-left for correct math
+        svg.style.transformOrigin = '0 0';
+        svg.style.transform = `translate(${state.currentTranslate.x}px, ${state.currentTranslate.y}px) scale(${state.scale})`;
       }
       updateTransform();
 
@@ -136,13 +143,11 @@ export async function initMermaid(mermaid) {
         const newScale = Math.max(0.3, Math.min(state.scale * delta, max_scale));
 
         if (newScale !== state.scale) {
-          const rect = container.getBoundingClientRect();
-          const mouseX = e.clientX - rect.left;
-          const mouseY = e.clientY - rect.top;
-
-          const scaleChange = newScale / state.scale;
-          state.currentTranslate.x = mouseX - (mouseX - state.currentTranslate.x) * scaleChange;
-          state.currentTranslate.y = mouseY - (mouseY - state.currentTranslate.y) * scaleChange;
+          // Adjust translation so zoom is centered on the container center
+          const centerX = container.offsetWidth / 2;
+          const centerY = container.offsetHeight / 2;
+          state.currentTranslate.x = (state.currentTranslate.x - centerX) * (newScale / state.scale) + centerX;
+          state.currentTranslate.y = (state.currentTranslate.y - centerY) * (newScale / state.scale) + centerY;
 
           state.scale = newScale;
           updateTransform();

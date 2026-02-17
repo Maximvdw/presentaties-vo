@@ -27,9 +27,9 @@
     <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
     
     
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1771266850">
-    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1771266850">
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1771266850">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1771305815">
+    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1771305815">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1771305815">
     
     
 
@@ -128,15 +128,15 @@ class ONTOLOGIE,CONCEPTEN,TRANSFORMATIE_REGELS INVOER
 <pre class="hljs language-turtle"><span class="hljs-symbol">:Exploitatie</span> <span class="hljs-built_in">a</span> <span class="hljs-symbol">owl:Class</span> ;
   <span class="hljs-symbol">rdfs:label</span> <span class="hljs-string">&quot;Exploitatie&quot;</span><span class="hljs-type">@nl</span> ;
   <span class="hljs-symbol">rdfs:comment</span> <span class="hljs-string">&quot;Een exploitatie is de uitrol van middelen door een exploitant op een exploitatie locatie leidend tot een milieueffect.&quot;</span><span class="hljs-type">@nl</span> ;
-  % Klassenhierarchie afgeleid van OWL subclass relaties (en reasoning)
+  <span class="hljs-comment"># Klassenhierarchie afgeleid van OWL subclass relaties (en reasoning)</span>
   <span class="hljs-symbol">rdfs:subClassOf</span> <span class="hljs-symbol">ssn:Deployment</span> ;
-  % Primary key(s) afgeleid van mappings in de URI
+  <span class="hljs-comment"># Primary key(s) afgeleid van mappings in de URI</span>
   <span class="hljs-symbol">hydra:search</span> [ <span class="hljs-built_in">a</span> <span class="hljs-symbol">hydra:IriTemplate</span> ;
       <span class="hljs-symbol">hydra:template</span> <span class="hljs-string">&quot;https://data.riepr.omgeving.vlaanderen.be/id/exploitatie/{exploitatielocatie}/{localId}&quot;</span><span class="hljs-type">^^hydra:Rfc6570Template</span> ;
       <span class="hljs-symbol">hydra:mapping</span> [ <span class="hljs-symbol">hydra:variable</span> <span class="hljs-string">&quot;exploitatielocatie&quot;</span> ; <span class="hljs-symbol">hydra:property</span> <span class="hljs-symbol">sosa:isHostedBy</span> ; <span class="hljs-symbol">hydra:required</span> <span class="hljs-literal">true</span> ] ,
                     [ <span class="hljs-symbol">hydra:variable</span> <span class="hljs-string">&quot;localId&quot;</span> ; <span class="hljs-symbol">hydra:property</span> <span class="hljs-symbol">adms:identifier</span> ; <span class="hljs-symbol">hydra:required</span> <span class="hljs-literal">true</span> ]
   ] ;
-  % Kardinaliteiten afgeleid van OWL restricties
+  <span class="hljs-comment"># Kardinaliteiten afgeleid van OWL restricties</span>
   <span class="hljs-symbol">rdfs:subClassOf</span> [ <span class="hljs-built_in">a</span> <span class="hljs-symbol">owl:Restriction</span> ;
       <span class="hljs-symbol">owl:onProperty</span> <span class="hljs-symbol">rdfs:label</span> ;
       <span class="hljs-symbol">owl:minCardinality</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-type">^^xsd:nonNegativeInteger</span>
@@ -415,7 +415,89 @@ EMISSIE2 --&gt;|&quot;onderdeelVan&quot;| PROCES_PARENT
 </div>
   </section>
 </section>
+<section>
+  <section>
+    <h2>Meetpunt</h2>
+<p><strong>Meetpunt hangt op een proces</strong></p>
+<div class="mermaid">
+flowchart LR
+STOF1([&quot;Meel&quot;])
+STOF2([&quot;Water&quot;])
+STOF3([&quot;Brood&quot;])
 
+class STOF1,STOF2,STOF3 data;
+
+classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+
+EP1([&quot;Schouw 1&quot;])
+EP2([&quot;Lozingspunt 1&quot;])
+
+class EP1,EP2 emission;
+
+PROCES1[&quot;Deeg maken&quot;]
+PROCES2[&quot;Brood bakken&quot;]
+
+STOF1 --&gt; PROCES1
+STOF2 --&gt; PROCES1
+PROCES1 --&gt; PROCES2
+PROCES1 --&gt; EP2
+PROCES2 --- MP1
+MP1@{ shape: framed-circle, label: &quot;MP1&quot; }
+MP1 --&gt; EP1
+
+PROCES2 --&gt; STOF3
+
+</div>
+  </section>
+  <section>
+    <h3>Onzichtbaar meetproces</h3>
+<div class="mermaid">
+flowchart LR
+STOF1([&quot;**ProcesVariabele** &lt;br&gt; type=Meel&quot;])
+STOF2([&quot;**ProcesVariabele** &lt;br&gt; type=Water&quot;])
+STOF3([&quot;**ProcesVariabele** &lt;br&gt; type=Brood&quot;])
+
+MP1@{ shape: framed-circle, label: &quot;MP1&quot; }
+class STOF1,STOF2,STOF3,STOF4,STOF5 data;
+
+classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+
+EP1([&quot;**Emissiepunt** &lt;br&gt; Schouw 1&quot;])
+EP2([&quot;**Emissiepunt** &lt;br&gt; Lozingspunt 1&quot;])
+
+class EP1,EP2 emission;
+
+PROCES1[&quot;**Proces** &lt;br&gt; type=VERWERKING &lt;br&gt; benaming=Deeg maken&quot;]
+PROCES2[&quot;**Proces** &lt;br&gt; type=VERWERKING &lt;br&gt; benaming=Brood bakken&quot;]
+
+MEETPROCES[&quot;**Proces** &lt;br&gt; type=MEET&quot;]
+
+PROCES1 --&gt;|&quot;heeftInvoer&quot;| STOF1
+PROCES1 --&gt;|&quot;heeftInvoer&quot;| STOF2
+OVERBRENGING1[&quot;**Proces** &lt;br&gt; type=TRANSPORT&quot;]
+OVERBRENGING1 --&gt;|&quot;voorgaandeStap&quot;| PROCES1
+PROCES2 --&gt;|&quot;voorgaandeStap&quot;| OVERBRENGING1
+EMISSIE1[&quot;**Proces** &lt;br&gt; type=EMISSIE&quot;]
+EMISSIE2[&quot;**Proces** &lt;br&gt; type=EMISSIE&quot;]
+MEETPROCES --&gt;|&quot;voorgaandeStap&quot;| EMISSIE2
+MEETPROCES --&gt;|&quot;geimplementeerdDoor&quot;| MP1
+
+EMISSIE1 --&gt;|&quot;voorgaandeStap&quot;| PROCES1
+EMISSIE2 --&gt;|&quot;voorgaandeStap&quot;| PROCES2
+EMISSIE1 --&gt;|&quot;geimplementeerdDoor&quot;| EP2
+EMISSIE2 --&gt;|&quot;geimplementeerdDoor&quot;| EP1
+PROCES2 --&gt;|&quot;geimplementeerdDoor&quot;| OVEN
+OVEN([&quot;**Apparaat** &lt;br&gt; Oven&quot;])
+classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
+class OVEN apparaat;
+
+PROCES2 --&gt;|&quot;heeftUitvoer&quot;| STOF3
+
+</div>
+  </section>
+</section>
 <section>
   <section>
     <h2>Classendiagram (minimaal)</h2>
@@ -542,8 +624,8 @@ classDef procedure fill:#ccf,stroke:#333,stroke-width:1px
     </script>
     
     <script type="module">
-      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1771266850';
-      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1771266850';
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1771305815';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1771305815';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;
