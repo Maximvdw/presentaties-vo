@@ -66,6 +66,7 @@ theme: omgeving
       class ONTOLOGIE,CONCEPTEN,TRANSFORMATIE_REGELS INVOER
 
     ```
+    { verticalAlign: top }
     {% endmarkdown %}
   </section>
   <section>
@@ -101,8 +102,10 @@ theme: omgeving
     ### Transformatie regels
     **Voorbeelden**:
     - `adms:identifier` → "aparte key value tabel"
-    - Voeg versionering toe aan `locn:Address`
-    - Genegeerde properties
+    - Genegeerde over overschreven properties (max kardinaliteit van een label)
+    - Welke classen we samenvoegen als enums (bv. Procedure type)
+    - Bijkomende properties (UUID)
+    - Join tabellen voor abstracte relaties of abstracte entiteiten
     {% endmarkdown %}
   </section>
 </section>
@@ -252,7 +255,7 @@ theme: omgeving
       EMISSIE1 -->|"geimplementeerdDoor"| EP2
       EMISSIE2 -->|"geimplementeerdDoor"| EP1
       PROCES2 -->|"geimplementeerdDoor"| OVEN
-      OVEN(["**Apparaat** <br> Oven"])
+      OVEN(["**Installatie** <br> Oven"])
       classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
       class OVEN apparaat;
 
@@ -295,7 +298,7 @@ theme: omgeving
       EMISSIE1 -->|"geimplementeerdDoor"| EP2
       EMISSIE2 -->|"geimplementeerdDoor"| EP1
       PROCES2 -->|"geimplementeerdDoor"| OVEN
-      OVEN(["**Apparaat** <br> Oven"])
+      OVEN(["**Installatie** <br> Oven"])
       classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
       class OVEN apparaat;
 
@@ -354,7 +357,7 @@ theme: omgeving
       EMISSIE1 -->|"geimplementeerdDoor"| EP2
       EMISSIE2 -->|"geimplementeerdDoor"| EP1
       PROCES2 -->|"geimplementeerdDoor"| OVEN
-      OVEN(["**Apparaat** <br> Oven"])
+      OVEN(["**Installatie** <br> Oven"])
       classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
       class OVEN apparaat;
 
@@ -402,6 +405,7 @@ theme: omgeving
 
       PROCES2 --> STOF3
     ```
+    { verticalAlign: top }
     {% endmarkdown %}
   </section>
   <section>
@@ -444,7 +448,7 @@ theme: omgeving
       EMISSIE1 -->|"geimplementeerdDoor"| EP2
       EMISSIE2 -->|"geimplementeerdDoor"| EP1
       PROCES2 -->|"geimplementeerdDoor"| OVEN
-      OVEN(["**Apparaat** <br> Oven"])
+      OVEN(["**Installatie** <br> Oven"])
       classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
       class OVEN apparaat;
 
@@ -456,24 +460,138 @@ theme: omgeving
 <section>
   <section>
     {% markdown %}
-    ## Classendiagram (minimaal)
+    ## Minimaal klassendiagram (1)
     ```mermaid
----
-config:
+  ---
+  config:
   theme: default
   layout: elk
   elk:
     nodePlacementStrategy: SIMPLE
----
-%% Auto-generated from OWL/SHACL
-classDiagram
+  ---
+  %% Auto-generated from OWL/SHACL
+  classDiagram
     direction LR
 
-      class Apparaat:::system {
+      class Emissiepunt:::system {
         string uuid
         string uri
         string benaming
+        string type
         string geometrie
+    }
+      class Installatie:::system {
+        string uuid
+        string uri
+        ISysteem[] heeftSubSysteem 
+        Proces[] implementeert 
+        string benaming
+        Date aangemaaktOp
+    }
+      class Meetpunt:::system {
+        string uuid
+        string uri
+        string benaming
+        string type
+        Date aangemaaktOp
+        string geometrie
+    }
+      class Onttrekkingspunt:::system {
+        string uuid
+        string uri
+        string benaming
+        string type
+        Date aangemaaktOp
+        string geometrie
+    }
+      class Proces:::procedure {
+        string uuid
+        string uri
+        Date aangemaaktOp
+        string benaming
+        Procedure type
+        ProcesVariabele[] heeftInvoer 
+        ProcesVariabele[] heeftUitvoer 
+        Proces[] onderdeelVan 
+        ISysteem geimplementeerdDoor 
+    }
+      class ProcesVariabele {
+        string uuid
+        string uri
+        Date aangemaaktOp
+        string benaming
+        string type
+        number eenheid
+        string waarde
+    }
+      class ISysteem:::system {
+        <<interface>>
+        string uuid
+        string uri
+    }
+
+    class Procedure:::procedure {
+        <<enumerable>>
+        VERWERKING
+        TRANSPORT
+        VERBRUIK
+        EMISSIE
+    }
+    Proces --> Procedure : type
+
+    ISysteem <|.. Emissiepunt
+    ISysteem <|.. Installatie
+    ISysteem <|.. Meetpunt
+    ISysteem <|.. Onttrekkingspunt
+    Proces --> ProcesVariabele : heeft invoer
+    Proces --> ProcesVariabele : heeft uitvoer
+    Proces --> Proces : onderdeel van
+    Proces --> ISysteem : geimplementeerd door
+    Installatie --> ISysteem : heeft subsysteem
+    Installatie --> Proces : implementeert
+
+    %% System green
+    classDef system fill:#cfc,stroke:#333,stroke-width:1px
+    %% Procedure blue
+    classDef procedure fill:#ccf,stroke:#333,stroke-width:1px
+    ```
+    {% endmarkdown %}
+  </section>
+  <section>
+    {% markdown %}
+    ## Minimaal klassendiagram (2)
+    ```mermaid
+  ---
+  config:
+  theme: default
+  layout: elk
+  elk:
+    nodePlacementStrategy: SIMPLE
+  ---
+  %% Auto-generated from OWL/SHACL
+  classDiagram
+    direction LR
+    class Exploitant:::exploitant {
+        string uuid (PK)
+        string uri
+        string benaming
+    }
+      class Exploitatie:::exploitant {
+        string uuid (PK)
+        string uri
+        Date geldigVan
+        Date geldigTot
+        Date aangepastOp
+        string benaming
+        ISysteem[] inzetbaarSysteem
+        Proces geimplementeerdDoor
+        ExploitatieLocatie locatie
+    }
+      class ExploitatieLocatie:::exploitant {
+        string uuid
+        string uri
+        string benaming
+        Exploitant toegewezenAan
     }
       class Emissiepunt:::system {
         string uuid
@@ -541,7 +659,6 @@ classDiagram
     }
     Proces --> Procedure : type
 
-    ISysteem <|.. Apparaat
     ISysteem <|.. Emissiepunt
     ISysteem <|.. Installatie
     ISysteem <|.. Meetpunt
@@ -552,13 +669,162 @@ classDiagram
     Proces --> ISysteem : geimplementeerd door
     Installatie --> ISysteem : heeft subsysteem
     Installatie --> Proces : implementeert
+    Exploitatie --> ISysteem : inzetbaar systeem
+    Exploitatie --> ExploitatieLocatie : locatie
+    Exploitatie --> Proces : geimplementeerd door
+    ExploitatieLocatie --> Exploitant : toegewezen aan
 
     %% System green
     classDef system fill:#cfc,stroke:#333,stroke-width:1px
     %% Procedure blue
     classDef procedure fill:#ccf,stroke:#333,stroke-width:1px
+    %% Geel
+    classDef exploitant fill:#ff9,stroke:#333,stroke-width:1px
     ```
     {% endmarkdown %}
   </section>
 </section>
+<section>
+  <section>
+    {% markdown %}
+    ## Versiebeheer
+    **Waar mogelijk**:
+    - We kunnen overal versiebeheer toepassen
 
+    **Waar gebruiken**
+    - Waar het functioneel nodig is
+    {% endmarkdown %}
+  </section>
+  <section>
+    {% markdown %}
+    ### Versiebeheer: voorbeeld wijziging
+    ```mermaid
+    classDiagram
+      direction TB
+      
+      class Installatie_v1["Installatie#123 (versie 11.02.2026T12:00)"]:::versie1 {
+        +UUID uuid="123"
+        +Date geldigVan="01.01.2020"
+        +Date geldigTot=NULL
+        +Date aangemaaktOp= "11.02.2026T12:00"
+        Date aangepastOp=NULL
+        String naam="Zuiveringsinstallatie"
+      }
+
+      classDef versie1 fill:#cfc,stroke:#333,stroke-width:1px
+      classDef versie2 fill:#ccf,stroke:#333,stroke-width:1px
+    {% endmarkdown %}
+  </section>
+  <section>
+    {% markdown %}
+    ### Versiebeheer: voorbeeld wijziging ...
+    ```mermaid
+    classDiagram
+      direction TB
+      
+      class Installatie_v1["Installatie#123 (versie 11.02.2026T12:00)"]:::versie1 {
+        +UUID uuid="123"
+        +Date geldigVan="01.01.2020"
+        +Date geldigTot="01.01.2026"
+        +Date aangemaaktOp= "11.02.2026T12:00"
+        Date aangepastOp="12.02.2026T14:00"
+        String naam="Zuiveringsinstallatie"
+      }
+      class Installatie_v2["Installatie#123 (versie 12.02.2026T14:00)"]:::versie2 {
+        +UUID uuid="123"
+        +Date geldigVan="01.01.2026"
+        +Date geldigTot=NULL
+        +Date aangemaaktOp= "11.02.2026T12:00"
+        Date aangepastOp=NULL
+        String naam="Zuiveringsinstallatie - aangepast"
+      }
+
+      classDef versie1 fill:#cfc,stroke:#333,stroke-width:1px
+      classDef versie2 fill:#ccf,stroke:#333,stroke-width:1px
+    {% endmarkdown %}
+  </section>
+  <section>
+    {% markdown %}
+    ### Versiebeheer: voorbeeld correctie
+    ```mermaid
+    classDiagram
+      direction TB
+      
+      class Installatie_v1["Installatie#123 (versie 11.02.2026T12:00)"]:::versie1 {
+        +UUID uuid="123"
+        +Date geldigVan="01.01.2020"
+        +Date geldigTot="01.01.2026"
+        +Date aangemaaktOp= "11.02.2026T12:00"
+        Date aangepastOp="12.02.2026T14:00"
+        String naam="Zuiveringsinstallatie"
+      }
+      class Installatie_v2["Installatie#123 (versie 12.02.2026T14:00)"]:::versie2 {
+        +UUID uuid="123"
+        +Date geldigVan="01.01.2026"
+        +Date geldigTot=NULL
+        +Date aangemaaktOp= "11.02.2026T12:00"
+        Date aangepastOp=NULL
+        String naam="Zuiveringsinstallatie - aangepast"
+      }
+      class Installatie_v3["Installatie#123 (versie 18.02.2026T14:00)"]:::versie3 {
+        +UUID uuid="123"
+        +Date geldigVan="01.01.2020"
+        +Date geldigTot="01.01.2026"
+        +Date aangemaaktOp= "18.02.2026T14:00"
+        Date aangepastOp=NULL
+        String naam="Zuiveringsinstallatie - correctie"
+      }
+
+      Installatie_v3 --> Installatie_v1
+
+      classDef versie1 fill:#cfc,stroke:#333,stroke-width:1px,opacity:0.3
+      classDef versie2 fill:#ccf,stroke:#333,stroke-width:1px
+      classDef versie3 fill:#cfc,stroke:#333,stroke-width:1px
+    ```
+    {% endmarkdown %}
+  </section>
+  <section>
+    {% markdown %}
+    ### Versiebeheer: voorbeeld hierarchie
+    ```mermaid
+    classDiagram
+      direction TB
+      
+      class Exploitatie_v1["Exploitatie#456 (versie 11.02.2026T12:00)"]:::versie1
+      class Proces_v1["Proces#789 (versie 11.02.2026T12:00)"]:::versie1
+      class Installatie_v1["Installatie#123 (versie 11.02.2026T12:00)"]:::versie1
+      Exploitatie_v1 --> Proces_v1
+      Exploitatie_v1 --> Installatie_v1
+
+      classDef versie1 fill:#cfc,stroke:#333,stroke-width:1px
+      classDef versie2 fill:#ccf,stroke:#333,stroke-width:1px
+      classDef versie3 fill:#cfc,stroke:#333,stroke-width:1px
+    ```
+    {% endmarkdown %}
+  </section>
+  <section>
+    {% markdown %}
+    ### Versiebeheer: voorbeeld hierarchie ...
+    ```mermaid
+    classDiagram
+      direction TB
+      
+      class Exploitatie_v1["Exploitatie#456 (versie 11.02.2026T12:00)"]:::versie1
+      class Proces_v1["Proces#789 (versie 11.02.2026T12:00)"]:::versie1
+      class Installatie_v1["Installatie#123 (versie 11.02.2026T12:00)"]:::versie1
+      Exploitatie_v1 --> Proces_v1
+      Exploitatie_v1 --> Installatie_v1
+
+      class Exploitatie_v2["Exploitatie#456 (versie 12.02.2026T14:00)"]:::versie2
+      class Proces_v2["Proces#789 (versie 12.02.2026T14:00)"]:::versie2
+      Exploitatie_v2 --> Proces_v2
+      Exploitatie_v2 --> Installatie_v1
+
+
+      classDef versie1 fill:#cfc,stroke:#333,stroke-width:1px
+      classDef versie2 fill:#ccf,stroke:#333,stroke-width:1px
+      classDef versie3 fill:#cfc,stroke:#333,stroke-width:1px
+    ```
+    {% endmarkdown %}
+  </section>
+</section>
