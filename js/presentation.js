@@ -95,9 +95,22 @@ export async function initMermaid(mermaid) {
       const container = svg.closest('.mermaid');
       if (!container) return;
 
+      // Determine vertical alignment option (default: center)
+      let verticalAlign = 'center';
+      // Look for a data attribute on the container, e.g. data-vertical-align="top"
+      if (container.dataset.verticalAlign) {
+        verticalAlign = container.dataset.verticalAlign;
+      } else {
+        // Try to find a sibling element with a class 'mermaid-options' and parse for verticalAlign
+        const optionsEl = container.nextElementSibling && container.nextElementSibling.classList.contains('mermaid-options') ? container.nextElementSibling : null;
+        if (optionsEl) {
+          const match = optionsEl.textContent.match(/verticalAlign\s*:\s*(\w+)/i);
+          if (match) verticalAlign = match[1].toLowerCase();
+        }
+      }
+
       // Helper to calculate initial translation and scale
       function getInitialPanZoom() {
-        let viewBox = svg.getAttribute('viewBox');
         let cWidth = container.offsetWidth || 800;
         let cHeight = container.offsetHeight || 600;
         let svgWidth = svg.clientWidth;
@@ -105,9 +118,15 @@ export async function initMermaid(mermaid) {
         let scaleX = cWidth / svgWidth;
         let scaleY = cHeight / svgHeight;
         let fitScale = Math.min(scaleX, scaleY, max_scale);
-        // Center both horizontally and vertically, accounting for box origin
+        // Center horizontally, vertical alignment configurable
         let initX = (cWidth - svgWidth * fitScale) / 2;
-        let initY = (cHeight - svgHeight * fitScale) / 2;
+        let initY;
+        if (verticalAlign === 'top') {
+          initY = 0;
+        } else {
+          // Default: center
+          initY = (cHeight - svgHeight * fitScale) / 2;
+        }
         return { scale: fitScale, currentTranslate: { x: initX, y: initY } };
       }
 

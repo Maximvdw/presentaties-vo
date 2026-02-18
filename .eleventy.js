@@ -61,11 +61,24 @@ export default async function (eleventyConfig) {
     const info = token.info ? token.info.trim() : '';
     const lang = info.split(/\s+/g)[0];
     let content = token.content;
-    // HTML encode all special characters for Mermaid diagrams
     if (lang === 'mermaid') {
-      // Use markdown-it's built-in HTML escape utility
+      // Look for an options block after the code block, e.g. { verticalAlign: top }
+      let verticalAlign = null;
+      // Check if the next token is a paragraph with an inline token containing the options
+      const nextToken = tokens[idx + 1];
+      if (nextToken && nextToken.type === 'paragraph_open') {
+        const textToken = tokens[idx + 2];
+        if (textToken && textToken.type === 'inline') {
+          const match = textToken.content.match(/verticalAlign\s*:\s*(\w+)/i);
+          if (match) verticalAlign = match[1].toLowerCase();
+        }
+      }
       content = md.utils.escapeHtml(content);
-      return `<div class="mermaid">\n${content}\n</div>`;
+      let attr = '';
+      if (verticalAlign) {
+        attr = ` data-vertical-align=\"${verticalAlign}\"`;
+      }
+      return `<div class=\"mermaid\"${attr}>\n${content}\n</div>`;
     }
     // Use markdown-it's highlight function for all other code blocks, and mark as safe
     const highlighted = md.options.highlight(content, lang);

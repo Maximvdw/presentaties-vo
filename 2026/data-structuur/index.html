@@ -27,9 +27,9 @@
     <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
     
     
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1771309336">
-    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1771309336">
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1771309336">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1771420351">
+    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1771420351">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1771420351">
     
     
 
@@ -78,7 +78,7 @@
   <section>
     <h3>Ontwikkeling</h3>
 <p><strong>Groen = manueel, Blauw = automatisch</strong></p>
-<div class="mermaid">
+<div class="mermaid" data-vertical-align="top">
 flowchart LR
 subgraph DataModel [Data Model]
   CONCEPTEN([&quot;Business Concepten&quot;])
@@ -121,7 +121,8 @@ classDef INVOER fill:#cfc,stroke:#333,stroke-width:1px
 class ONTOLOGIE,CONCEPTEN,TRANSFORMATIE_REGELS INVOER
 
 
-</div>
+</div><p>{ verticalAlign: top }</p>
+
   </section>
   <section>
     <h3>Voorbeeld: Exploitatie</h3>
@@ -153,8 +154,10 @@ class ONTOLOGIE,CONCEPTEN,TRANSFORMATIE_REGELS INVOER
 <p><strong>Voorbeelden</strong>:</p>
 <ul>
 <li><code>adms:identifier</code> → &quot;aparte key value tabel&quot;</li>
-<li>Voeg versionering toe aan <code>locn:Address</code></li>
-<li>Genegeerde properties</li>
+<li>Genegeerde over overschreven properties (max kardinaliteit van een label)</li>
+<li>Welke classen we samenvoegen als enums (bv. Procedure type)</li>
+<li>Bijkomende properties (UUID)</li>
+<li>Join tabellen voor abstracte relaties of abstracte entiteiten</li>
 </ul>
 
   </section>
@@ -301,7 +304,7 @@ EMISSIE2 --&gt;|&quot;voorgaandeStap&quot;| PROCES2
 EMISSIE1 --&gt;|&quot;geimplementeerdDoor&quot;| EP2
 EMISSIE2 --&gt;|&quot;geimplementeerdDoor&quot;| EP1
 PROCES2 --&gt;|&quot;geimplementeerdDoor&quot;| OVEN
-OVEN([&quot;**Apparaat** &lt;br&gt; Oven&quot;])
+OVEN([&quot;**Installatie** &lt;br&gt; Oven&quot;])
 classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
 class OVEN apparaat;
 
@@ -343,7 +346,7 @@ EMISSIE2 --&gt;|&quot;voorgaandeStap&quot;| PROCES2
 EMISSIE1 --&gt;|&quot;geimplementeerdDoor&quot;| EP2
 EMISSIE2 --&gt;|&quot;geimplementeerdDoor&quot;| EP1
 PROCES2 --&gt;|&quot;geimplementeerdDoor&quot;| OVEN
-OVEN([&quot;**Apparaat** &lt;br&gt; Oven&quot;])
+OVEN([&quot;**Installatie** &lt;br&gt; Oven&quot;])
 classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
 class OVEN apparaat;
 
@@ -401,7 +404,7 @@ EMISSIE2 --&gt;|&quot;voorgaandeStap&quot;| PROCES2
 EMISSIE1 --&gt;|&quot;geimplementeerdDoor&quot;| EP2
 EMISSIE2 --&gt;|&quot;geimplementeerdDoor&quot;| EP1
 PROCES2 --&gt;|&quot;geimplementeerdDoor&quot;| OVEN
-OVEN([&quot;**Apparaat** &lt;br&gt; Oven&quot;])
+OVEN([&quot;**Installatie** &lt;br&gt; Oven&quot;])
 classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
 class OVEN apparaat;
 
@@ -419,7 +422,7 @@ EMISSIE2 --&gt;|&quot;onderdeelVan&quot;| PROCES_PARENT
   <section>
     <h2>Meetpunt</h2>
 <p><strong>Meetpunt hangt op een proces</strong></p>
-<div class="mermaid">
+<div class="mermaid" data-vertical-align="top">
 flowchart LR
 STOF1([&quot;Meel&quot;])
 STOF2([&quot;Water&quot;])
@@ -448,7 +451,8 @@ MP1 --&gt; EP1
 
 PROCES2 --&gt; STOF3
 
-</div>
+</div><p>{ verticalAlign: top }</p>
+
   </section>
   <section>
     <h3>Onzichtbaar meetproces</h3>
@@ -489,7 +493,7 @@ EMISSIE2 --&gt;|&quot;voorgaandeStap&quot;| PROCES2
 EMISSIE1 --&gt;|&quot;geimplementeerdDoor&quot;| EP2
 EMISSIE2 --&gt;|&quot;geimplementeerdDoor&quot;| EP1
 PROCES2 --&gt;|&quot;geimplementeerdDoor&quot;| OVEN
-OVEN([&quot;**Apparaat** &lt;br&gt; Oven&quot;])
+OVEN([&quot;**Installatie** &lt;br&gt; Oven&quot;])
 classDef apparaat fill:#9ff,stroke:#333,stroke-width:2px;
 class OVEN apparaat;
 
@@ -500,7 +504,7 @@ PROCES2 --&gt;|&quot;heeftUitvoer&quot;| STOF3
 </section>
 <section>
   <section>
-    <h2>Classendiagram (minimaal)</h2>
+    <h2>Minimaal klassendiagram (1)</h2>
 <div class="mermaid">
 ---
 config:
@@ -513,11 +517,124 @@ nodePlacementStrategy: SIMPLE
 classDiagram
 direction LR
 
-class Apparaat:::system {
+class Emissiepunt:::system {
   string uuid
   string uri
   string benaming
+  string type
   string geometrie
+}
+class Installatie:::system {
+  string uuid
+  string uri
+  ISysteem[] heeftSubSysteem 
+  Proces[] implementeert 
+  string benaming
+  Date aangemaaktOp
+}
+class Meetpunt:::system {
+  string uuid
+  string uri
+  string benaming
+  string type
+  Date aangemaaktOp
+  string geometrie
+}
+class Onttrekkingspunt:::system {
+  string uuid
+  string uri
+  string benaming
+  string type
+  Date aangemaaktOp
+  string geometrie
+}
+class Proces:::procedure {
+  string uuid
+  string uri
+  Date aangemaaktOp
+  string benaming
+  Procedure type
+  ProcesVariabele[] heeftInvoer 
+  ProcesVariabele[] heeftUitvoer 
+  Proces[] onderdeelVan 
+  ISysteem geimplementeerdDoor 
+}
+class ProcesVariabele {
+  string uuid
+  string uri
+  Date aangemaaktOp
+  string benaming
+  string type
+  number eenheid
+  string waarde
+}
+class ISysteem:::system {
+  &lt;&lt;interface&gt;&gt;
+  string uuid
+  string uri
+}
+
+class Procedure:::procedure {
+  &lt;&lt;enumerable&gt;&gt;
+  VERWERKING
+  TRANSPORT
+  VERBRUIK
+  EMISSIE
+}
+Proces --&gt; Procedure : type
+
+ISysteem &lt;|.. Emissiepunt
+ISysteem &lt;|.. Installatie
+ISysteem &lt;|.. Meetpunt
+ISysteem &lt;|.. Onttrekkingspunt
+Proces --&gt; ProcesVariabele : heeft invoer
+Proces --&gt; ProcesVariabele : heeft uitvoer
+Proces --&gt; Proces : onderdeel van
+Proces --&gt; ISysteem : geimplementeerd door
+Installatie --&gt; ISysteem : heeft subsysteem
+Installatie --&gt; Proces : implementeert
+
+%% System green
+classDef system fill:#cfc,stroke:#333,stroke-width:1px
+%% Procedure blue
+classDef procedure fill:#ccf,stroke:#333,stroke-width:1px
+
+</div>
+  </section>
+  <section>
+    <h2>Minimaal klassendiagram (2)</h2>
+<div class="mermaid">
+---
+config:
+theme: default
+layout: elk
+elk:
+nodePlacementStrategy: SIMPLE
+---
+%% Auto-generated from OWL/SHACL
+classDiagram
+direction LR
+class Exploitant:::exploitant {
+  string uuid (PK)
+  string uri
+  string benaming
+}
+class Exploitatie:::exploitant {
+  string uuid (PK)
+  string uri
+  Date geldigVan
+  Date geldigTot
+  Date aangepastOp
+  string benaming
+  ISysteem[] inzetbaarSysteem
+  Proces geimplementeerdDoor
+  ExploitatieLocatie locatie
+}
+class ExploitatieLocatie:::exploitant {
+  string uuid
+  string uri
+  string benaming
+  Exploitant toegewezenAan
 }
 class Emissiepunt:::system {
   string uuid
@@ -585,7 +702,6 @@ class Procedure:::procedure {
 }
 Proces --&gt; Procedure : type
 
-ISysteem &lt;|.. Apparaat
 ISysteem &lt;|.. Emissiepunt
 ISysteem &lt;|.. Installatie
 ISysteem &lt;|.. Meetpunt
@@ -596,17 +712,164 @@ Proces --&gt; Proces : onderdeel van
 Proces --&gt; ISysteem : geimplementeerd door
 Installatie --&gt; ISysteem : heeft subsysteem
 Installatie --&gt; Proces : implementeert
+Exploitatie --&gt; ISysteem : inzetbaar systeem
+Exploitatie --&gt; ExploitatieLocatie : locatie
+Exploitatie --&gt; Proces : geimplementeerd door
+ExploitatieLocatie --&gt; Exploitant : toegewezen aan
 
 %% System green
 classDef system fill:#cfc,stroke:#333,stroke-width:1px
 %% Procedure blue
 classDef procedure fill:#ccf,stroke:#333,stroke-width:1px
+%% Geel
+classDef exploitant fill:#ff9,stroke:#333,stroke-width:1px
 
 </div>
   </section>
 </section>
+<section>
+  <section>
+    <h2>Versiebeheer</h2>
+<p><strong>Waar mogelijk</strong>:</p>
+<ul>
+<li>We kunnen overal versiebeheer toepassen</li>
+</ul>
+<p><strong>Waar gebruiken</strong></p>
+<ul>
+<li>Waar het functioneel nodig is</li>
+</ul>
+
+  </section>
+  <section>
+    <h3>Versiebeheer: voorbeeld wijziging</h3>
+<div class="mermaid">
+classDiagram
+direction TB
+
+class Installatie_v1[&quot;Installatie#123 (versie 11.02.2026T12:00)&quot;]:::versie1 {
+  +UUID uuid=&quot;123&quot;
+  +Date geldigVan=&quot;01.01.2020&quot;
+  +Date geldigTot=NULL
+  +Date aangemaaktOp= &quot;11.02.2026T12:00&quot;
+  Date aangepastOp=NULL
+  String naam=&quot;Zuiveringsinstallatie&quot;
+}
+
+classDef versie1 fill:#cfc,stroke:#333,stroke-width:1px
+classDef versie2 fill:#ccf,stroke:#333,stroke-width:1px
+
+</div>
+  </section>
+  <section>
+    <h3>Versiebeheer: voorbeeld wijziging ...</h3>
+<div class="mermaid">
+classDiagram
+direction TB
+
+class Installatie_v1[&quot;Installatie#123 (versie 11.02.2026T12:00)&quot;]:::versie1 {
+  +UUID uuid=&quot;123&quot;
+  +Date geldigVan=&quot;01.01.2020&quot;
+  +Date geldigTot=&quot;01.01.2026&quot;
+  +Date aangemaaktOp= &quot;11.02.2026T12:00&quot;
+  Date aangepastOp=&quot;12.02.2026T14:00&quot;
+  String naam=&quot;Zuiveringsinstallatie&quot;
+}
+class Installatie_v2[&quot;Installatie#123 (versie 12.02.2026T14:00)&quot;]:::versie2 {
+  +UUID uuid=&quot;123&quot;
+  +Date geldigVan=&quot;01.01.2026&quot;
+  +Date geldigTot=NULL
+  +Date aangemaaktOp= &quot;11.02.2026T12:00&quot;
+  Date aangepastOp=NULL
+  String naam=&quot;Zuiveringsinstallatie - aangepast&quot;
+}
+
+classDef versie1 fill:#cfc,stroke:#333,stroke-width:1px
+classDef versie2 fill:#ccf,stroke:#333,stroke-width:1px
+
+</div>
+  </section>
+  <section>
+    <h3>Versiebeheer: voorbeeld correctie</h3>
+<div class="mermaid">
+classDiagram
+direction TB
+
+class Installatie_v1[&quot;Installatie#123 (versie 11.02.2026T12:00)&quot;]:::versie1 {
+  +UUID uuid=&quot;123&quot;
+  +Date geldigVan=&quot;01.01.2020&quot;
+  +Date geldigTot=&quot;01.01.2026&quot;
+  +Date aangemaaktOp= &quot;11.02.2026T12:00&quot;
+  Date aangepastOp=&quot;12.02.2026T14:00&quot;
+  String naam=&quot;Zuiveringsinstallatie&quot;
+}
+class Installatie_v2[&quot;Installatie#123 (versie 12.02.2026T14:00)&quot;]:::versie2 {
+  +UUID uuid=&quot;123&quot;
+  +Date geldigVan=&quot;01.01.2026&quot;
+  +Date geldigTot=NULL
+  +Date aangemaaktOp= &quot;11.02.2026T12:00&quot;
+  Date aangepastOp=NULL
+  String naam=&quot;Zuiveringsinstallatie - aangepast&quot;
+}
+class Installatie_v3[&quot;Installatie#123 (versie 18.02.2026T14:00)&quot;]:::versie3 {
+  +UUID uuid=&quot;123&quot;
+  +Date geldigVan=&quot;01.01.2020&quot;
+  +Date geldigTot=&quot;01.01.2026&quot;
+  +Date aangemaaktOp= &quot;18.02.2026T14:00&quot;
+  Date aangepastOp=NULL
+  String naam=&quot;Zuiveringsinstallatie - correctie&quot;
+}
+
+Installatie_v3 --&gt; Installatie_v1
+
+classDef versie1 fill:#cfc,stroke:#333,stroke-width:1px,opacity:0.3
+classDef versie2 fill:#ccf,stroke:#333,stroke-width:1px
+classDef versie3 fill:#cfc,stroke:#333,stroke-width:1px
+
+</div>
+  </section>
+  <section>
+    <h3>Versiebeheer: voorbeeld hierarchie</h3>
+<div class="mermaid">
+classDiagram
+direction TB
+
+class Exploitatie_v1[&quot;Exploitatie#456 (versie 11.02.2026T12:00)&quot;]:::versie1
+class Proces_v1[&quot;Proces#789 (versie 11.02.2026T12:00)&quot;]:::versie1
+class Installatie_v1[&quot;Installatie#123 (versie 11.02.2026T12:00)&quot;]:::versie1
+Exploitatie_v1 --&gt; Proces_v1
+Exploitatie_v1 --&gt; Installatie_v1
+
+classDef versie1 fill:#cfc,stroke:#333,stroke-width:1px
+classDef versie2 fill:#ccf,stroke:#333,stroke-width:1px
+classDef versie3 fill:#cfc,stroke:#333,stroke-width:1px
+
+</div>
+  </section>
+  <section>
+    <h3>Versiebeheer: voorbeeld hierarchie ...</h3>
+<div class="mermaid">
+classDiagram
+direction TB
+
+class Exploitatie_v1[&quot;Exploitatie#456 (versie 11.02.2026T12:00)&quot;]:::versie1
+class Proces_v1[&quot;Proces#789 (versie 11.02.2026T12:00)&quot;]:::versie1
+class Installatie_v1[&quot;Installatie#123 (versie 11.02.2026T12:00)&quot;]:::versie1
+Exploitatie_v1 --&gt; Proces_v1
+Exploitatie_v1 --&gt; Installatie_v1
+
+class Exploitatie_v2[&quot;Exploitatie#456 (versie 12.02.2026T14:00)&quot;]:::versie2
+class Proces_v2[&quot;Proces#789 (versie 12.02.2026T14:00)&quot;]:::versie2
+Exploitatie_v2 --&gt; Proces_v2
+Exploitatie_v2 --&gt; Installatie_v1
 
 
+classDef versie1 fill:#cfc,stroke:#333,stroke-width:1px
+classDef versie2 fill:#ccf,stroke:#333,stroke-width:1px
+classDef versie3 fill:#cfc,stroke:#333,stroke-width:1px
+
+</div>
+  </section>
+</section>
 
       </div>
     </div>
@@ -624,8 +887,8 @@ classDef procedure fill:#ccf,stroke:#333,stroke-width:1px
     </script>
     
     <script type="module">
-      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1771309336';
-      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1771309336';
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1771420351';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1771420351';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;
