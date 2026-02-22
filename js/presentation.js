@@ -42,21 +42,41 @@ export function initPresentation({ initialize }) {
     Reveal.on('slidechanged', updateTitleClass);
 
     // Add parent section title to vertical subsections
-    document.querySelectorAll('.reveal .slides section.stack').forEach(stack => {
+    document.querySelectorAll('.reveal .slides section').forEach(stack => {
       const parentH2 = stack.querySelector(':scope > section > h2');
-      if (!parentH2) return;
-      const parentTitle = parentH2.textContent;
+      const parentTitle = parentH2?.textContent;
 
-      const subsections = stack.querySelectorAll(':scope > section:not(:first-child)');
-      subsections.forEach(subsection => {
-        const h3 = subsection.querySelector('h3');
-        if (h3 && !subsection.querySelector('.parent-title')) {
+      const subsections = stack.querySelectorAll(':scope > section');
+      if (subsections.length === 0) {
+        const h2 = stack.querySelector('h2');
+        const h3 = stack.querySelector('h3');
+        if (h2 && h3 && !stack.querySelector('.parent-title')) {
+          // Set h2 as parent title
           const parentTitleEl = document.createElement('div');
           parentTitleEl.className = 'parent-title';
-          parentTitleEl.textContent = parentTitle;
-          subsection.insertBefore(parentTitleEl, subsection.firstChild);
+          parentTitleEl.textContent = h2.textContent;
+          stack.insertBefore(parentTitleEl, stack.firstChild);
+          h2.style.display = 'none';
         }
-      });
+      } else {
+        subsections.forEach(subsection => {
+          const h2 = subsection.querySelector('h2');
+          const h3 = subsection.querySelector('h3');
+          if (h2 && h3 && !subsection.querySelector('.parent-title')) {
+            // Set h2 as parent title
+            const parentTitleEl = document.createElement('div');
+            parentTitleEl.className = 'parent-title';
+            parentTitleEl.textContent = h2.textContent;
+            subsection.insertBefore(parentTitleEl, subsection.firstChild);
+            h2.style.display = 'none';
+          } else if (h3 && !subsection.querySelector('.parent-title')) {
+            const parentTitleEl = document.createElement('div');
+            parentTitleEl.className = 'parent-title';
+            parentTitleEl.textContent = parentTitle;
+            subsection.insertBefore(parentTitleEl, subsection.firstChild);
+          }
+        });
+      }
     });
   });
 }
@@ -106,6 +126,8 @@ export async function initMermaid(mermaid) {
         if (optionsEl) {
           const match = optionsEl.textContent.match(/verticalAlign\s*:\s*(\w+)/i);
           if (match) verticalAlign = match[1].toLowerCase();
+          // Remove the options element after parsing
+          optionsEl.remove();
         }
       }
 

@@ -27,9 +27,9 @@
     <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
     
     
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1771515867">
-    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1771515867">
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1771515867">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1771763249">
+    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1771763249">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1771763249">
     
     
 
@@ -887,8 +887,8 @@ classDef versie3 fill:#cfc,stroke:#333,stroke-width:1px
     </script>
     
     <script type="module">
-      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1771515867';
-      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1771515867';
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1771763249';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1771763249';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;
@@ -963,7 +963,7 @@ classDef versie3 fill:#cfc,stroke:#333,stroke-width:1px
               await new Promise(resolve => setTimeout(resolve, 50));
               
               try {
-                        await window.mermaidInstance.run({
+                await window.mermaidInstance.run({
                   nodes: [diagram],
                 });
                 

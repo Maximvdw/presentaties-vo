@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <title>RIE-IEPR: Datamodellering</title>
+  
+  
+  
+  
+  <meta name="author" content="Geert Van Haute &amp; Maxim Van de Wynckel">
+  
+</head>
+
+<script>
+  if (window.hljs) hljs.highlightAll();
+</script>
+
+<link rel="stylesheet" href="/presentaties-vo/css/hljs.css">
+
+  
+  
+  
+  <body>
+    <link rel="stylesheet" href="/presentaties-vo/reveal.js/dist/reset.css">
+    <link rel="stylesheet" href="/presentaties-vo/reveal.js/dist/reveal.css">
+    
+    <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
+    
+    
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1771763249">
+    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1771763249">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1771763249">
+    
+    
+
+    <div class="reveal omgeving">
+      <div class="slides">
+        <div class="slide-corner-icon slide-corner-icon--fixed">
+          <i class="vl-vi vl-vi-vlaanderen"></i>
+        </div>
+        
+        <section class="title-slide center" data-timing="15">
+          <div class="title-slide-before-bar"></div>
+          <div class="slide-wrapper">
+            <div class="slide-content">
+              <h1>RIE-IEPR: Datamodellering</h1>
+              
+              <h3>Van planning tot uitvoering</h3>
+              
+              
+              <p class="author">Geert Van Haute &amp; Maxim Van de Wynckel</p>
+              
+              
+              <p class="organization">Departement Omgeving</p>
+              
+              
+              <p class="date">26 februari 2026</p>
+              
+            </div>
+          </div>
+        </section>
+        
+
+        
+<section>
+    <h2>Concreet, wat willen we</h2>
+<div class="mermaid">
+flowchart LR
+  STOF1([&quot;Meel&quot;])
+  STOF2([&quot;Water&quot;])
+  STOF3([&quot;Brood&quot;])
+
+  class STOF1,STOF2,STOF3 data;
+
+  classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+  classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+
+  EP1([&quot;Schouw 1&quot;])
+  EP2([&quot;Lozingspunt 1&quot;])
+
+  class EP1,EP2 emission;
+
+  PROCES1[&quot;Deeg maken&quot;]
+  PROCES2[&quot;Brood bakken (met oven)&quot;]
+
+  STOF1 --&gt; PROCES1
+  STOF2 --&gt; PROCES1
+  PROCES1 --&gt; PROCES2
+  PROCES1 --&gt; EP2
+  PROCES2 --&gt; EP1
+
+  PROCES2 --&gt; STOF3
+
+</div>
+</section>
+
+<section>
+    <section>
+        <h2>Samenwerking Data Team</h2>
+<h3>Doelstellingen datamodel</h3>
+<blockquote>
+<p>Hoe kunnen we een datamodel ontwikkelen dat <strong>toekomstbestendig</strong> is en gebaseerd op bestaande standaarden <strong>zonder</strong> dat dit voor <strong>complexiteit</strong> zorgt bij de implementatie</p>
+</blockquote>
+<p>maar ook ...</p>
+<blockquote>
+<p>Hoe <strong>onderhouden</strong> we deze samenwerking op <strong>lange termijn</strong>, ook na de uitvoering van het project?</p>
+</blockquote>
+
+    </section>
+    <section>
+        <h3>Vooranalyse (November/December 2025)</h3>
+<ul>
+<li>&quot;Welke standaarden zijn relevant? (SOSA, P-PLAN, PROV-O, ...)&quot;</li>
+<li>&quot;Wat zijn onze data requirements?&quot;</li>
+<li>&quot;Hoe hangt de data conceptueel hierarchisch samen?&quot;</li>
+<li>&quot;Wat als we een inrichting of activiteit als een <code>p-plan:Plan</code> modelleren?&quot;</li>
+</ul>
+
+    </section>
+    <section>
+        <h3>Kickoff data team (Januari 2026)</h3>
+<p><strong>Uitdagingen</strong></p>
+<ul>
+<li>Verschillende achtergronden en visies</li>
+<li>Verschillende verwachtingen over de ontologie</li>
+<li>Veel iteraties nodig om tot een consensus te komen</li>
+<li>Veel manueel werk bij elke wijziging ...</li>
+</ul>
+
+    </section>
+    <section>
+        <h3>De oplossing?</h3>
+<div class="mermaid">
+
+
+</div>
+    </section>
+</section>
+
+<section>
+  <section>
+    <h2>Ontologie Gedreven Ontwerp</h2>
+<h3>Ontwikkeling</h3>
+<p><strong>Groen = manueel, Blauw = automatisch</strong></p>
+<div class="mermaid" data-vertical-align="top">
+flowchart LR
+subgraph DataModel [Data Model]
+  CONCEPTEN([&quot;Business Concepten&quot;])
+  ONTOLOGIE([&quot;RIE-IEPR Ontologie (OWL)&quot;])
+end
+
+subgraph Implementatie
+  DATABANK([&quot;Relationele Databank&quot;])
+  CLASSEN([&quot;Objectgeoriënteerde Klassen&quot;])
+end
+
+subgraph Extractie
+  REASONING[&quot;OWL Reasoning&quot;]
+  REASONING --&gt; EXTRACTIE_CLASSEN
+  REASONING --&gt; EXTRACTIE_RELATIES
+  REASONING --&gt; EXTRACTIE_ID
+  EXTRACTIE_CLASSEN([&quot;Extractie klassenhierarchie&quot;])
+  EXTRACTIE_RELATIES([&quot;Extractie relaties en kardinaliteiten&quot;])
+  EXTRACTIE_ID([&quot;Extractie identificatie&quot;])
+end
+
+ONTOLOGIE --&gt; Extractie
+Extractie --&gt; AutomatischeTransformatie
+subgraph AutomatischeTransformatie [&quot;Automatische Transformatie&quot;]
+  TRANSFORMATIE_REGELS([&quot;Transformatie regels&quot;])
+  TRANSFORMATIE_SQL([&quot;SQL Schema&quot;])
+  TRANSFORMATIE_CLASSEN([&quot;OO-klassen&quot;])
+  TRANSFORMATIE_REGELS -.-&gt; TRANSFORMATIE_SQL
+  TRANSFORMATIE_REGELS -.-&gt; TRANSFORMATIE_CLASSEN
+  TRANSFORMATIE_SQL --&gt; DATABANK
+  TRANSFORMATIE_CLASSEN --&gt; CLASSEN
+  TRANSFORMATIE_DOCUMENTATIE([&quot;Gegeneerde documentatie&quot;])
+
+  TRANSFORMATIE_DOCUMENTATIE --&gt; TRANSFORMATIE_SQL
+  TRANSFORMATIE_DOCUMENTATIE --&gt; TRANSFORMATIE_CLASSEN
+end
+CONCEPTEN --&gt; AutomatischeTransformatie
+
+classDef INVOER fill:#cfc,stroke:#333,stroke-width:1px
+class ONTOLOGIE,CONCEPTEN,TRANSFORMATIE_REGELS INVOER
+
+
+</div><p>{ verticalAlign: top }</p>
+
+  </section>
+  <section>
+    <h3>Voorbeeld: Exploitatie</h3>
+<pre class="hljs language-turtle"><span class="hljs-symbol">:Exploitatie</span> <span class="hljs-built_in">a</span> <span class="hljs-symbol">owl:Class</span> ;
+  <span class="hljs-symbol">rdfs:label</span> <span class="hljs-string">&quot;Exploitatie&quot;</span><span class="hljs-type">@nl</span> ;
+  <span class="hljs-symbol">rdfs:comment</span> <span class="hljs-string">&quot;Een exploitatie is de uitrol van middelen door een exploitant op een exploitatie locatie leidend tot een milieueffect.&quot;</span><span class="hljs-type">@nl</span> ;
+  <span class="hljs-comment"># Klassenhierarchie afgeleid van OWL subclass relaties (en reasoning)</span>
+  <span class="hljs-symbol">rdfs:subClassOf</span> <span class="hljs-symbol">ssn:Deployment</span> ;
+  <span class="hljs-comment"># Primary key(s) afgeleid van mappings in de URI</span>
+  <span class="hljs-symbol">hydra:search</span> [ <span class="hljs-built_in">a</span> <span class="hljs-symbol">hydra:IriTemplate</span> ;
+      <span class="hljs-symbol">hydra:template</span> <span class="hljs-string">&quot;https://data.riepr.omgeving.vlaanderen.be/id/exploitatie/{exploitatielocatie}/{localId}&quot;</span><span class="hljs-type">^^hydra:Rfc6570Template</span> ;
+      <span class="hljs-symbol">hydra:mapping</span> [ <span class="hljs-symbol">hydra:variable</span> <span class="hljs-string">&quot;exploitatielocatie&quot;</span> ; <span class="hljs-symbol">hydra:property</span> <span class="hljs-symbol">sosa:isHostedBy</span> ; <span class="hljs-symbol">hydra:required</span> <span class="hljs-literal">true</span> ] ,
+                    [ <span class="hljs-symbol">hydra:variable</span> <span class="hljs-string">&quot;localId&quot;</span> ; <span class="hljs-symbol">hydra:property</span> <span class="hljs-symbol">adms:identifier</span> ; <span class="hljs-symbol">hydra:required</span> <span class="hljs-literal">true</span> ]
+  ] ;
+  <span class="hljs-comment"># Kardinaliteiten afgeleid van OWL restricties</span>
+  <span class="hljs-symbol">rdfs:subClassOf</span> [ <span class="hljs-built_in">a</span> <span class="hljs-symbol">owl:Restriction</span> ;
+      <span class="hljs-symbol">owl:onProperty</span> <span class="hljs-symbol">rdfs:label</span> ;
+      <span class="hljs-symbol">owl:minCardinality</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-type">^^xsd:nonNegativeInteger</span>
+  ] ;
+  <span class="hljs-symbol">rdfs:subClassOf</span> [ <span class="hljs-built_in">a</span> <span class="hljs-symbol">owl:Restriction</span> ;
+      <span class="hljs-symbol">owl:onProperty</span> <span class="hljs-symbol">ssn:deployedSystem</span> ;
+      <span class="hljs-symbol">owl:someValuesFrom</span> <span class="hljs-symbol">ssn:System</span> ;
+      <span class="hljs-symbol">owl:minCardinality</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-type">^^xsd:nonNegativeInteger</span> ;
+  ] .
+</pre>
+  </section>
+  <section>
+    <h3>Transformatie regels</h3>
+<p><strong>Voorbeelden</strong>:</p>
+<ul>
+<li><code>adms:identifier</code> → &quot;aparte key value tabel&quot;</li>
+<li>Genegeerde over overschreven properties (max kardinaliteit van een label)</li>
+<li>Welke classen we samenvoegen als enums (bv. Procedure type, Status, ...)</li>
+<li>Versioneringstabellen, identiteitstabellen of composite keys?</li>
+<li>Bijkomende properties (bv. UUID, ingediend, ...)</li>
+</ul>
+<p><strong>Regels zijn configuratie en wijzigen het achterliggende datamodel niet</strong></p>
+
+  </section>
+  <section>
+    <h3>Output naar SQL met comments ...</h3>
+<pre class="hljs language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> exploitant ( <span class="hljs-comment">-- Gegenereerd van: https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Exploitant</span>
+  uuid <span class="hljs-type">VARCHAR</span>,
+  uri <span class="hljs-type">VARCHAR</span>,
+  geldig_van <span class="hljs-type">DATE</span>,
+  geldig_tot <span class="hljs-type">DATE</span>,
+  aangemaakt_op <span class="hljs-type">TIMESTAMP</span>,
+  aangepast_op <span class="hljs-type">TIMESTAMP</span>,
+  type <span class="hljs-type">VARCHAR</span>,
+  benaming <span class="hljs-type">VARCHAR</span>,
+  ingediend <span class="hljs-type">BOOLEAN</span>,
+  <span class="hljs-comment">-- ...</span>
+  <span class="hljs-keyword">PRIMARY</span> KEY (uuid, geldig_van, aangemaakt_op)
+);
+
+COMMENT <span class="hljs-keyword">ON</span> <span class="hljs-keyword">TABLE</span> exploitant <span class="hljs-keyword">IS</span> <span class="hljs-string">&#x27;https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Exploitant&#x27;</span>;
+COMMENT <span class="hljs-keyword">ON</span> <span class="hljs-keyword">COLUMN</span> exploitant.geldig_van <span class="hljs-keyword">IS</span> <span class="hljs-string">&#x27;http://purl.org/dc/terms/issued&#x27;</span>;
+COMMENT <span class="hljs-keyword">ON</span> <span class="hljs-keyword">COLUMN</span> exploitant.type <span class="hljs-keyword">IS</span> <span class="hljs-string">&#x27;http://purl.org/dc/terms/type&#x27;</span>;
+COMMENT <span class="hljs-keyword">ON</span> <span class="hljs-keyword">COLUMN</span> exploitant.adres <span class="hljs-keyword">IS</span> <span class="hljs-string">&#x27;http://www.w3.org/ns/locn#address&#x27;</span>;
+COMMENT <span class="hljs-keyword">ON</span> <span class="hljs-keyword">COLUMN</span> exploitant.aangepast_op <span class="hljs-keyword">IS</span> <span class="hljs-string">&#x27;http://purl.org/dc/terms/modified&#x27;</span>;
+COMMENT <span class="hljs-keyword">ON</span> <span class="hljs-keyword">COLUMN</span> exploitant.geldig_tot <span class="hljs-keyword">IS</span> <span class="hljs-string">&#x27;http://purl.org/dc/terms/valid&#x27;</span>;
+<span class="hljs-comment">-- ...</span>
+</pre>
+    </section>
+	<section>
+    <h3>Output naar Java met annotations ...</h3>
+<pre class="hljs language-java"><span class="hljs-comment">// Gegenereerd van: https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Exploitant</span>
+<span class="hljs-meta">@Entity</span>
+<span class="hljs-meta">@Table(name = &quot;exploitant&quot;)</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Exploitant</span> {
+  <span class="hljs-meta">@Id</span>
+  <span class="hljs-meta">@Column(name = &quot;uuid&quot;)</span>
+  <span class="hljs-keyword">private</span> String uuid;
+
+  <span class="hljs-meta">@Column(name = &quot;uri&quot;)</span>
+  <span class="hljs-keyword">private</span> String uri;
+
+  <span class="hljs-comment">// http://purl.org/dc/terms/created</span>
+  <span class="hljs-meta">@JsonProperty(&quot;dct:created&quot;)</span>
+  <span class="hljs-meta">@Column(name = &quot;aangemaakt_op&quot;)</span>
+  <span class="hljs-keyword">private</span> Date aangemaaktOp;
+  <span class="hljs-comment">// ...</span>
+}
+</pre>
+    </section>
+    <section>
+    <h3>Output naar klassendiagrammen ...</h3>
+<div class="mermaid">
+%% Generated by ODDToolkit
+classDiagram
+
+%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissiepunt
+class Emissiepunt:::system {
++String uuid
+String uri
+Boolean ingediend
+ExploitatieLocatie locatie
+String type
+Date geldigTot
+ExterneIdentificator[] identifier
+String benaming
+String geometrie
+Status status
++DateTime aangemaaktOp
+DateTime aangepastOp
++Date geldigVan
+}
+%% http://www.w3.org/ns/sosa/isHostedBy
+Emissiepunt --&gt; ExploitatieLocatie : locatie
+%% http://www.w3.org/ns/adms#identifier
+Emissiepunt --&gt; ExterneIdentificator : identifier
+%% http://www.w3.org/ns/adms#status
+Emissiepunt --&gt; Status : status
+Systeem &lt;|-- Emissiepunt
+%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Contactpersoon
+class Contactpersoon:::exploitant {
++String uuid
+String uri
+Boolean ingediend
+DateTime aangepastOp
+String[] name
++Date geldigVan
++DateTime aangemaaktOp
+Date geldigTot
+String benaming
+String[] hasRole
+String[] email
+String beschrijving
+String[] telefoonnummer
+}
+%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Exploitatie
+class Exploitatie:::exploitant {
++String uuid
+String uri
+Boolean ingediend
+String benaming
+Date geldigTot
++DateTime aangemaaktOp
+DateTime aangepastOp
+Contactpersoon[] heeftContactpersoon
+Proces implementeert
++Date geldigVan
+Systeem[] inzetbaarSysteem
+ExploitatieLocatie locatie
+Status status
+ExterneIdentificator[] identifier
+}
+%% http://www.w3.org/ns/org#hasMember
+Exploitatie --&gt; Contactpersoon : heeftContactpersoon
+%% http://www.w3.org/ns/ssn/implements
+Exploitatie --&gt; Proces : implementeert
+%% http://www.w3.org/ns/ssn/deployedSystem
+Exploitatie --&gt; Systeem : inzetbaarSysteem
+%% http://www.w3.org/ns/ssn/deployedOnPlatform
+Exploitatie --&gt; ExploitatieLocatie : locatie
+%% http://www.w3.org/ns/adms#status
+Exploitatie --&gt; Status : status
+%% http://www.w3.org/ns/adms#identifier
+Exploitatie --&gt; ExterneIdentificator : identifier
+%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Exploitant
+class Exploitant:::exploitant {
++String uuid
+String uri
+Boolean ingediend
+String benaming
+DateTime aangepastOp
+Adres adres
+Contactpersoon[] heeftContactpersoon
+Date geldigTot
++DateTime aangemaaktOp
++Date geldigVan
+String type
+}
+%% http://www.w3.org/ns/locn#address
+Exploitant --&gt; Adres : adres
+%% http://www.w3.org/ns/org#hasMember
+Exploitant --&gt; Contactpersoon : heeftContactpersoon
+%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Meetpunt
+class Meetpunt:::system {
++String uuid
+String uri
+Boolean ingediend
++DateTime aangemaaktOp
+String type
+DateTime aangepastOp
+ExterneIdentificator[] identifier
++Date geldigVan
+String benaming
+Date geldigTot
+String geometrie
+Status status
+}
+%% http://www.w3.org/ns/adms#identifier
+Meetpunt --&gt; ExterneIdentificator : identifier
+%% http://www.w3.org/ns/adms#status
+Meetpunt --&gt; Status : status
+Systeem &lt;|-- Meetpunt
+%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#ProcesVariabele
+class ProcesVariabele {
++String uuid
+String uri
+Boolean ingediend
+Decimal waarde
+String eenheid
+String benaming
+String type
+}
+%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Schouw
+class Schouw:::system {
+String hoogte
+String diameter
+}
+Emissiepunt &lt;|-- Schouw
+
+%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Installatie
+class Installatie:::system {
++String uuid
+String uri
+Boolean ingediend
+Systeem[] heeftSubSysteem
+Date geldigTot
+Status status
+ExploitatieLocatie locatie
++Date geldigVan
+ExterneIdentificator[] identifier
+Installatie revisieVan
++DateTime aangemaaktOp
+String benaming
+Proces[] implementeert
+DateTime aangepastOp
+}
+%% http://www.w3.org/ns/ssn/hasSubSystem
+Installatie --&gt; Systeem : heeftSubSysteem
+%% http://www.w3.org/ns/adms#status
+Installatie --&gt; Status : status
+%% http://www.w3.org/ns/sosa/isHostedBy
+Installatie --&gt; ExploitatieLocatie : locatie
+%% http://www.w3.org/ns/adms#identifier
+Installatie --&gt; ExterneIdentificator : identifier
+%% http://www.w3.org/ns/prov#wasRevisionOf
+Installatie --&gt; Installatie : revisieVan
+%% http://www.w3.org/ns/ssn/implements
+Installatie --&gt; Proces : implementeert
+Systeem &lt;|-- Installatie
+%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Onttrekkingspunt
+class Onttrekkingspunt:::system {
++String uuid
+String uri
+Boolean ingediend
++DateTime aangemaaktOp
++Date geldigVan
+ExploitatieLocatie locatie
+String type
+Status status
+Date geldigTot
+ExterneIdentificator[] identifier
+String benaming
+DateTime aangepastOp
+Filter[] heeftSubSysteem
+String geometrie
+}
+%% http://www.w3.org/ns/sosa/isHostedBy
+Onttrekkingspunt --&gt; ExploitatieLocatie : locatie
+%% http://www.w3.org/ns/adms#status
+Onttrekkingspunt --&gt; Status : status
+%% http://www.w3.org/ns/adms#identifier
+Onttrekkingspunt --&gt; ExterneIdentificator : identifier
+%% http://www.w3.org/ns/ssn/hasSubSystem
+Onttrekkingspunt --&gt; Filter : heeftSubSysteem
+Systeem &lt;|-- Onttrekkingspunt
+%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces
+class Proces:::procedure {
++String uuid
+String uri
+Boolean ingediend
++Date geldigVan
++DateTime aangemaaktOp
+ProcesVariabele[] heeftInvoer
+String benaming
+DateTime aangepastOp
+Proces[] onderdeelVan
+Date geldigTot
+Procedure type
+Proces revisieVan
+ProcesVariabele[] heeftUitvoer
+Systeem geimplementeerdDoor
+Status status
+}
+%% http://purl.org/net/p-plan#hasInputVar
+Proces --&gt; ProcesVariabele : heeftInvoer
+%% http://purl.org/net/p-plan#isStepOfPlan
+Proces --&gt; Proces : onderdeelVan
+%% http://purl.org/dc/terms/type
+Proces --&gt; Procedure : type
+%% http://www.w3.org/ns/prov#wasRevisionOf
+Proces --&gt; Proces : revisieVan
+%% http://purl.org/net/p-plan#hasOutputVar
+Proces --&gt; ProcesVariabele : heeftUitvoer
+%% http://www.w3.org/ns/ssn/implementedBy
+Proces --&gt; Systeem : geimplementeerdDoor
+%% http://www.w3.org/ns/adms#status
+Proces --&gt; Status : status
+Procedure &lt;|-- Proces
+%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Filter
+class Filter:::system {
++String uuid
+String uri
+Boolean ingediend
+}
+Systeem &lt;|-- Filter
+%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#ExploitatieLocatie
+class ExploitatieLocatie:::exploitant {
++String uuid
+String uri
+Boolean ingediend
+String geometrie
+DateTime aangepastOp
+String beinvloedDoor
+Adres adres
+Site primaireBron
+String benaming
+Date geldigTot
++Date geldigVan
+ExterneIdentificator[] identifier
+ExploitatieLocatie revisieVan
+Exploitant toegewezenAan
++DateTime aangemaaktOp
++String sameAs
+}
+%% http://www.w3.org/ns/locn#address
+ExploitatieLocatie --&gt; Adres : adres
+%% http://www.w3.org/ns/adms#identifier
+ExploitatieLocatie --&gt; ExterneIdentificator : identifier
+%% http://www.w3.org/ns/prov#wasRevisionOf
+ExploitatieLocatie --&gt; ExploitatieLocatie : revisieVan
+%% http://www.w3.org/ns/prov#wasAttributedTo
+ExploitatieLocatie --&gt; Exploitant : toegewezenAan
+%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Grondwaterput
+class Grondwaterput:::system {
+String diepte
+}
+Onttrekkingspunt &lt;|-- Grondwaterput
+%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Lozingspunt
+class Lozingspunt:::system {
+String diepte
+}
+Emissiepunt &lt;|-- Lozingspunt
+%% http://www.w3.org/ns/adms#Identifier
+class ExterneIdentificator {
+String schema
++String uuid
+String uri
+Boolean ingediend
+String value
+String notatie
+}
+%% http://www.w3.org/ns/locn#Address
+class Adres {
+String stad
+String straat
+String postcode
++String uuid
+String uri
+Boolean ingediend
+}
+%% http://www.w3.org/ns/ssn/System
+class Systeem:::system {
+&lt;&lt;interface&gt;&gt;
++String uuid
+String uri
+Boolean ingediend
+}
+%% http://www.w3.org/ns/sosa/Procedure
+class Procedure:::procedure {
+&lt;&lt;enumerable&gt;&gt;
+VERBRUIK_PROCEDURE
+EMISSIE_PROCEDURE
+TRANSPORT_PROCEDURE
+MEET_PROCEDURE
+VERWERKING_PROCEDURE
+}
+%% http://www.w3.org/ns/adms#Status
+class Status {
+&lt;&lt;enumerable&gt;&gt;
+GESLOTEN
+VOORGESTELD
+INACTIEF
+ACTIEF
+}
+classDef system fill:#4bde2a,stroke:#000000
+classDef procedure fill:#ccffcc,stroke:#000000
+classDef result fill:#ccccff,stroke:#000000
+classDef exploitant fill:#f6ff00,stroke:#000000
+
+
+</div>
+    </section>
+	<section>
+	<h3>Output naar klassendiagrammen ...</h3>
+<p><img src="./images/klassendiagram-zoom.png" alt=""></p>
+
+	</section>
+</section>
+<section>
+    <section>
+    <h2>Conclusie</h2>
+<h3>(1) Planning</h3>
+<!-- Tekening van proces drankje halen bar -->
+<div class="mermaid">
+flowchart LR
+  DRANKJE1([drankje])
+  LOZINGSPUNT1([lozingspunt])
+
+  style LOZINGSPUNT1 fill:#ff9,stroke:#333,stroke-width:2px;
+
+  A([Volg presentatie]) --&gt; B([Haal een drankje])
+  B --&gt; LOZINGSPUNT1
+  B --&gt; C([Praat met collega's])
+
+  B -.-o|variabele| DRANKJE1
+
+  style DRANKJE1 fill:#f9f,stroke:#333,stroke-width:2px;
+
+</div>
+    </section>
+    <section>
+    <h2>Conclusie</h2>
+<h3>(2) Deployment</h3>
+<!-- Tekening van deployment -->
+<div class="mermaid">
+flowchart TB
+  subgraph &quot;Teamdrink Digitalisering0 (sosa:Platform)&quot;
+      subgraph &quot;Teamdrink 26.02.2026 (sosa:Deployment)&quot;
+          Bar([&quot;Bar&lt;br&gt;sosa:System&quot;])
+          LOZINGSPUNT1([&quot;lozingspunt&lt;br&gt;sosa:System&quot;])
+
+          style Bar fill:#9ff,stroke:#333,stroke-width:2px;
+          style LOZINGSPUNT1 fill:#ff9,stroke:#333,stroke-width:2px;
+
+          Geert([&quot;Geert&lt;br&gt;prov:Agent&quot;])
+          Maxim([&quot;Maxim&lt;br&gt;prov:Agent&quot;])
+      end
+  end
+
+</div>
+    </section>
+    <section>
+    <h2>Conclusie</h2>
+<h3>(3) Uitvoering</h3>
+<h1>Nu</h1>
+
+    </section>
+</section>
+
+      </div>
+    </div>
+
+    <script src="/presentaties-vo/reveal.js/dist/reveal.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/notes/notes.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/zoom/zoom.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/search/search.js"></script>
+    
+    <!-- Expose Reveal globally for decktape compatibility -->
+    <script>
+      window.Reveal = Reveal;
+    </script>
+    
+    <script type="module">
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1771763249';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1771763249';
+      
+      // Make mermaid available globally
+      window.mermaidInstance = Mermaid;
+      
+      Mermaid.initialize({ 
+        startOnLoad: false, 
+        theme: 'default',
+        securityLevel: 'loose',
+        fontFamily: 'Flanders Art Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif',
+        fontSize: 12,
+        flowchart: {
+          useMaxWidth: true
+        },
+        themeVariables: {
+          fontFamily: 'Flanders Art Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif',
+          fontSize: '12px'
+        }
+      });
+
+      const options = {
+        center: false,
+        margin: 0.08,
+        transition: 'slide',
+        slideNumber: true,
+        width: 1280,
+        height: 720,
+        controls: true,
+        progress: true,
+        history: true,
+        plugins: [ 
+          RevealMarkdown, 
+          RevealHighlight, 
+          RevealNotes,
+          RevealZoom,
+          RevealSearch
+        ],
+        
+      };
+
+      // Initialize presentation
+      initPresentation({ initialize: () => Reveal.initialize(options) });
+      
+      // Initialize Mermaid configuration first
+      if (window.mermaidInstance) {
+        initMermaid(window.mermaidInstance);
+        
+        // Assign unique IDs to all mermaid diagrams
+        let diagramCounter = 0;
+        document.querySelectorAll('.mermaid').forEach(diagram => {
+          if (!diagram.id) {
+            diagram.id = `mermaid-${diagramCounter++}`;
+          }
+        });
+        
+        const renderedDiagrams = new Set();
+        
+        // Render diagrams when a slide is shown
+        const renderDiagramsOnSlide = async () => {
+          const currentSlide = Reveal.getCurrentSlide();
+          if (!currentSlide) return;
+          
+          const diagrams = currentSlide.querySelectorAll('.mermaid');
+          
+          for (const diagram of diagrams) {
+            const diagramId = diagram.id;
+            
+            // Only render if not already rendered
+            if (!renderedDiagrams.has(diagramId)) {
+              renderedDiagrams.add(diagramId);
+              
+              // Wait a tick to ensure layout is ready
+              await new Promise(resolve => setTimeout(resolve, 50));
+              
+              try {
+                await window.mermaidInstance.run({
+                  nodes: [diagram],
+                });
+                
+                // Setup pan/zoom after rendering
+                if (window.setupMermaidPanZoom) {
+                  window.setupMermaidPanZoom();
+                }
+              } catch (error) {
+                console.error('Mermaid rendering error for ' + diagramId + ':', error);
+              }
+            }
+          }
+        };
+        
+        // Render on ready and on slide changes
+        Reveal.on('ready', renderDiagramsOnSlide);
+        Reveal.on('slidechanged', renderDiagramsOnSlide);
+      }
+    </script>
+  </body>
+</html>
