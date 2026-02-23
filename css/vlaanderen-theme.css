@@ -599,7 +599,6 @@ p:has(+ .mermaid) {
   align-items: center;
   overflow: hidden;
   background: none;
-  font-size: 10px;
   pointer-events: auto;
   contain: layout;
 }
@@ -654,26 +653,6 @@ p:has(+ .mermaid) {
   margin: 0;
 }
 
-.reveal .mermaid text {
-  font-size: 10px !important;
-}
-
-.reveal .mermaid .nodeLabel {
-  font-size: 10px !important;
-}
-
-.reveal .mermaid .edgeLabel {
-  font-size: 10px !important;
-}
-
-.reveal .mermaid .flowchartTitleText {
-  font-size: 12px !important;
-}
-
-.reveal .mermaid .label text {
-  font-size: 10px !important;
-}
-
 .reveal .bg-yellow {
   background-color: var(--vl-geel);
   padding: 5px 10px;
@@ -685,18 +664,6 @@ p:has(+ .mermaid) {
   padding: 5px 10px;
 }
 
-/* Force font embedding for PDF export */
-@media print {
-  * {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  
-  body, html, .reveal {
-    font-family: 'Flanders Art Sans', serif !important;
-  }
-}
-
 /* Center slides in fullscreen mode */
 .reveal.full-screen .slides {
   position: absolute;
@@ -705,7 +672,7 @@ p:has(+ .mermaid) {
   transform: translate(-50%, -50%) scale(var(--slide-scale, 1)) !important;
 }
 
-.reveal .center {
+.reveal h1.center,h2.center,h3.center {
   display: flex;
   justify-content: center;
   align-items: center;
