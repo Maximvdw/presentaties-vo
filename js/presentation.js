@@ -93,7 +93,7 @@ export async function initMermaid(mermaid) {
       fontFamily: 'Flanders Art Sans, Arial, sans-serif'
     },
     flowchart: {
-      htmlLabels: false,
+      htmlLabels: true,
       curve: 'linear',
       diagramMarginX: 0,
       diagramMarginY: 0,
@@ -155,7 +155,13 @@ export async function initMermaid(mermaid) {
         }
         // Determine font scaling using the containerRect
         let fontScale = 1 / (cWidth / Math.min(containerRect.width, cWidth));
-        console.log(containerRect.width, cWidth, 'Font scale:', fontScale);
+        // Scale fonts separately to maintain readability
+        svg.querySelectorAll('foreignObject div, text').forEach(el => {
+          // Change font size based on the initial font size and the current font scale
+          const initialFontSize = parseFloat(getComputedStyle(el).fontSize);
+          el.style.fontSize = `${initialFontSize * fontScale}px`;
+        });
+
         return { scale: fitScale, currentTranslate: { x: initX, y: initY }, fontScale };
       }
 
@@ -165,13 +171,6 @@ export async function initMermaid(mermaid) {
         // Transform origin at top-left for correct math
         svg.style.transformOrigin = '0 0';
         svg.style.transform = `translate(${state.currentTranslate.x}px, ${state.currentTranslate.y}px) scale(${state.scale})`;
-        // Scale fonts separately to maintain readability
-        const fontSizePercentage = state.fontScale;
-        svg.querySelectorAll('foreignObject div').forEach(el => {
-          // Change font size based on the initial font size and the current font scale
-          const initialFontSize = parseFloat(getComputedStyle(el).fontSize);
-          el.style.fontSize = `${initialFontSize * fontSizePercentage}px`;
-        });
       }
       updateTransform();
 
