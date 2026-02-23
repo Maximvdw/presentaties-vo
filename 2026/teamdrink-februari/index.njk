@@ -46,7 +46,7 @@ theme: omgeving
 		{% markdown %}
 		## Generiek model binnen het Departement Omgeving
 		- **Plan**: subplan, stappen en variabelen
-		- **Deplyoment**: platform, systemen
+		- **Deployment**: platform, systemen
 		- **Uitvoering**: activiteiten, entiteiten gebruikt binnen de activiteiten met een resultaat
 		- **Entiteiten**: afgeleiden entiteiten
 		{% endmarkdown %}
@@ -856,6 +856,16 @@ classDiagram
 	### Output naar klassendiagrammen ...
 	![](./images/klassendiagram-zoom.png)
 	{% endmarkdown %}
+	</section>
+	<section>
+		{% markdown %}
+		### Automatische SHACL shapes en validatie
+		> Via automatische SHACL validatie kunnen we snel feedback krijgen over inconsistenties in het datamodel op conceptueel niveau
+		<!-- Doorkruiste en vinkje -->
+		- `https://...#Exploitant` ✅
+		- `https://...#Exploitatie` ❌ (prov:Activity disjoint met ssn:Deployment)
+		
+		{% endmarkdown %}
 	</section>
 </section>
 <section>
