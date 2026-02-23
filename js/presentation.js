@@ -92,7 +92,7 @@ export async function initMermaid(mermaid) {
       useMaxWidth: false,
       htmlLabels: true,
       curve: 'linear',
-      fontSize: 12,
+      fontSize: "12px",
       diagramMarginX: 0,
       diagramMarginY: 0,
       padding: 0,

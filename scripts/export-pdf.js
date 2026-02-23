@@ -155,7 +155,7 @@ async function main() {
 
     try {
       execSync(
-        `npx decktape reveal "${url}" "${outputPath}" --size=${BASE_WIDTH}x${BASE_HEIGHT} --load-pause 8000 --chrome-arg=--disable-dev-shm-usage --chrome-arg=--single-process --chrome-arg=--disable-gpu --chrome-arg=--print-to-pdf-no-header --chrome-arg=--allow-file-access-from-files`,
+        `npx decktape reveal "${url}" "${outputPath}" --size=${BASE_WIDTH}x${BASE_HEIGHT} --load-pause 8000 --chrome-arg=--disable-dev-shm-usage --chrome-arg=--single-process --chrome-arg=--disable-gpu --chrome-arg=--print-to-pdf-no-header --chrome-arg=--allow-file-access-from-files --chrome-arg=--js-flags=--max-old-space-size=4096`,
         { stdio: 'inherit' }
       );
       console.log(`✅ Succesvol geëxporteerd!`);
