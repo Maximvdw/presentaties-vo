@@ -5,12 +5,10 @@
  * Gebruikt decktape voor high-quality PDF export
  */
 
-import { execSync, spawn } from 'child_process';
 import crypto from 'crypto';
 import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
 import fs from 'fs';
 import path from 'path';
-import http from 'http';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -18,10 +16,10 @@ const __dirname = path.dirname(__filename);
 
 const OUTPUT_DIR = path.join(__dirname, '..', 'output');
 const CACHE_EXT = '.pdfcache.json';
-const SITE_DIR = path.join(__dirname, '..', '_site');
 const BASE_URL = 'http://localhost:8080';
 const BASE_WIDTH = 1280;
 const BASE_HEIGHT = 720;
+const SITE_DIR = path.join(__dirname, '..', '_site');
 
 let serverProcess = null;
 
@@ -34,57 +32,6 @@ pdfjsLib.GlobalWorkerOptions.disableWorker = true;
 // Zorg dat output directory bestaat
 if (!fs.existsSync(OUTPUT_DIR)) {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-}
-
-// Check if server is running
-async function isServerRunning() {
-  return new Promise((resolve) => {
-    const req = http.get('http://localhost:8080/', (res) => {
-      resolve(true);
-    });
-    req.on('error', () => {
-      resolve(false);
-    });
-    req.setTimeout(1000);
-  });
-}
-
-// Start Eleventy server
-function startServer() {
-  return new Promise((resolve) => {
-    console.log('🚀 Starting Eleventy server on port 8080...\n');
-    serverProcess = spawn('npm', ['start'], {
-      cwd: path.join(__dirname, '..'),
-      stdio: 'pipe',
-      detached: false,
-      env: {
-        ...process.env,
-        ELEVENTY_DISABLE_LIVERELOAD: 'true'
-      }
-    });
-    const server = serverProcess;
-
-    let serverReady = false;
-
-    const timeout = setTimeout(() => {
-      serverReady = true;
-      resolve(true);
-    }, 5000);
-
-    server.stdout.on('data', (data) => {
-      if (data.toString().includes('Connected') || data.toString().includes('Watching')) {
-        serverReady = true;
-        clearTimeout(timeout);
-        resolve(true);
-      }
-    });
-
-    server.stderr.on('data', (data) => {
-      if (data.toString().includes('error') || data.toString().includes('Error')) {
-        console.error('❌ Server error:', data.toString());
-      }
-    });
-  });
 }
 
 // Zoek alle HTML presentaties in _site (exclusief fonts en root index)
@@ -115,7 +62,7 @@ function findPresentations(dir, baseDir = dir) {
   return results;
 }
 
-async function main() {
+async function main() {  
   console.log('📊 Reveal.js PDF Export Tool\n');
 
   // Check of _site bestaat (eleventy build)
@@ -124,13 +71,43 @@ async function main() {
     process.exit(1);
   }
 
-  // Check if server is running, if not start it
-  const serverRunning = await isServerRunning();
-  if (!serverRunning) {
-    await startServer();
-    // Wait a moment for server to fully start
-    await new Promise(resolve => setTimeout(resolve, 2000));
-  }
+  // Start static server for _site using serve-handler
+  const handler = (await import('serve-handler')).default || (await import('serve-handler'));
+  const httpServer = (await import('http')).default || (await import('http'));
+  const PORT = 8080;
+  let serverInstance;
+  await new Promise((resolve) => {
+    serverInstance = httpServer.createServer((request, response) => {
+      //console.log(`📥 ${request.method} ${request.url}`);
+      return handler(request, response, {
+        public: SITE_DIR,
+        cleanUrls: true,
+        rewrites: [
+          { source: '/:presentation', destination: '/:presentation/index.html' },
+          { source: '/:presentation/', destination: '/:presentation/index.html' }
+        ]
+      });
+    });
+    serverInstance.listen(PORT, () => {
+      console.log(`✅ Static server gestart op http://localhost:${PORT}`);
+      // Ping server until it's responsive
+      const pingServer = () => {
+        httpServer.get(`http://localhost:${PORT}/`, (res) => {
+          if (res.statusCode === 200) {
+            console.log('✅ Server is responsive!');
+            resolve();
+          } else {
+            console.log(`⚠️  Server responded with status ${res.statusCode}, retrying...`);
+            setTimeout(pingServer, 1000);
+          }
+        }).on('error', () => {
+          console.log('⚠️  Server not responsive yet, retrying...');
+          setTimeout(pingServer, 1000);
+        });
+      }     
+      pingServer();
+    });
+  });
 
   // Vind alle presentaties
   const presentations = findPresentations(SITE_DIR);
@@ -211,42 +188,38 @@ async function main() {
     console.log(`   URL: ${url}`);
     console.log(`   Output: ${outputPath}`);
 
-    // Log memory usage before export
-    const memBefore = process.memoryUsage();
-    console.log(`   [DEBUG] Memory before export: RSS=${(memBefore.rss/1024/1024).toFixed(1)}MB HeapUsed=${(memBefore.heapUsed/1024/1024).toFixed(1)}MB`);
-
     try {
-      // Use spawnSync to capture stdout/stderr
-      const { spawnSync } = await import('child_process');
+      // Use spawn for async Decktape execution
+      const { spawn } = await import('child_process');
       const decktapeArgs = [
         'decktape',
-        'reveal',
         url,
         outputPath,
         `--size=${BASE_WIDTH}x${BASE_HEIGHT}`,
-        '--load-pause', '8000',
-        '--chrome-arg=--disable-dev-shm-usage',
-        '--chrome-arg=--single-process',
-        '--chrome-arg=--disable-gpu',
-        '--chrome-arg=--print-to-pdf-no-header',
-        '--chrome-arg=--allow-file-access-from-files',
-        '--chrome-arg=--js-flags=--max-old-space-size=4096'
+        '--load-pause', '5000',
       ];
-      console.log(`   [DEBUG] Running: npx ${decktapeArgs.join(' ')}`);
-      const result = spawnSync('npx', decktapeArgs, { encoding: 'utf-8', maxBuffer: 1024*1024*20 });
-      if (result.error) {
-        console.error(`   [ERROR] spawnSync error:`, result.error);
-      }
-      if (result.stdout) {
-        console.log(`   [DECKTAPE STDOUT]\n${result.stdout}`);
-      }
-      if (result.stderr) {
-        console.error(`   [DECKTAPE STDERR]\n${result.stderr}`);
-      }
-      if (result.status !== 0) {
-        throw new Error(`Decktape exited with code ${result.status}`);
-      }
-      console.log(`✅ Succesvol geëxporteerd!`);
+      await new Promise((resolve, reject) => {
+        const proc = spawn('npx', decktapeArgs, { stdio: ['ignore', 'pipe', 'pipe'] });
+
+        proc.stdout.on('data', data => {
+          console.log(data.toString());
+        });
+        proc.stderr.on('data', data => { 
+          console.error(data.toString());
+        });
+        proc.on('close', code => {
+          if (code !== 0) {
+            reject(new Error(`Decktape exited with code ${code}`));
+          } else {
+            console.log(`✅ Succesvol geëxporteerd!`);
+            resolve();
+          }
+        });
+        proc.on('error', err => {
+          console.error(`   [ERROR] spawn error:`, err);
+          reject(err);
+        });
+      });
 
       // Write cache file
       if (sourceHash) {
@@ -262,100 +235,19 @@ async function main() {
       fs.copyFileSync(outputPath, confluenceOutputPath);
       console.log(`✅ Confluence PDF gemaakt (kopie): ${confluenceOutputPath}\n`);
     } catch (error) {
-      console.error(`❌ Fout bij exporteren van ${presentation}`);
-      // Print error stack and memory usage after error
-      console.error(error?.stack || error);
-      const memAfter = process.memoryUsage();
-      console.error(`   [DEBUG] Memory after error: RSS=${(memAfter.rss/1024/1024).toFixed(1)}MB HeapUsed=${(memAfter.heapUsed/1024/1024).toFixed(1)}MB`);
-
-      // Try to make debug screenshots for all slides with Puppeteer
-      try {
-        console.log('   [DEBUG] Trying to capture screenshots for all slides with Puppeteer...');
-        const puppeteer = await import('puppeteer');
-        const browser = await puppeteer.launch({
-          headless: true,
-          args: [
-            '--disable-dev-shm-usage',
-            '--single-process',
-            '--disable-gpu',
-            '--allow-file-access-from-files',
-            '--js-flags=--max-old-space-size=4096',
-          ],
-        });
-        const page = await browser.newPage();
-        await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
-
-        // Wait for Reveal to be ready
-        await page.waitForFunction('window.Reveal && Reveal.isReady()', { timeout: 20000 });
-        // Get slide count
-        const slideCount = await page.evaluate(() => {
-          if (window.Reveal && Reveal.getTotalSlides) {
-            return Reveal.getTotalSlides();
-          }
-          return 1;
-        });
-        console.log(`   [DEBUG] Reveal.js reports ${slideCount} slides.`);
-
-        // Log Reveal.js state
-        const revealState = await page.evaluate(() => {
-          if (window.Reveal && Reveal.getState) {
-            return Reveal.getState();
-          }
-          return null;
-        });
-        console.log('   [DEBUG] Reveal.js state:', revealState);
-
-        // Screenshot each slide
-        // Get all slide indices (horizontal/vertical)
-        const indices = await page.evaluate(() => {
-          const result = [];
-          if (window.Reveal && Reveal.getSlides) {
-            const slides = Reveal.getSlides();
-            for (let h = 0; h < slides.length; h++) {
-              const slide = slides[h];
-              if (slide.querySelectorAll('.slides > section > section').length > 0) {
-                // Vertical stack
-                const verticals = slide.querySelectorAll('section');
-                for (let v = 0; v < verticals.length; v++) {
-                  result.push({ h, v });
-                }
-              } else {
-                result.push({ h, v: 0 });
-              }
-            }
-          }
-          return result;
-        });
-        for (const idx of indices) {
-          await page.evaluate(({ h, v }) => {
-            if (window.Reveal && Reveal.slide) Reveal.slide(h, v);
-          }, idx);
-          await new Promise(r => setTimeout(r, 500));
-          const slideShot = outputPath.replace(/\.pdf$/i, `-debug-slide${idx.h+1}-${idx.v+1}.png`);
-          await page.screenshot({ path: slideShot, fullPage: true });
-          console.log(`   [DEBUG] Screenshot saved: ${slideShot}`);
-        }
-        await browser.close();
-      } catch (screenshotError) {
-        console.error('   [DEBUG] Screenshot failed:', screenshotError);
-      }
-      console.log('');
+      console.error(`❌ Fout bij exporteren van ${presentation}:`, error);
+      continue;
     }
-
-    // Log memory usage after export
-    const memAfterExport = process.memoryUsage();
-    console.log(`   [DEBUG] Memory after export: RSS=${(memAfterExport.rss/1024/1024).toFixed(1)}MB HeapUsed=${(memAfterExport.heapUsed/1024/1024).toFixed(1)}MB`);
   }
 
   console.log(`\n✨ PDF export voltooid! Bekijk de bestanden in: ${OUTPUT_DIR}`);
   
   // Kill server if we started it
-  if (serverProcess) {
-    console.log('\n🛑 Stopping Eleventy server...');
-    serverProcess.kill('SIGTERM');
-    // Give it a moment to cleanup
-    await new Promise(resolve => setTimeout(resolve, 500));
-  }
+  // No server to stop
+    // Stop static server
+    if (serverInstance) {
+      serverInstance.close();
+    }
   
   process.exit(0);
 }
