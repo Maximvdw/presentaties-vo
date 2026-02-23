@@ -29,9 +29,9 @@
     <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
     
     
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1771763249">
-    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1771763249">
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1771763249">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1771839197">
+    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1771839197">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1771839197">
     
     
 
@@ -65,7 +65,7 @@
 
         
 <section>
-    <h2>Concreet, wat willen we</h2>
+    <h2>Wat willen we in het loket?</h2>
 <div class="mermaid">
 flowchart LR
   STOF1([&quot;Meel&quot;])
@@ -94,6 +94,12 @@ flowchart LR
   PROCES2 --&gt; STOF3
 
 </div>
+</section>
+
+<section>
+	<h2>Hier de Brownies verwerken?</h2>
+<p>TODO</p>
+
 </section>
 
 <section>
@@ -126,14 +132,27 @@ flowchart LR
 <li>Verschillende achtergronden en visies</li>
 <li>Verschillende verwachtingen over de ontologie</li>
 <li>Veel iteraties nodig om tot een consensus te komen</li>
+<li>Veel manueel werk voor voorbeeld data ...</li>
 <li>Veel manueel werk bij elke wijziging ...</li>
 </ul>
 
     </section>
     <section>
-        <h3>De oplossing?</h3>
+        <h3>De oplossing? Automatisatie van het proces!</h3>
 <div class="mermaid">
+sequenceDiagram
+actor Geert &amp; Maxim
+participant OWL Reasoner
+participant Transformatie
+participant SHACL Validatie
+participant Eindresultaat
 
+Geert &amp; Maxim-&gt;&gt;+OWL Reasoner: &quot;Nieuwe versie&quot;
+OWL Reasoner-&gt;&gt;+Transformatie: &quot;Extractie van ontologie&quot;
+Transformatie--&gt;&gt;-Geert &amp; Maxim: &quot;Feedback over transformatie&quot;
+OWL Reasoner-&gt;&gt;+SHACL Validatie: &quot;Validatie van data&quot;
+SHACL Validatie--&gt;&gt;-Geert &amp; Maxim: &quot;Feedback over fouten&quot;
+Transformatie-&gt;&gt;Eindresultaat: &quot;Gegenereerde artefacten&quot;
 
 </div>
     </section>
@@ -187,7 +206,7 @@ classDef INVOER fill:#cfc,stroke:#333,stroke-width:1px
 class ONTOLOGIE,CONCEPTEN,TRANSFORMATIE_REGELS INVOER
 
 
-</div><p>{ verticalAlign: top }</p>
+</div><p></p>
 
   </section>
   <section>
@@ -659,8 +678,8 @@ flowchart TB
     </script>
     
     <script type="module">
-      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1771763249';
-      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1771763249';
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1771839197';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1771839197';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;
