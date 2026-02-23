@@ -71,6 +71,9 @@ export default async function (eleventyConfig) {
         if (textToken && textToken.type === 'inline') {
           const match = textToken.content.match(/verticalAlign\s*:\s*(\w+)/i);
           if (match) verticalAlign = match[1].toLowerCase();
+          // Hide the options text from rendering by clearing its content and skipping the next tokens
+          textToken.content = '';
+          textToken.children = [];
         }
       }
       content = md.utils.escapeHtml(content);

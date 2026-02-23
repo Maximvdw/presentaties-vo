@@ -10,7 +10,7 @@ theme: omgeving
 
 <section>
     {% markdown %}
-    ## Concreet, wat willen we
+    ## Wat willen we in het loket?
     ```mermaid
     flowchart LR
         STOF1(["Meel"])
@@ -42,6 +42,13 @@ theme: omgeving
 </section>
 
 <section>
+	{% markdown %}
+	## Hier de Brownies verwerken?
+	TODO
+	{% endmarkdown %}
+</section>
+
+<section>
     <section>
         {% markdown %}
         ## Samenwerking Data Team
@@ -69,14 +76,27 @@ theme: omgeving
         - Verschillende achtergronden en visies
         - Verschillende verwachtingen over de ontologie
         - Veel iteraties nodig om tot een consensus te komen
+		- Veel manueel werk voor voorbeeld data ...
         - Veel manueel werk bij elke wijziging ...
         {% endmarkdown %}
     </section>
     <section>
         {% markdown %}
-        ### De oplossing?
+        ### De oplossing? Automatisatie van het proces!
         ```mermaid
-        
+        sequenceDiagram
+			actor Geert & Maxim
+			participant OWL Reasoner
+			participant Transformatie
+			participant SHACL Validatie
+			participant Eindresultaat
+
+			Geert & Maxim->>+OWL Reasoner: "Nieuwe versie"
+			OWL Reasoner->>+Transformatie: "Extractie van ontologie"
+			Transformatie-->>-Geert & Maxim: "Feedback over transformatie"
+			OWL Reasoner->>+SHACL Validatie: "Validatie van data"
+			SHACL Validatie-->>-Geert & Maxim: "Feedback over fouten"
+			Transformatie->>Eindresultaat: "Gegenereerde artefacten"
         ```
         {% endmarkdown %}
     </section>
