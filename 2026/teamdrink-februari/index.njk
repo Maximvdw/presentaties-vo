@@ -47,7 +47,7 @@ theme: omgeving
 		## Generiek model binnen het Departement Omgeving
 		- **Plan**: subplan, stappen en variabelen
 		- **Deplyoment**: platform, systemen
-		- **Uitvoering**: activiteiten, entiteited gebruikt binnen de activiteiten
+		- **Uitvoering**: activiteiten, entiteiten gebruikt binnen de activiteiten met een resultaat
 		- **Entiteiten**: afgeleiden entiteiten
 		{% endmarkdown %}
 	</section>
@@ -59,7 +59,7 @@ theme: omgeving
 	</section>
 	<section>
 		{% markdown %}
-		### Deployment
+		### Platform, deployment, systemen
 		<img src="./images/keuken.jpg" alt="Deployment" class="center" />
 		{% endmarkdown %}
 	</section>
@@ -67,6 +67,275 @@ theme: omgeving
 		{% markdown %}
 		### Uitvoering
 		<img src="./images/mengen.jpg" alt="Deployment" class="center" />
+		{% endmarkdown %}
+	</section>
+	<section>
+		<h3>Uitvoering > Entiteiten</h3>
+		<div class="row">
+			<div class="col-half">
+				{% markdown %}
+				**Entiteiten worden gemaakt en gebruikt in activiteiten, uitgevoerd door systemen**
+
+				```turtle
+				ent:bloem_001
+				    a prov:Entity ;
+				    dct:type ingredient:bloem ;
+				    rdf:value 225 ;
+				    qudt:unit unit:GM ;
+				    p-plan:correspondsToVariable var:bloem .
+
+				ent:eieren_001
+				    a prov:Entity ;
+				    dct:type ingredient:eieren ;
+				    rdf:value 6 ;
+				    qudt:unit unit:UNITLESS ;
+				    p-plan:correspondsToVariable var:eieren .
+				```
+				{% endmarkdown %}
+			</div>
+			<div class="col-half">
+				<img src="./images/ingredienten.jpg" alt="Deployment" />
+			</div>
+		</div>
+	</section>
+	<section>
+		<h3>Uitvoering > Activiteiten, actuaties en observaties</h3>
+		<p><strong>Actuaties</strong></p>
+		<div class="row" style="margin-bottom: -1em">
+			<div class="col-75">
+				{% markdown %}
+				```turtle
+				exec:hakken-2026-02-10 a sosa:Actuation ;
+				    rdfs:label "Hakken van walnoten."@nl ;
+				    p-plan:correspondsToStep  step:hakken ;
+				    sosa:usedProcedure plan:hakken ;
+				    prov:used ent:walnoten_001;
+				    sosa:hasResult ent:gehakte-walnoten_001  ;
+				    sosa:madeByActuator inst:haksysteem-geert ;
+				```
+				{% endmarkdown %}
+			</div>
+			<div class="col-quarter">
+				<img src="./images/hakken-walnoten.jpg" alt="actuaties" />
+			</div>
+		</div>
+
+		<p><strong>Observaties</strong></p>
+		<div class="row">
+			<div class="col-75">
+				{% markdown %}
+				```turtle
+				exec:controleer_wanneer_brownies_klaar_zijn a sosa:Observation ;
+				    rdfs:label "Controleer wanneer brownies klaar zijn."@nl ;
+				    p-plan:correspondsToStep  step:laat_bakken_tot_lichtbruine_bovenkant;
+				    sosa:usedProcedure plan:laat_bakken_tot_lichtbruine_bovenkant;
+				    sosa:hasFeatureOfInterest ent:brownies_001 ;
+				    sosa:observedProperty parameter:de_kleur_van_de_bovenzijde_van_de_brownie ;
+				    sosa:hasResult  ent:kleur_001 ;
+				    sosa:madeBySensor agent:geert; .
+				```
+				{% endmarkdown %}
+			</div>
+			<div class="col-quarter">
+				<img src="./images/observaties.jpg" alt="observaties" />
+			</div>
+		</div>
+	</section>
+	<section>
+		<h3>Uitvoering > Entiteiten > Afgeleiden</h3>
+		<div class="row">
+			<div class="col-50">
+				{% markdown %}
+				```turtle
+				ent:beslag_001
+				    a prov:Entity ;
+				    rdfs:label "Browniebeslag"@nl ;
+				    dct:type tussenproduct:beslag ;
+				    prov:wasDerivedFrom 
+				    ent:gesmolten-mengsel_001, 
+				    ent:gehakte-walnoten_001, 
+				    ent:suiker_001, ent:eieren_001,
+				    ent:bloem_001 ;
+				    p-plan:correspondsToVariable var:beslag .
+				```
+				{% endmarkdown %}
+			</div>
+			<div class="col-50">
+				<img src="./images/mengen.jpg" alt="derivaten" />
+			</div>
+		</div>
+	</section>
+	<section>
+		<h3>Van abstract plan tot fysische realiteit</h3>
+		<style>
+			.concepts {
+				font-size: 24px; 
+				display: inline-block; 
+				text-align: left; 
+				padding: 1rem;
+				margin-top: 1rem;
+			}
+			.concepts.wide {
+				margin-left: -1rem;
+				margin-right: -2rem;
+			}
+			.timeline-dot {
+ 				border-radius: 50%; width: 50px; height: 50px; margin: 0 auto;
+			}
+			.timeline-text {
+				font-size: 34px;
+				font-weight: bold;
+				margin-bottom: 0.5rem;
+			}
+			.planning {
+				color: #7d5ba6;
+			}
+			.deployment {
+				color: #6ec6e6;
+			}
+			.derivaten {
+				color: #ccaa02;
+			}
+			.execution {
+				color: #e57373;
+			}
+		</style>
+		<div style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 2rem;">
+			<!-- Planning -->
+			<div style="flex: 1; text-align: center;">
+				<div class="timeline-text planning">Planning</div>
+				<div class="timeline-dot" style="background: #7d5ba6; border: 5px solid #a18cd1;"></div>
+			
+				<div class="concepts wide">
+					<strong>Plan</strong><br>
+					└ Step<br>
+					&nbsp;&nbsp;└ Input Variable<br>
+					&nbsp;&nbsp;└ Output Variable<br>
+					└ SubPlan<br>
+					<strong>Variable</strong>
+				</div>
+			</div>
+			<!-- Timeline bar -->
+			<div style="flex: 0 0 40px; display: flex; flex-direction: column; align-items: center;">
+				<div style="height: 25px;"></div>
+				<div style="width: 100%; height: 10px; background: linear-gradient(to right, #7d5ba6 25%, #6ec6e6 25%, #6ec6e6 50%, #ffd600 50%, #ffd600 75%, #e57373 75%); border-radius: 5px;"></div>
+				<div style="height: 25px;"></div>
+			</div>
+			<!-- Deployment -->
+			<div style="flex: 1; text-align: center;">
+				<div class="timeline-text deployment">Deployment</div>
+				<div class="timeline-dot" style="background: #6ec6e6; border: 5px solid #b2ebf2;"></div>
+
+				<div class="concepts wide">
+					<strong>Platform</strong><br>
+					└ hosts → System (implements Step)<br>
+					<strong>Deployment</strong><br>
+					└ deployedSystem → System
+				</div>
+			</div>
+			<!-- Timeline bar -->
+			<div style="flex: 0 0 40px; display: flex; flex-direction: column; align-items: center;">
+				<div style="height: 25px;"></div>
+				<div style="width: 100%; height: 10px; background: linear-gradient(to right, #6ec6e6 50%, #ffd600 50%); border-radius: 5px;"></div>
+				<div style="height: 25px;"></div>
+			</div>
+			<!-- Derivates -->
+			<div style="flex: 1; text-align: center;">
+				<div class="timeline-text derivaten">Derivaten</div>
+				<div class="timeline-dot" style="background: #ffd600; border: 5px solid #fff59d;"></div>
+			
+				<div class="concepts wide">
+					<strong>Entity (output)</strong><br>
+					└ wasDerivedFrom → Entity (input)
+				</div>
+			</div>
+			<!-- Timeline bar -->
+			<div style="flex: 0 0 40px; display: flex; flex-direction: column; align-items: center;">
+				<div style="height: 25px;"></div>
+				<div style="width: 100%; height: 10px; background: linear-gradient(to right, #ffd600 50%, #e57373 50%); border-radius: 5px;"></div>
+				<div style="height: 25px;"></div>
+			</div>
+			<!-- Execution -->
+			<div style="flex: 1; text-align: center;">
+				<div class="timeline-text execution">Uitvoering</div>
+				<div class="timeline-dot" style="background: #e57373; border: 5px solid #ffb6b6;"></div>
+
+				<div class="concepts wide">
+					<strong>Activity (correspondsTo Step)</strong><br>
+					└ executedBy → System<br>
+					└ used → Entity (input)<br>
+					└ result → Entity (output)<br>
+					<strong>Entity (correspondsTo Variable)</strong>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section>
+		{% markdown %}
+		### Herleidbaarheid: provenance over drie lagen
+		<img src="./images/herleidbaarheid.png">
+		{% endmarkdown %}
+	</section>
+	<section>
+		<h3>Voorbeelden</h3>
+		<div style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 2rem;">
+			<!-- Planning -->
+			<div style="flex: 1; text-align: center;">
+				<div class="timeline-text" style="color: #7d5ba6;">Planning<br>(Normatieve laag)</div>
+			
+				<div class="concepts first">
+					<ul>
+						<li>Procesdefinities, recepten, nalevingsregels</li>
+						<li>Geversioneerde masterdata</li>
+						<li>Wijzigt zelden</li>
+						<li>Regelgeving</li>
+						<li>Analysemethodes, software, modellen</li>
+						<li>Plannen vs Procedures / meer- of minder concrete plannen</li>
+					</ul>
+				</div>
+			</div>
+			<!-- Deployment -->
+			<div style="flex: 1; text-align: center;">
+				<div class="timeline-text" style="color: #6ec6e6;">Deployment<br>(Contextlaag)</div>
+
+				<div class="concepts">
+					<ul>
+						<li>Welke installatie, sensor of firmware</li>
+						<li>Tijdsgebonden configuraties</li>
+						<li>Verbindt het plan met de fysieke werkelijkheid</li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Execution -->
+			<div style="flex: 1; text-align: center;">
+				<div class="timeline-text" style="color: #e57373;">Uitvoering<br>(Operationele laag)</div>
+
+				<div class="concepts">
+					<ul>
+						<li>Sensormetingen, batches, emissies</li>
+						<li>Tijdsreeksen en gebeurtenissen met hoge datavolumes</li>
+						<li>Ongveranderlijk auditspoor</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section>
+		{% markdown %}
+		<div class="row">
+			<div class="col-third">
+				<ol style="font-size: 36px; text-align: left;">
+					<li class="planning">Procedures en stappen</li>
+					<li class="deployment">Deployed systemen</li>
+					<li class="execution">Uitvoering en log</li>
+					<li class="derivaten">Afgeleiden</li>
+				</ol>
+			</div>
+			<div class="col-fill">
+				<img style="height: 100%; max-height:100%" src="./images/fasen-compleet.png">
+			</div>
+		</div>
 		{% endmarkdown %}
 	</section>
 </section>
