@@ -81,18 +81,20 @@ export function initPresentation({ initialize }) {
   });
 }
 
-// Initialize Mermaid diagrams with pan & zoom
 // Initialize Mermaid configuration and pan/zoom
 export async function initMermaid(mermaid) {
   mermaid.initialize({
     startOnLoad: false,
     securityLevel: 'loose',
     suppressErrors: true,
+    theme: 'default',
+    themeVariables: {
+      fontSize: '16px',
+      fontFamily: 'Flanders Art Sans, Arial, sans-serif'
+    },
     flowchart: {
-      useMaxWidth: false,
-      htmlLabels: true,
+      htmlLabels: false,
       curve: 'linear',
-      fontSize: "12px",
       diagramMarginX: 0,
       diagramMarginY: 0,
       padding: 0,
@@ -111,8 +113,8 @@ export async function initMermaid(mermaid) {
       // Skip if already setup
       if (svg.dataset.panZoomSetup === 'true') return;
       svg.dataset.panZoomSetup = 'true';
-
-      const container = svg.closest('.mermaid');
+      
+      const container = svg.closest('.mermaid');svg.closest('.mermaid');
       if (!container) return;
 
       // Determine vertical alignment option (default: center)
@@ -135,6 +137,8 @@ export async function initMermaid(mermaid) {
       function getInitialPanZoom() {
         let cWidth = container.offsetWidth || 800;
         let cHeight = container.offsetHeight || 600;
+        // Get the actual width and height of the container
+        let containerRect = container.getBoundingClientRect();
         let svgWidth = svg.clientWidth;
         let svgHeight = svg.clientHeight;
         let scaleX = cWidth / svgWidth;
@@ -149,7 +153,10 @@ export async function initMermaid(mermaid) {
           // Default: center
           initY = (cHeight - svgHeight * fitScale) / 2;
         }
-        return { scale: fitScale, currentTranslate: { x: initX, y: initY } };
+        // Determine font scaling using the containerRect
+        let fontScale = 1 / (cWidth / Math.min(containerRect.width, cWidth));
+        console.log(containerRect.width, cWidth, 'Font scale:', fontScale);
+        return { scale: fitScale, currentTranslate: { x: initX, y: initY }, fontScale };
       }
 
       let state = getInitialPanZoom();
@@ -158,6 +165,13 @@ export async function initMermaid(mermaid) {
         // Transform origin at top-left for correct math
         svg.style.transformOrigin = '0 0';
         svg.style.transform = `translate(${state.currentTranslate.x}px, ${state.currentTranslate.y}px) scale(${state.scale})`;
+        // Scale fonts separately to maintain readability
+        const fontSizePercentage = state.fontScale;
+        svg.querySelectorAll('foreignObject div').forEach(el => {
+          // Change font size based on the initial font size and the current font scale
+          const initialFontSize = parseFloat(getComputedStyle(el).fontSize);
+          el.style.fontSize = `${initialFontSize * fontSizePercentage}px`;
+        });
       }
       updateTransform();
 
