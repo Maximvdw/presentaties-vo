@@ -704,3 +704,10 @@ p:has(+ .mermaid) {
   left: 50% !important;
   transform: translate(-50%, -50%) scale(var(--slide-scale, 1)) !important;
 }
+
+.reveal .center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60%;
+}
