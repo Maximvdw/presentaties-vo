@@ -9,8 +9,9 @@ theme: omgeving
 ---
 
 <section>
+		<section>
     {% markdown %}
-    ## Wat willen we in het loket?
+    ## Wat is het RIE-IEPR loket?
     ```mermaid
     flowchart LR
         STOF1(["Meel"])
@@ -39,16 +40,91 @@ theme: omgeving
         PROCES2 --> STOF3
     ```
     {% endmarkdown %}
-</section>
+	</section>
+	<section>
+    {% markdown %}
+    ## Wat is het RIE-IEPR loket?
+    ```mermaid
+    flowchart LR
+        STOF1(["Meel"])
+        STOF2(["Water"])
+        STOF3(["Brood"])
 
+        class STOF1,STOF2,STOF3 data;
+
+        classDef data fill:#f9f,stroke:#333,stroke-width:2px,opacity: 0.5
+        classDef emission fill:#ff9,stroke:#333,stroke-width:2px,opacity: 0.5
+
+        EP1(["Schouw 1"])
+        EP2(["Lozingspunt 1"])
+
+		EP2 -.-> EE2(["Emissie van lozingspunt 1"])
+		EP1 -.-> EE1(["Emissie van schouw 1"])
+		classDef emissie fill:#ff9,stroke:#333,stroke-width:2px;stroke-dasharray: 5 5
+		class EE1,EE2 emissie;
+
+        class EP1,EP2 emission;
+
+        PROCES1["Deeg maken"]
+        PROCES2["Brood bakken (met oven)"]
+
+		classDef process fill:#9cf,stroke:#333,stroke-width:2px,opacity: 0.5
+		class PROCES1,PROCES2 process;
+
+        STOF1 --> PROCES1
+        STOF2 --> PROCES1
+        PROCES1 --> PROCES2
+        PROCES1 --> EP2
+        PROCES2 --> EP1
+
+        PROCES2 --> STOF3
+    ```
+    {% endmarkdown %}
+	</section>
+	<section>
+	{% markdown %}
+## Wat is het RIE-IEPR loket?
+    ```mermaid
+    flowchart LR
+
+        classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+		EE1(["Emissie van schouw 1"])
+		classDef emissie fill:#ff9,stroke:#333,stroke-width:2px;stroke-dasharray: 5 5
+		class EE1,EE2 emissie;
+
+		OBSERVATIE1(["Observatie<br>CO2 % in emissie van schouw 1<br>op 26/02/2026 15:25"])
+		OBSERVATIE1 -.-> EE1
+		OBSERVATIE1 -.->|observeert| ROOK1
+		ROOK1(["CO2"])
+
+		OBSERVATIE1 --> RESULTAAT(["Resultaat"])
+
+		class ROOK1 data;
+	```
+	{% endmarkdown %}
+	</section>
+</section>
+<!--
+TODO:
+- Alles is (ctx. data) hetzelfde
+	- klein slideje
+	- koekjes
+	- mop (laatste)
+- Scheiding master, referentie, run (op architectuurniveau)
+	- In de brownies
+- Samenwerking [Zo klein mogelijk]
+- Voorbeeld LOD weg (of schets)
+- Conclusie: Overal toepasbaar, niet alleen in RIE-IEPR
+prov -> traceerbaarheid
+-->
 <section>
 	<section>
 		{% markdown %}
-		## Generiek model binnen het Departement Omgeving
+		## 80% van alle data is hetzelfde
 		- **Plan**: subplan, stappen en variabelen
 		- **Deployment**: platform, systemen
 		- **Uitvoering**: activiteiten, entiteiten gebruikt binnen de activiteiten met een resultaat
-		- **Entiteiten**: afgeleiden entiteiten
+		- **Entiteiten**: afgeleide entiteiten
 		{% endmarkdown %}
 	</section>
 	<section>
@@ -75,22 +151,6 @@ theme: omgeving
 			<div class="col-half">
 				{% markdown %}
 				**Entiteiten worden gemaakt en gebruikt in activiteiten, uitgevoerd door systemen**
-
-				```turtle
-				ent:bloem_001
-				    a prov:Entity ;
-				    dct:type ingredient:bloem ;
-				    rdf:value 225 ;
-				    qudt:unit unit:GM ;
-				    p-plan:correspondsToVariable var:bloem .
-
-				ent:eieren_001
-				    a prov:Entity ;
-				    dct:type ingredient:eieren ;
-				    rdf:value 6 ;
-				    qudt:unit unit:UNITLESS ;
-				    p-plan:correspondsToVariable var:eieren .
-				```
 				{% endmarkdown %}
 			</div>
 			<div class="col-half">
@@ -100,68 +160,14 @@ theme: omgeving
 	</section>
 	<section>
 		<h3>Uitvoering > Activiteiten, actuaties en observaties</h3>
-		<p><strong>Actuaties</strong></p>
 		<div class="row" style="margin-bottom: -1em">
-			<div class="col-75">
-				{% markdown %}
-				```turtle
-				exec:hakken-2026-02-10 a sosa:Actuation ;
-				    rdfs:label "Hakken van walnoten."@nl ;
-				    p-plan:correspondsToStep  step:hakken ;
-				    sosa:usedProcedure plan:hakken ;
-				    prov:used ent:walnoten_001;
-				    sosa:hasResult ent:gehakte-walnoten_001  ;
-				    sosa:madeByActuator inst:haksysteem-geert ;
-				```
-				{% endmarkdown %}
-			</div>
-			<div class="col-quarter">
+			<div class="col-50">
+				<p style="text-align: center"><strong>Actuaties</strong></p>
 				<img src="./images/hakken-walnoten.jpg" alt="actuaties" />
 			</div>
-		</div>
-
-		<p><strong>Observaties</strong></p>
-		<div class="row">
-			<div class="col-75">
-				{% markdown %}
-				```turtle
-				exec:controleer_wanneer_brownies_klaar_zijn a sosa:Observation ;
-				    rdfs:label "Controleer wanneer brownies klaar zijn."@nl ;
-				    p-plan:correspondsToStep  step:laat_bakken_tot_lichtbruine_bovenkant;
-				    sosa:usedProcedure plan:laat_bakken_tot_lichtbruine_bovenkant;
-				    sosa:hasFeatureOfInterest ent:brownies_001 ;
-				    sosa:observedProperty parameter:de_kleur_van_de_bovenzijde_van_de_brownie ;
-				    sosa:hasResult  ent:kleur_001 ;
-				    sosa:madeBySensor agent:geert; .
-				```
-				{% endmarkdown %}
-			</div>
-			<div class="col-quarter">
+			<div class="col-50">
+				<p style="text-align: center"><strong>Observaties</strong></p>
 				<img src="./images/observaties.jpg" alt="observaties" />
-			</div>
-		</div>
-	</section>
-	<section>
-		<h3>Uitvoering > Entiteiten > Afgeleiden</h3>
-		<div class="row">
-			<div class="col-50">
-				{% markdown %}
-				```turtle
-				ent:beslag_001
-				    a prov:Entity ;
-				    rdfs:label "Browniebeslag"@nl ;
-				    dct:type tussenproduct:beslag ;
-				    prov:wasDerivedFrom 
-				    ent:gesmolten-mengsel_001, 
-				    ent:gehakte-walnoten_001, 
-				    ent:suiker_001, ent:eieren_001,
-				    ent:bloem_001 ;
-				    p-plan:correspondsToVariable var:beslag .
-				```
-				{% endmarkdown %}
-			</div>
-			<div class="col-50">
-				<img src="./images/mengen.jpg" alt="derivaten" />
 			</div>
 		</div>
 	</section>
@@ -236,23 +242,7 @@ theme: omgeving
 			<!-- Timeline bar -->
 			<div style="flex: 0 0 40px; display: flex; flex-direction: column; align-items: center;">
 				<div style="height: 25px;"></div>
-				<div style="width: 100%; height: 10px; background: linear-gradient(to right, #6ec6e6 50%, #ffd600 50%); border-radius: 5px;"></div>
-				<div style="height: 25px;"></div>
-			</div>
-			<!-- Derivates -->
-			<div style="flex: 1; text-align: center;">
-				<div class="timeline-text derivaten">Afgeleiden</div>
-				<div class="timeline-dot" style="background: #ffd600; border: 5px solid #fff59d;"></div>
-			
-				<div class="concepts wide">
-					<strong>Entity (output)</strong><br>
-					└ wasDerivedFrom → Entity (input)
-				</div>
-			</div>
-			<!-- Timeline bar -->
-			<div style="flex: 0 0 40px; display: flex; flex-direction: column; align-items: center;">
-				<div style="height: 25px;"></div>
-				<div style="width: 100%; height: 10px; background: linear-gradient(to right, #ffd600 50%, #e57373 50%); border-radius: 5px;"></div>
+				<div style="width: 100%; height: 10px; background: linear-gradient(to right, #6ec6e6 50%, #e57373 50%); border-radius: 5px;"></div>
 				<div style="height: 25px;"></div>
 			</div>
 			<!-- Execution -->
@@ -268,13 +258,23 @@ theme: omgeving
 					<strong>Entity (correspondsTo Variable)</strong>
 				</div>
 			</div>
+						<!-- Timeline bar -->
+			<div style="flex: 0 0 40px; display: flex; flex-direction: column; align-items: center;">
+				<div style="height: 25px;"></div>
+				<div style="width: 100%; height: 10px; background: linear-gradient(to right, #e57373 50%, #ffd600 50%); border-radius: 5px;"></div>
+				<div style="height: 25px;"></div>
+			</div>
+			<!-- Derivates -->
+			<div style="flex: 1; text-align: center;">
+				<div class="timeline-text derivaten">Derivaten</div>
+				<div class="timeline-dot" style="background: #ffd600; border: 5px solid #fff59d;"></div>
+			
+				<div class="concepts wide">
+					<strong>Entity (output)</strong><br>
+					└ wasDerivedFrom → Entity (input)
+				</div>
+			</div>
 		</div>
-	</section>
-	<section>
-		{% markdown %}
-		### Herleidbaarheid: provenance over drie lagen
-		<img src="./images/herleidbaarheid.png">
-		{% endmarkdown %}
 	</section>
 	<section>
 		<h3>Voorbeelden</h3>
@@ -323,19 +323,108 @@ theme: omgeving
 	</section>
 	<section>
 		{% markdown %}
-		<div class="row">
-			<div class="col-third">
-				<ol style="font-size: 36px; text-align: left;">
-					<li class="planning">Procedures en stappen</li>
-					<li class="deployment">Deployed systemen</li>
-					<li class="execution">Uitvoering en log</li>
-					<li class="derivaten">Afgeleiden</li>
-				</ol>
-			</div>
-			<div class="col-fill">
-				<img style="height: 100%; max-height:100%" src="./images/fasen-compleet.png">
-			</div>
-		</div>
+		### Traceerbaarheid over drie lagen
+		```mermaid
+		flowchart LR
+
+%% =====================================================
+%% PLANNING
+%% =====================================================
+    subgraph PLANNING["ONTWERP"]
+
+        STEP([Step])
+        
+        PLAN["Plan"]
+
+        Variable([Variabele])
+        
+    end
+        
+
+    style PLANNING fill:#b8a2d4,stroke:#2E5C8A,color:#000
+
+    style STEP fill:#7f59ae,stroke:#2E5C8A,color:#000
+    style PLAN fill:#c6a0f5,stroke:#2E5C8A,color:#000
+
+    style Variable fill:#fe7130,stroke:#2E5C8A,color:#000
+
+%% Plan structuur
+
+
+    PLAN -->|hasSubPlan| PLAN
+    
+
+    STEP -->|isDecomposedAsPlan| PLAN
+    
+
+%% Variabelen
+
+    Variable -->|isInputVarOf| STEP
+    Variable -->|isOutputVarOf| STEP
+
+
+
+
+%% =====================================================
+%% DEPLOYMENT
+%% =====================================================
+    subgraph DEPLOYMENT["CAPACITEIT"]
+        Platform([Platform])
+        Deployment([Deployment])
+
+        SYS([System])
+    end
+
+    style DEPLOYMENT fill:#b0d9e7,stroke:#2E5C8A,color:#000
+    style Platform fill:#60c4e4,stroke:#2E5C8A,color:#000
+    style Deployment fill:#60c4e4,stroke:#2E5C8A,color:#000
+    style SYS fill:#60c4e4,stroke:#2E5C8A,color:#000
+
+    Deployment -->|deployedOnPlatform| Platform
+    Deployment -->|deployedSystem| SYS 
+    Platform -->|hosts| SYS
+
+    SYS -->|implements| STEP
+
+
+%% =====================================================
+%% EXECUTION
+%% =====================================================
+    subgraph EXECUTION["REALISATIE"]
+
+        Activity([Activiteit])
+
+
+            Entity([Entity])
+       
+        
+    end
+
+
+    style EXECUTION fill:#e7a3be,stroke:#2E5C8A,color:#000
+    style Activity fill:#e54b89,stroke:#2E5C8A,color:#000
+   
+
+    style Entity fill:#f8b622,stroke:#2E5C8A,color:#000
+   
+
+%% Activity relaties
+    Activity -->|correspondsToStep| STEP
+
+    Activity -->|madeBySystem| SYS
+
+
+
+    Activity -->|used| Entity
+    Activity -->|hasResult| Entity
+
+%% Derivatie
+    Entity -->|wasDerivedFrom| Entity
+    
+
+%% Entity ↔ Variable
+    Entity -->|correspondsToVariable| Variable
+		```
 		{% endmarkdown %}
 	</section>
 </section>
@@ -374,21 +463,19 @@ theme: omgeving
     </section>
     <section>
         {% markdown %}
-        ### De oplossing? Automatisatie van het proces!
+        ### De oplossing? Automatisatie van het analyse proces!
         ```mermaid
         sequenceDiagram
 			actor Geert & Maxim
-			participant OWL Reasoner
+			participant Regeltjes
+			participant Validatie
 			participant Transformatie
-			participant SHACL Validatie
-			participant Eindresultaat
 
-			Geert & Maxim->>+OWL Reasoner: "Nieuwe versie"
-			OWL Reasoner->>+Transformatie: "Extractie van ontologie"
+			Geert & Maxim->>+Regeltjes: "Aanpassing model"
+			Regeltjes->>+Validatie: "Validatie van data"
+			Validatie-->>-Geert & Maxim: "Feedback over model"
+			Regeltjes->>+Transformatie: "Extractie van ontologie"
 			Transformatie-->>-Geert & Maxim: "Feedback over transformatie"
-			OWL Reasoner->>+SHACL Validatie: "Validatie van data"
-			SHACL Validatie-->>-Geert & Maxim: "Feedback over fouten"
-			Transformatie->>Eindresultaat: "Gegenereerde artefacten"
         ```
         {% endmarkdown %}
     </section>
@@ -397,57 +484,7 @@ theme: omgeving
 <section>
   <section>
     {% markdown %}
-    ## Ontologie Gedreven Ontwerp
-    ### Ontwikkeling
-    **Groen = manueel, Blauw = automatisch**
-    ```mermaid
-    flowchart LR
-      subgraph DataModel [Data Model]
-        CONCEPTEN(["Business Concepten"])
-        ONTOLOGIE(["RIE-IEPR Ontologie (OWL)"])
-      end
-    
-      subgraph Implementatie
-        DATABANK(["Relationele Databank"])
-        CLASSEN(["Objectgeoriënteerde Klassen"])
-      end
-
-      subgraph Extractie
-        REASONING["OWL Reasoning"]
-        REASONING --> EXTRACTIE_CLASSEN
-        REASONING --> EXTRACTIE_RELATIES
-        REASONING --> EXTRACTIE_ID
-        EXTRACTIE_CLASSEN(["Extractie klassenhierarchie"])
-        EXTRACTIE_RELATIES(["Extractie relaties en kardinaliteiten"])
-        EXTRACTIE_ID(["Extractie identificatie"])
-      end
-
-      ONTOLOGIE --> Extractie
-      Extractie --> AutomatischeTransformatie
-      subgraph AutomatischeTransformatie ["Automatische Transformatie"]
-        TRANSFORMATIE_REGELS(["Transformatie regels"])
-        TRANSFORMATIE_SQL(["SQL Schema"])
-        TRANSFORMATIE_CLASSEN(["OO-klassen"])
-        TRANSFORMATIE_REGELS -.-> TRANSFORMATIE_SQL
-        TRANSFORMATIE_REGELS -.-> TRANSFORMATIE_CLASSEN
-        TRANSFORMATIE_SQL --> DATABANK
-        TRANSFORMATIE_CLASSEN --> CLASSEN
-        TRANSFORMATIE_DOCUMENTATIE(["Gegeneerde documentatie"])
-
-        TRANSFORMATIE_DOCUMENTATIE --> TRANSFORMATIE_SQL
-        TRANSFORMATIE_DOCUMENTATIE --> TRANSFORMATIE_CLASSEN
-      end
-      CONCEPTEN --> AutomatischeTransformatie
-
-      classDef INVOER fill:#cfc,stroke:#333,stroke-width:1px
-      class ONTOLOGIE,CONCEPTEN,TRANSFORMATIE_REGELS INVOER
-
-    ```
-    { verticalAlign: top }
-    {% endmarkdown %}
-  </section>
-  <section>
-    {% markdown %}
+	## Ontologie Gedreven Ontwerp
     ### Voorbeeld: Exploitatie
     ```turtle
     :Exploitatie a owl:Class ;
@@ -854,7 +891,65 @@ classDiagram
 	<section>
 	{% markdown %}
 	### Output naar klassendiagrammen ...
-	![](./images/klassendiagram-zoom.png)
+```mermaid
+%% Generated by ODDToolkit
+classDiagram
+	%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces
+	class Proces:::procedure {
+		UUID uuid
+	}
+	Procedure <|-- Proces
+	Step <|-- Proces
+	Plan <|-- Proces
+	%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#ExploitatieLocatie
+	class ExploitatieLocatie:::exploitant {
+		UUID uuid
+	}
+	Feature <|-- ExploitatieLocatie
+	Entity <|-- ExploitatieLocatie
+	Platform <|-- ExploitatieLocatie
+	%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Exploitatie
+	class Exploitatie:::exploitant {
+		UUID uuid
+	}
+	%% http://www.w3.org/ns/ssn/deployedOnPlatform
+	Exploitatie --> ExploitatieLocatie : deployedOnPlatform
+	%% http://www.w3.org/ns/ssn/implements
+	Exploitatie --> Proces : implements
+	Deployment <|-- Exploitatie
+	%% http://www.w3.org/ns/ssn/Deployment
+	class Deployment {
+	  <<interface>>
+	}
+	class Procedure {
+		<<interface>>
+	}
+	%% http://purl.org/net/p-plan#Step
+	class Step {
+	  <<interface>>
+	}
+	%% http://purl.org/net/p-plan#Plan
+	class Plan {
+	  <<interface>>
+	}
+	%% http://www.opengis.net/ont/geosparql#Feature
+	class Feature {
+	  <<interface>>
+	}
+	%% http://www.w3.org/ns/prov#Entity
+	class Entity {
+	  <<interface>>
+	}
+	%% http://www.w3.org/ns/sosa/Platform
+	class Platform {
+	  <<interface>>
+	}
+
+	classDef system fill:#4bde2a,stroke:#000000
+	classDef procedure fill:#ccffcc,stroke:#000000
+	classDef result fill:#ccccff,stroke:#000000
+	classDef exploitant fill:#f6ff00,stroke:#000000
+```
 	{% endmarkdown %}
 	</section>
 	<section>
@@ -862,13 +957,23 @@ classDiagram
 		### Automatische SHACL shapes en validatie
 		> Via automatische SHACL validatie kunnen we snel feedback krijgen over inconsistenties in het datamodel op conceptueel niveau
 		<!-- Doorkruiste en vinkje -->
-		- `https://...#Exploitant` ✅
-		- `https://...#Exploitatie` ❌ (prov:Activity disjoint met ssn:Deployment)
+		- `https://...#Keuken` ✅ 
+		- `https://...#Brownie` ❌ ("Brownie" is impliciet het "Bakken")
 		
 		{% endmarkdown %}
 	</section>
 </section>
+
 <section>
+	<section>
+    {% markdown %}
+    ## Conclusie datamodellering
+	
+	> Het is makkelijk om een complex datamodel te maken, het is moeilijker om iets complex zoals RIE-IEPR tot een eenvoudig model te herleiden.
+
+	**Laten we het warm water niet heruitvinden**
+    {% endmarkdown %}
+    </section>
     <section>
     {% markdown %}
     ## Conclusie datamodellering
@@ -920,13 +1025,6 @@ classDiagram
     ### (3) Uitvoering
     
     <h1 class="center">Nu</h1>
-    {% endmarkdown %}
-    </section>
-	<section>
-    {% markdown %}
-    ## Conclusie datamodellering
-	
-	> Het is makkelijk om een complex datamodel te maken, het is moeilijker om iets complex zoals RIE-IEPR tot een eenvoudig model te herleiden.
     {% endmarkdown %}
     </section>
 </section>
