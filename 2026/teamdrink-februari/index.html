@@ -25,9 +25,9 @@
     <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
     
     
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1771872667">
-    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1771872667">
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1771872667">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1771946024">
+    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1771946024">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1771946024">
     
     
 
@@ -61,7 +61,8 @@
 
         
 <section>
-    <h2>Wat willen we in het loket?</h2>
+		<section>
+    <h2>Wat is het RIE-IEPR loket?</h2>
 <div class="mermaid">
 flowchart LR
   STOF1([&quot;Meel&quot;])
@@ -90,16 +91,89 @@ flowchart LR
   PROCES2 --&gt; STOF3
 
 </div>
-</section>
+	</section>
+	<section>
+    <h2>Wat is het RIE-IEPR loket?</h2>
+<div class="mermaid">
+flowchart LR
+  STOF1([&quot;Meel&quot;])
+  STOF2([&quot;Water&quot;])
+  STOF3([&quot;Brood&quot;])
 
+  class STOF1,STOF2,STOF3 data;
+
+  classDef data fill:#f9f,stroke:#333,stroke-width:2px,opacity: 0.5
+  classDef emission fill:#ff9,stroke:#333,stroke-width:2px,opacity: 0.5
+
+  EP1([&quot;Schouw 1&quot;])
+  EP2([&quot;Lozingspunt 1&quot;])
+
+EP2 -.-&gt; EE2([&quot;Emissie van lozingspunt 1&quot;])
+EP1 -.-&gt; EE1([&quot;Emissie van schouw 1&quot;])
+classDef emissie fill:#ff9,stroke:#333,stroke-width:2px;stroke-dasharray: 5 5
+class EE1,EE2 emissie;
+
+  class EP1,EP2 emission;
+
+  PROCES1[&quot;Deeg maken&quot;]
+  PROCES2[&quot;Brood bakken (met oven)&quot;]
+
+classDef process fill:#9cf,stroke:#333,stroke-width:2px,opacity: 0.5
+class PROCES1,PROCES2 process;
+
+  STOF1 --&gt; PROCES1
+  STOF2 --&gt; PROCES1
+  PROCES1 --&gt; PROCES2
+  PROCES1 --&gt; EP2
+  PROCES2 --&gt; EP1
+
+  PROCES2 --&gt; STOF3
+
+</div>
+	</section>
+	<section>
+	<h2>Wat is het RIE-IEPR loket?</h2>
+<div class="mermaid">
+flowchart LR
+
+    classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+EE1([&quot;Emissie van schouw 1&quot;])
+classDef emissie fill:#ff9,stroke:#333,stroke-width:2px;stroke-dasharray: 5 5
+class EE1,EE2 emissie;
+
+OBSERVATIE1([&quot;Observatie&lt;br&gt;CO2 % in emissie van schouw 1&lt;br&gt;op 26/02/2026 15:25&quot;])
+OBSERVATIE1 -.-&gt; EE1
+OBSERVATIE1 -.-&gt;|observeert| ROOK1
+ROOK1([&quot;CO2&quot;])
+
+OBSERVATIE1 --&gt; RESULTAAT([&quot;Resultaat&quot;])
+
+class ROOK1 data;
+
+</div>
+	</section>
+</section>
+<!--
+TODO:
+- Alles is (ctx. data) hetzelfde
+	- klein slideje
+	- koekjes
+	- mop (laatste)
+- Scheiding master, referentie, run (op architectuurniveau)
+	- In de brownies
+- Samenwerking [Zo klein mogelijk]
+- Voorbeeld LOD weg (of schets)
+- Conclusie: Overal toepasbaar, niet alleen in RIE-IEPR
+prov -> traceerbaarheid
+-->
 <section>
 	<section>
-		<h2>Generiek model binnen het Departement Omgeving</h2>
+		<h2>80% van alle data is hetzelfde</h2>
 <ul>
 <li><strong>Plan</strong>: subplan, stappen en variabelen</li>
 <li><strong>Deployment</strong>: platform, systemen</li>
 <li><strong>Uitvoering</strong>: activiteiten, entiteiten gebruikt binnen de activiteiten met een resultaat</li>
-<li><strong>Entiteiten</strong>: afgeleiden entiteiten</li>
+<li><strong>Entiteiten</strong>: afgeleide entiteiten</li>
 </ul>
 
 	</section>
@@ -123,20 +197,7 @@ flowchart LR
 		<div class="row">
 			<div class="col-half">
 				<p><strong>Entiteiten worden gemaakt en gebruikt in activiteiten, uitgevoerd door systemen</strong></p>
-<pre class="hljs language-turtle"><span class="hljs-symbol">ent:bloem_001</span>
-  <span class="hljs-built_in">a</span> <span class="hljs-symbol">prov:Entity</span> ;
-  <span class="hljs-symbol">dct:type</span> <span class="hljs-symbol">ingredient:bloem</span> ;
-  <span class="hljs-symbol">rdf:value</span> <span class="hljs-number">225</span> ;
-  <span class="hljs-symbol">qudt:unit</span> <span class="hljs-symbol">unit:GM</span> ;
-  <span class="hljs-symbol">p-plan:correspondsToVariable</span> <span class="hljs-symbol">var:bloem</span> .
 
-<span class="hljs-symbol">ent:eieren_001</span>
-  <span class="hljs-built_in">a</span> <span class="hljs-symbol">prov:Entity</span> ;
-  <span class="hljs-symbol">dct:type</span> <span class="hljs-symbol">ingredient:eieren</span> ;
-  <span class="hljs-symbol">rdf:value</span> <span class="hljs-number">6</span> ;
-  <span class="hljs-symbol">qudt:unit</span> <span class="hljs-symbol">unit:UNITLESS</span> ;
-  <span class="hljs-symbol">p-plan:correspondsToVariable</span> <span class="hljs-symbol">var:eieren</span> .
-</pre>
 			</div>
 			<div class="col-half">
 				<img src="./images/ingredienten.jpg" alt="Deployment" />
@@ -145,59 +206,14 @@ flowchart LR
 	</section>
 	<section>
 		<h3>Uitvoering > Activiteiten, actuaties en observaties</h3>
-		<p><strong>Actuaties</strong></p>
 		<div class="row" style="margin-bottom: -1em">
-			<div class="col-75">
-				<pre class="hljs language-turtle"><span class="hljs-symbol">exec:hakken-2026-02-10</span> <span class="hljs-built_in">a</span> <span class="hljs-symbol">sosa:Actuation</span> ;
-  <span class="hljs-symbol">rdfs:label</span> <span class="hljs-string">&quot;Hakken van walnoten.&quot;</span><span class="hljs-type">@nl</span> ;
-  <span class="hljs-symbol">p-plan:correspondsToStep</span>  <span class="hljs-symbol">step:hakken</span> ;
-  <span class="hljs-symbol">sosa:usedProcedure</span> <span class="hljs-symbol">plan:hakken</span> ;
-  <span class="hljs-symbol">prov:used</span> <span class="hljs-symbol">ent:walnoten_001;</span>
-  <span class="hljs-symbol">sosa:hasResult</span> <span class="hljs-symbol">ent:gehakte-walnoten_001</span>  ;
-  <span class="hljs-symbol">sosa:madeByActuator</span> <span class="hljs-symbol">inst:haksysteem-geert</span> ;
-</pre>
-			</div>
-			<div class="col-quarter">
+			<div class="col-50">
+				<p style="text-align: center"><strong>Actuaties</strong></p>
 				<img src="./images/hakken-walnoten.jpg" alt="actuaties" />
 			</div>
-		</div>
-
-		<p><strong>Observaties</strong></p>
-		<div class="row">
-			<div class="col-75">
-				<pre class="hljs language-turtle"><span class="hljs-symbol">exec:controleer_wanneer_brownies_klaar_zijn</span> <span class="hljs-built_in">a</span> <span class="hljs-symbol">sosa:Observation</span> ;
-  <span class="hljs-symbol">rdfs:label</span> <span class="hljs-string">&quot;Controleer wanneer brownies klaar zijn.&quot;</span><span class="hljs-type">@nl</span> ;
-  <span class="hljs-symbol">p-plan:correspondsToStep</span>  <span class="hljs-symbol">step:laat_bakken_tot_lichtbruine_bovenkant;</span>
-  <span class="hljs-symbol">sosa:usedProcedure</span> <span class="hljs-symbol">plan:laat_bakken_tot_lichtbruine_bovenkant;</span>
-  <span class="hljs-symbol">sosa:hasFeatureOfInterest</span> <span class="hljs-symbol">ent:brownies_001</span> ;
-  <span class="hljs-symbol">sosa:observedProperty</span> <span class="hljs-symbol">parameter:de_kleur_van_de_bovenzijde_van_de_brownie</span> ;
-  <span class="hljs-symbol">sosa:hasResult</span>  <span class="hljs-symbol">ent:kleur_001</span> ;
-  <span class="hljs-symbol">sosa:madeBySensor</span> <span class="hljs-symbol">agent:geert;</span> .
-</pre>
-			</div>
-			<div class="col-quarter">
+			<div class="col-50">
+				<p style="text-align: center"><strong>Observaties</strong></p>
 				<img src="./images/observaties.jpg" alt="observaties" />
-			</div>
-		</div>
-	</section>
-	<section>
-		<h3>Uitvoering > Entiteiten > Afgeleiden</h3>
-		<div class="row">
-			<div class="col-50">
-				<pre class="hljs language-turtle"><span class="hljs-symbol">ent:beslag_001</span>
-  <span class="hljs-built_in">a</span> <span class="hljs-symbol">prov:Entity</span> ;
-  <span class="hljs-symbol">rdfs:label</span> <span class="hljs-string">&quot;Browniebeslag&quot;</span><span class="hljs-type">@nl</span> ;
-  <span class="hljs-symbol">dct:type</span> <span class="hljs-symbol">tussenproduct:beslag</span> ;
-  <span class="hljs-symbol">prov:wasDerivedFrom</span> 
-  <span class="hljs-symbol">ent:gesmolten-mengsel_001</span>, 
-  <span class="hljs-symbol">ent:gehakte-walnoten_001</span>, 
-  <span class="hljs-symbol">ent:suiker_001</span>, <span class="hljs-symbol">ent:eieren_001</span>,
-  <span class="hljs-symbol">ent:bloem_001</span> ;
-  <span class="hljs-symbol">p-plan:correspondsToVariable</span> <span class="hljs-symbol">var:beslag</span> .
-</pre>
-			</div>
-			<div class="col-50">
-				<img src="./images/mengen.jpg" alt="derivaten" />
 			</div>
 		</div>
 	</section>
@@ -272,23 +288,7 @@ flowchart LR
 			<!-- Timeline bar -->
 			<div style="flex: 0 0 40px; display: flex; flex-direction: column; align-items: center;">
 				<div style="height: 25px;"></div>
-				<div style="width: 100%; height: 10px; background: linear-gradient(to right, #6ec6e6 50%, #ffd600 50%); border-radius: 5px;"></div>
-				<div style="height: 25px;"></div>
-			</div>
-			<!-- Derivates -->
-			<div style="flex: 1; text-align: center;">
-				<div class="timeline-text derivaten">Afgeleiden</div>
-				<div class="timeline-dot" style="background: #ffd600; border: 5px solid #fff59d;"></div>
-			
-				<div class="concepts wide">
-					<strong>Entity (output)</strong><br>
-					└ wasDerivedFrom → Entity (input)
-				</div>
-			</div>
-			<!-- Timeline bar -->
-			<div style="flex: 0 0 40px; display: flex; flex-direction: column; align-items: center;">
-				<div style="height: 25px;"></div>
-				<div style="width: 100%; height: 10px; background: linear-gradient(to right, #ffd600 50%, #e57373 50%); border-radius: 5px;"></div>
+				<div style="width: 100%; height: 10px; background: linear-gradient(to right, #6ec6e6 50%, #e57373 50%); border-radius: 5px;"></div>
 				<div style="height: 25px;"></div>
 			</div>
 			<!-- Execution -->
@@ -304,12 +304,23 @@ flowchart LR
 					<strong>Entity (correspondsTo Variable)</strong>
 				</div>
 			</div>
+						<!-- Timeline bar -->
+			<div style="flex: 0 0 40px; display: flex; flex-direction: column; align-items: center;">
+				<div style="height: 25px;"></div>
+				<div style="width: 100%; height: 10px; background: linear-gradient(to right, #e57373 50%, #ffd600 50%); border-radius: 5px;"></div>
+				<div style="height: 25px;"></div>
+			</div>
+			<!-- Derivates -->
+			<div style="flex: 1; text-align: center;">
+				<div class="timeline-text derivaten">Derivaten</div>
+				<div class="timeline-dot" style="background: #ffd600; border: 5px solid #fff59d;"></div>
+			
+				<div class="concepts wide">
+					<strong>Entity (output)</strong><br>
+					└ wasDerivedFrom → Entity (input)
+				</div>
+			</div>
 		</div>
-	</section>
-	<section>
-		<h3>Herleidbaarheid: provenance over drie lagen</h3>
-<img src="./images/herleidbaarheid.png">
-
 	</section>
 	<section>
 		<h3>Voorbeelden</h3>
@@ -357,20 +368,109 @@ flowchart LR
 		</div>
 	</section>
 	<section>
-		<div class="row">
-<div class="col-third">
-<ol style="font-size: 36px; text-align: left;">
-	<li class="planning">Procedures en stappen</li>
-	<li class="deployment">Deployed systemen</li>
-	<li class="execution">Uitvoering en log</li>
-	<li class="derivaten">Afgeleiden</li>
-</ol>
-</div>
-<div class="col-fill">
-<img style="height: 100%; max-height:100%" src="./images/fasen-compleet.png">
-</div>
-</div>
+		<h3>Traceerbaarheid over drie lagen</h3>
+<div class="mermaid">
+flowchart LR
 
+%% =====================================================
+%% PLANNING
+%% =====================================================
+subgraph PLANNING[&quot;ONTWERP&quot;]
+
+    STEP([Step])
+    
+    PLAN[&quot;Plan&quot;]
+
+    Variable([Variabele])
+    
+end
+    
+
+style PLANNING fill:#b8a2d4,stroke:#2E5C8A,color:#000
+
+style STEP fill:#7f59ae,stroke:#2E5C8A,color:#000
+style PLAN fill:#c6a0f5,stroke:#2E5C8A,color:#000
+
+style Variable fill:#fe7130,stroke:#2E5C8A,color:#000
+
+%% Plan structuur
+
+
+PLAN --&gt;|hasSubPlan| PLAN
+
+
+STEP --&gt;|isDecomposedAsPlan| PLAN
+
+
+%% Variabelen
+
+Variable --&gt;|isInputVarOf| STEP
+Variable --&gt;|isOutputVarOf| STEP
+
+
+
+
+%% =====================================================
+%% DEPLOYMENT
+%% =====================================================
+subgraph DEPLOYMENT[&quot;CAPACITEIT&quot;]
+    Platform([Platform])
+    Deployment([Deployment])
+
+    SYS([System])
+end
+
+style DEPLOYMENT fill:#b0d9e7,stroke:#2E5C8A,color:#000
+style Platform fill:#60c4e4,stroke:#2E5C8A,color:#000
+style Deployment fill:#60c4e4,stroke:#2E5C8A,color:#000
+style SYS fill:#60c4e4,stroke:#2E5C8A,color:#000
+
+Deployment --&gt;|deployedOnPlatform| Platform
+Deployment --&gt;|deployedSystem| SYS 
+Platform --&gt;|hosts| SYS
+
+SYS --&gt;|implements| STEP
+
+
+%% =====================================================
+%% EXECUTION
+%% =====================================================
+subgraph EXECUTION[&quot;REALISATIE&quot;]
+
+    Activity([Activiteit])
+
+
+        Entity([Entity])
+   
+    
+end
+
+
+style EXECUTION fill:#e7a3be,stroke:#2E5C8A,color:#000
+style Activity fill:#e54b89,stroke:#2E5C8A,color:#000
+
+
+style Entity fill:#f8b622,stroke:#2E5C8A,color:#000
+
+
+%% Activity relaties
+Activity --&gt;|correspondsToStep| STEP
+
+Activity --&gt;|madeBySystem| SYS
+
+
+
+Activity --&gt;|used| Entity
+Activity --&gt;|hasResult| Entity
+
+%% Derivatie
+Entity --&gt;|wasDerivedFrom| Entity
+
+
+%% Entity ↔ Variable
+Entity --&gt;|correspondsToVariable| Variable
+
+</div>
 	</section>
 </section>
 
@@ -410,21 +510,19 @@ flowchart LR
 
     </section>
     <section>
-        <h3>De oplossing? Automatisatie van het proces!</h3>
+        <h3>De oplossing? Automatisatie van het analyse proces!</h3>
 <div class="mermaid">
 sequenceDiagram
 actor Geert &amp; Maxim
-participant OWL Reasoner
+participant Regeltjes
+participant Validatie
 participant Transformatie
-participant SHACL Validatie
-participant Eindresultaat
 
-Geert &amp; Maxim-&gt;&gt;+OWL Reasoner: &quot;Nieuwe versie&quot;
-OWL Reasoner-&gt;&gt;+Transformatie: &quot;Extractie van ontologie&quot;
+Geert &amp; Maxim-&gt;&gt;+Regeltjes: &quot;Aanpassing model&quot;
+Regeltjes-&gt;&gt;+Validatie: &quot;Validatie van data&quot;
+Validatie--&gt;&gt;-Geert &amp; Maxim: &quot;Feedback over model&quot;
+Regeltjes-&gt;&gt;+Transformatie: &quot;Extractie van ontologie&quot;
 Transformatie--&gt;&gt;-Geert &amp; Maxim: &quot;Feedback over transformatie&quot;
-OWL Reasoner-&gt;&gt;+SHACL Validatie: &quot;Validatie van data&quot;
-SHACL Validatie--&gt;&gt;-Geert &amp; Maxim: &quot;Feedback over fouten&quot;
-Transformatie-&gt;&gt;Eindresultaat: &quot;Gegenereerde artefacten&quot;
 
 </div>
     </section>
@@ -433,56 +531,7 @@ Transformatie-&gt;&gt;Eindresultaat: &quot;Gegenereerde artefacten&quot;
 <section>
   <section>
     <h2>Ontologie Gedreven Ontwerp</h2>
-<h3>Ontwikkeling</h3>
-<p><strong>Groen = manueel, Blauw = automatisch</strong></p>
-<div class="mermaid" data-vertical-align="top">
-flowchart LR
-subgraph DataModel [Data Model]
-  CONCEPTEN([&quot;Business Concepten&quot;])
-  ONTOLOGIE([&quot;RIE-IEPR Ontologie (OWL)&quot;])
-end
-
-subgraph Implementatie
-  DATABANK([&quot;Relationele Databank&quot;])
-  CLASSEN([&quot;Objectgeoriënteerde Klassen&quot;])
-end
-
-subgraph Extractie
-  REASONING[&quot;OWL Reasoning&quot;]
-  REASONING --&gt; EXTRACTIE_CLASSEN
-  REASONING --&gt; EXTRACTIE_RELATIES
-  REASONING --&gt; EXTRACTIE_ID
-  EXTRACTIE_CLASSEN([&quot;Extractie klassenhierarchie&quot;])
-  EXTRACTIE_RELATIES([&quot;Extractie relaties en kardinaliteiten&quot;])
-  EXTRACTIE_ID([&quot;Extractie identificatie&quot;])
-end
-
-ONTOLOGIE --&gt; Extractie
-Extractie --&gt; AutomatischeTransformatie
-subgraph AutomatischeTransformatie [&quot;Automatische Transformatie&quot;]
-  TRANSFORMATIE_REGELS([&quot;Transformatie regels&quot;])
-  TRANSFORMATIE_SQL([&quot;SQL Schema&quot;])
-  TRANSFORMATIE_CLASSEN([&quot;OO-klassen&quot;])
-  TRANSFORMATIE_REGELS -.-&gt; TRANSFORMATIE_SQL
-  TRANSFORMATIE_REGELS -.-&gt; TRANSFORMATIE_CLASSEN
-  TRANSFORMATIE_SQL --&gt; DATABANK
-  TRANSFORMATIE_CLASSEN --&gt; CLASSEN
-  TRANSFORMATIE_DOCUMENTATIE([&quot;Gegeneerde documentatie&quot;])
-
-  TRANSFORMATIE_DOCUMENTATIE --&gt; TRANSFORMATIE_SQL
-  TRANSFORMATIE_DOCUMENTATIE --&gt; TRANSFORMATIE_CLASSEN
-end
-CONCEPTEN --&gt; AutomatischeTransformatie
-
-classDef INVOER fill:#cfc,stroke:#333,stroke-width:1px
-class ONTOLOGIE,CONCEPTEN,TRANSFORMATIE_REGELS INVOER
-
-
-</div><p></p>
-
-  </section>
-  <section>
-    <h3>Voorbeeld: Exploitatie</h3>
+<h3>Voorbeeld: Exploitatie</h3>
 <pre class="hljs language-turtle"><span class="hljs-symbol">:Exploitatie</span> <span class="hljs-built_in">a</span> <span class="hljs-symbol">owl:Class</span> ;
   <span class="hljs-symbol">rdfs:label</span> <span class="hljs-string">&quot;Exploitatie&quot;</span><span class="hljs-type">@nl</span> ;
   <span class="hljs-symbol">rdfs:comment</span> <span class="hljs-string">&quot;Een exploitatie is de uitrol van middelen door een exploitant op een exploitatie locatie leidend tot een milieueffect.&quot;</span><span class="hljs-type">@nl</span> ;
@@ -879,8 +928,66 @@ classDef exploitant fill:#f6ff00,stroke:#000000
     </section>
 	<section>
 	<h3>Output naar klassendiagrammen ...</h3>
-<p><img src="./images/klassendiagram-zoom.png" alt=""></p>
+<div class="mermaid">
+%% Generated by ODDToolkit
+classDiagram
+%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces
+class Proces:::procedure {
+UUID uuid
+}
+Procedure &lt;|-- Proces
+Step &lt;|-- Proces
+Plan &lt;|-- Proces
+%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#ExploitatieLocatie
+class ExploitatieLocatie:::exploitant {
+UUID uuid
+}
+Feature &lt;|-- ExploitatieLocatie
+Entity &lt;|-- ExploitatieLocatie
+Platform &lt;|-- ExploitatieLocatie
+%% https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Exploitatie
+class Exploitatie:::exploitant {
+UUID uuid
+}
+%% http://www.w3.org/ns/ssn/deployedOnPlatform
+Exploitatie --&gt; ExploitatieLocatie : deployedOnPlatform
+%% http://www.w3.org/ns/ssn/implements
+Exploitatie --&gt; Proces : implements
+Deployment &lt;|-- Exploitatie
+%% http://www.w3.org/ns/ssn/Deployment
+class Deployment {
+&lt;&lt;interface&gt;&gt;
+}
+class Procedure {
+&lt;&lt;interface&gt;&gt;
+}
+%% http://purl.org/net/p-plan#Step
+class Step {
+&lt;&lt;interface&gt;&gt;
+}
+%% http://purl.org/net/p-plan#Plan
+class Plan {
+&lt;&lt;interface&gt;&gt;
+}
+%% http://www.opengis.net/ont/geosparql#Feature
+class Feature {
+&lt;&lt;interface&gt;&gt;
+}
+%% http://www.w3.org/ns/prov#Entity
+class Entity {
+&lt;&lt;interface&gt;&gt;
+}
+%% http://www.w3.org/ns/sosa/Platform
+class Platform {
+&lt;&lt;interface&gt;&gt;
+}
 
+classDef system fill:#4bde2a,stroke:#000000
+classDef procedure fill:#ccffcc,stroke:#000000
+classDef result fill:#ccccff,stroke:#000000
+classDef exploitant fill:#f6ff00,stroke:#000000
+
+</div>
 	</section>
 	<section>
 		<h3>Automatische SHACL shapes en validatie</h3>
@@ -889,13 +996,22 @@ classDef exploitant fill:#f6ff00,stroke:#000000
 </blockquote>
 <!-- Doorkruiste en vinkje -->
 <ul>
-<li><code>https://...#Exploitant</code> ✅</li>
-<li><code>https://...#Exploitatie</code> ❌ (prov:Activity disjoint met ssn:Deployment)</li>
+<li><code>https://...#Keuken</code> ✅</li>
+<li><code>https://...#Brownie</code> ❌ (&quot;Brownie&quot; is impliciet het &quot;Bakken&quot;)</li>
 </ul>
 
 	</section>
 </section>
+
 <section>
+	<section>
+    <h2>Conclusie datamodellering</h2>
+<blockquote>
+<p>Het is makkelijk om een complex datamodel te maken, het is moeilijker om iets complex zoals RIE-IEPR tot een eenvoudig model te herleiden.</p>
+</blockquote>
+<p><strong>Laten we het warm water niet heruitvinden</strong></p>
+
+    </section>
     <section>
     <h2>Conclusie datamodellering</h2>
 <h3>(1) Planning</h3>
@@ -944,13 +1060,6 @@ flowchart TB
 <h1 class="center">Nu</h1>
 
     </section>
-	<section>
-    <h2>Conclusie datamodellering</h2>
-<blockquote>
-<p>Het is makkelijk om een complex datamodel te maken, het is moeilijker om iets complex zoals RIE-IEPR tot een eenvoudig model te herleiden.</p>
-</blockquote>
-
-    </section>
 </section>
 
       </div>
@@ -969,8 +1078,8 @@ flowchart TB
     </script>
     
     <script type="module">
-      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1771872667';
-      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1771872667';
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1771946024';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1771946024';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;
