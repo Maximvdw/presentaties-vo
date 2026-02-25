@@ -140,6 +140,8 @@ export default async function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("**/*.js");
   eleventyConfig.addPassthroughCopy("**/*.png");
   eleventyConfig.addPassthroughCopy("**/*.jpg");
+  eleventyConfig.addPassthroughCopy("**/*.avif");
+  eleventyConfig.addPassthroughCopy("**/*.svg");
 
   // Watch for changes in CSS
   eleventyConfig.addWatchTarget("css/");

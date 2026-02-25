@@ -25,9 +25,9 @@
     <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
     
     
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1771946024">
-    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1771946024">
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1771946024">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1772022518">
+    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1772022518">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1772022518">
     
     
 
@@ -61,7 +61,7 @@
 
         
 <section>
-		<section>
+	<section>
     <h2>Wat is het RIE-IEPR loket?</h2>
 <div class="mermaid">
 flowchart LR
@@ -376,34 +376,22 @@ flowchart LR
 %% PLANNING
 %% =====================================================
 subgraph PLANNING[&quot;ONTWERP&quot;]
-
     STEP([Step])
-    
     PLAN[&quot;Plan&quot;]
-
     Variable([Variabele])
-    
 end
-    
 
 style PLANNING fill:#b8a2d4,stroke:#2E5C8A,color:#000
-
 style STEP fill:#7f59ae,stroke:#2E5C8A,color:#000
 style PLAN fill:#c6a0f5,stroke:#2E5C8A,color:#000
-
 style Variable fill:#fe7130,stroke:#2E5C8A,color:#000
 
 %% Plan structuur
 
-
 PLAN --&gt;|hasSubPlan| PLAN
-
-
 STEP --&gt;|isDecomposedAsPlan| PLAN
 
-
 %% Variabelen
-
 Variable --&gt;|isInputVarOf| STEP
 Variable --&gt;|isOutputVarOf| STEP
 
@@ -416,7 +404,6 @@ Variable --&gt;|isOutputVarOf| STEP
 subgraph DEPLOYMENT[&quot;CAPACITEIT&quot;]
     Platform([Platform])
     Deployment([Deployment])
-
     SYS([System])
 end
 
@@ -426,9 +413,8 @@ style Deployment fill:#60c4e4,stroke:#2E5C8A,color:#000
 style SYS fill:#60c4e4,stroke:#2E5C8A,color:#000
 
 Deployment --&gt;|deployedOnPlatform| Platform
-Deployment --&gt;|deployedSystem| SYS 
+Deployment --&gt;|deployedSystem| SYS
 Platform --&gt;|hosts| SYS
-
 SYS --&gt;|implements| STEP
 
 
@@ -436,32 +422,23 @@ SYS --&gt;|implements| STEP
 %% EXECUTION
 %% =====================================================
 subgraph EXECUTION[&quot;REALISATIE&quot;]
-
     Activity([Activiteit])
-
-
-        Entity([Entity])
-   
-    
+    Entity([Entity])
 end
 
 
 style EXECUTION fill:#e7a3be,stroke:#2E5C8A,color:#000
 style Activity fill:#e54b89,stroke:#2E5C8A,color:#000
-
-
 style Entity fill:#f8b622,stroke:#2E5C8A,color:#000
 
 
 %% Activity relaties
 Activity --&gt;|correspondsToStep| STEP
-
 Activity --&gt;|madeBySystem| SYS
-
-
-
 Activity --&gt;|used| Entity
 Activity --&gt;|hasResult| Entity
+Activity --&gt;|usedProcedure| PLAN
+
 
 %% Derivatie
 Entity --&gt;|wasDerivedFrom| Entity
@@ -511,24 +488,21 @@ Entity --&gt;|correspondsToVariable| Variable
     </section>
     <section>
         <h3>De oplossing? Automatisatie van het analyse proces!</h3>
-<div class="mermaid">
-sequenceDiagram
-actor Geert &amp; Maxim
-participant Regeltjes
-participant Validatie
-participant Transformatie
+<img src="./images/regeltjes.drawio.svg">
 
-Geert &amp; Maxim-&gt;&gt;+Regeltjes: &quot;Aanpassing model&quot;
-Regeltjes-&gt;&gt;+Validatie: &quot;Validatie van data&quot;
-Validatie--&gt;&gt;-Geert &amp; Maxim: &quot;Feedback over model&quot;
-Regeltjes-&gt;&gt;+Transformatie: &quot;Extractie van ontologie&quot;
-Transformatie--&gt;&gt;-Geert &amp; Maxim: &quot;Feedback over transformatie&quot;
-
-</div>
     </section>
 </section>
 
 <section>
+	<section>
+    <h2>Ontologie Gedreven Ontwerp</h2>
+<ul>
+<li>Het opstellen van een <strong>formele ontologie</strong> die de <strong>concepten, relaties en regels</strong> van het domein beschrijft.</li>
+<li>Het gebruik van deze ontologie als basis voor het <strong>genereren van datamodellen</strong>, databaseschema's, API's en documentatie.</li>
+<li>Het iteratief <strong>verfijnen</strong> van de ontologie en de transformatie regels op basis van feedback en <strong>nieuwe inzichten</strong>.</li>
+</ul>
+
+  </section>
   <section>
     <h2>Ontologie Gedreven Ontwerp</h2>
 <h3>Voorbeeld: Exploitatie</h3>
@@ -556,7 +530,7 @@ Transformatie--&gt;&gt;-Geert &amp; Maxim: &quot;Feedback over transformatie&quo
 </pre>
   </section>
   <section>
-    <h3>Transformatie regels</h3>
+    <h3>Transformatie regels (ontwikkelaars regels)</h3>
 <p><strong>Voorbeelden</strong>:</p>
 <ul>
 <li><code>adms:identifier</code> → &quot;aparte key value tabel&quot;</li>
@@ -569,7 +543,7 @@ Transformatie--&gt;&gt;-Geert &amp; Maxim: &quot;Feedback over transformatie&quo
 
   </section>
   <section>
-    <h3>Output naar SQL met comments ...</h3>
+    <h3>Uitvoer naar SQL met comments ...</h3>
 <pre class="hljs language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> exploitant ( <span class="hljs-comment">-- Gegenereerd van: https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Exploitant</span>
   uuid <span class="hljs-type">VARCHAR</span>,
   uri <span class="hljs-type">VARCHAR</span>,
@@ -594,7 +568,7 @@ COMMENT <span class="hljs-keyword">ON</span> <span class="hljs-keyword">COLUMN</
 </pre>
     </section>
 	<section>
-    <h3>Output naar Java met annotations ...</h3>
+    <h3>Uitvoer naar Java met annotations ...</h3>
 <pre class="hljs language-java"><span class="hljs-comment">// Gegenereerd van: https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Exploitant</span>
 <span class="hljs-meta">@Entity</span>
 <span class="hljs-meta">@Table(name = &quot;exploitant&quot;)</span>
@@ -615,7 +589,7 @@ COMMENT <span class="hljs-keyword">ON</span> <span class="hljs-keyword">COLUMN</
 </pre>
     </section>
     <section>
-    <h3>Output naar klassendiagrammen ...</h3>
+    <h3>Uitvoer naar klassendiagrammen ...</h3>
 <div class="mermaid">
 %% Generated by ODDToolkit
 classDiagram
@@ -927,7 +901,7 @@ classDef exploitant fill:#f6ff00,stroke:#000000
 </div>
     </section>
 	<section>
-	<h3>Output naar klassendiagrammen ...</h3>
+	<h3>Uitvoer naar klassendiagrammen ...</h3>
 <div class="mermaid">
 %% Generated by ODDToolkit
 classDiagram
@@ -990,10 +964,11 @@ classDef exploitant fill:#f6ff00,stroke:#000000
 </div>
 	</section>
 	<section>
-		<h3>Automatische SHACL shapes en validatie</h3>
+		<h3>Uitvoer SHACL shapes en validatie</h3>
 <blockquote>
 <p>Via automatische SHACL validatie kunnen we snel feedback krijgen over inconsistenties in het datamodel op conceptueel niveau</p>
 </blockquote>
+<p><em>Oftewel, zijn er regeltjes die elkaar tegen werken...</em></p>
 <!-- Doorkruiste en vinkje -->
 <ul>
 <li><code>https://...#Keuken</code> ✅</li>
@@ -1007,8 +982,14 @@ classDef exploitant fill:#f6ff00,stroke:#000000
 	<section>
     <h2>Conclusie datamodellering</h2>
 <blockquote>
-<p>Het is makkelijk om een complex datamodel te maken, het is moeilijker om iets complex zoals RIE-IEPR tot een eenvoudig model te herleiden.</p>
+<p>Het is makkelijk om een complex datamodel te maken, het is moeilijker om iets complex tot eenvoud te herleiden.</p>
 </blockquote>
+<p><strong>Enkel voordelen</strong></p>
+<ul>
+<li>Bevorderde gegevensuitwisseling en samenwerking</li>
+<li>Verbeterde traceerbaarheid en transparantie</li>
+<li>Toekomstbestendig en flexibel</li>
+</ul>
 <p><strong>Laten we het warm water niet heruitvinden</strong></p>
 
     </section>
@@ -1019,12 +1000,8 @@ classDef exploitant fill:#f6ff00,stroke:#000000
 <div class="mermaid">
 flowchart LR
   DRANKJE1([drankje])
-  LOZINGSPUNT1([lozingspunt])
-
-  style LOZINGSPUNT1 fill:#ff9,stroke:#333,stroke-width:2px;
 
   A([Volg presentatie]) --&gt; B([Haal een drankje])
-  B --&gt; LOZINGSPUNT1
   B --&gt; C([Praat met collega's])
 
   B -.-o|variabele| DRANKJE1
@@ -1042,11 +1019,9 @@ flowchart TB
   subgraph &quot;Teamdrink (Platform)&quot;
       subgraph &quot;Teamdrink 26.02 (Deployment)&quot;
           Bar([&quot;Bar&lt;br&gt;sosa:System&quot;])
-          LOZINGSPUNT1([&quot;lozingspunt&lt;br&gt;sosa:System&quot;])
 
           style Bar fill:#9ff,stroke:#333,stroke-width:2px;
-          style LOZINGSPUNT1 fill:#ff9,stroke:#333,stroke-width:2px;
-
+Tom([&quot;Tom&lt;br&gt;prov:Agent&quot;])
           Geert([&quot;Geert&lt;br&gt;prov:Agent&quot;])
           Maxim([&quot;Maxim&lt;br&gt;prov:Agent&quot;])
       end
@@ -1057,7 +1032,7 @@ flowchart TB
     <section>
     <h2>Conclusie datamodellering</h2>
 <h3>(3) Uitvoering</h3>
-<h1 class="center">Nu</h1>
+<h1 class="center fragment fade-in">Nu</h1>
 
     </section>
 </section>
@@ -1078,8 +1053,8 @@ flowchart TB
     </script>
     
     <script type="module">
-      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1771946024';
-      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1771946024';
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1772022518';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1772022518';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;
