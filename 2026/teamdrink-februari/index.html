@@ -25,9 +25,9 @@
     <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
     
     
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1772091213">
-    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1772091213">
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1772091213">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1772110588">
+    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1772110588">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1772110588">
     
     
 
@@ -60,6 +60,10 @@
         
 
         
+<section>
+	<h2>Correlatie RIE-IEPR en brownies</h2>
+	<img src="./images/brownie.avif">
+</section>
 <section>
 	<section>
     <h2>Wat is het RIE-IEPR loket?</h2>
@@ -528,6 +532,17 @@ Entity --&gt;|correspondsToVariable| Variable
       <span class="hljs-symbol">owl:minCardinality</span> <span class="hljs-string">&quot;0&quot;</span><span class="hljs-type">^^xsd:nonNegativeInteger</span> ;
   ] .
 </pre>
+  </section>
+  <section>
+    <h2>Ontologie Gedreven Ontwerp</h2>
+<h3>Voorbeeld: Exploitatie ...</h3>
+<ul>
+<li>Een exploitatie <strong>is een</strong> deployment</li>
+<li>Een exploitatie word <strong>geidentificeerd door</strong> een combinatie van de locatie en een lokale identifier</li>
+<li>Een exploitatie <strong>moet een</strong> naam hebben</li>
+<li>Een exploitatie <strong>heeft een relatie</strong> &quot;deployedSystem&quot; met kardinaliteit 0..* naar systemen</li>
+</ul>
+
   </section>
   <section>
     <h3>Transformatie regels (ontwikkelaars regels)</h3>
@@ -1064,8 +1079,8 @@ Tom([&quot;Tom&lt;br&gt;prov:Agent&quot;])
     </script>
     
     <script type="module">
-      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1772091213';
-      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1772091213';
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1772110588';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1772110588';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;
