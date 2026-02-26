@@ -9,6 +9,10 @@ theme: omgeving
 ---
 
 <section>
+	<h2>Correlatie RIE-IEPR en brownies</h2>
+	<img src="./images/brownie.avif">
+</section>
+<section>
 	<section>
     {% markdown %}
     ## Wat is het RIE-IEPR loket?
@@ -495,6 +499,16 @@ flowchart LR
             owl:minCardinality "0"^^xsd:nonNegativeInteger ;
         ] .
     ```
+    {% endmarkdown %}
+  </section>
+  <section>
+    {% markdown %}
+	## Ontologie Gedreven Ontwerp
+    ### Voorbeeld: Exploitatie ...
+	- Een exploitatie **is een** deployment
+		- Een exploitatie word **geidentificeerd door** een combinatie van de locatie en een lokale identifier
+		- Een exploitatie **moet een** naam hebben
+		- Een exploitatie **heeft een relatie** "deployedSystem" met kardinaliteit 0..* naar systemen
     {% endmarkdown %}
   </section>
   <section>
