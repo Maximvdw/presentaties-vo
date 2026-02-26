@@ -319,7 +319,7 @@ prov -> traceerbaarheid
 					<ul>
 						<li>Sensormetingen, batches, emissies</li>
 						<li>Tijdsreeksen en gebeurtenissen met hoge datavolumes</li>
-						<li>Ongveranderlijk auditspoor</li>
+						<li>Onveranderlijk auditspoor</li>
 					</ul>
 				</div>
 			</div>
@@ -438,8 +438,8 @@ flowchart LR
         - Verschillende achtergronden en visies
         - Verschillende verwachtingen over de ontologie
         - Meerdere iteraties nodig om tot een mooi resultaat te geraken
-		- Veel manueel werk voor voorbeeld data ...
-        - Veel manueel werk bij elke wijziging ...
+		- Veel handmatig werk voor voorbeelddata ...
+        - Veel handmatig werk bij elke wijziging ...
         {% endmarkdown %}
     </section>
     <section>
@@ -506,7 +506,7 @@ flowchart LR
 	## Ontologie Gedreven Ontwerp
     ### Voorbeeld: Exploitatie ...
 	- Een exploitatie **is een** deployment
-		- Een exploitatie word **geidentificeerd door** een combinatie van de locatie en een lokale identifier
+		- Een exploitatie word **geïdentificeerd door** een combinatie van de locatie en een lokale identifier
 		- Een exploitatie **moet een** naam hebben
 		- Een exploitatie **heeft een relatie** "deployedSystem" met kardinaliteit 0..* naar systemen
     {% endmarkdown %}
@@ -516,7 +516,7 @@ flowchart LR
     ### Transformatie regels (ontwikkelaars regels)
     **Voorbeelden**:
     - `adms:identifier` → "aparte key value tabel"
-    - Genegeerde over overschreven properties (max kardinaliteit van een label)
+    - Genegeerde of overschreven properties (max kardinaliteit van een label)
     - Welke classen we samenvoegen als enums (bv. Procedure type, Status, ...)
     - Versioneringstabellen, identiteitstabellen of composite keys?
     - Bijkomende properties (bv. UUID, ingediend, ...)
