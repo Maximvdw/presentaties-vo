@@ -2,6 +2,8 @@ import markdownIt from 'markdown-it';
 import nunjucks from 'nunjucks';
 import njkMarkdown from 'nunjucks-markdown';
 import hljs from 'highlight.js';
+import markdownItAnchor from 'markdown-it-anchor';
+import markdownItAttrs from 'markdown-it-attrs';
 
 import { hljsDefineTurtle } from './scripts/vendor/turtle.js';
 
@@ -15,8 +17,15 @@ export default async function (eleventyConfig) {
     if (format === 'iso') {
       return date.toISOString();
     }
-    // Use Intl.DateTimeFormat for custom formats (limited)
-    // Example: 'nl-NL', { year: 'numeric', month: '2-digit', day: '2-digit' }
+    // Support a Dutch long format for human-friendly month names
+    if (format === 'nl-long') {
+      try {
+        return new Intl.DateTimeFormat('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
+      } catch (e) {
+        return date.toString();
+      }
+    }
+    // Use Intl.DateTimeFormat for default nl-NL numeric format
     try {
       return new Intl.DateTimeFormat('nl-NL').format(date);
     } catch (e) {
@@ -42,6 +51,15 @@ export default async function (eleventyConfig) {
 
   // Create a single markdown-it instance and customize fence rendering
   const md = markdownIt(markdownItOptions);
+
+  // Enable attribute syntax like `{.class #id key=val}` in Markdown
+  md.use(markdownItAttrs);
+
+  md.use(markdownItAnchor, {
+    permalink: false,
+    permalinkClass: 'direct-link',
+    permalinkSymbol: '#'
+  });
 
   // Try to load a markdown-it mermaid plugin if available. This is optional —
   // if the package isn't installed we'll fall back to the custom fence renderer below.
@@ -130,8 +148,10 @@ export default async function (eleventyConfig) {
   // Copy misc files
   eleventyConfig.addPassthroughCopy(".nojekyll");
 
-  // Copy custom CSS and fonts
-  eleventyConfig.addPassthroughCopy("css");
+  // Copy compiled CSS only (generated from SCSS) and fonts/images/js
+  eleventyConfig.addPassthroughCopy({
+    "css/*.css": "css"
+  });
   eleventyConfig.addPassthroughCopy("fonts");
   eleventyConfig.addPassthroughCopy("images");
   eleventyConfig.addPassthroughCopy("js");
@@ -143,8 +163,9 @@ export default async function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("**/*.avif");
   eleventyConfig.addPassthroughCopy("**/*.svg");
 
-  // Watch for changes in CSS
-  eleventyConfig.addWatchTarget("css/");
+  // Watch for changes in SCSS and compiled CSS to trigger reloads
+  eleventyConfig.addWatchTarget("css/**/*.scss");
+  eleventyConfig.addWatchTarget("css/*.css");
 
   // Ignore README files
   eleventyConfig.ignores.add("**/README.md");

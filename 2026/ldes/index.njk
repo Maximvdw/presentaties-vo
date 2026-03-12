@@ -1,8 +1,277 @@
 ---
 layout: presentation.njk
-title: LDES
-subtitle: RIE-IEPR afname via LDES
-presentationDate: 9 februari 2026
+title: "RIE-IEPR: Linked Data Model"
+subtitle: Linked Data standaarden
+presentationDate: 2026-03-24
 status: WIP
 theme: vlaanderen
 ---
+
+<section>
+    {% markdown %}
+    ## Inhoud
+    1. Introductie Linked Data
+    2. Standaarden en Master Data
+    3. Datamodel
+    4. Versionering
+    { .large }
+    {% endmarkdown %}
+</section>
+
+<section>
+    <section>
+        {% markdown %}
+        ## Introductie Linked Data
+        ### Beschrijving van informatie
+        > Beschrijf mij wat een exploitant is?
+
+        ```mermaid
+        flowchart LR
+            EXPLOITANT["Exploitant"]
+            EXPLOITANT -->|"is een"| ORGANISATIE["Organisatie"]
+            ORGANISATIE -->|"die een ... uitbaat"| EXPLOITATIE["Exploitatie"]
+        ```
+        { verticalAlign: top }
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ### Beschrijving van informatie ...
+        > Beschrijf mij wat een exploitatie is?
+
+        ```mermaid
+        flowchart LR
+            EXPLOITATIE["Exploitatie"]
+            EXPLOITATIE -->|"is een"| ACTIVITEIT["Uitbating"]
+            ACTIVITEIT -->|"dat leidt tot"| MILIEUEFFECT["Milieueffect"]
+        ```
+        { verticalAlign: top }
+        {% endmarkdown %}
+    </section>
+        <section>
+        {% markdown %}
+        ### Beschrijving van informatie ...
+        > Beschrijf mij wat een milieueffect is?
+
+        **...**
+
+        > Beschrijf mij wat een organisatie is?
+
+        **...**
+
+        > Beschrijf mij wat een vestiging is?
+        {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+        {% markdown %}
+        ## Introductie Linked Data
+        ### Betekenis van informatie
+        > Beschrijf mij wat een installatie is?
+        ```mermaid
+        flowchart TB
+            subgraph Persoon B
+                EXPLOITATIE2["Installatie"]
+                EXPLOITATIE2 -->|"is een"| COLLECTIE["Collectie"]
+                COLLECTIE -->|"van ..."| APPARAAT["Apparaat"]
+            end
+            subgraph Persoon A
+                EXPLOITATIE["Installatie"]
+                EXPLOITATIE -->|"is een"| ACTIVITEIT["Apparaat"]
+            end
+        ````
+        { verticalAlign: top }
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ### Betekenis van informatie ...
+        ```mermaid
+        flowchart TB
+            subgraph Systeem B
+                DOSSIER3["Dossier"]
+                DOSSIER4["Stamdossier"]
+            end
+
+            subgraph Systeem A
+                DOSSIER1["Deeldossier"]
+                DOSSIER2["Basisdossier"]
+            end
+        ```
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ### Betekenis van informatie ...
+        > **Iedereen** kan iets **beschrijven**, maar enkel de **eigenaar** van de informatie kan de achterliggende **betekenis** ervan bepalen.
+        { .large }
+        {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+        {% markdown %}
+        ## Introductie Linked Data
+        ### Betekenisvol beschrijven van informatie
+        > Beschrijf mij wat een exploitatie is?
+        ```mermaid
+        flowchart LR
+            EXPLOITATIE["Exploitatie"]
+            EXPLOITATIE -->|"rdf:type"| DEPLOYMENT["ssn:Deployment"]
+            EXPLOITATIE -->|"ssn:deployedSystem"| INSTALLATIE["Installatie"]
+            INSTALLATIE -->|"rdf:type"| SYSTEM["ssn:System"]
+            EXPLOITATIE -->|"ssn:implements"| PROCES["Proces"]
+            PROCES -->|"rdf:type"| PLAN["p-plan:Plan"]
+
+            classDef ssn fill:#f9f,stroke:#333,stroke-width:2px;
+            classDef p-plan fill:#bbf,stroke:#333,stroke-width:2px;
+            classDef domg fill:#447a6d,stroke:#2d5957,stroke-width:2px,color:white;
+            class DEPLOYMENT,SYSTEM ssn;
+            class PLAN p-plan;
+            class EXPLOITATIE,INSTALLATIE,PROCES domg;
+        ```
+        { verticalAlign: top }
+        {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+        {% markdown %}
+        ## Standaarden en Master Data
+        ### Linked Data - Web van informatie
+        ![lod](./images/cloud1.svg)
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ### Linked Data - Web van informatie ...
+        ![lod](./images/cloud2.svg)
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ### Beheer van betekenissen bij standaarden 
+        ... want standaarden zijn generiek en algemeen gekend { .medium }
+        
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ### Beheer van informatie bij de eigenaar
+        ... want de eigenaar kent de betekenis { .medium }
+
+        {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+        {% markdown %}
+        ## Datamodel
+        ### Standaarden
+        **Drie** belangrijke standaarden **voor de structuur**:
+        - SSN/SOSA
+        - PROV-O
+        - P-PLAN
+
+        **Meerdere** standaarden **voor de inhoud**:
+        - DCTerms
+        - ADMS
+        - GeoSPARQL
+        - DBPedia
+        - ...
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Datamodel
+        ### Exploitatie als 'Deployment'
+        > **SOSA/SSN (vertaling)**: Beschrijft de inzet van een of meer systemen voor een specifiek doel. De inzet kan plaatsvinden op een platform.
+        ```mermaid
+        flowchart LR
+            EXPLOITATIE["Exploitatie"]
+            EXPLOITATIE -->|"rdf:type"| DEPLOYMENT["ssn:Deployment"]
+
+            classDef ssn fill:#f9f,stroke:#333,stroke-width:2px;
+            classDef p-plan fill:#bbf,stroke:#333,stroke-width:2px;
+            classDef domg fill:#447a6d,stroke:#2d5957,stroke-width:2px,color:white;
+            class DEPLOYMENT ssn;
+            class EXPLOITATIE domg;
+        ```
+        { verticalAlign: top }
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Datamodel
+        ### ExploitatieLocatie als 'Platform'
+        > **SOSA/SSN (vertaling)**: Een platform is een entiteit die andere entiteiten host, met name sensoren, actuatoren, bemonsteringsapparaten en andere platforms.
+        ```mermaid
+        flowchart LR
+            EXPLOITATIE["Exploitatie"]
+            EXPLOITATIE -->|"rdf:type"| DEPLOYMENT["ssn:Deployment"]
+            EXPLOITATIE -->|"ssn:inDeployment"| EXPLOITATIELOCATIE["ExploitatieLocatie"]
+            EXPLOITATIELOCATIE -->|"rdf:type"| PLATFORM["sosa:Platform"]
+
+            classDef ssn fill:#f9f,stroke:#333,stroke-width:2px;
+            classDef p-plan fill:#bbf,stroke:#333,stroke-width:2px;
+            classDef domg fill:#447a6d,stroke:#2d5957,stroke-width:2px,color:white;
+            class DEPLOYMENT,PLATFORM ssn;
+            class EXPLOITATIE,EXPLOITATIELOCATIE domg;
+        ```
+        { verticalAlign: top }
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Datamodel
+        ### Installatie, Emissiepunt, ... als 'System'
+        > **SOSA/SSN (vertaling)**: Een systeem is een abstractie-eenheid voor infrastructuuronderdelen die procedures implementeren. Een systeem kan componenten hebben, oftewel subsystemen, die op hun beurt weer andere systemen zijn.
+        ```mermaid
+        flowchart LR
+            EXPLOITATIE["Exploitatie"]
+        ```
+        { verticalAlign: top }
+        {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+        {% markdown %}
+        ## Versionering
+        <div class="medium">
+        {% markdown %}
+        1. Stabiele identificatie
+            - *Over welke (exploitatie) spreken we?*
+        2. Geldigheidsduur (van - tot)
+            - *Wanneer was deze versie van de (exploitatie) geldig?*
+        3. Creatietijdstip
+            - *Wanneer is deze versie van de (exploitatie) gemaakt?*
+        {% endmarkdown %}
+        </div>
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Versionering
+        ### URI's
+        - `https://.../id/exploitatie/1234-5678`
+            - URI exploitatie met ID `1234-5678`
+            - De laatste versie van de exploitatie
+        - `https://.../id/exploitatie/1234-5678/2026-03-24T12:00:00`
+            - URI exploitatieversie op `2026-03-24T12:00:00` van exploitatie met ID `1234-5678`
+            - Een specifieke versie van de exploitatie
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Versionering
+        ### Geldigheidsduur
+        {% endmarkdown %}
+    </section>
+</section>

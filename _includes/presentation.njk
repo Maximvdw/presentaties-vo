@@ -45,7 +45,7 @@
               <p class="organization">{{ organization or defaults.organization }}</p>
               {% endif %}
               {% if presentationDate %}
-              <p class="date">{{ presentationDate }}</p>
+              <p class="date">{{ presentationDate | date('nl-long') }}</p>
               {% endif %}
             </div>
           </div>

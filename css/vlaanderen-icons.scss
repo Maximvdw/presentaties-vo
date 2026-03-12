@@ -1,0 +1,166 @@
+/**
+ * Generated Vlaanderen Icon Font CSS
+ * Extracted from https://www.vlaanderen.be
+ * Total Icons: 527
+ */
+
+@font-face {
+  font-family: 'vlaanderen-icon';
+  src: url('../fonts/vlaanderen-icons/vlaanderen-icon.eea3757.woff2') format('woff2'),
+       url('../fonts/vlaanderen-icons/vlaanderen-icon.3e433a0.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+
+.vl-vi,
+.vl-icon {
+  font-family: 'vlaanderen-icon' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: middle;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: normal;
+}
+
+.vl-vi::before,
+.vl-icon::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: normal;
+  display: inline-block;
+  font-family: 'vlaanderen-icon' !important;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  text-decoration: none;
+  text-transform: none;
+  vertical-align: middle;
+}
+
+/* Size modifiers */
+.vl-vi-u-xs::before { font-size: 0.8rem; }
+.vl-vi-u-s::before { font-size: 1.3rem; }
+.vl-vi-u-m::before { font-size: 1.7rem; }
+.vl-vi-u-l::before { font-size: 2rem; }
+.vl-vi-u-xl::before { font-size: 2.2rem; }
+
+/* Rotation modifiers */
+.vl-vi-u-90deg::before { display: inline-block; transform: rotate(90deg); }
+.vl-vi-u-180deg::before { display: inline-block; transform: rotate(180deg); vertical-align: middle; }
+
+/* Color variants */
+.vl-vi.text-yellow::before, .vl-icon.text-yellow::before { color: var(--vl-geel); }
+.vl-vi.text-blue::before, .vl-icon.text-blue::before { color: var(--vl-blauw); }
+.vl-vi.text-blue-dark::before, .vl-icon.text-blue-dark::before { color: var(--vl-blauw-donker); }
+.vl-vi.text-white::before, .vl-icon.text-white::before { color: var(--vl-wit); }
+
+/* Icon definitions */
+.vl-vi-add::before { content: ""; }
+.vl-vi-addressbook::before { content: ""; }
+.vl-vi-airplane::before { content: ""; }
+.vl-vi-alarm::before { content: ""; }
+.vl-vi-alarm-silent::before { content: ""; }
+.vl-vi-alert-circle::before { content: ""; }
+.vl-vi-alert-circle-filled::before { content: ""; }
+.vl-vi-alert-small::before { content: ""; }
+.vl-vi-alert-triangle::before { content: ""; }
+.vl-vi-alert-triangle-filled::before { content: ""; }
+
+/* Logo: Vlaanderen (used in slide corner) */
+.vl-vi-vlaanderen::before { content: ""; }
+
+.vl-vi-align-center::before { content: ""; }
+.vl-vi-align-justify::before { content: ""; }
+.vl-vi-align-left::before { content: ""; }
+.vl-vi-align-right::before { content: ""; }
+.vl-vi-apple::before { content: ""; }
+.vl-vi-area::before { content: ""; }
+.vl-vi-arrange-1-to-9::before { content: ""; }
+.vl-vi-arrange-9-to-1::before { content: ""; }
+.vl-vi-arrange-a-to-z::before { content: ""; }
+.vl-vi-arrange-amount-large-to-small::before { content: ""; }
+.vl-vi-arrange-amount-small-to-large::before { content: ""; }
+.vl-vi-arrange-z-to-a::before { content: ""; }
+.vl-vi-arrow::before { content: ""; }
+.vl-vi-arrow-bottom::before { content: ""; }
+.vl-vi-arrow-down::before { content: ""; }
+.vl-vi-arrow-down-fat::before { content: ""; }
+.vl-vi-arrow-down-thin::before { content: ""; }
+.vl-vi-arrow-freemove::before { content: ""; }
+.vl-vi-arrow-left::before { content: ""; }
+.vl-vi-arrow-left-fat::before { content: ""; }
+.vl-vi-arrow-left-thin::before { content: ""; }
+.vl-vi-arrow-right::before { content: ""; }
+.vl-vi-arrow-right-fat::before { content: ""; }
+.vl-vi-arrow-right-thin::before { content: ""; }
+.vl-vi-arrow-thin::before { content: ""; }
+.vl-vi-arrow-up::before { content: ""; }
+.vl-vi-arrow-up-fat::before { content: ""; }
+.vl-vi-arrow-up-thin::before { content: ""; }
+.vl-vi-asterisk::before { content: ""; }
+.vl-vi-audio-description::before { content: ""; }
+.vl-vi-back::before { content: ""; }
+.vl-vi-ban::before { content: ""; }
+.vl-vi-banking-bill-euro::before { content: ""; }
+.vl-vi-battery-charging::before { content: ""; }
+.vl-vi-bell::before { content: ""; }
+.vl-vi-bike::before { content: ""; }
+.vl-vi-bike-closed-criterium::before { content: ""; }
+.vl-vi-bike-open-criterium::before { content: ""; }
+.vl-vi-bin::before { content: ""; }
+.vl-vi-binoculars::before { content: ""; }
+.vl-vi-boat-ship::before { content: ""; }
+.vl-vi-bold::before { content: ""; }
+.vl-vi-book::before { content: ""; }
+.vl-vi-bookmark::before { content: ""; }
+.vl-vi-bookmark-alt-1::before { content: ""; }
+.vl-vi-bookmark-alt-2::before { content: ""; }
+.vl-vi-breadcrumb-separator::before { content: ""; }
+.vl-vi-briefcase::before { content: ""; }
+.vl-vi-briefcase-pause::before { content: ""; }
+.vl-vi-building::before { content: ""; }
+.vl-vi-building-2::before { content: ""; }
+.vl-vi-building-big::before { content: ""; }
+.vl-vi-bullet::before { content: ""; }
+.vl-vi-burger::before { content: ""; }
+.vl-vi-burger-alt::before { content: ""; }
+.vl-vi-burgerprofiel::before { content: ""; }
+.vl-vi-bus::before { content: ""; }
+.vl-vi-bus-handicap::before { content: ""; }
+.vl-vi-bus-refresh::before { content: ""; }
+.vl-vi-business-deal-handshake::before { content: ""; }
+.vl-vi-business-graph-bar::before { content: ""; }
+.vl-vi-business-graph-pie::before { content: ""; }
+.vl-vi-business-scale::before { content: ""; }
+.vl-vi-cabinet::before { content: ""; }
+.vl-vi-cake::before { content: ""; }
+.vl-vi-calculator::before { content: ""; }
+.vl-vi-calendar::before { content: ""; }
+.vl-vi-calendar-add::before { content: ""; }
+.vl-vi-calendar-check::before { content: ""; }
+.vl-vi-calendar-subtract::before { content: ""; }
+.vl-vi-camera::before { content: ""; }
+.vl-vi-car::before { content: ""; }
+.vl-vi-car-refresh::before { content: ""; }
+.vl-vi-car-wheel::before { content: ""; }
+.vl-vi-chat::before { content: ""; }
+.vl-vi-chat-bubble-square::before { content: ""; }
+.vl-vi-chat-bubble-square-alert::before { content: ""; }
+.vl-vi-chat-bubble-square-alt::before { content: ""; }
+.vl-vi-chat-help::before { content: ""; }
+.vl-vi-check::before { content: ""; }
+.vl-vi-check-circle::before { content: ""; }
+.vl-vi-check-filled::before { content: ""; }
+.vl-vi-check-naked::before { content: ""; }
+.vl-vi-check-shield::before { content: ""; }
+.vl-vi-check-small::before { content: ""; }
+.vl-vi-check-thin::before { content: ""; }
+.vl-vi-child::before { content: ""; }
+.vl-vi-clock::before { content: ""; }
+.vl-vi-close::before { content: ""; }

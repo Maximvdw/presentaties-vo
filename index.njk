@@ -26,7 +26,7 @@ author: Maxim Van de Wynckel
 
     <main class="page-content">
       <div class="container">
-        {% set presentations = collections.all | sort(attribute="url") %}
+        {% set presentations = collections.all | sort(attribute="data.presentationDate") | reverse %}
         {% set current_year = "" %}
         {% set has_presentations = false %}
         {% for item in presentations %}
@@ -56,7 +56,11 @@ author: Maxim Van de Wynckel
               {% endif %}
               <div class="card-meta">
                 <i class="vl-vi vl-vi-calendar"></i>
-                <span>{{ item.data.presentationDate or "Geen datum" }}</span>
+                {% if item.data.presentationDate %}
+                <span>{{ item.data.presentationDate | date('nl-long') }}</span>
+                {% else %}
+                <span>Geen datum</span>
+                {% endif %}
               </div>
               <a class="card-link" href="{{ site.baseUrl }}{{ item.url }}">
                 Bekijk presentatie
