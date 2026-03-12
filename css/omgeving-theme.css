@@ -3,11 +3,11 @@
 .reveal.omgeving ol li::marker {
   color: var(--omg-groen-primair);
 }
+
 /**
  * Omgeving theme extensie voor Reveal.js
  * Gebaseerd op Vlaanderen theme met Departement Omgeving branding
  */
-
 :root {
   /* Departement Omgeving primaire kleur */
   --omg-groen-primair: #447a6d;
@@ -31,7 +31,7 @@
 
 .reveal.omgeving .slides section:not(.title-slide) h2::before,
 .reveal.omgeving section:not(.title-slide) h2::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 50%;
   top: 0;
@@ -53,7 +53,7 @@
 }
 
 .reveal.omgeving section:not(.title-slide) h3::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 50%;
   top: 0;
@@ -75,7 +75,7 @@
 }
 
 .reveal.omgeving section:not(.title-slide) h4::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 50%;
   top: 0;

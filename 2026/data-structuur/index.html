@@ -23,9 +23,9 @@
     <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
     
     
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1772111646">
-    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1772111646">
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1772111646">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1773331969">
+    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1773331969">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1773331969">
     
     
 
@@ -60,7 +60,7 @@
         
 <section>
   <section>
-    <h2>Ontologie Gedreven Ontwerp</h2>
+    <h2 id="ontologie-gedreven-ontwerp" tabindex="-1">Ontologie Gedreven Ontwerp</h2>
 <p><strong>Doelstellingen</strong></p>
 <ul>
 <li>Semantische correctheid voor afnemers</li>
@@ -72,7 +72,7 @@
 
   </section>
   <section>
-    <h3>Ontwikkeling</h3>
+    <h3 id="ontwikkeling" tabindex="-1">Ontwikkeling</h3>
 <p><strong>Groen = manueel, Blauw = automatisch</strong></p>
 <div class="mermaid" data-vertical-align="top">
 flowchart LR
@@ -117,11 +117,11 @@ classDef INVOER fill:#cfc,stroke:#333,stroke-width:1px
 class ONTOLOGIE,CONCEPTEN,TRANSFORMATIE_REGELS INVOER
 
 
-</div><p></p>
+</div><p verticalAlign:="" top=""></p>
 
   </section>
   <section>
-    <h3>Voorbeeld: Exploitatie</h3>
+    <h3 id="voorbeeld%3A-exploitatie" tabindex="-1">Voorbeeld: Exploitatie</h3>
 <pre class="hljs language-turtle"><span class="hljs-symbol">:Exploitatie</span> <span class="hljs-built_in">a</span> <span class="hljs-symbol">owl:Class</span> ;
   <span class="hljs-symbol">rdfs:label</span> <span class="hljs-string">&quot;Exploitatie&quot;</span><span class="hljs-type">@nl</span> ;
   <span class="hljs-symbol">rdfs:comment</span> <span class="hljs-string">&quot;Een exploitatie is de uitrol van middelen door een exploitant op een exploitatie locatie leidend tot een milieueffect.&quot;</span><span class="hljs-type">@nl</span> ;
@@ -146,7 +146,7 @@ class ONTOLOGIE,CONCEPTEN,TRANSFORMATIE_REGELS INVOER
 </pre>
   </section>
   <section>
-    <h3>Transformatie regels</h3>
+    <h3 id="transformatie-regels" tabindex="-1">Transformatie regels</h3>
 <p><strong>Voorbeelden</strong>:</p>
 <ul>
 <li><code>adms:identifier</code> → &quot;aparte key value tabel&quot;</li>
@@ -161,7 +161,7 @@ class ONTOLOGIE,CONCEPTEN,TRANSFORMATIE_REGELS INVOER
 
 <section>
   <section>
-    <h2>Visueel proces</h2>
+    <h2 id="visueel-proces" tabindex="-1">Visueel proces</h2>
 <div class="mermaid">
 flowchart LR
 STOF1([&quot;Meel&quot;])
@@ -192,7 +192,7 @@ PROCES2 --&gt; STOF3
 </div>
   </section>
   <section>
-    <h3>Achterliggende data (1)</h3>
+    <h3 id="achterliggende-data-(1)" tabindex="-1">Achterliggende data (1)</h3>
 <div class="mermaid">
 flowchart LR
 STOF1([&quot;**ProcesVariabele** &lt;br&gt; type=Meel&quot;])
@@ -229,7 +229,7 @@ PROCES2 --&gt;|&quot;heeftUitvoer&quot;| STOF3
 </div>
   </section>
   <section>
-    <h3>Achterliggende data (2)</h3>
+    <h3 id="achterliggende-data-(2)" tabindex="-1">Achterliggende data (2)</h3>
 <div class="mermaid">
 flowchart LR
 STOF1([&quot;**ProcesVariabele** &lt;br&gt; type=Meel&quot;])
@@ -267,7 +267,7 @@ PROCES2 --&gt;|&quot;heeftUitvoer&quot;| STOF3
 </div>
   </section>
   <section>
-    <h3>Achterliggende data (3)</h3>
+    <h3 id="achterliggende-data-(3)" tabindex="-1">Achterliggende data (3)</h3>
 <div class="mermaid">
 flowchart LR
 STOF1([&quot;**ProcesVariabele** &lt;br&gt; type=Meel&quot;])
@@ -309,7 +309,7 @@ PROCES2 --&gt;|&quot;heeftUitvoer&quot;| STOF3
 </div>
   </section>
   <section>
-    <h3>Achterliggende data (4)</h3>
+    <h3 id="achterliggende-data-(4)" tabindex="-1">Achterliggende data (4)</h3>
 <div class="mermaid">
 flowchart LR
 STOF1([&quot;**ProcesVariabele** &lt;br&gt; type=Meel&quot;])
@@ -366,7 +366,7 @@ PROCES2 --&gt;|&quot;heeftInvoer&quot;| STOF6
 </div>
   </section>
   <section>
-    <h3>Achterliggende data (5)</h3>
+    <h3 id="achterliggende-data-(5)" tabindex="-1">Achterliggende data (5)</h3>
 <div class="mermaid">
 flowchart LR
 STOF1([&quot;**ProcesVariabele** &lt;br&gt; type=Meel&quot;])
@@ -416,7 +416,7 @@ EMISSIE2 --&gt;|&quot;onderdeelVan&quot;| PROCES_PARENT
 </section>
 <section>
   <section>
-    <h2>Meetpunt</h2>
+    <h2 id="meetpunt" tabindex="-1">Meetpunt</h2>
 <p><strong>Meetpunt hangt op een proces</strong></p>
 <div class="mermaid" data-vertical-align="top">
 flowchart LR
@@ -447,11 +447,11 @@ MP1 --&gt; EP1
 
 PROCES2 --&gt; STOF3
 
-</div><p></p>
+</div><p verticalAlign:="" top=""></p>
 
   </section>
   <section>
-    <h3>Onzichtbaar meetproces</h3>
+    <h3 id="onzichtbaar-meetproces" tabindex="-1">Onzichtbaar meetproces</h3>
 <div class="mermaid">
 flowchart LR
 STOF1([&quot;**ProcesVariabele** &lt;br&gt; type=Meel&quot;])
@@ -500,7 +500,7 @@ PROCES2 --&gt;|&quot;heeftUitvoer&quot;| STOF3
 </section>
 <section>
   <section>
-    <h2>Minimaal klassendiagram (1)</h2>
+    <h2 id="minimaal-klassendiagram-(1)" tabindex="-1">Minimaal klassendiagram (1)</h2>
 <div class="mermaid">
 ---
 config:
@@ -598,7 +598,7 @@ classDef procedure fill:#ccf,stroke:#333,stroke-width:1px
 </div>
   </section>
   <section>
-    <h2>Minimaal klassendiagram (2)</h2>
+    <h2 id="minimaal-klassendiagram-(2)" tabindex="-1">Minimaal klassendiagram (2)</h2>
 <div class="mermaid">
 ---
 config:
@@ -725,7 +725,7 @@ classDef exploitant fill:#ff9,stroke:#333,stroke-width:1px
 </section>
 <section>
   <section>
-    <h2>Versiebeheer</h2>
+    <h2 id="versiebeheer" tabindex="-1">Versiebeheer</h2>
 <p><strong>Waar mogelijk</strong>:</p>
 <ul>
 <li>We kunnen overal versiebeheer toepassen</li>
@@ -737,7 +737,7 @@ classDef exploitant fill:#ff9,stroke:#333,stroke-width:1px
 
   </section>
   <section>
-    <h3>Versiebeheer: voorbeeld wijziging</h3>
+    <h3 id="versiebeheer%3A-voorbeeld-wijziging" tabindex="-1">Versiebeheer: voorbeeld wijziging</h3>
 <div class="mermaid">
 classDiagram
 direction TB
@@ -757,7 +757,7 @@ classDef versie2 fill:#ccf,stroke:#333,stroke-width:1px
 </div>
   </section>
   <section>
-    <h3>Versiebeheer: voorbeeld wijziging ...</h3>
+    <h3 id="versiebeheer%3A-voorbeeld-wijziging-..." tabindex="-1">Versiebeheer: voorbeeld wijziging ...</h3>
 <div class="mermaid">
 classDiagram
 direction TB
@@ -785,7 +785,7 @@ classDef versie2 fill:#ccf,stroke:#333,stroke-width:1px
 </div>
   </section>
   <section>
-    <h3>Versiebeheer: voorbeeld correctie</h3>
+    <h3 id="versiebeheer%3A-voorbeeld-correctie" tabindex="-1">Versiebeheer: voorbeeld correctie</h3>
 <div class="mermaid">
 classDiagram
 direction TB
@@ -824,7 +824,7 @@ classDef versie3 fill:#cfc,stroke:#333,stroke-width:1px
 </div>
   </section>
   <section>
-    <h3>Versiebeheer: voorbeeld hierarchie</h3>
+    <h3 id="versiebeheer%3A-voorbeeld-hierarchie" tabindex="-1">Versiebeheer: voorbeeld hierarchie</h3>
 <div class="mermaid">
 classDiagram
 direction TB
@@ -842,7 +842,7 @@ classDef versie3 fill:#cfc,stroke:#333,stroke-width:1px
 </div>
   </section>
   <section>
-    <h3>Versiebeheer: voorbeeld hierarchie ...</h3>
+    <h3 id="versiebeheer%3A-voorbeeld-hierarchie-..." tabindex="-1">Versiebeheer: voorbeeld hierarchie ...</h3>
 <div class="mermaid">
 classDiagram
 direction TB
@@ -883,8 +883,8 @@ classDef versie3 fill:#cfc,stroke:#333,stroke-width:1px
     </script>
     
     <script type="module">
-      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1772111646';
-      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1772111646';
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1773331969';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1773331969';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;

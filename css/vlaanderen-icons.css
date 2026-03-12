@@ -3,10 +3,16 @@
  * Extracted from https://www.vlaanderen.be
  * Total Icons: 527
  */
-
+@font-face {
+  font-family: "vlaanderen-icon";
+  src: url("../fonts/vlaanderen-icons/vlaanderen-icon.eea3757.woff2") format("woff2"), url("../fonts/vlaanderen-icons/vlaanderen-icon.3e433a0.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
 .vl-vi,
 .vl-icon {
-  font-family: 'vlaanderen-icon' !important;
+  font-family: "vlaanderen-icon" !important;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -24,7 +30,7 @@
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: normal;
   display: inline-block;
-  font-family: 'vlaanderen-icon' !important;
+  font-family: "vlaanderen-icon" !important;
   font-style: normal;
   font-variant: normal;
   font-weight: 400;
@@ -34,568 +40,453 @@
 }
 
 /* Size modifiers */
-.vl-vi-u-xs::before { font-size: 0.8rem; }
-.vl-vi-u-s::before { font-size: 1.3rem; }
-.vl-vi-u-m::before { font-size: 1.7rem; }
-.vl-vi-u-l::before { font-size: 2rem; }
-.vl-vi-u-xl::before { font-size: 2.2rem; }
+.vl-vi-u-xs::before {
+  font-size: 0.8rem;
+}
+
+.vl-vi-u-s::before {
+  font-size: 1.3rem;
+}
+
+.vl-vi-u-m::before {
+  font-size: 1.7rem;
+}
+
+.vl-vi-u-l::before {
+  font-size: 2rem;
+}
+
+.vl-vi-u-xl::before {
+  font-size: 2.2rem;
+}
 
 /* Rotation modifiers */
-.vl-vi-u-90deg::before { display: inline-block; transform: rotate(90deg); }
-.vl-vi-u-180deg::before { display: inline-block; transform: rotate(180deg); vertical-align: middle; }
+.vl-vi-u-90deg::before {
+  display: inline-block;
+  transform: rotate(90deg);
+}
+
+.vl-vi-u-180deg::before {
+  display: inline-block;
+  transform: rotate(180deg);
+  vertical-align: middle;
+}
 
 /* Color variants */
-.vl-vi.text-yellow::before, .vl-icon.text-yellow::before { color: var(--vl-geel); }
-.vl-vi.text-blue::before, .vl-icon.text-blue::before { color: var(--vl-blauw); }
-.vl-vi.text-blue-dark::before, .vl-icon.text-blue-dark::before { color: var(--vl-blauw-donker); }
-.vl-vi.text-white::before, .vl-icon.text-white::before { color: var(--vl-wit); }
+.vl-vi.text-yellow::before, .vl-icon.text-yellow::before {
+  color: var(--vl-geel);
+}
+
+.vl-vi.text-blue::before, .vl-icon.text-blue::before {
+  color: var(--vl-blauw);
+}
+
+.vl-vi.text-blue-dark::before, .vl-icon.text-blue-dark::before {
+  color: var(--vl-blauw-donker);
+}
+
+.vl-vi.text-white::before, .vl-icon.text-white::before {
+  color: var(--vl-wit);
+}
 
 /* Icon definitions */
-.vl-vi-add::before { content: ""; }
-.vl-vi-addressbook::before { content: ""; }
-.vl-vi-airplane::before { content: ""; }
-.vl-vi-alarm::before { content: ""; }
-.vl-vi-alarm-silent::before { content: ""; }
-.vl-vi-alert-circle::before { content: ""; }
-.vl-vi-alert-circle-filled::before { content: ""; }
-.vl-vi-alert-small::before { content: ""; }
-.vl-vi-alert-triangle::before { content: ""; }
-.vl-vi-alert-triangle-filled::before { content: ""; }
-.vl-vi-align-center::before { content: ""; }
-.vl-vi-align-justify::before { content: ""; }
-.vl-vi-align-left::before { content: ""; }
-.vl-vi-align-right::before { content: ""; }
-.vl-vi-apple::before { content: ""; }
-.vl-vi-area::before { content: ""; }
-.vl-vi-arrange-1-to-9::before { content: ""; }
-.vl-vi-arrange-9-to-1::before { content: ""; }
-.vl-vi-arrange-a-to-z::before { content: ""; }
-.vl-vi-arrange-amount-large-to-small::before { content: ""; }
-.vl-vi-arrange-amount-small-to-large::before { content: ""; }
-.vl-vi-arrange-z-to-a::before { content: ""; }
-.vl-vi-arrow::before { content: ""; }
-.vl-vi-arrow-bottom::before { content: ""; }
-.vl-vi-arrow-down::before { content: ""; }
-.vl-vi-arrow-down-fat::before { content: ""; }
-.vl-vi-arrow-down-thin::before { content: ""; }
-.vl-vi-arrow-freemove::before { content: ""; }
-.vl-vi-arrow-left::before { content: ""; }
-.vl-vi-arrow-left-fat::before { content: ""; }
-.vl-vi-arrow-left-thin::before { content: ""; }
-.vl-vi-arrow-right::before { content: ""; }
-.vl-vi-arrow-right-fat::before { content: ""; }
-.vl-vi-arrow-right-thin::before { content: ""; }
-.vl-vi-arrow-thin::before { content: ""; }
-.vl-vi-arrow-up::before { content: ""; }
-.vl-vi-arrow-up-fat::before { content: ""; }
-.vl-vi-arrow-up-thin::before { content: ""; }
-.vl-vi-asterisk::before { content: ""; }
-.vl-vi-audio-description::before { content: ""; }
-.vl-vi-back::before { content: ""; }
-.vl-vi-ban::before { content: ""; }
-.vl-vi-banking-bill-euro::before { content: ""; }
-.vl-vi-battery-charging::before { content: ""; }
-.vl-vi-bell::before { content: ""; }
-.vl-vi-bike::before { content: ""; }
-.vl-vi-bike-closed-criterium::before { content: ""; }
-.vl-vi-bike-open-criterium::before { content: ""; }
-.vl-vi-bin::before { content: ""; }
-.vl-vi-binoculars::before { content: ""; }
-.vl-vi-boat-ship::before { content: ""; }
-.vl-vi-bold::before { content: ""; }
-.vl-vi-book::before { content: ""; }
-.vl-vi-bookmark::before { content: ""; }
-.vl-vi-bookmark-alt-1::before { content: ""; }
-.vl-vi-bookmark-alt-2::before { content: ""; }
-.vl-vi-breadcrumb-separator::before { content: ""; }
-.vl-vi-briefcase::before { content: ""; }
-.vl-vi-briefcase-pause::before { content: ""; }
-.vl-vi-building::before { content: ""; }
-.vl-vi-building-2::before { content: ""; }
-.vl-vi-building-big::before { content: ""; }
-.vl-vi-bullet::before { content: ""; }
-.vl-vi-burger::before { content: ""; }
-.vl-vi-burger-alt::before { content: ""; }
-.vl-vi-burgerprofiel::before { content: ""; }
-.vl-vi-bus::before { content: ""; }
-.vl-vi-bus-handicap::before { content: ""; }
-.vl-vi-bus-refresh::before { content: ""; }
-.vl-vi-business-deal-handshake::before { content: ""; }
-.vl-vi-business-graph-bar::before { content: ""; }
-.vl-vi-business-graph-pie::before { content: ""; }
-.vl-vi-business-scale::before { content: ""; }
-.vl-vi-cabinet::before { content: ""; }
-.vl-vi-cake::before { content: ""; }
-.vl-vi-calculator::before { content: ""; }
-.vl-vi-calendar::before { content: ""; }
-.vl-vi-calendar-add::before { content: ""; }
-.vl-vi-calendar-check::before { content: ""; }
-.vl-vi-calendar-subtract::before { content: ""; }
-.vl-vi-camera::before { content: ""; }
-.vl-vi-car::before { content: ""; }
-.vl-vi-car-refresh::before { content: ""; }
-.vl-vi-car-wheel::before { content: ""; }
-.vl-vi-chat::before { content: ""; }
-.vl-vi-chat-bubble-square::before { content: ""; }
-.vl-vi-chat-bubble-square-alert::before { content: ""; }
-.vl-vi-chat-bubble-square-alt::before { content: ""; }
-.vl-vi-chat-help::before { content: ""; }
-.vl-vi-check::before { content: ""; }
-.vl-vi-check-circle::before { content: ""; }
-.vl-vi-check-filled::before { content: ""; }
-.vl-vi-check-naked::before { content: ""; }
-.vl-vi-check-shield::before { content: ""; }
-.vl-vi-check-small::before { content: ""; }
-.vl-vi-check-thin::before { content: ""; }
-.vl-vi-child::before { content: ""; }
-.vl-vi-clock::before { content: ""; }
-.vl-vi-close::before { content: ""; }
-.vl-vi-close-filled::before { content: ""; }
-.vl-vi-close-light::before { content: ""; }
-.vl-vi-close-naked::before { content: ""; }
-.vl-vi-cloud::before { content: ""; }
-.vl-vi-cloud-download::before { content: ""; }
-.vl-vi-cloud-upload::before { content: ""; }
-.vl-vi-code-branch::before { content: ""; }
-.vl-vi-coffee-cup::before { content: ""; }
-.vl-vi-cog::before { content: ""; }
-.vl-vi-coin-receive::before { content: ""; }
-.vl-vi-coin-stack::before { content: ""; }
-.vl-vi-compass::before { content: ""; }
-.vl-vi-computer-screen::before { content: ""; }
-.vl-vi-confluence::before { content: ""; }
-.vl-vi-construction-crane::before { content: ""; }
-.vl-vi-construction-shack::before { content: ""; }
-.vl-vi-contactbook::before { content: ""; }
-.vl-vi-contacts::before { content: ""; }
-.vl-vi-content-book::before { content: ""; }
-.vl-vi-content-book-favorite-star::before { content: ""; }
-.vl-vi-content-box::before { content: ""; }
-.vl-vi-content-filter::before { content: ""; }
-.vl-vi-content-layers-hide::before { content: ""; }
-.vl-vi-content-layers-show::before { content: ""; }
-.vl-vi-content-note::before { content: ""; }
-.vl-vi-content-view-column::before { content: ""; }
-.vl-vi-content-view-module::before { content: ""; }
-.vl-vi-contract::before { content: ""; }
-.vl-vi-contract-education::before { content: ""; }
-.vl-vi-control-cross-over::before { content: ""; }
-.vl-vi-copy-paste::before { content: ""; }
-.vl-vi-copyright::before { content: ""; }
-.vl-vi-credit-card::before { content: ""; }
-.vl-vi-crop::before { content: ""; }
-.vl-vi-cross::before { content: ""; }
-.vl-vi-cross-thin::before { content: ""; }
-.vl-vi-cursor-arrow-big::before { content: ""; }
-.vl-vi-cursor-arrow-small::before { content: ""; }
-.vl-vi-cursor-finger-down::before { content: ""; }
-.vl-vi-cursor-finger-left::before { content: ""; }
-.vl-vi-cursor-finger-right::before { content: ""; }
-.vl-vi-cursor-finger-up::before { content: ""; }
-.vl-vi-cursor-hand::before { content: ""; }
-.vl-vi-cursor-hold::before { content: ""; }
-.vl-vi-dashboard::before { content: ""; }
-.vl-vi-data-download::before { content: ""; }
-.vl-vi-data-transfer::before { content: ""; }
-.vl-vi-data-upload::before { content: ""; }
-.vl-vi-dating-target::before { content: ""; }
-.vl-vi-demonstration::before { content: ""; }
-.vl-vi-diagram::before { content: ""; }
-.vl-vi-digital-assistant-avatar::before { content: ""; }
-.vl-vi-direction-sign::before { content: ""; }
-.vl-vi-document::before { content: ""; }
-.vl-vi-document-small::before { content: ""; }
-.vl-vi-double-arrow::before { content: ""; }
-.vl-vi-download-harddisk::before { content: ""; }
-.vl-vi-drawer::before { content: ""; }
-.vl-vi-drawer-down::before { content: ""; }
-.vl-vi-drink-bottle::before { content: ""; }
-.vl-vi-eco-solar-panel::before { content: ""; }
-.vl-vi-eco-throw-trash::before { content: ""; }
-.vl-vi-edit::before { content: ""; }
-.vl-vi-eloket::before { content: ""; }
-.vl-vi-email::before { content: ""; }
-.vl-vi-email-read::before { content: ""; }
-.vl-vi-enlarge::before { content: ""; }
-.vl-vi-envelope::before { content: ""; }
-.vl-vi-expand::before { content: ""; }
-.vl-vi-expand-horizontal::before { content: ""; }
-.vl-vi-expand-horizontal-alt::before { content: ""; }
-.vl-vi-expand-vertical::before { content: ""; }
-.vl-vi-external::before { content: ""; }
-.vl-vi-face-id::before { content: ""; }
-.vl-vi-facebook::before { content: ""; }
-.vl-vi-family::before { content: ""; }
-.vl-vi-faq::before { content: ""; }
-.vl-vi-fastback::before { content: ""; }
-.vl-vi-fastforward::before { content: ""; }
-.vl-vi-fax::before { content: ""; }
-.vl-vi-field::before { content: ""; }
-.vl-vi-file::before { content: ""; }
-.vl-vi-file-audio::before { content: ""; }
-.vl-vi-file-copy::before { content: ""; }
-.vl-vi-file-download::before { content: ""; }
-.vl-vi-file-edit::before { content: ""; }
-.vl-vi-file-hand::before { content: ""; }
-.vl-vi-file-image::before { content: ""; }
-.vl-vi-file-images-heic::before { content: ""; }
-.vl-vi-file-images-jpg::before { content: ""; }
-.vl-vi-file-images-png::before { content: ""; }
-.vl-vi-file-images-svg::before { content: ""; }
-.vl-vi-file-new::before { content: ""; }
-.vl-vi-file-office-doc::before { content: ""; }
-.vl-vi-file-office-pdf::before { content: ""; }
-.vl-vi-file-office-ppt::before { content: ""; }
-.vl-vi-file-office-xls::before { content: ""; }
-.vl-vi-file-swap::before { content: ""; }
-.vl-vi-file-tasks-bacteria-check::before { content: ""; }
-.vl-vi-file-tasks-check::before { content: ""; }
-.vl-vi-file-tasks-favorite-heart::before { content: ""; }
-.vl-vi-file-upload::before { content: ""; }
-.vl-vi-file-video::before { content: ""; }
-.vl-vi-file-work::before { content: ""; }
-.vl-vi-file-zipped-new::before { content: ""; }
-.vl-vi-file-zipped-vice::before { content: ""; }
-.vl-vi-files-coding::before { content: ""; }
-.vl-vi-files-coding-html::before { content: ""; }
-.vl-vi-film::before { content: ""; }
-.vl-vi-fingerprint::before { content: ""; }
-.vl-vi-flickr::before { content: ""; }
-.vl-vi-focus::before { content: ""; }
-.vl-vi-folder::before { content: ""; }
-.vl-vi-folder-open::before { content: ""; }
-.vl-vi-font::before { content: ""; }
-.vl-vi-food-apple::before { content: ""; }
-.vl-vi-food-apple-core::before { content: ""; }
-.vl-vi-food-grain::before { content: ""; }
-.vl-vi-garbage-bag::before { content: ""; }
-.vl-vi-garbage-bin::before { content: ""; }
-.vl-vi-gender-female::before { content: ""; }
-.vl-vi-gender-female-male::before { content: ""; }
-.vl-vi-gender-male::before { content: ""; }
-.vl-vi-gender-transgender::before { content: ""; }
-.vl-vi-globe::before { content: ""; }
-.vl-vi-globe-alt::before { content: ""; }
-.vl-vi-google-play::before { content: ""; }
-.vl-vi-googleplus::before { content: ""; }
-.vl-vi-graduate::before { content: ""; }
-.vl-vi-graduation-euro::before { content: ""; }
-.vl-vi-graduation-hat::before { content: ""; }
-.vl-vi-graduation-refresh::before { content: ""; }
-.vl-vi-graduation-time::before { content: ""; }
-.vl-vi-hammer::before { content: ""; }
-.vl-vi-hammer-anvil::before { content: ""; }
-.vl-vi-hand-hint::before { content: ""; }
-.vl-vi-handicap::before { content: ""; }
-.vl-vi-handicap-money::before { content: ""; }
-.vl-vi-handicap-tools::before { content: ""; }
-.vl-vi-harddisk::before { content: ""; }
-.vl-vi-headphone::before { content: ""; }
-.vl-vi-health-first-aid-kit::before { content: ""; }
-.vl-vi-health-heart-pulse::before { content: ""; }
-.vl-vi-health-hospital::before { content: ""; }
-.vl-vi-health-syringe::before { content: ""; }
-.vl-vi-health-syringe-certificate::before { content: ""; }
-.vl-vi-hide::before { content: ""; }
-.vl-vi-hierarchy::before { content: ""; }
-.vl-vi-hotel-bath-shower::before { content: ""; }
-.vl-vi-hotel-bed::before { content: ""; }
-.vl-vi-hotel-fire-alarm::before { content: ""; }
-.vl-vi-hotel-shower::before { content: ""; }
-.vl-vi-hourglass::before { content: ""; }
-.vl-vi-id::before { content: ""; }
-.vl-vi-id-card::before { content: ""; }
-.vl-vi-images::before { content: ""; }
-.vl-vi-images-copy::before { content: ""; }
-.vl-vi-inbox::before { content: ""; }
-.vl-vi-indent-left::before { content: ""; }
-.vl-vi-indent-right::before { content: ""; }
-.vl-vi-info::before { content: ""; }
-.vl-vi-info-circle::before { content: ""; }
-.vl-vi-info-filled::before { content: ""; }
-.vl-vi-info-naked::before { content: ""; }
-.vl-vi-instagram::before { content: ""; }
-.vl-vi-interface-share-time::before { content: ""; }
-.vl-vi-ironing::before { content: ""; }
-.vl-vi-italic::before { content: ""; }
-.vl-vi-jeugdhulp::before { content: ""; }
-.vl-vi-jeugdhulp-saving::before { content: ""; }
-.vl-vi-jira::before { content: ""; }
-.vl-vi-key::before { content: ""; }
-.vl-vi-keyboard::before { content: ""; }
-.vl-vi-laptop::before { content: ""; }
-.vl-vi-laundry::before { content: ""; }
-.vl-vi-leisure-drama::before { content: ""; }
-.vl-vi-leisure-ticket::before { content: ""; }
-.vl-vi-lightbulb::before { content: ""; }
-.vl-vi-link::before { content: ""; }
-.vl-vi-link-broken::before { content: ""; }
-.vl-vi-linkedin::before { content: ""; }
-.vl-vi-list::before { content: ""; }
-.vl-vi-list-add::before { content: ""; }
-.vl-vi-list-bullets::before { content: ""; }
-.vl-vi-list-bullets-alt::before { content: ""; }
-.vl-vi-list-numbers::before { content: ""; }
-.vl-vi-live-purpose::before { content: ""; }
-.vl-vi-loader::before { content: ""; }
-.vl-vi-location::before { content: ""; }
-.vl-vi-location-direction-arrow::before { content: ""; }
-.vl-vi-location-gps::before { content: ""; }
-.vl-vi-location-map::before { content: ""; }
-.vl-vi-location-path::before { content: ""; }
-.vl-vi-location-pin-recycle::before { content: ""; }
-.vl-vi-location-pin-recycle-close::before { content: ""; }
-.vl-vi-lock::before { content: ""; }
-.vl-vi-lock-unlock::before { content: ""; }
-.vl-vi-login::before { content: ""; }
-.vl-vi-logout::before { content: ""; }
-.vl-vi-long-arrow::before { content: ""; }
-.vl-vi-magic-wand::before { content: ""; }
-.vl-vi-magnifier::before { content: ""; }
-.vl-vi-mail::before { content: ""; }
-.vl-vi-market::before { content: ""; }
-.vl-vi-menu::before { content: ""; }
-.vl-vi-messenger::before { content: ""; }
-.vl-vi-microphone::before { content: ""; }
-.vl-vi-microphone-off::before { content: ""; }
-.vl-vi-milk-carton::before { content: ""; }
-.vl-vi-minus::before { content: ""; }
-.vl-vi-minus-circle::before { content: ""; }
-.vl-vi-mobile-phone::before { content: ""; }
-.vl-vi-money-note::before { content: ""; }
-.vl-vi-motorbike::before { content: ""; }
-.vl-vi-motorcycle::before { content: ""; }
-.vl-vi-move-down::before { content: ""; }
-.vl-vi-move-left-right::before { content: ""; }
-.vl-vi-move-up::before { content: ""; }
-.vl-vi-moving-elevator::before { content: ""; }
-.vl-vi-music-note::before { content: ""; }
-.vl-vi-nature-bacteria::before { content: ""; }
-.vl-vi-nature-clover::before { content: ""; }
-.vl-vi-nature-leaf::before { content: ""; }
-.vl-vi-nature-tree::before { content: ""; }
-.vl-vi-nav-down::before { content: ""; }
-.vl-vi-nav-down-double::before { content: ""; }
-.vl-vi-nav-down-light::before { content: ""; }
-.vl-vi-nav-left::before { content: ""; }
-.vl-vi-nav-left-double::before { content: ""; }
-.vl-vi-nav-left-light::before { content: ""; }
-.vl-vi-nav-right::before { content: ""; }
-.vl-vi-nav-right-double::before { content: ""; }
-.vl-vi-nav-right-light::before { content: ""; }
-.vl-vi-nav-show-more-horizontal::before { content: ""; }
-.vl-vi-nav-show-more-vertical::before { content: ""; }
-.vl-vi-nav-up::before { content: ""; }
-.vl-vi-nav-up-double::before { content: ""; }
-.vl-vi-nav-up-light::before { content: ""; }
-.vl-vi-news::before { content: ""; }
-.vl-vi-newsletter::before { content: ""; }
-.vl-vi-newspaper::before { content: ""; }
-.vl-vi-next::before { content: ""; }
-.vl-vi-non-garbage-bag::before { content: ""; }
-.vl-vi-non-garbage-bin::before { content: ""; }
-.vl-vi-organization-network::before { content: ""; }
-.vl-vi-other-annoyances::before { content: ""; }
-.vl-vi-other-annoyances-alt::before { content: ""; }
-.vl-vi-paint-brush::before { content: ""; }
-.vl-vi-paint-palette::before { content: ""; }
-.vl-vi-paper::before { content: ""; }
-.vl-vi-paperclip::before { content: ""; }
-.vl-vi-paperplane::before { content: ""; }
-.vl-vi-paragraph::before { content: ""; }
-.vl-vi-pause::before { content: ""; }
-.vl-vi-pencil::before { content: ""; }
-.vl-vi-pencil-ruler::before { content: ""; }
-.vl-vi-pencil-write::before { content: ""; }
-.vl-vi-pennants::before { content: ""; }
-.vl-vi-phone::before { content: ""; }
-.vl-vi-phone-incoming::before { content: ""; }
-.vl-vi-phone-off::before { content: ""; }
-.vl-vi-phone-outgoing::before { content: ""; }
-.vl-vi-phone-record::before { content: ""; }
-.vl-vi-phone-signal-low::before { content: ""; }
-.vl-vi-phone-speaker::before { content: ""; }
-.vl-vi-pick-up::before { content: ""; }
-.vl-vi-pin::before { content: ""; }
-.vl-vi-pin-paper::before { content: ""; }
-.vl-vi-pinterest::before { content: ""; }
-.vl-vi-places-factory::before { content: ""; }
-.vl-vi-places-home::before { content: ""; }
-.vl-vi-places-home-1::before { content: ""; }
-.vl-vi-play::before { content: ""; }
-.vl-vi-playstreet::before { content: ""; }
-.vl-vi-plug::before { content: ""; }
-.vl-vi-plus::before { content: ""; }
-.vl-vi-plus-circle::before { content: ""; }
-.vl-vi-plus-circle-filled::before { content: ""; }
-.vl-vi-plus-naked::before { content: ""; }
-.vl-vi-power-button::before { content: ""; }
-.vl-vi-printer::before { content: ""; }
-.vl-vi-printer-view::before { content: ""; }
-.vl-vi-profile-active::before { content: ""; }
-.vl-vi-programming-bug::before { content: ""; }
-.vl-vi-programming-jigsaw::before { content: ""; }
-.vl-vi-publication::before { content: ""; }
-.vl-vi-question::before { content: ""; }
-.vl-vi-question-mark::before { content: ""; }
-.vl-vi-question-mark-filled::before { content: ""; }
-.vl-vi-question-mark-naked::before { content: ""; }
-.vl-vi-question-mark-small::before { content: ""; }
-.vl-vi-recreation::before { content: ""; }
-.vl-vi-reply::before { content: ""; }
-.vl-vi-reply-all::before { content: ""; }
-.vl-vi-rewards-certified-badge::before { content: ""; }
-.vl-vi-rewards-gift::before { content: ""; }
-.vl-vi-road::before { content: ""; }
-.vl-vi-road-alert::before { content: ""; }
-.vl-vi-road-block::before { content: ""; }
-.vl-vi-romance-marriage-license::before { content: ""; }
-.vl-vi-ruler::before { content: ""; }
-.vl-vi-safe::before { content: ""; }
-.vl-vi-save::before { content: ""; }
-.vl-vi-save-care::before { content: ""; }
-.vl-vi-save-work::before { content: ""; }
-.vl-vi-scaffold::before { content: ""; }
-.vl-vi-scan::before { content: ""; }
-.vl-vi-scissors::before { content: ""; }
-.vl-vi-search::before { content: ""; }
-.vl-vi-server::before { content: ""; }
-.vl-vi-settings::before { content: ""; }
-.vl-vi-share::before { content: ""; }
-.vl-vi-share-megaphone::before { content: ""; }
-.vl-vi-share-rss-feed::before { content: ""; }
-.vl-vi-shipping-truck::before { content: ""; }
-.vl-vi-shopping::before { content: ""; }
-.vl-vi-shopping-basket::before { content: ""; }
-.vl-vi-shopping-basket-add::before { content: ""; }
-.vl-vi-shopping-basket-subtract::before { content: ""; }
-.vl-vi-shopping-cart::before { content: ""; }
-.vl-vi-shrink::before { content: ""; }
-.vl-vi-sign-disable::before { content: ""; }
-.vl-vi-sign-recycle::before { content: ""; }
-.vl-vi-sitemap::before { content: ""; }
-.vl-vi-skype::before { content: ""; }
-.vl-vi-smiley-poker-face::before { content: ""; }
-.vl-vi-smiley-smile::before { content: ""; }
-.vl-vi-snapchat::before { content: ""; }
-.vl-vi-snippet::before { content: ""; }
-.vl-vi-sort::before { content: ""; }
-.vl-vi-speaker-volume-decrease::before { content: ""; }
-.vl-vi-speaker-volume-high::before { content: ""; }
-.vl-vi-speaker-volume-increase::before { content: ""; }
-.vl-vi-speaker-volume-low::before { content: ""; }
-.vl-vi-speaker-volume-medium::before { content: ""; }
-.vl-vi-speaker-volume-off::before { content: ""; }
-.vl-vi-sports-competition::before { content: ""; }
-.vl-vi-spotify::before { content: ""; }
-.vl-vi-stop::before { content: ""; }
-.vl-vi-store-repair::before { content: ""; }
-.vl-vi-subtract::before { content: ""; }
-.vl-vi-subtract-filled::before { content: ""; }
-.vl-vi-subtract-naked::before { content: ""; }
-.vl-vi-subway::before { content: ""; }
-.vl-vi-suitcase::before { content: ""; }
-.vl-vi-switches::before { content: ""; }
-.vl-vi-symbol-wifi::before { content: ""; }
-.vl-vi-symbol-wifi-check::before { content: ""; }
-.vl-vi-symbol-wifi-close::before { content: ""; }
-.vl-vi-synchronize::before { content: ""; }
-.vl-vi-synchronize-timeout::before { content: ""; }
-.vl-vi-t-shirt::before { content: ""; }
-.vl-vi-tablet::before { content: ""; }
-.vl-vi-tag::before { content: ""; }
-.vl-vi-tag-add::before { content: ""; }
-.vl-vi-tag-check::before { content: ""; }
-.vl-vi-tag-close::before { content: ""; }
-.vl-vi-tag-double::before { content: ""; }
-.vl-vi-tag-edit::before { content: ""; }
-.vl-vi-tag-subtract::before { content: ""; }
-.vl-vi-tag-view::before { content: ""; }
-.vl-vi-taxi::before { content: ""; }
-.vl-vi-television::before { content: ""; }
-.vl-vi-terrace::before { content: ""; }
-.vl-vi-text-cursor::before { content: ""; }
-.vl-vi-text-eraser::before { content: ""; }
-.vl-vi-text-redo::before { content: ""; }
-.vl-vi-text-undo::before { content: ""; }
-.vl-vi-timeline::before { content: ""; }
-.vl-vi-tint::before { content: ""; }
-.vl-vi-tractor::before { content: ""; }
-.vl-vi-train::before { content: ""; }
-.vl-vi-trash::before { content: ""; }
-.vl-vi-trophy::before { content: ""; }
-.vl-vi-truck::before { content: ""; }
-.vl-vi-truck-danger::before { content: ""; }
-.vl-vi-twitter::before { content: ""; }
-.vl-vi-underline::before { content: ""; }
-.vl-vi-university::before { content: ""; }
-.vl-vi-up-down-arrows::before { content: ""; }
-.vl-vi-upload-harddisk::before { content: ""; }
-.vl-vi-usb::before { content: ""; }
-.vl-vi-user::before { content: ""; }
-.vl-vi-user-alt::before { content: ""; }
-.vl-vi-user-box::before { content: ""; }
-.vl-vi-user-car::before { content: ""; }
-.vl-vi-user-download::before { content: ""; }
-.vl-vi-user-email::before { content: ""; }
-.vl-vi-user-female::before { content: ""; }
-.vl-vi-user-group::before { content: ""; }
-.vl-vi-user-group-add::before { content: ""; }
-.vl-vi-user-group-circle::before { content: ""; }
-.vl-vi-user-group-home::before { content: ""; }
-.vl-vi-user-group-refresh::before { content: ""; }
-.vl-vi-user-male::before { content: ""; }
-.vl-vi-user-reception::before { content: ""; }
-.vl-vi-user-redirect::before { content: ""; }
-.vl-vi-user-remove::before { content: ""; }
-.vl-vi-user-setting::before { content: ""; }
-.vl-vi-user-signup::before { content: ""; }
-.vl-vi-vaccum-cleaner::before { content: ""; }
-.vl-vi-video-subtitle::before { content: ""; }
-.vl-vi-view-add::before { content: ""; }
-.vl-vi-view-hide::before { content: ""; }
-.vl-vi-vlaanderen::before { content: ""; }
-.vl-vi-vote::before { content: ""; }
-.vl-vi-vote-flag::before { content: ""; }
-.vl-vi-vote-heart::before { content: ""; }
-.vl-vi-vote-star::before { content: ""; }
-.vl-vi-vote-star-filled::before { content: ""; }
-.vl-vi-vote-thumbs-down::before { content: ""; }
-.vl-vi-vote-thumbs-up::before { content: ""; }
-.vl-vi-voucher-check::before { content: ""; }
-.vl-vi-voucher-download::before { content: ""; }
-.vl-vi-voucher-scissors::before { content: ""; }
-.vl-vi-vouchers-list::before { content: ""; }
-.vl-vi-wallet::before { content: ""; }
-.vl-vi-warning::before { content: ""; }
-.vl-vi-whatsapp::before { content: ""; }
-.vl-vi-whiskey-bottle-glass::before { content: ""; }
-.vl-vi-window-forward::before { content: ""; }
-.vl-vi-work-receive::before { content: ""; }
-.vl-vi-wrench::before { content: ""; }
-.vl-vi-www::before { content: ""; }
-.vl-vi-x::before { content: ""; }
-.vl-vi-youtube::before { content: ""; }
-.vl-vi-zoom-in::before { content: ""; }
-.vl-vi-zoom-out::before { content: ""; }
-
-/* Reveal.js integration */
-.reveal .vl-vi::before,
-.reveal .vl-icon::before {
-  color: inherit;
+.vl-vi-add::before {
+  content: "\f311";
 }
 
-/* Aria-hidden utility */
-.vl-icon[aria-hidden="true"],
-.vl-vi[aria-hidden="true"] {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  margin: 0 0.25em;
+.vl-vi-addressbook::before {
+  content: "\f310";
 }
 
-/* Custom umbrella logo styling */
-.umbrella__logo__icon {
-  display: inline-block;
-  vertical-align: middle;
+.vl-vi-airplane::before {
+  content: "\f30f";
+}
+
+.vl-vi-alarm::before {
+  content: "\f30d";
+}
+
+.vl-vi-alarm-silent::before {
+  content: "\f30e";
+}
+
+.vl-vi-alert-circle::before {
+  content: "\f30b";
+}
+
+.vl-vi-alert-circle-filled::before {
+  content: "\f30c";
+}
+
+.vl-vi-alert-small::before {
+  content: "\f30a";
+}
+
+.vl-vi-alert-triangle::before {
+  content: "\f308";
+}
+
+.vl-vi-alert-triangle-filled::before {
+  content: "\f309";
+}
+
+/* Logo: Vlaanderen (used in slide corner) */
+.vl-vi-vlaanderen::before {
+  content: "\f118";
+}
+
+.vl-vi-align-center::before {
+  content: "\f307";
+}
+
+.vl-vi-align-justify::before {
+  content: "\f306";
+}
+
+.vl-vi-align-left::before {
+  content: "\f305";
+}
+
+.vl-vi-align-right::before {
+  content: "\f304";
+}
+
+.vl-vi-apple::before {
+  content: "\f303";
+}
+
+.vl-vi-area::before {
+  content: "\f302";
+}
+
+.vl-vi-arrange-1-to-9::before {
+  content: "\f301";
+}
+
+.vl-vi-arrange-9-to-1::before {
+  content: "\f300";
+}
+
+.vl-vi-arrange-a-to-z::before {
+  content: "\f2ff";
+}
+
+.vl-vi-arrange-amount-large-to-small::before {
+  content: "\f2fe";
+}
+
+.vl-vi-arrange-amount-small-to-large::before {
+  content: "\f2fd";
+}
+
+.vl-vi-arrange-z-to-a::before {
+  content: "\f2fc";
+}
+
+.vl-vi-arrow::before {
+  content: "\f2ec";
+}
+
+.vl-vi-arrow-bottom::before {
+  content: "\f2fb";
+}
+
+.vl-vi-arrow-down::before {
+  content: "\f2f8";
+}
+
+.vl-vi-arrow-down-fat::before {
+  content: "\f2fa";
+}
+
+.vl-vi-arrow-down-thin::before {
+  content: "\f2f9";
+}
+
+.vl-vi-arrow-freemove::before {
+  content: "\f2f7";
+}
+
+.vl-vi-arrow-left::before {
+  content: "\f2f4";
+}
+
+.vl-vi-arrow-left-fat::before {
+  content: "\f2f6";
+}
+
+.vl-vi-arrow-left-thin::before {
+  content: "\f2f5";
+}
+
+.vl-vi-arrow-right::before {
+  content: "\f2f1";
+}
+
+.vl-vi-arrow-right-fat::before {
+  content: "\f2f3";
+}
+
+.vl-vi-arrow-right-thin::before {
+  content: "\f2f2";
+}
+
+.vl-vi-arrow-thin::before {
+  content: "\f2f0";
+}
+
+.vl-vi-arrow-up::before {
+  content: "\f2ed";
+}
+
+.vl-vi-arrow-up-fat::before {
+  content: "\f2ef";
+}
+
+.vl-vi-arrow-up-thin::before {
+  content: "\f2ee";
+}
+
+.vl-vi-asterisk::before {
+  content: "\f2eb";
+}
+
+.vl-vi-audio-description::before {
+  content: "\f2ea";
+}
+
+.vl-vi-back::before {
+  content: "\f2e9";
+}
+
+.vl-vi-ban::before {
+  content: "\f2e8";
+}
+
+.vl-vi-banking-bill-euro::before {
+  content: "\f2e7";
+}
+
+.vl-vi-battery-charging::before {
+  content: "\f2e6";
+}
+
+.vl-vi-bell::before {
+  content: "\f2e5";
+}
+
+.vl-vi-bike::before {
+  content: "\f2e2";
+}
+
+.vl-vi-bike-closed-criterium::before {
+  content: "\f2e4";
+}
+
+.vl-vi-bike-open-criterium::before {
+  content: "\f2e3";
+}
+
+.vl-vi-bin::before {
+  content: "\f2e1";
+}
+
+.vl-vi-binoculars::before {
+  content: "\f2e0";
+}
+
+.vl-vi-boat-ship::before {
+  content: "\f2df";
+}
+
+.vl-vi-bold::before {
+  content: "\f2de";
+}
+
+.vl-vi-book::before {
+  content: "\f2dd";
+}
+
+.vl-vi-bookmark::before {
+  content: "\f2da";
+}
+
+.vl-vi-bookmark-alt-1::before {
+  content: "\f2dc";
+}
+
+.vl-vi-bookmark-alt-2::before {
+  content: "\f2db";
+}
+
+.vl-vi-breadcrumb-separator::before {
+  content: "\f2d9";
+}
+
+.vl-vi-briefcase::before {
+  content: "\f2d7";
+}
+
+.vl-vi-briefcase-pause::before {
+  content: "\f2d8";
+}
+
+.vl-vi-building::before {
+  content: "\f2d4";
+}
+
+.vl-vi-building-2::before {
+  content: "\f2d6";
+}
+
+.vl-vi-building-big::before {
+  content: "\f2d5";
+}
+
+.vl-vi-bullet::before {
+  content: "\f2d3";
+}
+
+.vl-vi-burger::before {
+  content: "\f2d1";
+}
+
+.vl-vi-burger-alt::before {
+  content: "\f2d2";
+}
+
+.vl-vi-burgerprofiel::before {
+  content: "\f2d0";
+}
+
+.vl-vi-bus::before {
+  content: "\f2cd";
+}
+
+.vl-vi-bus-handicap::before {
+  content: "\f2cf";
+}
+
+.vl-vi-bus-refresh::before {
+  content: "\f2ce";
+}
+
+.vl-vi-business-deal-handshake::before {
+  content: "\f2cc";
+}
+
+.vl-vi-business-graph-bar::before {
+  content: "\f2cb";
+}
+
+.vl-vi-business-graph-pie::before {
+  content: "\f2ca";
+}
+
+.vl-vi-business-scale::before {
+  content: "\f2c9";
+}
+
+.vl-vi-cabinet::before {
+  content: "\f2c8";
+}
+
+.vl-vi-cake::before {
+  content: "\f2c7";
+}
+
+.vl-vi-calculator::before {
+  content: "\f2c6";
+}
+
+.vl-vi-calendar::before {
+  content: "\f2c2";
+}
+
+.vl-vi-calendar-add::before {
+  content: "\f2c5";
+}
+
+.vl-vi-calendar-check::before {
+  content: "\f2c4";
+}
+
+.vl-vi-calendar-subtract::before {
+  content: "\f2c3";
+}
+
+.vl-vi-camera::before {
+  content: "\f2bf";
+}
+
+.vl-vi-car::before {
+  content: "\f2bc";
+}
+
+.vl-vi-car-refresh::before {
+  content: "\f2be";
+}
+
+.vl-vi-car-wheel::before {
+  content: "\f2bd";
+}
+
+.vl-vi-chat::before {
+  content: "\f2b7";
+}
+
+.vl-vi-chat-bubble-square::before {
+  content: "\f2b9";
+}
+
+.vl-vi-chat-bubble-square-alert::before {
+  content: "\f2bb";
+}
+
+.vl-vi-chat-bubble-square-alt::before {
+  content: "\f2ba";
+}
+
+.vl-vi-chat-help::before {
+  content: "\f2b8";
+}
+
+.vl-vi-check::before {
+  content: "\f2b0";
+}
+
+.vl-vi-check-circle::before {
+  content: "\f2b6";
+}
+
+.vl-vi-check-filled::before {
+  content: "\f2b5";
+}
+
+.vl-vi-check-naked::before {
+  content: "\f2b4";
+}
+
+.vl-vi-check-shield::before {
+  content: "\f2b3";
+}
+
+.vl-vi-check-small::before {
+  content: "\f2b2";
+}
+
+.vl-vi-check-thin::before {
+  content: "\f2b1";
+}
+
+.vl-vi-child::before {
+  content: "\f2af";
+}
+
+.vl-vi-clock::before {
+  content: "\f2ae";
+}
+
+.vl-vi-close::before {
+  content: "\f2aa";
 }

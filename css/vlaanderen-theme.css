@@ -1,44 +1,32 @@
-/**
- * Vlaanderen theme voor Reveal.js
- * Gebaseerd op de officiële Vlaamse overheid huisstijl
- */
-
+@charset "UTF-8";
 @font-face {
-  font-family: 'Flanders Art Sans';
-      src: url('../fonts/Flanders%20Art%20Sans%20webfonts/Flanders%20Art%20Sans%20Regular/FlandersArtSans-Regular.woff') format('woff'),
-        url('../fonts/Flanders%20Art%20Sans%20webfonts/Flanders%20Art%20Sans%20Regular/FlandersArtSans-Regular.ttf') format('truetype');
+  font-family: "Flanders Art Sans";
+  src: url("../fonts/Flanders%20Art%20Sans%20webfonts/Flanders%20Art%20Sans%20Regular/FlandersArtSans-Regular.woff") format("woff"), url("../fonts/Flanders%20Art%20Sans%20webfonts/Flanders%20Art%20Sans%20Regular/FlandersArtSans-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: block;
 }
-
 @font-face {
-  font-family: 'Flanders Art Sans';
-      src: url('../fonts/Flanders%20Art%20Sans%20webfonts/Flanders%20Art%20Sans%20Medium/FlandersArtSans-Medium.woff') format('woff'),
-        url('../fonts/Flanders%20Art%20Sans%20webfonts/Flanders%20Art%20Sans%20Medium/FlandersArtSans-Medium.ttf') format('truetype');
+  font-family: "Flanders Art Sans";
+  src: url("../fonts/Flanders%20Art%20Sans%20webfonts/Flanders%20Art%20Sans%20Medium/FlandersArtSans-Medium.woff") format("woff"), url("../fonts/Flanders%20Art%20Sans%20webfonts/Flanders%20Art%20Sans%20Medium/FlandersArtSans-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
   font-display: block;
 }
-
 @font-face {
-  font-family: 'Flanders Art Sans';
-      src: url('../fonts/Flanders%20Art%20Sans%20webfonts/Flanders%20Art%20Sans%20Bold/FlandersArtSans-Bold.woff') format('woff'),
-        url('../fonts/Flanders%20Art%20Sans%20webfonts/Flanders%20Art%20Sans%20Bold/FlandersArtSans-Bold.ttf') format('truetype');
+  font-family: "Flanders Art Sans";
+  src: url("../fonts/Flanders%20Art%20Sans%20webfonts/Flanders%20Art%20Sans%20Bold/FlandersArtSans-Bold.woff") format("woff"), url("../fonts/Flanders%20Art%20Sans%20webfonts/Flanders%20Art%20Sans%20Bold/FlandersArtSans-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: block;
 }
-
 @font-face {
-  font-family: 'vlaanderen-icon';
-      src: url('../fonts/vlaanderen-icons/vlaanderen-icon.eea3757.woff2') format('woff2'),
-        url('../fonts/vlaanderen-icons/vlaanderen-icon.3e433a0.woff') format('woff');
+  font-family: "vlaanderen-icon";
+  src: url("../fonts/vlaanderen-icons/vlaanderen-icon.eea3757.woff2") format("woff2"), url("../fonts/vlaanderen-icons/vlaanderen-icon.3e433a0.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
-
 :root {
   /* Vlaamse overheid kleuren */
   --vl-geel: #FFED00;
@@ -59,7 +47,7 @@ body {
 }
 
 .reveal {
-  font-family: 'Flanders Art Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Flanders Art Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 32px;
   font-weight: 400;
   color: var(--vl-zwart);
@@ -73,6 +61,7 @@ body {
 .reveal .slides section {
   overflow: visible;
 }
+
 .reveal .slides section:not(.title-slide) {
   min-height: 100%;
   max-height: 100%;
@@ -89,7 +78,7 @@ body {
 }
 
 .reveal .title-slide-before-bar {
-  content: '';
+  content: "";
   position: absolute;
   left: -1200px;
   top: -200px;
@@ -113,7 +102,7 @@ body {
 }
 
 .reveal .slides .title-slide::before {
-  content: '\F118';
+  content: "\f118";
   position: absolute;
   left: -100px;
   bottom: -150px;
@@ -126,11 +115,11 @@ body {
 }
 
 .reveal .slides .title-slide::after {
-  content: '';
+  content: "";
   position: absolute;
   left: -130px;
   bottom: 150px;
-  font-family: 'vlaanderen-icon' !important;
+  font-family: "vlaanderen-icon" !important;
   font-size: 140px;
   color: white;
   z-index: 2;
@@ -140,7 +129,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 
 /* Voorkom dubbele decoratie in reveal.js backgrounds */
 .reveal .backgrounds .slide-background.title-slide::before {
@@ -171,26 +159,27 @@ body {
 
 .reveal .slide-corner-icon .vl-vi {
   display: inline-block;
-  font-family: 'vlaanderen-icon' !important;
+  font-family: "vlaanderen-icon" !important;
   line-height: 1;
   vertical-align: middle;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 .reveal .slide-corner-icon .vl-vi::after {
-    content: '';
-    display: inline-block;
-    width: 1px;
-    height: 1em;
-    margin-left: 10px;
-    vertical-align: middle;
-    background-color: var(--vl-zwart);
-    transform: skewX(12deg);
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 1em;
+  margin-left: 10px;
+  vertical-align: middle;
+  background-color: var(--vl-zwart);
+  transform: skewX(12deg);
 }
 
 /* Hide border on title slide */
 .reveal.is-title-slide .slide-corner-icon .vl-vi::after {
-    display: none;
+  display: none;
 }
 
 /* Content moet boven de decoratie */
@@ -253,13 +242,13 @@ body {
 }
 
 .reveal object {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 100%;
-    max-height: 80%;
-    margin-top: 1em;
-    object-fit: contain;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  max-height: 80%;
+  margin-top: 1em;
+  object-fit: contain;
 }
 
 .reveal h1,
@@ -268,7 +257,7 @@ body {
 .reveal h4,
 .reveal h5,
 .reveal h6 {
-  font-family: 'Flanders Art Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Flanders Art Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: normal;
@@ -305,7 +294,7 @@ body {
 }
 
 .reveal section:not(.title-slide) h3::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 50%;
   top: 0;
@@ -332,7 +321,7 @@ body {
 }
 
 .reveal section:not(.title-slide) h4::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 50%;
   top: 0;
@@ -363,13 +352,13 @@ body {
 
 /* Parent title display for vertical subsections */
 .reveal .parent-title {
-    font-size: 0.9em;
-    color: var(--vl-grijs);
-    font-weight: 500;
-    margin: -20px 0 16px 0;
-    padding: 0 60px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+  font-size: 0.9em;
+  color: var(--vl-grijs);
+  font-weight: 500;
+  margin: -20px 0 16px 0;
+  padding: 0 60px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* H2 in slides - geel blok full-width */
@@ -388,7 +377,7 @@ body {
 
 .reveal .slides section:not(.title-slide) h2::before,
 .reveal section:not(.title-slide) h2::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 50%;
   top: -35px;
@@ -436,7 +425,6 @@ body {
   color: var(--vl-geel);
 }
 
-
 /* Code block styling for highlight.js output in <pre.hljs> */
 .reveal pre {
   background-color: #1e1e1e;
@@ -447,7 +435,7 @@ body {
   max-width: 85%;
   color: #d4d4d4;
   overflow-x: auto;
-  font-family: 'Monaco', 'Courier New', monospace;
+  font-family: "Monaco", "Courier New", monospace;
   font-size: 0.6em;
   line-height: 1.1;
   border-radius: 4px;
@@ -455,7 +443,7 @@ body {
 
 .reveal code {
   background-color: #1e1e1e;
-  font-family: 'Monaco', 'Courier New', monospace;
+  font-family: "Monaco", "Courier New", monospace;
   color: #d4d4d4;
   font-size: 1em;
   padding: 2px 4px;
@@ -470,27 +458,91 @@ body {
 }
 
 /* Highlight.js token colors (adjust as needed) */
-.reveal pre.hljs .hljs-string { color: #ce9178; }
-.reveal pre.hljs .hljs-number { color: #b5cea8; }
-.reveal pre.hljs .hljs-literal { color: #569cd6; }
-.reveal pre.hljs .hljs-keyword { color: #569cd6; }
-.reveal pre.hljs .hljs-symbol { color: #9cdcfe; }
-.reveal pre.hljs .hljs-type { color: #4ec9b0; }
-.reveal pre.hljs .hljs-built_in { color: #b5cea8; }
-.reveal pre.hljs .hljs-comment { color: #6a9955; font-style: italic; }
-.reveal pre.hljs .hljs-title { color: #dcdcaa; }
-.reveal pre.hljs .hljs-section { color: #d7ba7d; }
-.reveal pre.hljs .hljs-attribute { color: #9cdcfe; }
-.reveal pre.hljs .hljs-meta { color: #d4d4d4; }
-.reveal pre.hljs .hljs-tag { color: #569cd6; }
-.reveal pre.hljs .hljs-name { color: #d7ba7d; }
-.reveal pre.hljs .hljs-selector-id { color: #d7ba7d; }
-.reveal pre.hljs .hljs-selector-class { color: #d7ba7d; }
-.reveal pre.hljs .hljs-variable { color: #9cdcfe; }
-.reveal pre.hljs .hljs-template-variable { color: #d7ba7d; }
-.reveal pre.hljs .hljs-link { color: #d7ba7d; text-decoration: underline; }
-.reveal pre.hljs .hljs-emphasis { font-style: italic; }
-.reveal pre.hljs .hljs-strong { font-weight: bold; }
+.reveal pre.hljs .hljs-string {
+  color: #ce9178;
+}
+
+.reveal pre.hljs .hljs-number {
+  color: #b5cea8;
+}
+
+.reveal pre.hljs .hljs-literal {
+  color: #569cd6;
+}
+
+.reveal pre.hljs .hljs-keyword {
+  color: #569cd6;
+}
+
+.reveal pre.hljs .hljs-symbol {
+  color: #9cdcfe;
+}
+
+.reveal pre.hljs .hljs-type {
+  color: #4ec9b0;
+}
+
+.reveal pre.hljs .hljs-built_in {
+  color: #b5cea8;
+}
+
+.reveal pre.hljs .hljs-comment {
+  color: #6a9955;
+  font-style: italic;
+}
+
+.reveal pre.hljs .hljs-title {
+  color: #dcdcaa;
+}
+
+.reveal pre.hljs .hljs-section {
+  color: #d7ba7d;
+}
+
+.reveal pre.hljs .hljs-attribute {
+  color: #9cdcfe;
+}
+
+.reveal pre.hljs .hljs-meta {
+  color: #d4d4d4;
+}
+
+.reveal pre.hljs .hljs-tag {
+  color: #569cd6;
+}
+
+.reveal pre.hljs .hljs-name {
+  color: #d7ba7d;
+}
+
+.reveal pre.hljs .hljs-selector-id {
+  color: #d7ba7d;
+}
+
+.reveal pre.hljs .hljs-selector-class {
+  color: #d7ba7d;
+}
+
+.reveal pre.hljs .hljs-variable {
+  color: #9cdcfe;
+}
+
+.reveal pre.hljs .hljs-template-variable {
+  color: #d7ba7d;
+}
+
+.reveal pre.hljs .hljs-link {
+  color: #d7ba7d;
+  text-decoration: underline;
+}
+
+.reveal pre.hljs .hljs-emphasis {
+  font-style: italic;
+}
+
+.reveal pre.hljs .hljs-strong {
+  font-weight: bold;
+}
 
 /* Tabellen */
 .reveal table {
@@ -583,7 +635,7 @@ body {
   margin-top: 0;
 }
 
-.reveal .slides>section {
+.reveal .slides > section {
   min-height: 90%;
   max-height: 90%;
 }
@@ -592,7 +644,7 @@ body {
   min-height: auto;
 }
 
-.reveal .slides>section>section {
+.reveal .slides > section > section {
   min-height: 100%;
   max-height: 100%;
   height: 100%;
@@ -622,7 +674,10 @@ p:has(+ .mermaid) {
 .reveal .mermaid svg {
   display: block;
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 /* Pan/zoom controls for Mermaid diagrams */
@@ -633,10 +688,10 @@ p:has(+ .mermaid) {
   z-index: 20;
   display: none;
   gap: 8px;
-  background: rgba(255,255,255,0.7);
+  background: rgba(255, 255, 255, 0.7);
   border-radius: 6px;
   padding: 4px 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   font-size: 18px;
   user-select: none;
   /* Ensure pointer events for controls */
@@ -657,6 +712,7 @@ p:has(+ .mermaid) {
   border-radius: 4px;
   transition: background 0.2s;
 }
+
 .reveal .mermaid-controls button:hover {
   background: #e0e0e0;
 }
@@ -680,7 +736,7 @@ p:has(+ .mermaid) {
   transform: translate(-50%, -50%) scale(var(--slide-scale, 1)) !important;
 }
 
-.reveal h1.center,h2.center,h3.center {
+.reveal h1.center, h2.center, h3.center {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -737,4 +793,32 @@ p:has(+ .mermaid) {
   flex: 0 0 50%;
   max-width: 50%;
   width: 50%;
+}
+
+.reveal ul.large, ol.large {
+  font-size: 1.8em;
+}
+
+.reveal ul.medium, ol.medium {
+  font-size: 1.4em;
+}
+
+.reveal blockquote.large {
+  font-size: 1.8em;
+}
+
+.reveal p.medium {
+  font-size: 1.4em;
+}
+
+.reveal p.large {
+  font-size: 1.8em;
+}
+
+.reveal div.large {
+  font-size: 1.8em;
+}
+
+.reveal div.medium {
+  font-size: 1.4em;
 }

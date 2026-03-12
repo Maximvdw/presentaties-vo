@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
-  <title>LDES</title>
+  <title>RIE-IEPR: Linked Data Model</title>
   
   
   
@@ -22,8 +22,8 @@
     
     <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
     
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1772111646">
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1772111646">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1773331969">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1773331969">
     
     
     
@@ -38,9 +38,9 @@
           <div class="title-slide-before-bar"></div>
           <div class="slide-wrapper">
             <div class="slide-content">
-              <h1>LDES</h1>
+              <h1>RIE-IEPR: Linked Data Model</h1>
               
-              <h3>RIE-IEPR afname via LDES</h3>
+              <h3>Linked Data standaarden</h3>
               
               
               <p class="author">Maxim Van de Wynckel</p>
@@ -49,7 +49,7 @@
               <p class="organization">Departement Omgeving</p>
               
               
-              <p class="date">9 februari 2026</p>
+              <p class="date">24 maart 2026</p>
               
             </div>
           </div>
@@ -57,6 +57,290 @@
         
 
         
+<section>
+    <h2 id="inhoud" tabindex="-1">Inhoud</h2>
+<ol class="large">
+<li>Introductie Linked Data</li>
+<li>Standaarden en Master Data</li>
+<li>Datamodel</li>
+<li>Versionering</li>
+</ol>
+
+</section>
+
+<section>
+    <section>
+        <h2 id="introductie-linked-data" tabindex="-1">Introductie Linked Data</h2>
+<h3 id="beschrijving-van-informatie" tabindex="-1">Beschrijving van informatie</h3>
+<blockquote>
+<p>Beschrijf mij wat een exploitant is?</p>
+</blockquote>
+<div class="mermaid" data-vertical-align="top">
+flowchart LR
+  EXPLOITANT[&quot;Exploitant&quot;]
+  EXPLOITANT --&gt;|&quot;is een&quot;| ORGANISATIE[&quot;Organisatie&quot;]
+  ORGANISATIE --&gt;|&quot;die een ... uitbaat&quot;| EXPLOITATIE[&quot;Exploitatie&quot;]
+
+</div><p verticalAlign:="" top=""></p>
+
+    </section>
+    <section>
+        <h3 id="beschrijving-van-informatie-..." tabindex="-1">Beschrijving van informatie ...</h3>
+<blockquote>
+<p>Beschrijf mij wat een exploitatie is?</p>
+</blockquote>
+<div class="mermaid" data-vertical-align="top">
+flowchart LR
+  EXPLOITATIE[&quot;Exploitatie&quot;]
+  EXPLOITATIE --&gt;|&quot;is een&quot;| ACTIVITEIT[&quot;Uitbating&quot;]
+  ACTIVITEIT --&gt;|&quot;dat leidt tot&quot;| MILIEUEFFECT[&quot;Milieueffect&quot;]
+
+</div><p verticalAlign:="" top=""></p>
+
+    </section>
+        <section>
+        <h3 id="beschrijving-van-informatie-..." tabindex="-1">Beschrijving van informatie ...</h3>
+<blockquote>
+<p>Beschrijf mij wat een milieueffect is?</p>
+</blockquote>
+<p><strong>...</strong></p>
+<blockquote>
+<p>Beschrijf mij wat een organisatie is?</p>
+</blockquote>
+<p><strong>...</strong></p>
+<blockquote>
+<p>Beschrijf mij wat een vestiging is?</p>
+</blockquote>
+
+    </section>
+</section>
+
+<section>
+    <section>
+        <h2 id="introductie-linked-data" tabindex="-1">Introductie Linked Data</h2>
+<h3 id="betekenis-van-informatie" tabindex="-1">Betekenis van informatie</h3>
+<blockquote>
+<p>Beschrijf mij wat een installatie is?</p>
+</blockquote>
+<div class="mermaid" data-vertical-align="top">
+flowchart TB
+  subgraph Persoon B
+      EXPLOITATIE2[&quot;Installatie&quot;]
+      EXPLOITATIE2 --&gt;|&quot;is een&quot;| COLLECTIE[&quot;Collectie&quot;]
+      COLLECTIE --&gt;|&quot;van ...&quot;| APPARAAT[&quot;Apparaat&quot;]
+  end
+  subgraph Persoon A
+      EXPLOITATIE[&quot;Installatie&quot;]
+      EXPLOITATIE --&gt;|&quot;is een&quot;| ACTIVITEIT[&quot;Apparaat&quot;]
+  end
+
+</div><p verticalAlign:="" top=""></p>
+
+    </section>
+    <section>
+        <h3 id="betekenis-van-informatie-..." tabindex="-1">Betekenis van informatie ...</h3>
+<div class="mermaid">
+flowchart TB
+  subgraph Systeem B
+      DOSSIER3[&quot;Dossier&quot;]
+      DOSSIER4[&quot;Stamdossier&quot;]
+  end
+
+  subgraph Systeem A
+      DOSSIER1[&quot;Deeldossier&quot;]
+      DOSSIER2[&quot;Basisdossier&quot;]
+  end
+
+</div>
+    </section>
+    <section>
+        <h3 id="betekenis-van-informatie-..." tabindex="-1">Betekenis van informatie ...</h3>
+<blockquote class="large">
+<p><strong>Iedereen</strong> kan iets <strong>beschrijven</strong>, maar enkel de <strong>eigenaar</strong> van de informatie kan de achterliggende <strong>betekenis</strong> ervan bepalen.</p>
+</blockquote>
+
+    </section>
+</section>
+
+<section>
+    <section>
+        <h2 id="introductie-linked-data" tabindex="-1">Introductie Linked Data</h2>
+<h3 id="betekenisvol-beschrijven-van-informatie" tabindex="-1">Betekenisvol beschrijven van informatie</h3>
+<blockquote>
+<p>Beschrijf mij wat een exploitatie is?</p>
+</blockquote>
+<div class="mermaid" data-vertical-align="top">
+flowchart LR
+  EXPLOITATIE[&quot;Exploitatie&quot;]
+  EXPLOITATIE --&gt;|&quot;rdf:type&quot;| DEPLOYMENT[&quot;ssn:Deployment&quot;]
+  EXPLOITATIE --&gt;|&quot;ssn:deployedSystem&quot;| INSTALLATIE[&quot;Installatie&quot;]
+  INSTALLATIE --&gt;|&quot;rdf:type&quot;| SYSTEM[&quot;ssn:System&quot;]
+  EXPLOITATIE --&gt;|&quot;ssn:implements&quot;| PROCES[&quot;Proces&quot;]
+  PROCES --&gt;|&quot;rdf:type&quot;| PLAN[&quot;p-plan:Plan&quot;]
+
+  classDef ssn fill:#f9f,stroke:#333,stroke-width:2px;
+  classDef p-plan fill:#bbf,stroke:#333,stroke-width:2px;
+  classDef domg fill:#447a6d,stroke:#2d5957,stroke-width:2px,color:white;
+  class DEPLOYMENT,SYSTEM ssn;
+  class PLAN p-plan;
+  class EXPLOITATIE,INSTALLATIE,PROCES domg;
+
+</div><p verticalAlign:="" top=""></p>
+
+    </section>
+</section>
+
+<section>
+    <section>
+        <h2 id="standaarden-en-master-data" tabindex="-1">Standaarden en Master Data</h2>
+<h3 id="linked-data---web-van-informatie" tabindex="-1">Linked Data - Web van informatie</h3>
+<p><img src="./images/cloud1.svg" alt="lod"></p>
+
+    </section>
+    <section>
+        <h3 id="linked-data---web-van-informatie-..." tabindex="-1">Linked Data - Web van informatie ...</h3>
+<p><img src="./images/cloud2.svg" alt="lod"></p>
+
+    </section>
+    <section>
+        <h3 id="beheer-van-betekenissen-bij-standaarden" tabindex="-1">Beheer van betekenissen bij standaarden</h3>
+<p class="medium">... want standaarden zijn generiek en algemeen gekend</p>
+
+    </section>
+    <section>
+        <h3 id="beheer-van-informatie-bij-de-eigenaar" tabindex="-1">Beheer van informatie bij de eigenaar</h3>
+<p class="medium">... want de eigenaar kent de betekenis</p>
+
+    </section>
+</section>
+
+<section>
+    <section>
+        <h2 id="datamodel" tabindex="-1">Datamodel</h2>
+<h3 id="standaarden" tabindex="-1">Standaarden</h3>
+<p><strong>Drie</strong> belangrijke standaarden <strong>voor de structuur</strong>:</p>
+<ul>
+<li>SSN/SOSA</li>
+<li>PROV-O</li>
+<li>P-PLAN</li>
+</ul>
+<p><strong>Meerdere</strong> standaarden <strong>voor de inhoud</strong>:</p>
+<ul>
+<li>DCTerms</li>
+<li>ADMS</li>
+<li>GeoSPARQL</li>
+<li>DBPedia</li>
+<li>...</li>
+</ul>
+
+    </section>
+    <section>
+        <h2 id="datamodel" tabindex="-1">Datamodel</h2>
+<h3 id="exploitatie-als-'deployment'" tabindex="-1">Exploitatie als 'Deployment'</h3>
+<blockquote>
+<p><strong>SOSA/SSN (vertaling)</strong>: Beschrijft de inzet van een of meer systemen voor een specifiek doel. De inzet kan plaatsvinden op een platform.</p>
+</blockquote>
+<div class="mermaid" data-vertical-align="top">
+flowchart LR
+  EXPLOITATIE[&quot;Exploitatie&quot;]
+  EXPLOITATIE --&gt;|&quot;rdf:type&quot;| DEPLOYMENT[&quot;ssn:Deployment&quot;]
+
+  classDef ssn fill:#f9f,stroke:#333,stroke-width:2px;
+  classDef p-plan fill:#bbf,stroke:#333,stroke-width:2px;
+  classDef domg fill:#447a6d,stroke:#2d5957,stroke-width:2px,color:white;
+  class DEPLOYMENT ssn;
+  class EXPLOITATIE domg;
+
+</div><p verticalAlign:="" top=""></p>
+
+    </section>
+    <section>
+        <h2 id="datamodel" tabindex="-1">Datamodel</h2>
+<h3 id="exploitatielocatie-als-'platform'" tabindex="-1">ExploitatieLocatie als 'Platform'</h3>
+<blockquote>
+<p><strong>SOSA/SSN (vertaling)</strong>: Een platform is een entiteit die andere entiteiten host, met name sensoren, actuatoren, bemonsteringsapparaten en andere platforms.</p>
+</blockquote>
+<div class="mermaid" data-vertical-align="top">
+flowchart LR
+  EXPLOITATIE[&quot;Exploitatie&quot;]
+  EXPLOITATIE --&gt;|&quot;rdf:type&quot;| DEPLOYMENT[&quot;ssn:Deployment&quot;]
+  EXPLOITATIE --&gt;|&quot;ssn:inDeployment&quot;| EXPLOITATIELOCATIE[&quot;ExploitatieLocatie&quot;]
+  EXPLOITATIELOCATIE --&gt;|&quot;rdf:type&quot;| PLATFORM[&quot;sosa:Platform&quot;]
+
+  classDef ssn fill:#f9f,stroke:#333,stroke-width:2px;
+  classDef p-plan fill:#bbf,stroke:#333,stroke-width:2px;
+  classDef domg fill:#447a6d,stroke:#2d5957,stroke-width:2px,color:white;
+  class DEPLOYMENT,PLATFORM ssn;
+  class EXPLOITATIE,EXPLOITATIELOCATIE domg;
+
+</div><p verticalAlign:="" top=""></p>
+
+    </section>
+    <section>
+        <h2 id="datamodel" tabindex="-1">Datamodel</h2>
+<h3 id="installatie%2C-emissiepunt%2C-...-als-'system'" tabindex="-1">Installatie, Emissiepunt, ... als 'System'</h3>
+<blockquote>
+<p><strong>SOSA/SSN (vertaling)</strong>: Een systeem is een abstractie-eenheid voor infrastructuuronderdelen die procedures implementeren. Een systeem kan componenten hebben, oftewel subsystemen, die op hun beurt weer andere systemen zijn.</p>
+</blockquote>
+<div class="mermaid" data-vertical-align="top">
+flowchart LR
+  EXPLOITATIE[&quot;Exploitatie&quot;]
+
+</div><p verticalAlign:="" top=""></p>
+
+    </section>
+</section>
+
+<section>
+    <section>
+        <h2 id="versionering" tabindex="-1">Versionering</h2>
+<div class="medium">
+<ol>
+<li>Stabiele identificatie</li>
+</ol>
+<ul>
+<li><em>Over welke (exploitatie) spreken we?</em></li>
+</ul>
+<ol start="2">
+<li>Geldigheidsduur (van - tot)</li>
+</ol>
+<ul>
+<li><em>Wanneer was deze versie van de (exploitatie) geldig?</em></li>
+</ul>
+<ol start="3">
+<li>Creatietijdstip</li>
+</ol>
+<ul>
+<li><em>Wanneer is deze versie van de (exploitatie) gemaakt?</em></li>
+</ul>
+</div>
+
+    </section>
+    <section>
+        <h2 id="versionering" tabindex="-1">Versionering</h2>
+<h3 id="uri's" tabindex="-1">URI's</h3>
+<ul>
+<li><code>https://.../id/exploitatie/1234-5678</code>
+<ul>
+<li>URI exploitatie met ID <code>1234-5678</code></li>
+<li>De laatste versie van de exploitatie</li>
+</ul>
+</li>
+<li><code>https://.../id/exploitatie/1234-5678/2026-03-24T12:00:00</code>
+<ul>
+<li>URI exploitatieversie op <code>2026-03-24T12:00:00</code> van exploitatie met ID <code>1234-5678</code></li>
+<li>Een specifieke versie van de exploitatie</li>
+</ul>
+</li>
+</ul>
+
+    </section>
+    <section>
+        <h2 id="versionering" tabindex="-1">Versionering</h2>
+<h3 id="geldigheidsduur" tabindex="-1">Geldigheidsduur</h3>
+
+    </section>
+</section>
 
       </div>
     </div>
@@ -74,8 +358,8 @@
     </script>
     
     <script type="module">
-      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1772111646';
-      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1772111646';
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1773331969';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1773331969';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;
