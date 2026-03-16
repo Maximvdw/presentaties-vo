@@ -13,7 +13,8 @@ theme: vlaanderen
     1. Introductie Linked Data
     2. Standaarden en Master Data
     3. Datamodel
-    4. Versionering
+    4. Voorbeeld data
+    5. Versionering
     { .large }
     {% endmarkdown %}
 </section>
@@ -157,13 +158,22 @@ theme: vlaanderen
         ### Beheer van betekenissen bij standaarden 
         ... want standaarden zijn generiek en algemeen gekend { .medium }
         
+        - Klassen *(System, Deployment, Platform, ...)*
+        - Eigenschappen en regels *(deployedSystem, implements, ...)*
+        - ...
+        { .medium }
+
         {% endmarkdown %}
     </section>
     <section>
         {% markdown %}
         ### Beheer van informatie bij de eigenaar
         ... want de eigenaar kent de betekenis { .medium }
-
+        - Exploitatie, Installatie, ... (dOMG)
+        - NACE codes (EU)
+        - Vestigingen (VKBO)
+        - ...
+        { .medium }
         {% endmarkdown %}
     </section>
 </section>
@@ -172,17 +182,28 @@ theme: vlaanderen
     <section>
         {% markdown %}
         ## Datamodel
+        - ~18 klassen gebaseerd op standaarden
+        - "Exploitatie" als kapstok voor versionering
+        - Vier belangrijke systemen: Installatie, Emissiepunt, Onttrekkingspunt en Meetpunt
+        - Samenhang via processen die systemen gebruiken
+        - Bijkomende klassen voor eigenschappen, rubrieken, filters, instrumenten, ...
+        { .medium }
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Datamodel
         ### Standaarden
         **Drie** belangrijke standaarden **voor de structuur**:
         - SSN/SOSA
-        - PROV-O
         - P-PLAN
+        - PROV-O
 
         **Meerdere** standaarden **voor de inhoud**:
         - DCTerms
         - ADMS
         - GeoSPARQL
-        - DBPedia
+        - DBPedia Ontology
         - ...
         {% endmarkdown %}
     </section>
@@ -214,7 +235,7 @@ theme: vlaanderen
         flowchart LR
             EXPLOITATIE["Exploitatie"]
             EXPLOITATIE -->|"rdf:type"| DEPLOYMENT["ssn:Deployment"]
-            EXPLOITATIE -->|"ssn:inDeployment"| EXPLOITATIELOCATIE["ExploitatieLocatie"]
+            EXPLOITATIE -->|"ssn:deployedOnPlatform"| EXPLOITATIELOCATIE["ExploitatieLocatie"]
             EXPLOITATIELOCATIE -->|"rdf:type"| PLATFORM["sosa:Platform"]
 
             classDef ssn fill:#f9f,stroke:#333,stroke-width:2px;
@@ -234,8 +255,247 @@ theme: vlaanderen
         ```mermaid
         flowchart LR
             EXPLOITATIE["Exploitatie"]
+            EXPLOITATIELOCATIE["ExploitatieLocatie"]
+            INSTALLATIE["Installatie"]
+            EMISSIEPUNT["Emissiepunt"]
+            SYSTEEM["ssn:System"]
+
+            EXPLOITATIE -->|"ssn:deployedOnPlatform"| EXPLOITATIELOCATIE
+            EXPLOITATIE -->|"ssn:deployedSystem"| SYSTEEM
+            INSTALLATIE -->|"rdf:type"| SYSTEEM
+            EMISSIEPUNT -->|"rdf:type"| SYSTEEM
+            SYSTEEM -->|"sosa:isHostedBy"| EXPLOITATIELOCATIE
+
+            classDef ssn fill:#f9f,stroke:#333,stroke-width:2px;
+            classDef p-plan fill:#bbf,stroke:#333,stroke-width:2px;
+            classDef domg fill:#447a6d,stroke:#2d5957,stroke-width:2px,color:white;
+            class DEPLOYMENT,PLATFORM,SYSTEEM ssn;
+            class EXPLOITATIE,EXPLOITATIELOCATIE,INSTALLATIE,EMISSIEPUNT domg;
         ```
         { verticalAlign: top }
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Datamodel
+        ### Proces als het 'Plan' en 'Step'
+        > **P-PLAN (vertaling)**: Een p-plan:Plan is een specifiek type prov:Plan. Het is opgebouwd uit kleinere stappen (p-plan:Step) die variabelen (p-plan:Variable) gebruiken en produceren.
+        ```mermaid
+        flowchart LR
+            PROCES["Proces"]
+            PLAN["p-plan:Plan"]
+            STEP["p-plan:Step"]
+
+            PROCES -->|"rdf:type"| PLAN
+            PROCES -->|"rdf:type"| STEP
+
+            STEP -->|"p-plan:isStepOf"| PLAN
+            STEP -->|"p-plan:isPrecededBy"| STEP
+
+            classDef ssn fill:#f9f,stroke:#333,stroke-width:2px;
+            classDef p-plan fill:#bbf,stroke:#333,stroke-width:2px;
+            classDef domg fill:#447a6d,stroke:#2d5957,stroke-width:2px,color:white;
+
+            class PLAN,STEP p-plan;
+            class PROCES domg;
+        ```
+        { verticalAlign: top }
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Datamodel
+        ### Proces als het 'Plan' en 'Step'
+        **Dat uitgevoerd kan worden door een systeem (installatie, emissiepunt, ...)**
+        ```mermaid
+        flowchart LR
+            PROCES["Proces"]
+            SYSTEM["ssn:System"]
+
+            PROCES -->|"ssn:implementedBy"| SYSTEM
+
+            classDef ssn fill:#f9f,stroke:#333,stroke-width:2px;
+            classDef p-plan fill:#bbf,stroke:#333,stroke-width:2px;
+            classDef domg fill:#447a6d,stroke:#2d5957,stroke-width:2px,color:white;
+
+            class SYSTEM ssn;
+            class PROCES domg;
+        ```
+        { verticalAlign: top }
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Datamodel
+        ### Proces als het 'Plan' en 'Step'
+        **...en een typering kan hebben**
+        ```mermaid
+        flowchart LR
+            PROCES["Proces"]
+            TYPE(["riepr:TransportProcedure"])
+
+            PROCES -->|"dct:type"| TYPE
+
+            classDef domg fill:#447a6d,stroke:#2d5957,stroke-width:2px,color:white;
+
+            class PROCES,TYPE domg;
+        ```
+        { verticalAlign: top }
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Datamodel
+        ### Proces als het 'Plan' en 'Step'
+        **...en waarvan het hoofdproces geimplementeerd wordt door een exploitatie**
+        ```mermaid
+        flowchart LR
+            PROCES["Proces"]
+            EXPLOITATIE["Exploitatie"]
+
+            EXPLOITATIE -->|"ssn:implements"| PROCES
+
+            classDef domg fill:#447a6d,stroke:#2d5957,stroke-width:2px,color:white;
+
+            class PROCES,EXPLOITATIE domg;
+        ```
+        { verticalAlign: top }
+        {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+        {% markdown %}
+        ## Voorbeeld data
+        ```mermaid
+        flowchart LR
+            classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+            classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+            classDef installatie fill:#9ff,stroke:#333,stroke-width:2px;
+
+            PROCES1["<b>Installatie</b><br>type=Directe Stookinstallatie</br>naam=Directe stookinstallatie 1"]
+            PROCES2["<b>Installatie</b><br>type=Directe Stookinstallatie<br>naam=Directe stookinstallatie 2"]
+            PROCES3(["<b>Emissiepunt</b><br>type=Schouw<br>naam=Schouw 1"])
+
+            PROCES1 --> PROCES3
+            PROCES2 --> PROCES3
+            class PROCES3 emission;
+            class PROCES1,PROCES2 installatie;
+        ```
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ### Achterliggende data (stap 1/3)
+        ```mermaid
+        flowchart LR
+            classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+            classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+            classDef installatie fill:#9ff,stroke:#333,stroke-width:2px;
+
+            INSTALLATIE1["<b>Installatie</b><br>type=http://codelijst/installatie/directe_stookinstallatie</br>naam=Directe stookinstallatie 1"]
+            INSTALLATIE2["<b>Installatie</b><br>type=http://codelijst/installatie/directe_stookinstallatie</br>naam=Directe stookinstallatie 2"]
+            EMISSIEPUNT1(["<b>Emissiepunt</b><br>type=http://codelijst/emissiepunt/schouw</br>naam=Schouw 1"])
+            PROCES1["<b>Proces</b><br>type=http://codelijst/proces/verwerking_procedure"]
+            PROCES2["<b>Proces</b><br>type=http://codelijst/proces/verwerking_procedure"]
+            PROCES3["<b>Proces</b><br>type=http://codelijst/proces/emissie_procedure"]
+            PROCES4["<b>Proces</b><br>type=http://codelijst/proces/transport_procedure"]
+            PROCES5["<b>Proces</b><br>type=http://codelijst/proces/transport_procedure"]
+
+
+            PROCES1 -->|"ssn:implementedBy"| INSTALLATIE1
+            PROCES2 -->|"ssn:implementedBy"| INSTALLATIE2
+            PROCES3 -->|"ssn:implementedBy"| EMISSIEPUNT1
+            PROCES1 --> PROCES4
+            PROCES4 --> PROCES3
+            PROCES2 --> PROCES5
+            PROCES5 --> PROCES3
+            class EMISSIEPUNT1 emission;
+            class INSTALLATIE1,INSTALLATIE2 installatie;
+        ```
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ### Achterliggende data (stap 2/3)
+        ```mermaid
+        flowchart LR
+            classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+            classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+            classDef installatie fill:#9ff,stroke:#333,stroke-width:2px;
+
+            INSTALLATIE1["<b>Installatie</b><br>type=http://.../directe_stookinstallatie</br>naam=Directe stookinstallatie 1"]
+            INSTALLATIE2["<b>Installatie</b><br>type=http://.../directe_stookinstallatie</br>naam=Directe stookinstallatie 2"]
+            EMISSIEPUNT1(["<b>Emissiepunt</b><br>type=http://.../schouw</br>naam=Schouw 1"])
+            PROCES1["<b>Proces</b><br>type=http://.../verwerking_procedure"]
+            PROCES2["<b>Proces</b><br>type=http://.../verwerking_procedure"]
+            PROCES3["<b>Proces</b><br>type=http://.../emissie_procedure"]
+            PROCES4["<b>Proces</b><br>type=http://.../transport_procedure"]
+            PROCES5["<b>Proces</b><br>type=http://.../transport_procedure"]
+
+
+            PROCES1 -->|"ssn:implementedBy"| INSTALLATIE1
+            PROCES2 -->|"ssn:implementedBy"| INSTALLATIE2
+            PROCES3 -->|"ssn:implementedBy"| EMISSIEPUNT1
+            PROCES3 -->|"p-plan:isPrecededBy"| PROCES4
+            PROCES3 -->|"p-plan:isPrecededBy"| PROCES5
+            PROCES4 -->|"p-plan:isPrecededBy"| PROCES1
+            PROCES5 -->|"p-plan:isPrecededBy"| PROCES2
+            class EMISSIEPUNT1 emission;
+            class INSTALLATIE1,INSTALLATIE2 installatie;
+        ```
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ### Achterliggende data (stap 3/3)
+        ```mermaid
+        flowchart LR
+            classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+            classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+            classDef installatie fill:#9ff,stroke:#333,stroke-width:2px;
+            classDef exploitatie fill:#9f9,stroke:#333,stroke-width:2px;
+
+            EXPLOITATIE["<b>Exploitatie</b><br>id=1234-5678<br>naam=Exploitatie 1"]
+            EXPLOITATIELOCATIE["<b>ExploitatieLocatie</b><br>adres=Straat 1, Stad<br>geo=POINT(4.123 51.123)"]
+            INSTALLATIE1["<b>Installatie</b><br>type=directe_stookinstallatie</br>naam=Directe stookinstallatie 1"]
+            INSTALLATIE2["<b>Installatie</b><br>type=directe_stookinstallatie</br>naam=Directe stookinstallatie 2"]
+            EMISSIEPUNT1(["<b>Emissiepunt</b><br>type=schouw</br>naam=Schouw 1"])
+            PROCES1["<b>Proces</b><br>type=verwerking"]
+            PROCES2["<b>Proces</b><br>type=verwerking"]
+            PROCES3["<b>Proces</b><br>type=emissie"]
+            PROCES4["<b>Proces</b><br>type=transport"]
+            PROCES5["<b>Proces</b><br>type=transport"]
+
+            INSTALLATIE1 -->|"sosa:isHostedBy"| EXPLOITATIELOCATIE
+            INSTALLATIE2 -->|"sosa:isHostedBy"| EXPLOITATIELOCATIE
+            EXPLOITATIE -->|"ssn:deployedOnPlatform"| EXPLOITATIELOCATIE
+            EXPLOITATIE -->|"ssn:deployedSystem"| INSTALLATIE1
+            EXPLOITATIE -->|"ssn:deployedSystem"| INSTALLATIE2
+            EXPLOITATIE -->|"ssn:deployedSystem"| EMISSIEPUNT1
+
+            PROCES["<b>Proces</b><br>type=hoodproces"]
+            PROCES1 -->|"p-plan:isStepOfPlan"| PROCES
+            PROCES2 -->|"p-plan:isStepOfPlan"| PROCES
+            PROCES3 -->|"p-plan:isStepOfPlan"| PROCES
+            PROCES4 -->|"p-plan:isStepOfPlan"| PROCES
+            PROCES5 -->|"p-plan:isStepOfPlan"| PROCES
+
+            EXPLOITATIE -->|"ssn:implements"| PROCES
+
+            PROCES1 -->|"ssn:implementedBy"| INSTALLATIE1
+            PROCES2 -->|"ssn:implementedBy"| INSTALLATIE2
+            PROCES3 -->|"ssn:implementedBy"| EMISSIEPUNT1
+            PROCES3 -->|"p-plan:isPrecededBy"| PROCES4
+            PROCES3 -->|"p-plan:isPrecededBy"| PROCES5
+            PROCES4 -->|"p-plan:isPrecededBy"| PROCES1
+            PROCES5 -->|"p-plan:isPrecededBy"| PROCES2
+            class EMISSIEPUNT1 emission;
+            class INSTALLATIE1,INSTALLATIE2 installatie;
+            class EXPLOITATIE exploitatie;
+            class EXPLOITATIELOCATIE exploitatie;
+        ```
         {% endmarkdown %}
     </section>
 </section>
@@ -272,6 +532,16 @@ theme: vlaanderen
         {% markdown %}
         ## Versionering
         ### Geldigheidsduur
+        - Elke versie heeft een geldigheidsduur (van - tot)
+        - Elke versie heeft een aanmaaktijdstip (systeem)
+        - Een versie die geen einddatum heeft, is (voorlopig) onbeperkt geldig
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Versionering
+        ### Wijzigingen bepalen
+
         {% endmarkdown %}
     </section>
 </section>
