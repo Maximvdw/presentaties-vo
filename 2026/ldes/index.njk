@@ -13,13 +13,25 @@ theme: vlaanderen
     1. Introductie Linked Data
     2. Standaarden en Master Data
     3. Datamodel
-    4. Voorbeeld data
+    4. Voorbeeld
     5. Versionering
     { .large }
     {% endmarkdown %}
 </section>
 
 <section>
+    <section>
+        {% markdown %}
+        ## Introductie Linked Data
+        ![](./images/wikipedia.png)
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Introductie Linked Data
+        ![](./images/turtle.png)
+        {% endmarkdown %}
+    </section>
     <section>
         {% markdown %}
         ## Introductie Linked Data
@@ -49,7 +61,7 @@ theme: vlaanderen
         { verticalAlign: top }
         {% endmarkdown %}
     </section>
-        <section>
+    <section>
         {% markdown %}
         ### Beschrijving van informatie ...
         > Beschrijf mij wat een milieueffect is?
@@ -70,25 +82,6 @@ theme: vlaanderen
         {% markdown %}
         ## Introductie Linked Data
         ### Betekenis van informatie
-        > Beschrijf mij wat een installatie is?
-        ```mermaid
-        flowchart TB
-            subgraph Persoon B
-                EXPLOITATIE2["Installatie"]
-                EXPLOITATIE2 -->|"is een"| COLLECTIE["Collectie"]
-                COLLECTIE -->|"van ..."| APPARAAT["Apparaat"]
-            end
-            subgraph Persoon A
-                EXPLOITATIE["Installatie"]
-                EXPLOITATIE -->|"is een"| ACTIVITEIT["Apparaat"]
-            end
-        ````
-        { verticalAlign: top }
-        {% endmarkdown %}
-    </section>
-    <section>
-        {% markdown %}
-        ### Betekenis van informatie ...
         ```mermaid
         flowchart TB
             subgraph Systeem B
@@ -101,6 +94,7 @@ theme: vlaanderen
                 DOSSIER2["Basisdossier"]
             end
         ```
+        { verticalAlign: top }
         {% endmarkdown %}
     </section>
     <section>
@@ -108,6 +102,24 @@ theme: vlaanderen
         ### Betekenis van informatie ...
         > **Iedereen** kan iets **beschrijven**, maar enkel de **eigenaar** van de informatie kan de achterliggende **betekenis** ervan bepalen.
         { .large }
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ### Betekenis van informatie ...
+        > Bepaal de betekenis aan de hand van relaties met andere informatie
+        { .large }
+        ```mermaid
+        flowchart LR
+            DOSSIER1["???"]
+            DOSSIER2["???"]
+            DOSSIER3["???"]
+
+            DOSSIER1 -->|"is een deel van"| DOSSIER2
+            DOSSIER1 -->|"is een"| DOSSIER3
+            DOSSIER2 -->|"is een"| DOSSIER3
+        ```
+        { verticalAlign: top }
         {% endmarkdown %}
     </section>
 </section>
@@ -151,6 +163,36 @@ theme: vlaanderen
         {% markdown %}
         ### Linked Data - Web van informatie ...
         ![lod](./images/cloud2.svg)
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ### Linked Data - Web van informatie ...
+        ```mermaid
+        flowchart TB
+            EXPLOITANT(["domg:exploitant_crematorium"])
+            EXPLOITATIE(["domg:exploitatie_1234"])
+            EXPLOITATIELOCATIE(["domg:exploitatielocatie_5678"])
+            VESTIGING(["vkbo:vestiging_1234"])
+            ORGANISATIE(["vkbo:organisatie_5678"])
+            NACECODE(["eu:nace_1234"])
+            EXPLOITATIE -->|"ssn:deployedOnPlatform"| EXPLOITATIELOCATIE
+            EXPLOITANT -->|"hoofdActiviteit"| NACECODE
+            EXPLOITATIELOCATIE -->|"prov:hadPrimarySource"| VESTIGING
+            EXPLOITATIELOCATIE -->|"prov:wasAttributedTo"| EXPLOITANT
+            EXPLOITANT -->|"prov:hadPrimarySource"| ORGANISATIE
+
+            linkStyle 0 color:#f9f
+            linkStyle 1 color:#447a6d
+            linkStyle 2,3,4 color:#003399
+
+            classDef domg fill:#447a6d,stroke:#2d5957,stroke-width:2px,color:white;
+            classDef vlaanderen fill:#FFED00,stroke:#e4d505,stroke-width:2px,color:#333332;
+            classDef eu fill:#003399,stroke:#002266,stroke-width:2px,color:white;
+            class VESTIGING,ORGANISATIE vlaanderen;
+            class EXPLOITANT,EXPLOITATIE,EXPLOITATIELOCATIE domg;
+            class NACECODE eu;
+        ```
         {% endmarkdown %}
     </section>
     <section>
@@ -306,20 +348,22 @@ theme: vlaanderen
         {% markdown %}
         ## Datamodel
         ### Proces als het 'Plan' en 'Step'
-        **Dat uitgevoerd kan worden door een systeem (installatie, emissiepunt, ...)**
+        **Dat uitgevoerd kan worden door een systeem (installatie, emissiepunt, ...) en rubrieken kan hebben**
         ```mermaid
         flowchart LR
             PROCES["Proces"]
             SYSTEM["ssn:System"]
+            RUBRIEK["Rubriek"]
 
             PROCES -->|"ssn:implementedBy"| SYSTEM
-
+            PROCES -->|"rubriek"| RUBRIEK
+            
             classDef ssn fill:#f9f,stroke:#333,stroke-width:2px;
             classDef p-plan fill:#bbf,stroke:#333,stroke-width:2px;
             classDef domg fill:#447a6d,stroke:#2d5957,stroke-width:2px,color:white;
 
             class SYSTEM ssn;
-            class PROCES domg;
+            class PROCES,RUBRIEK domg;
         ```
         { verticalAlign: top }
         {% endmarkdown %}
@@ -367,7 +411,7 @@ theme: vlaanderen
 <section>
     <section>
         {% markdown %}
-        ## Voorbeeld data
+        ## Voorbeeld
         ```mermaid
         flowchart LR
             classDef data fill:#f9f,stroke:#333,stroke-width:2px;
@@ -535,13 +579,7 @@ theme: vlaanderen
         - Elke versie heeft een geldigheidsduur (van - tot)
         - Elke versie heeft een aanmaaktijdstip (systeem)
         - Een versie die geen einddatum heeft, is (voorlopig) onbeperkt geldig
-        {% endmarkdown %}
-    </section>
-    <section>
-        {% markdown %}
-        ## Versionering
-        ### Wijzigingen bepalen
-
+        { .medium }
         {% endmarkdown %}
     </section>
 </section>
