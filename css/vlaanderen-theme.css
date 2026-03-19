@@ -442,10 +442,11 @@ body {
 }
 
 .reveal code {
-  background-color: #1e1e1e;
+  background-color: var(--vl-grijs-licht);
   font-family: "Monaco", "Courier New", monospace;
-  color: #d4d4d4;
+  color: var(--vl-zwart);
   font-size: 1em;
+  line-height: 1.2em;
   padding: 2px 4px;
 }
 
