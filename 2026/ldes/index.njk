@@ -1,7 +1,7 @@
 ---
 layout: presentation.njk
 title: "RIE-IEPR: Linked Data Model"
-subtitle: Linked Data standaarden
+subtitle: Linked (Open) Data standaarden
 presentationDate: 2026-03-24
 status: WIP
 theme: vlaanderen
@@ -14,12 +14,18 @@ theme: vlaanderen
     2. Standaarden en Master Data
     3. Introductie datamodel vaste gegevens
     4. Voorbeeld datamodel vaste gegevens
-    5. Versionering
+    5. Versionering (vaste) data
     { .large }
     {% endmarkdown %}
 </section>
 
 <section>
+    <section>
+    {% markdown %}
+        ## Introductie Linked Data
+        ![](./images/grafik.png)
+        {% endmarkdown %}
+    </section>
     <section>
         {% markdown %}
         ## Introductie Linked Data
@@ -115,19 +121,19 @@ theme: vlaanderen
     <section>
         {% markdown %}
         ## Standaarden en Master Data
-        ### Linked Data - Web van informatie
+        ### Linked Open Data - Web van informatie
         ![lod](./images/cloud1.svg)
         {% endmarkdown %}
     </section>
     <section>
         {% markdown %}
-        ### Linked Data - Web van informatie ...
+        ### Linked Open Data - Web van informatie ...
         ![lod](./images/cloud2.svg)
         {% endmarkdown %}
     </section>
     <section>
         {% markdown %}
-        ### Linked Data - Web van informatie ...
+        ### Linked Open Data - Web van informatie ...
         ```mermaid
         flowchart TB
             EXPLOITANT(["domg:exploitant_crematorium"])
@@ -157,7 +163,7 @@ theme: vlaanderen
     </section>
     <section>
         {% markdown %}
-        ### Linked Data - Web van informatie ...
+        ### Linked Open Data - Web van informatie ...
         ![lod](./images/afname.svg)
         {% endmarkdown %}
     </section>
@@ -551,5 +557,31 @@ theme: vlaanderen
 </section>
 
 <section>
+ {% markdown %}
+    ```mermaid
+    flowchart TB
+        EXPLOITATIE["Exploitatie"]
+        EXPLOITATIE -->|"rdf:type"| DEPLOYMENT["ssn:Deployment"]
+        EXPLOITATIE -->|"ssn:deployedSystem"| SYSTEM["ssn:System"]
+        INSTALLATIE["Installatie"] -->|"rdf:type"| SYSTEM["ssn:System"]
+        EMISSIEPUNT["Emissiepunt"] -->|"rdf:type"| SYSTEM["ssn:System"]
+        OTHERSYSTEM["..."] -->|"rdf:type"| SYSTEM["ssn:System"]
+        EXPLOITATIE -->|"ssn:implements"| PROCES["Proces"]
+        PROCES -->|"rdf:type"| PLAN["p-plan:Plan"]
+        EXPLOITANT["Exploitant"]
+        EXPLOITATIELOCATIE["ExploitatieLocatie"]
+        EXPLOITATIELOCATIE -->|"prov:wasAttributedTo"| EXPLOITANT
+        EXPLOITATIELOCATIE -->|"sosa:hosts"| SYSTEM
+        EXPLOITATIE -->|"ssn:deployedOnPlatform"| EXPLOITATIELOCATIE
+        EXPLOITATIELOCATIE -->|"rdf:type"| PLATFORM["sosa:Platform"]
+        EXPLOITATIE -->|"ssn:deployedSystem"| SYSTEM
 
+        classDef ssn fill:#f9f,stroke:#333,stroke-width:2px;
+        classDef p-plan fill:#bbf,stroke:#333,stroke-width:2px;
+        classDef domg fill:#447a6d,stroke:#2d5957,stroke-width:2px,color:white;
+        class DEPLOYMENT,SYSTEM,PLATFORM ssn;
+        class PLAN p-plan;
+        class EXPLOITATIE,INSTALLATIE,EMISSIEPUNT,PROCES,EXPLOITANT,EXPLOITATIELOCATIE,OTHERSYSTEM domg;
+    ```
+ {% endmarkdown %}
 </section>

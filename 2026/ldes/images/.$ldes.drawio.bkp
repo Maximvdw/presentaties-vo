@@ -271,6 +271,15 @@
             <mxPoint x="-217" y="710" as="targetPoint" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="u45aXiEgEDYViz3eMtAj-16" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=15;" value="vkbo:1234&lt;div&gt;heeft een installatie&lt;/div&gt;&lt;div&gt;met rubriek vlarem:123&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="140" x="-400" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="u45aXiEgEDYViz3eMtAj-18" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=15;" value="wat is vkbo:1234?" vertex="1">
+          <mxGeometry height="30" width="140" x="-687.5" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="u45aXiEgEDYViz3eMtAj-19" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=15;" value="wat is rubriek vlarem:1234?" vertex="1">
+          <mxGeometry height="30" width="195" x="-270" y="743.92" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
