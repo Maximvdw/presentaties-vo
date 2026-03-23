@@ -22,8 +22,8 @@
     
     <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
     
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1774279611">
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1774279611">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1774288791">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1774288791">
     
     
     
@@ -40,7 +40,7 @@
             <div class="slide-content">
               <h1>RIE-IEPR: Linked Data Model</h1>
               
-              <h3>Linked Data standaarden</h3>
+              <h3>Linked (Open) Data standaarden</h3>
               
               
               <p class="author">Maxim Van de Wynckel</p>
@@ -64,12 +64,17 @@
 <li>Standaarden en Master Data</li>
 <li>Introductie datamodel vaste gegevens</li>
 <li>Voorbeeld datamodel vaste gegevens</li>
-<li>Versionering</li>
+<li>Versionering (vaste) data</li>
 </ol>
 
 </section>
 
 <section>
+    <section>
+    <h2 id="introductie-linked-data" tabindex="-1">Introductie Linked Data</h2>
+<p><img src="./images/grafik.png" alt=""></p>
+
+    </section>
     <section>
         <h2 id="introductie-linked-data" tabindex="-1">Introductie Linked Data</h2>
 <p><img src="./images/wikipedia.png" alt=""></p>
@@ -164,17 +169,17 @@ flowchart LR
 <section>
     <section>
         <h2 id="standaarden-en-master-data" tabindex="-1">Standaarden en Master Data</h2>
-<h3 id="linked-data---web-van-informatie" tabindex="-1">Linked Data - Web van informatie</h3>
+<h3 id="linked-open-data---web-van-informatie" tabindex="-1">Linked Open Data - Web van informatie</h3>
 <p><img src="./images/cloud1.svg" alt="lod"></p>
 
     </section>
     <section>
-        <h3 id="linked-data---web-van-informatie-..." tabindex="-1">Linked Data - Web van informatie ...</h3>
+        <h3 id="linked-open-data---web-van-informatie-..." tabindex="-1">Linked Open Data - Web van informatie ...</h3>
 <p><img src="./images/cloud2.svg" alt="lod"></p>
 
     </section>
     <section>
-        <h3 id="linked-data---web-van-informatie-..." tabindex="-1">Linked Data - Web van informatie ...</h3>
+        <h3 id="linked-open-data---web-van-informatie-..." tabindex="-1">Linked Open Data - Web van informatie ...</h3>
 <div class="mermaid">
 flowchart TB
   EXPLOITANT([&quot;domg:exploitant_crematorium&quot;])
@@ -203,7 +208,7 @@ flowchart TB
 </div>
     </section>
     <section>
-        <h3 id="linked-data---web-van-informatie-..." tabindex="-1">Linked Data - Web van informatie ...</h3>
+        <h3 id="linked-open-data---web-van-informatie-..." tabindex="-1">Linked Open Data - Web van informatie ...</h3>
 <p><img src="./images/afname.svg" alt="lod"></p>
 
     </section>
@@ -590,7 +595,32 @@ flowchart LR
 </section>
 
 <section>
+ <div class="mermaid">
+flowchart TB
+    EXPLOITATIE[&quot;Exploitatie&quot;]
+    EXPLOITATIE --&gt;|&quot;rdf:type&quot;| DEPLOYMENT[&quot;ssn:Deployment&quot;]
+    EXPLOITATIE --&gt;|&quot;ssn:deployedSystem&quot;| SYSTEM[&quot;ssn:System&quot;]
+    INSTALLATIE[&quot;Installatie&quot;] --&gt;|&quot;rdf:type&quot;| SYSTEM[&quot;ssn:System&quot;]
+    EMISSIEPUNT[&quot;Emissiepunt&quot;] --&gt;|&quot;rdf:type&quot;| SYSTEM[&quot;ssn:System&quot;]
+    OTHERSYSTEM[&quot;...&quot;] --&gt;|&quot;rdf:type&quot;| SYSTEM[&quot;ssn:System&quot;]
+    EXPLOITATIE --&gt;|&quot;ssn:implements&quot;| PROCES[&quot;Proces&quot;]
+    PROCES --&gt;|&quot;rdf:type&quot;| PLAN[&quot;p-plan:Plan&quot;]
+    EXPLOITANT[&quot;Exploitant&quot;]
+    EXPLOITATIELOCATIE[&quot;ExploitatieLocatie&quot;]
+    EXPLOITATIELOCATIE --&gt;|&quot;prov:wasAttributedTo&quot;| EXPLOITANT
+    EXPLOITATIELOCATIE --&gt;|&quot;sosa:hosts&quot;| SYSTEM
+    EXPLOITATIE --&gt;|&quot;ssn:deployedOnPlatform&quot;| EXPLOITATIELOCATIE
+    EXPLOITATIELOCATIE --&gt;|&quot;rdf:type&quot;| PLATFORM[&quot;sosa:Platform&quot;]
+    EXPLOITATIE --&gt;|&quot;ssn:deployedSystem&quot;| SYSTEM
 
+    classDef ssn fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef p-plan fill:#bbf,stroke:#333,stroke-width:2px;
+    classDef domg fill:#447a6d,stroke:#2d5957,stroke-width:2px,color:white;
+    class DEPLOYMENT,SYSTEM,PLATFORM ssn;
+    class PLAN p-plan;
+    class EXPLOITATIE,INSTALLATIE,EMISSIEPUNT,PROCES,EXPLOITANT,EXPLOITATIELOCATIE,OTHERSYSTEM domg;
+
+</div>
 </section>
 
       </div>
@@ -609,8 +639,8 @@ flowchart LR
     </script>
     
     <script type="module">
-      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1774279611';
-      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1774279611';
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1774288791';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1774288791';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;
