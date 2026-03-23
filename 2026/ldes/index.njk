@@ -12,8 +12,8 @@ theme: vlaanderen
     ## Inhoud
     1. Introductie Linked Data
     2. Standaarden en Master Data
-    3. Datamodel
-    4. Voorbeeld
+    3. Introductie datamodel vaste gegevens
+    4. Voorbeeld datamodel vaste gegevens
     5. Versionering
     { .large }
     {% endmarkdown %}
@@ -82,61 +82,21 @@ theme: vlaanderen
         {% markdown %}
         ## Introductie Linked Data
         ### Betekenis van informatie
-        ```mermaid
-        flowchart TB
-            subgraph Systeem B
-                DOSSIER3["Dossier"]
-                DOSSIER4["Stamdossier"]
-            end
-
-            subgraph Systeem A
-                DOSSIER1["Deeldossier"]
-                DOSSIER2["Basisdossier"]
-            end
-        ```
-        { verticalAlign: top }
-        {% endmarkdown %}
-    </section>
-    <section>
-        {% markdown %}
-        ### Betekenis van informatie ...
         > **Iedereen** kan iets **beschrijven**, maar enkel de **eigenaar** van de informatie kan de achterliggende **betekenis** ervan bepalen.
         { .large }
         {% endmarkdown %}
     </section>
     <section>
         {% markdown %}
-        ### Betekenis van informatie ...
-        > Bepaal de betekenis aan de hand van relaties met andere informatie
-        { .large }
-        ```mermaid
-        flowchart LR
-            DOSSIER1["???"]
-            DOSSIER2["???"]
-            DOSSIER3["???"]
-
-            DOSSIER1 -->|"is een deel van"| DOSSIER2
-            DOSSIER1 -->|"is een"| DOSSIER3
-            DOSSIER2 -->|"is een"| DOSSIER3
-        ```
-        { verticalAlign: top }
-        {% endmarkdown %}
-    </section>
-</section>
-
-<section>
-    <section>
-        {% markdown %}
-        ## Introductie Linked Data
         ### Betekenisvol beschrijven van informatie
         > Beschrijf mij wat een exploitatie is?
         ```mermaid
         flowchart LR
-            EXPLOITATIE["Exploitatie"]
+            EXPLOITATIE["???"]
             EXPLOITATIE -->|"rdf:type"| DEPLOYMENT["ssn:Deployment"]
-            EXPLOITATIE -->|"ssn:deployedSystem"| INSTALLATIE["Installatie"]
+            EXPLOITATIE -->|"ssn:deployedSystem"| INSTALLATIE["???"]
             INSTALLATIE -->|"rdf:type"| SYSTEM["ssn:System"]
-            EXPLOITATIE -->|"ssn:implements"| PROCES["Proces"]
+            EXPLOITATIE -->|"ssn:implements"| PROCES["???"]
             PROCES -->|"rdf:type"| PLAN["p-plan:Plan"]
 
             classDef ssn fill:#f9f,stroke:#333,stroke-width:2px;
@@ -197,6 +157,12 @@ theme: vlaanderen
     </section>
     <section>
         {% markdown %}
+        ### Linked Data - Web van informatie ...
+        ![lod](./images/afname.svg)
+        {% endmarkdown %}
+    </section>
+    {# <section>
+        {% markdown %}
         ### Beheer van betekenissen bij standaarden 
         ... want standaarden zijn generiek en algemeen gekend { .medium }
         
@@ -217,7 +183,7 @@ theme: vlaanderen
         - ...
         { .medium }
         {% endmarkdown %}
-    </section>
+    </section> #}
 </section>
 
 <section>
@@ -563,12 +529,12 @@ theme: vlaanderen
     <section>
         {% markdown %}
         ## Versionering
-        ### URI's
+        ### URI's (fictief voorbeeld)
         - `https://.../id/exploitatie/1234-5678`
             - URI exploitatie met ID `1234-5678`
             - De laatste versie van de exploitatie
-        - `https://.../id/exploitatie/1234-5678/2026-03-24T12:00:00`
-            - URI exploitatieversie op `2026-03-24T12:00:00` van exploitatie met ID `1234-5678`
+        - `https://.../id/exploitatie/1234-5678/2026-01-01/2026-03-24T12:00:00`
+            - URI exploitatieversie geldig van `2026-01-01` en aanmaaktijdstip `2026-03-24T12:00:00`
             - Een specifieke versie van de exploitatie
         {% endmarkdown %}
     </section>
@@ -578,8 +544,12 @@ theme: vlaanderen
         ### Geldigheidsduur
         - Elke versie heeft een geldigheidsduur (van - tot)
         - Elke versie heeft een aanmaaktijdstip (systeem)
-        - Een versie die geen einddatum heeft, is (voorlopig) onbeperkt geldig
+        - Een versie kan onbeperkt geldig zijn (totdat er een nieuwe versie komt)
         { .medium }
         {% endmarkdown %}
     </section>
+</section>
+
+<section>
+
 </section>
