@@ -22,8 +22,8 @@
     
     <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
     
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1773925347">
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1773925347">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1774279611">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1774279611">
     
     
     
@@ -62,8 +62,8 @@
 <ol class="large">
 <li>Introductie Linked Data</li>
 <li>Standaarden en Master Data</li>
-<li>Datamodel</li>
-<li>Voorbeeld</li>
+<li>Introductie datamodel vaste gegevens</li>
+<li>Voorbeeld datamodel vaste gegevens</li>
 <li>Versionering</li>
 </ol>
 
@@ -130,62 +130,23 @@ flowchart LR
     <section>
         <h2 id="introductie-linked-data" tabindex="-1">Introductie Linked Data</h2>
 <h3 id="betekenis-van-informatie" tabindex="-1">Betekenis van informatie</h3>
-<div class="mermaid" data-vertical-align="top">
-flowchart TB
-  subgraph Systeem B
-      DOSSIER3[&quot;Dossier&quot;]
-      DOSSIER4[&quot;Stamdossier&quot;]
-  end
-
-  subgraph Systeem A
-      DOSSIER1[&quot;Deeldossier&quot;]
-      DOSSIER2[&quot;Basisdossier&quot;]
-  end
-
-</div><p verticalAlign:="" top=""></p>
-
-    </section>
-    <section>
-        <h3 id="betekenis-van-informatie-..." tabindex="-1">Betekenis van informatie ...</h3>
 <blockquote class="large">
 <p><strong>Iedereen</strong> kan iets <strong>beschrijven</strong>, maar enkel de <strong>eigenaar</strong> van de informatie kan de achterliggende <strong>betekenis</strong> ervan bepalen.</p>
 </blockquote>
 
     </section>
     <section>
-        <h3 id="betekenis-van-informatie-..." tabindex="-1">Betekenis van informatie ...</h3>
-<blockquote class="large">
-<p>Bepaal de betekenis aan de hand van relaties met andere informatie</p>
-</blockquote>
-<div class="mermaid" data-vertical-align="top">
-flowchart LR
-  DOSSIER1[&quot;???&quot;]
-  DOSSIER2[&quot;???&quot;]
-  DOSSIER3[&quot;???&quot;]
-
-  DOSSIER1 --&gt;|&quot;is een deel van&quot;| DOSSIER2
-  DOSSIER1 --&gt;|&quot;is een&quot;| DOSSIER3
-  DOSSIER2 --&gt;|&quot;is een&quot;| DOSSIER3
-
-</div><p verticalAlign:="" top=""></p>
-
-    </section>
-</section>
-
-<section>
-    <section>
-        <h2 id="introductie-linked-data" tabindex="-1">Introductie Linked Data</h2>
-<h3 id="betekenisvol-beschrijven-van-informatie" tabindex="-1">Betekenisvol beschrijven van informatie</h3>
+        <h3 id="betekenisvol-beschrijven-van-informatie" tabindex="-1">Betekenisvol beschrijven van informatie</h3>
 <blockquote>
 <p>Beschrijf mij wat een exploitatie is?</p>
 </blockquote>
 <div class="mermaid" data-vertical-align="top">
 flowchart LR
-  EXPLOITATIE[&quot;Exploitatie&quot;]
+  EXPLOITATIE[&quot;???&quot;]
   EXPLOITATIE --&gt;|&quot;rdf:type&quot;| DEPLOYMENT[&quot;ssn:Deployment&quot;]
-  EXPLOITATIE --&gt;|&quot;ssn:deployedSystem&quot;| INSTALLATIE[&quot;Installatie&quot;]
+  EXPLOITATIE --&gt;|&quot;ssn:deployedSystem&quot;| INSTALLATIE[&quot;???&quot;]
   INSTALLATIE --&gt;|&quot;rdf:type&quot;| SYSTEM[&quot;ssn:System&quot;]
-  EXPLOITATIE --&gt;|&quot;ssn:implements&quot;| PROCES[&quot;Proces&quot;]
+  EXPLOITATIE --&gt;|&quot;ssn:implements&quot;| PROCES[&quot;???&quot;]
   PROCES --&gt;|&quot;rdf:type&quot;| PLAN[&quot;p-plan:Plan&quot;]
 
   classDef ssn fill:#f9f,stroke:#333,stroke-width:2px;
@@ -242,26 +203,11 @@ flowchart TB
 </div>
     </section>
     <section>
-        <h3 id="beheer-van-betekenissen-bij-standaarden" tabindex="-1">Beheer van betekenissen bij standaarden</h3>
-<p class="medium">... want standaarden zijn generiek en algemeen gekend</p>
-<ul class="medium">
-<li>Klassen <em>(System, Deployment, Platform, ...)</em></li>
-<li>Eigenschappen en regels <em>(deployedSystem, implements, ...)</em></li>
-<li>...</li>
-</ul>
+        <h3 id="linked-data---web-van-informatie-..." tabindex="-1">Linked Data - Web van informatie ...</h3>
+<p><img src="./images/afname.svg" alt="lod"></p>
 
     </section>
-    <section>
-        <h3 id="beheer-van-informatie-bij-de-eigenaar" tabindex="-1">Beheer van informatie bij de eigenaar</h3>
-<p class="medium">... want de eigenaar kent de betekenis</p>
-<ul class="medium">
-<li>Exploitatie, Installatie, ... (dOMG)</li>
-<li>NACE codes (EU)</li>
-<li>Vestigingen (VKBO)</li>
-<li>...</li>
-</ul>
-
-    </section>
+    
 </section>
 
 <section>
@@ -614,7 +560,7 @@ flowchart LR
     </section>
     <section>
         <h2 id="versionering" tabindex="-1">Versionering</h2>
-<h3 id="uri's" tabindex="-1">URI's</h3>
+<h3 id="uri's-(fictief-voorbeeld)" tabindex="-1">URI's (fictief voorbeeld)</h3>
 <ul>
 <li><code>https://.../id/exploitatie/1234-5678</code>
 <ul>
@@ -622,9 +568,9 @@ flowchart LR
 <li>De laatste versie van de exploitatie</li>
 </ul>
 </li>
-<li><code>https://.../id/exploitatie/1234-5678/2026-03-24T12:00:00</code>
+<li><code>https://.../id/exploitatie/1234-5678/2026-01-01/2026-03-24T12:00:00</code>
 <ul>
-<li>URI exploitatieversie op <code>2026-03-24T12:00:00</code> van exploitatie met ID <code>1234-5678</code></li>
+<li>URI exploitatieversie geldig van <code>2026-01-01</code> en aanmaaktijdstip <code>2026-03-24T12:00:00</code></li>
 <li>Een specifieke versie van de exploitatie</li>
 </ul>
 </li>
@@ -637,10 +583,14 @@ flowchart LR
 <ul class="medium">
 <li>Elke versie heeft een geldigheidsduur (van - tot)</li>
 <li>Elke versie heeft een aanmaaktijdstip (systeem)</li>
-<li>Een versie die geen einddatum heeft, is (voorlopig) onbeperkt geldig</li>
+<li>Een versie kan onbeperkt geldig zijn (totdat er een nieuwe versie komt)</li>
 </ul>
 
     </section>
+</section>
+
+<section>
+
 </section>
 
       </div>
@@ -659,8 +609,8 @@ flowchart LR
     </script>
     
     <script type="module">
-      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1773925347';
-      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1773925347';
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1774279611';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1774279611';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;
