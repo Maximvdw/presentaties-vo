@@ -22,8 +22,8 @@
     
     <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
     
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1774288791">
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1774288791">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1774347949">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1774347949">
     
     
     
@@ -427,7 +427,7 @@ flowchart LR
 </div>
     </section>
     <section>
-        <h3 id="achterliggende-data-(stap-1%2F3)" tabindex="-1">Achterliggende data (stap 1/3)</h3>
+        <h3 id="achterliggende-data-(stap-1%2F4)" tabindex="-1">Achterliggende data (stap 1/4)</h3>
 <div class="mermaid">
 flowchart LR
   classDef data fill:#f9f,stroke:#333,stroke-width:2px;
@@ -457,7 +457,7 @@ flowchart LR
 </div>
     </section>
     <section>
-        <h3 id="achterliggende-data-(stap-2%2F3)" tabindex="-1">Achterliggende data (stap 2/3)</h3>
+        <h3 id="achterliggende-data-(stap-2%2F4)" tabindex="-1">Achterliggende data (stap 2/4)</h3>
 <div class="mermaid">
 flowchart LR
   classDef data fill:#f9f,stroke:#333,stroke-width:2px;
@@ -487,7 +487,7 @@ flowchart LR
 </div>
     </section>
     <section>
-        <h3 id="achterliggende-data-(stap-3%2F3)" tabindex="-1">Achterliggende data (stap 3/3)</h3>
+        <h3 id="achterliggende-data-(stap-3%2F4)" tabindex="-1">Achterliggende data (stap 3/4)</h3>
 <div class="mermaid">
 flowchart LR
   classDef data fill:#f9f,stroke:#333,stroke-width:2px;
@@ -495,8 +495,6 @@ flowchart LR
   classDef installatie fill:#9ff,stroke:#333,stroke-width:2px;
   classDef exploitatie fill:#9f9,stroke:#333,stroke-width:2px;
 
-  EXPLOITATIE[&quot;&lt;b&gt;Exploitatie&lt;/b&gt;&lt;br&gt;id=1234-5678&lt;br&gt;naam=Exploitatie 1&quot;]
-  EXPLOITATIELOCATIE[&quot;&lt;b&gt;ExploitatieLocatie&lt;/b&gt;&lt;br&gt;adres=Straat 1, Stad&lt;br&gt;geo=POINT(4.123 51.123)&quot;]
   INSTALLATIE1[&quot;&lt;b&gt;Installatie&lt;/b&gt;&lt;br&gt;type=directe_stookinstallatie&lt;/br&gt;naam=Directe stookinstallatie 1&quot;]
   INSTALLATIE2[&quot;&lt;b&gt;Installatie&lt;/b&gt;&lt;br&gt;type=directe_stookinstallatie&lt;/br&gt;naam=Directe stookinstallatie 2&quot;]
   EMISSIEPUNT1([&quot;&lt;b&gt;Emissiepunt&lt;/b&gt;&lt;br&gt;type=schouw&lt;/br&gt;naam=Schouw 1&quot;])
@@ -506,6 +504,47 @@ flowchart LR
   PROCES4[&quot;&lt;b&gt;Proces&lt;/b&gt;&lt;br&gt;type=transport&quot;]
   PROCES5[&quot;&lt;b&gt;Proces&lt;/b&gt;&lt;br&gt;type=transport&quot;]
 
+  PROCES[&quot;&lt;b&gt;Proces&lt;/b&gt;&lt;br&gt;type=hoofdproces&quot;]
+  PROCES1 --&gt;|&quot;p-plan:isStepOfPlan&quot;| PROCES
+  PROCES2 --&gt;|&quot;p-plan:isStepOfPlan&quot;| PROCES
+  PROCES3 --&gt;|&quot;p-plan:isStepOfPlan&quot;| PROCES
+  PROCES4 --&gt;|&quot;p-plan:isStepOfPlan&quot;| PROCES
+  PROCES5 --&gt;|&quot;p-plan:isStepOfPlan&quot;| PROCES
+
+  PROCES1 --&gt;|&quot;ssn:implementedBy&quot;| INSTALLATIE1
+  PROCES2 --&gt;|&quot;ssn:implementedBy&quot;| INSTALLATIE2
+  PROCES3 --&gt;|&quot;ssn:implementedBy&quot;| EMISSIEPUNT1
+  PROCES3 --&gt;|&quot;p-plan:isPrecededBy&quot;| PROCES4
+  PROCES3 --&gt;|&quot;p-plan:isPrecededBy&quot;| PROCES5
+  PROCES4 --&gt;|&quot;p-plan:isPrecededBy&quot;| PROCES1
+  PROCES5 --&gt;|&quot;p-plan:isPrecededBy&quot;| PROCES2
+  class EMISSIEPUNT1 emission;
+  class INSTALLATIE1,INSTALLATIE2 installatie;
+  class EXPLOITATIE exploitatie;
+  class EXPLOITATIELOCATIE exploitatie;
+
+</div>
+    </section>
+    <section>
+        <h3 id="achterliggende-data-(stap-4%2F4)" tabindex="-1">Achterliggende data (stap 4/4)</h3>
+<div class="mermaid">
+flowchart LR
+  classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+  classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+  classDef installatie fill:#9ff,stroke:#333,stroke-width:2px;
+  classDef exploitatie fill:#9f9,stroke:#333,stroke-width:2px;
+
+  EXPLOITATIE[&quot;&lt;b&gt;Exploitatie&lt;/b&gt;&lt;br&gt;id=1234-5678&lt;br&gt;naam=Exploitatie 1&quot;]
+  EXPLOITATIELOCATIE[&quot;&lt;b&gt;ExploitatieLocatie&lt;/b&gt;&lt;br&gt;adres=Straat 1, Stad&lt;br&gt;geo=POINT(4.123 51.123)&quot;]
+  INSTALLATIE1[&quot;...&quot;]
+  INSTALLATIE2[&quot;...&quot;]
+  EMISSIEPUNT1([&quot;...&quot;])
+  PROCES1[&quot;...&quot;]
+  PROCES2[&quot;...&quot;]
+  PROCES3[&quot;...&quot;]
+  PROCES4[&quot;...&quot;]
+  PROCES5[&quot;...&quot;]
+
   INSTALLATIE1 --&gt;|&quot;sosa:isHostedBy&quot;| EXPLOITATIELOCATIE
   INSTALLATIE2 --&gt;|&quot;sosa:isHostedBy&quot;| EXPLOITATIELOCATIE
   EXPLOITATIE --&gt;|&quot;ssn:deployedOnPlatform&quot;| EXPLOITATIELOCATIE
@@ -513,7 +552,7 @@ flowchart LR
   EXPLOITATIE --&gt;|&quot;ssn:deployedSystem&quot;| INSTALLATIE2
   EXPLOITATIE --&gt;|&quot;ssn:deployedSystem&quot;| EMISSIEPUNT1
 
-  PROCES[&quot;&lt;b&gt;Proces&lt;/b&gt;&lt;br&gt;type=hoodproces&quot;]
+  PROCES[&quot;&lt;b&gt;Proces&lt;/b&gt;&lt;br&gt;type=hoofdproces&quot;]
   PROCES1 --&gt;|&quot;p-plan:isStepOfPlan&quot;| PROCES
   PROCES2 --&gt;|&quot;p-plan:isStepOfPlan&quot;| PROCES
   PROCES3 --&gt;|&quot;p-plan:isStepOfPlan&quot;| PROCES
@@ -595,30 +634,51 @@ flowchart LR
 </section>
 
 <section>
- <div class="mermaid">
-flowchart TB
-    EXPLOITATIE[&quot;Exploitatie&quot;]
-    EXPLOITATIE --&gt;|&quot;rdf:type&quot;| DEPLOYMENT[&quot;ssn:Deployment&quot;]
-    EXPLOITATIE --&gt;|&quot;ssn:deployedSystem&quot;| SYSTEM[&quot;ssn:System&quot;]
-    INSTALLATIE[&quot;Installatie&quot;] --&gt;|&quot;rdf:type&quot;| SYSTEM[&quot;ssn:System&quot;]
-    EMISSIEPUNT[&quot;Emissiepunt&quot;] --&gt;|&quot;rdf:type&quot;| SYSTEM[&quot;ssn:System&quot;]
-    OTHERSYSTEM[&quot;...&quot;] --&gt;|&quot;rdf:type&quot;| SYSTEM[&quot;ssn:System&quot;]
-    EXPLOITATIE --&gt;|&quot;ssn:implements&quot;| PROCES[&quot;Proces&quot;]
-    PROCES --&gt;|&quot;rdf:type&quot;| PLAN[&quot;p-plan:Plan&quot;]
-    EXPLOITANT[&quot;Exploitant&quot;]
-    EXPLOITATIELOCATIE[&quot;ExploitatieLocatie&quot;]
-    EXPLOITATIELOCATIE --&gt;|&quot;prov:wasAttributedTo&quot;| EXPLOITANT
-    EXPLOITATIELOCATIE --&gt;|&quot;sosa:hosts&quot;| SYSTEM
-    EXPLOITATIE --&gt;|&quot;ssn:deployedOnPlatform&quot;| EXPLOITATIELOCATIE
-    EXPLOITATIELOCATIE --&gt;|&quot;rdf:type&quot;| PLATFORM[&quot;sosa:Platform&quot;]
-    EXPLOITATIE --&gt;|&quot;ssn:deployedSystem&quot;| SYSTEM
+    <div class="mermaid">
+flowchart LR
+  classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+  classDef emission fill:#ff9,stroke:#333,stroke-width:2px;
+  classDef installatie fill:#9ff,stroke:#333,stroke-width:2px;
+  classDef exploitatie fill:#9f9,stroke:#333,stroke-width:2px;
 
-    classDef ssn fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef p-plan fill:#bbf,stroke:#333,stroke-width:2px;
-    classDef domg fill:#447a6d,stroke:#2d5957,stroke-width:2px,color:white;
-    class DEPLOYMENT,SYSTEM,PLATFORM ssn;
-    class PLAN p-plan;
-    class EXPLOITATIE,INSTALLATIE,EMISSIEPUNT,PROCES,EXPLOITANT,EXPLOITATIELOCATIE,OTHERSYSTEM domg;
+  EXPLOITATIE[&quot;&lt;b&gt;Exploitatie&lt;/b&gt;&lt;br&gt;id=1234-5678&lt;br&gt;naam=Exploitatie 1&quot;]
+  EXPLOITATIELOCATIE[&quot;&lt;b&gt;ExploitatieLocatie&lt;/b&gt;&lt;br&gt;adres=Straat 1, Stad&lt;br&gt;geo=POINT(4.123 51.123)&quot;]
+  INSTALLATIE1[&quot;&lt;b&gt;Installatie&lt;/b&gt;&lt;br&gt;type=directe_stookinstallatie&lt;/br&gt;naam=Directe stookinstallatie 1&quot;]
+  INSTALLATIE2[&quot;&lt;b&gt;Installatie&lt;/b&gt;&lt;br&gt;type=directe_stookinstallatie&lt;/br&gt;naam=Directe stookinstallatie 2&quot;]
+  EMISSIEPUNT1([&quot;&lt;b&gt;Emissiepunt&lt;/b&gt;&lt;br&gt;type=schouw&lt;/br&gt;naam=Schouw 1&quot;])
+  PROCES1[&quot;&lt;b&gt;Proces&lt;/b&gt;&lt;br&gt;type=verwerking&quot;]
+  PROCES2[&quot;&lt;b&gt;Proces&lt;/b&gt;&lt;br&gt;type=verwerking&quot;]
+  PROCES3[&quot;&lt;b&gt;Proces&lt;/b&gt;&lt;br&gt;type=emissie&quot;]
+  PROCES4[&quot;&lt;b&gt;Proces&lt;/b&gt;&lt;br&gt;type=transport&quot;]
+  PROCES5[&quot;&lt;b&gt;Proces&lt;/b&gt;&lt;br&gt;type=transport&quot;]
+
+  INSTALLATIE1 --&gt;|&quot;sosa:isHostedBy&quot;| EXPLOITATIELOCATIE
+  INSTALLATIE2 --&gt;|&quot;sosa:isHostedBy&quot;| EXPLOITATIELOCATIE
+  EXPLOITATIE --&gt;|&quot;ssn:deployedOnPlatform&quot;| EXPLOITATIELOCATIE
+  EXPLOITATIE --&gt;|&quot;ssn:deployedSystem&quot;| INSTALLATIE1
+  EXPLOITATIE --&gt;|&quot;ssn:deployedSystem&quot;| INSTALLATIE2
+  EXPLOITATIE --&gt;|&quot;ssn:deployedSystem&quot;| EMISSIEPUNT1
+
+  PROCES[&quot;&lt;b&gt;Proces&lt;/b&gt;&lt;br&gt;type=hoofdproces&quot;]
+  PROCES1 --&gt;|&quot;p-plan:isStepOfPlan&quot;| PROCES
+  PROCES2 --&gt;|&quot;p-plan:isStepOfPlan&quot;| PROCES
+  PROCES3 --&gt;|&quot;p-plan:isStepOfPlan&quot;| PROCES
+  PROCES4 --&gt;|&quot;p-plan:isStepOfPlan&quot;| PROCES
+  PROCES5 --&gt;|&quot;p-plan:isStepOfPlan&quot;| PROCES
+
+  EXPLOITATIE --&gt;|&quot;ssn:implements&quot;| PROCES
+
+  PROCES1 --&gt;|&quot;ssn:implementedBy&quot;| INSTALLATIE1
+  PROCES2 --&gt;|&quot;ssn:implementedBy&quot;| INSTALLATIE2
+  PROCES3 --&gt;|&quot;ssn:implementedBy&quot;| EMISSIEPUNT1
+  PROCES3 --&gt;|&quot;p-plan:isPrecededBy&quot;| PROCES4
+  PROCES3 --&gt;|&quot;p-plan:isPrecededBy&quot;| PROCES5
+  PROCES4 --&gt;|&quot;p-plan:isPrecededBy&quot;| PROCES1
+  PROCES5 --&gt;|&quot;p-plan:isPrecededBy&quot;| PROCES2
+  class EMISSIEPUNT1 emission;
+  class INSTALLATIE1,INSTALLATIE2 installatie;
+  class EXPLOITATIE exploitatie;
+  class EXPLOITATIELOCATIE exploitatie;
 
 </div>
 </section>
@@ -639,8 +699,8 @@ flowchart TB
     </script>
     
     <script type="module">
-      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1774288791';
-      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1774288791';
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1774347949';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1774347949';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;
@@ -681,7 +741,43 @@ flowchart TB
       };
 
       // Initialize presentation
-      initPresentation({ initialize: () => Reveal.initialize(options) });
+      const urlParams = new URLSearchParams(window.location.search);
+
+      if (urlParams.has('presenter') || window.location.search.indexOf('presenter') > -1) {
+        // Presenter mode: linear navigation, hide controls and use compact slide numbering
+        const presenterOptions = Object.assign({}, options, {
+          navigationMode: 'linear',
+          slideNumber: 'c',
+          controls: false
+        });
+
+        console.log('Starting in presenter mode');
+        initPresentation({ initialize: () => Reveal.initialize(presenterOptions) });
+
+        // Add presenter-specific behavior after Reveal ready
+        Reveal.on('ready', () => {
+          // When generating PDF, remove uncounted pages
+          Reveal.on && Reveal.on('pdf-ready', () => {
+            document.querySelectorAll(`.pdf-page section[data-visibility="uncounted"]`).forEach(e => e.closest('.pdf-page').remove());
+          });
+
+          // Ensure linear navigation for slides marked with data-visibility
+          Reveal.on('slidechanged', (event) => {
+            if (!event.currentSlide) return;
+            if (event.currentSlide.hasAttribute('data-visibility') && !Reveal.isOverview()) {
+              const prevIndices = Reveal.getIndices(event.previousSlide);
+              const currentIndices = Reveal.getIndices(event.currentSlide);
+              if (prevIndices.h < currentIndices.h || (prevIndices.h === currentIndices.h && prevIndices.v < currentIndices.v)) {
+                Reveal.next();
+              } else if (prevIndices.h > currentIndices.h || (prevIndices.h === currentIndices.h && prevIndices.v > currentIndices.v)) {
+                Reveal.prev();
+              }
+            }
+          });
+        });
+      } else {
+        initPresentation({ initialize: () => Reveal.initialize(options) });
+      }
       
       // Initialize Mermaid configuration first
       if (window.mermaidInstance) {
