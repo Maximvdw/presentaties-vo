@@ -94,6 +94,25 @@ theme: vlaanderen
     </section>
     <section>
         {% markdown %}
+        ## Introductie Linked Data
+        ### Betekenis van informatie
+        ```mermaid
+        flowchart TB
+            subgraph Systeem B
+                DOSSIER3["Dossier"]
+                DOSSIER4["Stamdossier"]
+            end
+
+            subgraph Systeem A
+                DOSSIER1["Deeldossier"]
+                DOSSIER2["Basisdossier"]
+            end
+        ```
+        { verticalAlign: top }
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
         ### Betekenisvol beschrijven van informatie
         > Beschrijf mij wat een exploitatie is?
         ```mermaid
