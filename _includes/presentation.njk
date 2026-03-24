@@ -114,7 +114,43 @@
       };
 
       // Initialize presentation
-      initPresentation({ initialize: () => Reveal.initialize(options) });
+      const urlParams = new URLSearchParams(window.location.search);
+
+      if (urlParams.has('presenter') || window.location.search.indexOf('presenter') > -1) {
+        // Presenter mode: linear navigation, hide controls and use compact slide numbering
+        const presenterOptions = Object.assign({}, options, {
+          navigationMode: 'linear',
+          slideNumber: 'c',
+          controls: false
+        });
+
+        console.log('Starting in presenter mode');
+        initPresentation({ initialize: () => Reveal.initialize(presenterOptions) });
+
+        // Add presenter-specific behavior after Reveal ready
+        Reveal.on('ready', () => {
+          // When generating PDF, remove uncounted pages
+          Reveal.on && Reveal.on('pdf-ready', () => {
+            document.querySelectorAll(`.pdf-page section[data-visibility="uncounted"]`).forEach(e => e.closest('.pdf-page').remove());
+          });
+
+          // Ensure linear navigation for slides marked with data-visibility
+          Reveal.on('slidechanged', (event) => {
+            if (!event.currentSlide) return;
+            if (event.currentSlide.hasAttribute('data-visibility') && !Reveal.isOverview()) {
+              const prevIndices = Reveal.getIndices(event.previousSlide);
+              const currentIndices = Reveal.getIndices(event.currentSlide);
+              if (prevIndices.h < currentIndices.h || (prevIndices.h === currentIndices.h && prevIndices.v < currentIndices.v)) {
+                Reveal.next();
+              } else if (prevIndices.h > currentIndices.h || (prevIndices.h === currentIndices.h && prevIndices.v > currentIndices.v)) {
+                Reveal.prev();
+              }
+            }
+          });
+        });
+      } else {
+        initPresentation({ initialize: () => Reveal.initialize(options) });
+      }
       
       // Initialize Mermaid configuration first
       if (window.mermaidInstance) {
