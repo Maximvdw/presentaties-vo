@@ -22,8 +22,8 @@
     
     <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
     
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1774347949">
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1774347949">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1774348840">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1774348840">
     
     
     
@@ -138,6 +138,24 @@ flowchart LR
 <blockquote class="large">
 <p><strong>Iedereen</strong> kan iets <strong>beschrijven</strong>, maar enkel de <strong>eigenaar</strong> van de informatie kan de achterliggende <strong>betekenis</strong> ervan bepalen.</p>
 </blockquote>
+
+    </section>
+    <section>
+        <h2 id="introductie-linked-data" tabindex="-1">Introductie Linked Data</h2>
+<h3 id="betekenis-van-informatie" tabindex="-1">Betekenis van informatie</h3>
+<div class="mermaid" data-vertical-align="top">
+flowchart TB
+  subgraph Systeem B
+      DOSSIER3[&quot;Dossier&quot;]
+      DOSSIER4[&quot;Stamdossier&quot;]
+  end
+
+  subgraph Systeem A
+      DOSSIER1[&quot;Deeldossier&quot;]
+      DOSSIER2[&quot;Basisdossier&quot;]
+  end
+
+</div><p verticalAlign:="" top=""></p>
 
     </section>
     <section>
@@ -699,8 +717,8 @@ flowchart LR
     </script>
     
     <script type="module">
-      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1774347949';
-      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1774347949';
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1774348840';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1774348840';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;
