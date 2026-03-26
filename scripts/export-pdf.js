@@ -16,12 +16,14 @@ const __dirname = path.dirname(__filename);
 
 const OUTPUT_DIR = path.join(__dirname, '..', 'output');
 const CACHE_EXT = '.pdfcache.json';
-const BASE_URL = 'http://localhost:8080';
 const BASE_WIDTH = 1280;
 const BASE_HEIGHT = 720;
 const SITE_DIR = path.join(__dirname, '..', '_site');
 
-let serverProcess = null;
+// Will be set to the actual server URL once the static server starts
+let baseUrl = null;
+
+// runtime server handle is returned by startStaticServer()
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
   '../node_modules/pdfjs-dist/legacy/build/pdf.worker.mjs',
@@ -62,6 +64,135 @@ function findPresentations(dir, baseDir = dir) {
   return results;
 }
 
+function findNearestNjk(presentation) {
+  const presParts = presentation.split('/');
+  // Walk up from deepest to shallowest
+  for (let i = presParts.length; i > 0; i--) {
+    const candidate = path.join(__dirname, '..', ...presParts.slice(0, i), 'index.njk');
+    if (fs.existsSync(candidate)) return candidate;
+  }
+  // Try root content folder (e.g., 2026/index.njk)
+  if (presParts.length > 0) {
+    const candidate = path.join(__dirname, '..', presParts[0], 'index.njk');
+    if (fs.existsSync(candidate)) return candidate;
+  }
+  return null;
+}
+
+function computeSourceHash(njkPath) {
+  try {
+    const content = fs.readFileSync(njkPath);
+    const hash = crypto.createHash('sha256').update(content);
+    return hash.digest('hex');
+  } catch (e) {
+    return null;
+  }
+}
+
+async function startStaticServer(preferredPort = 8080) {
+  const handler = (await import('serve-handler')).default || (await import('serve-handler'));
+  const http = (await import('http')).default || (await import('http'));
+  const PREFERRED_PORT = parseInt(process.env.PORT, 10) || preferredPort;
+
+  const createServer = () => http.createServer((request, response) => {
+    return handler(request, response, {
+      public: SITE_DIR,
+      cleanUrls: true,
+      rewrites: [
+        { source: '/:presentation', destination: '/:presentation/index.html' },
+        { source: '/:presentation/', destination: '/:presentation/index.html' }
+      ]
+    });
+  });
+
+  return new Promise((resolve, reject) => {
+    let triedFallback = false;
+
+    const tryListen = (port) => {
+      const server = createServer();
+      server.once('error', (err) => {
+        if (err.code === 'EADDRINUSE' && !triedFallback) {
+          triedFallback = true;
+          server.close?.();
+          tryListen(0);
+        } else {
+          reject(err);
+        }
+      });
+
+      server.listen(port, () => {
+        const usedPort = server.address().port;
+        const url = `http://localhost:${usedPort}`;
+        // Wait until server responds with 200
+        const ping = () => {
+          http.get(`${url}/`, (res) => {
+            if (res.statusCode === 200) {
+              resolve({ url, server });
+            } else {
+              setTimeout(ping, 500);
+            }
+          }).on('error', () => setTimeout(ping, 250));
+        };
+        ping();
+      });
+    };
+
+    tryListen(PREFERRED_PORT);
+  });
+}
+
+async function runDecktape(url, outputPath) {
+  const { spawn } = await import('child_process');
+  const args = [
+    'decktape',
+    url,
+    outputPath,
+    `--size=${BASE_WIDTH}x${BASE_HEIGHT}`,
+    '--load-pause', '5000',
+  ];
+
+  return new Promise((resolve, reject) => {
+    const proc = spawn('npx', args, { stdio: ['ignore', 'pipe', 'pipe'] });
+
+    proc.stdout.on('data', d => console.log(d.toString()));
+    proc.stderr.on('data', d => console.error(d.toString()));
+    proc.on('close', code => code === 0 ? resolve() : reject(new Error(`Decktape exited with code ${code}`)));
+    proc.on('error', err => reject(err));
+  });
+}
+
+async function exportPresentation(presentation, baseUrl) {
+  const url = `${baseUrl}/${presentation}/?export=1`;
+  const filename = `${presentation.replace(/\//g, '-')}.pdf`;
+  const outputPath = path.join(OUTPUT_DIR, filename);
+
+  const njkPath = findNearestNjk(presentation);
+  const sourceHash = njkPath ? computeSourceHash(njkPath) : null;
+
+  const cachePath = outputPath + CACHE_EXT;
+  if (sourceHash && fs.existsSync(outputPath) && fs.existsSync(cachePath)) {
+    try {
+      const cacheData = JSON.parse(fs.readFileSync(cachePath, 'utf-8'));
+      if (cacheData.hash === sourceHash) {
+        console.log(`🟡 Cache hit: ${filename} (skip)`);
+        return;
+      }
+    } catch (e) {
+      // continue
+    }
+  }
+
+  console.log(`\n📄 Exporteren: ${presentation}`);
+  console.log(`   URL: ${url}`);
+  console.log(`   Output: ${outputPath}`);
+
+  await runDecktape(url, outputPath);
+
+  if (sourceHash) {
+    try { fs.writeFileSync(cachePath, JSON.stringify({ hash: sourceHash, exported: new Date().toISOString() }, null, 2)); } catch (e) {}
+  }
+}
+
 async function main() {  
   console.log('📊 Reveal.js PDF Export Tool\n');
 
@@ -71,43 +202,19 @@ async function main() {
     process.exit(1);
   }
 
-  // Start static server for _site using serve-handler
-  const handler = (await import('serve-handler')).default || (await import('serve-handler'));
-  const httpServer = (await import('http')).default || (await import('http'));
-  const PORT = 8080;
-  let serverInstance;
-  await new Promise((resolve) => {
-    serverInstance = httpServer.createServer((request, response) => {
-      //console.log(`📥 ${request.method} ${request.url}`);
-      return handler(request, response, {
-        public: SITE_DIR,
-        cleanUrls: true,
-        rewrites: [
-          { source: '/:presentation', destination: '/:presentation/index.html' },
-          { source: '/:presentation/', destination: '/:presentation/index.html' }
-        ]
-      });
-    });
-    serverInstance.listen(PORT, () => {
-      console.log(`✅ Static server gestart op http://localhost:${PORT}`);
-      // Ping server until it's responsive
-      const pingServer = () => {
-        httpServer.get(`http://localhost:${PORT}/`, (res) => {
-          if (res.statusCode === 200) {
-            console.log('✅ Server is responsive!');
-            resolve();
-          } else {
-            console.log(`⚠️  Server responded with status ${res.statusCode}, retrying...`);
-            setTimeout(pingServer, 1000);
-          }
-        }).on('error', () => {
-          console.log('⚠️  Server not responsive yet, retrying...');
-          setTimeout(pingServer, 1000);
-        });
-      }     
-      pingServer();
-    });
-  });
+  const PREFERRED_PORT = parseInt(process.env.PORT, 10) || 8080;
+
+  // Start server and get base URL
+  let serverHandle;
+  try {
+    const started = await startStaticServer(PREFERRED_PORT);
+    baseUrl = started.url;
+    serverHandle = started.server;
+    console.log(`✅ Static server gestart op ${baseUrl}`);
+  } catch (err) {
+    console.error('❌ Fout bij starten van static server:', err);
+    process.exit(1);
+  }
 
   // Vind alle presentaties
   const presentations = findPresentations(SITE_DIR);
@@ -119,143 +226,21 @@ async function main() {
 
   console.log(`✅ Gevonden ${presentations.length} presentatie(s):\n`);
 
-  // Vraag of Eleventy server draait
-  console.log('⚠️  Zorg dat Eleventy server draait (npm start) op poort 8080\n');
-
   // Export elke presentatie
   for (const presentation of presentations) {
-    const url = `${BASE_URL}/${presentation}/?export=1`;
-    const filename = `${presentation.replace(/\//g, '-')}.pdf`;
-    const outputPath = path.join(OUTPUT_DIR, filename);
-
-    // Dynamically find the nearest index.njk file for this presentation
-    let njkPath = null;
     try {
-      const presParts = presentation.split('/');
-      // Try to find the .njk file by walking up the directory tree from deepest to shallowest
-      for (let i = presParts.length; i > 0; i--) {
-        const candidate = path.join(__dirname, '..', ...presParts.slice(0, i), 'index.njk');
-        if (fs.existsSync(candidate)) {
-          njkPath = candidate;
-          break;
-        }
-      }
-      // Also try at the root of the content folders (e.g. 2026, 2025, ...)
-      if (!njkPath && presParts.length > 0) {
-        const candidate = path.join(__dirname, '..', presParts[0], 'index.njk');
-        if (fs.existsSync(candidate)) {
-          njkPath = candidate;
-        }
-      }
-    } catch (e) {
-      // ignore
-    }
-
-    // Compute hash of .njk file (and optionally .js data file)
-    let sourceHash = null;
-    if (njkPath) {
-      try {
-        const njkContent = fs.readFileSync(njkPath);
-        let hash = crypto.createHash('sha256').update(njkContent);
-        // Optionally, include _data/site.js or _data/defaults.json for more robust cache invalidation
-        // const siteDataPath = path.join(__dirname, '..', '_data', 'site.js');
-        // if (fs.existsSync(siteDataPath)) hash.update(fs.readFileSync(siteDataPath));
-        sourceHash = hash.digest('hex');
-      } catch (e) {
-        // ignore
-      }
-    }
-
-    // Check for cache file
-    const cachePath = outputPath + CACHE_EXT;
-    let cached = false;
-    if (sourceHash && fs.existsSync(outputPath) && fs.existsSync(cachePath)) {
-      try {
-        const cacheData = JSON.parse(fs.readFileSync(cachePath, 'utf-8'));
-        if (cacheData.hash === sourceHash) {
-          console.log(`🟡 Cache hit: ${filename} (source unchanged, skipping export)`);
-          cached = true;
-        }
-      } catch (e) {
-        // ignore
-      }
-    }
-    if (cached) {
-      continue;
-    }
-
-    console.log(`📄 Exporteren: ${presentation}`);
-    console.log(`   URL: ${url}`);
-    console.log(`   Output: ${outputPath}`);
-
-    try {
-      // Use spawn for async Decktape execution
-      const { spawn } = await import('child_process');
-      const decktapeArgs = [
-        'decktape',
-        url,
-        outputPath,
-        `--size=${BASE_WIDTH}x${BASE_HEIGHT}`,
-        '--load-pause', '5000',
-      ];
-      await new Promise((resolve, reject) => {
-        const proc = spawn('npx', decktapeArgs, { stdio: ['ignore', 'pipe', 'pipe'] });
-
-        proc.stdout.on('data', data => {
-          console.log(data.toString());
-        });
-        proc.stderr.on('data', data => { 
-          console.error(data.toString());
-        });
-        proc.on('close', code => {
-          if (code !== 0) {
-            reject(new Error(`Decktape exited with code ${code}`));
-          } else {
-            console.log(`✅ Succesvol geëxporteerd!`);
-            resolve();
-          }
-        });
-        proc.on('error', err => {
-          console.error(`   [ERROR] spawn error:`, err);
-          reject(err);
-        });
-      });
-
-      // Write cache file
-      if (sourceHash) {
-        try {
-          fs.writeFileSync(cachePath, JSON.stringify({ hash: sourceHash, exported: new Date().toISOString() }, null, 2));
-        } catch (e) {
-          // ignore
-        }
-      }
-
-      // Copy PDF for Confluence (without rasterization to preserve fonts)
-      const confluenceOutputPath = outputPath.replace(/\.pdf$/i, '-confluence.pdf');
-      fs.copyFileSync(outputPath, confluenceOutputPath);
-      console.log(`✅ Confluence PDF gemaakt (kopie): ${confluenceOutputPath}\n`);
-    } catch (error) {
-      console.error(`❌ Fout bij exporteren van ${presentation}:`, error);
-      continue;
+      await exportPresentation(presentation, baseUrl);
+    } catch (err) {
+      console.error(`❌ Fout bij exporteren van ${presentation}:`, err);
     }
   }
 
   console.log(`\n✨ PDF export voltooid! Bekijk de bestanden in: ${OUTPUT_DIR}`);
-  
-  // Kill server if we started it
-  // No server to stop
-    // Stop static server
-    if (serverInstance) {
-      serverInstance.close();
-    }
-  
+  if (serverHandle) serverHandle.close();
   process.exit(0);
 }
 
 main().catch(err => {
   console.error('Fatal error:', err);
-  if (serverProcess) {
-    serverProcess.kill('SIGTERM');
-  }
   process.exit(1);
 });
