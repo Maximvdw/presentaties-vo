@@ -169,14 +169,7 @@ npm run build
 
 ### Exporteren naar PDF
 
-1. Start de development server: `npm start`
-2. In een nieuwe terminal: `npm run export`
-
-**Vereist:** [decktape](https://github.com/astefanutti/decktape)
-
-```bash
-npm install -g decktape
-```
+In een nieuwe terminal: `npm run export`
 
 PDF bestanden worden opgeslagen in de `output/` directory.
 
@@ -188,6 +181,7 @@ PDF bestanden worden opgeslagen in de `output/` directory.
 - Fullscreen: druk op `F`
 - Zoeken: druk op `CTRL+SHIFT+F`
 - Print naar PDF: voeg `?print-pdf` toe aan de URL
+- Lineare weergave (voor pointers): voeg `?presenter` toe aan de URL
 
 ## Licentie
 

@@ -9,7 +9,7 @@
     "start": "npm run build:css && eleventy --serve --config=.eleventy.js",
     "build": "npm run build:css && eleventy --config=.eleventy.js",
     "ncu:update": "npx npm-check-updates -u",
-    "export": "node scripts/export-pdf.js"
+    "export": "npm run build && node scripts/export-pdf.js"
   },
   "author": "Maxim Van de Wynckel",
   "license": "MIT",
