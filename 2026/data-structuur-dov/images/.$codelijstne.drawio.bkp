@@ -1,0 +1,106 @@
+<mxfile host="Electron">
+  <diagram name="Page-1" id="vUY5qc29WKolYzM0_AbH">
+    <mxGraphModel dx="1006" dy="748" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=8 8;" value="" vertex="1">
+          <mxGeometry height="130" width="290" x="300" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;h2&gt;&lt;font face=&quot;Tahoma&quot;&gt;MJV&lt;br&gt;&lt;/font&gt;&lt;font face=&quot;Tahoma&quot;&gt;Applicatie&lt;/font&gt;&lt;/h2&gt;" vertex="1">
+          <mxGeometry height="120" width="150" x="70" y="170.6" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-4" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.file;aspect=fixed;strokeColor=#82b366;fillColor=#d5e8d4;" value="&lt;b&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;installatie&lt;/font&gt;&lt;/b&gt;&lt;div&gt;&lt;b&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;types&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70.6" width="30.8" x="340" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-5" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.file;aspect=fixed;strokeColor=#82b366;fillColor=#d5e8d4;" value="&lt;b&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;emissiepunt&lt;/font&gt;&lt;/b&gt;&lt;div&gt;&lt;b&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;types&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70.6" width="30.8" x="429.6" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-6" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.file;aspect=fixed;strokeColor=#82b366;fillColor=#d5e8d4;" value="&lt;b&gt;...&lt;/b&gt;" vertex="1">
+          <mxGeometry height="70.6" width="30.8" x="519.2" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-8" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontStyle=1" value="Subtyperingen datamodel" vertex="1">
+          <mxGeometry height="30" width="290" x="300" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-10" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontStyle=1" value="Eigenschappen voor subtyperingen" vertex="1">
+          <mxGeometry height="30" width="290" x="300" y="363" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-14" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=8 8;" value="" vertex="1">
+          <mxGeometry height="130" width="290" x="300" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-15" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.file;aspect=fixed;strokeColor=#82b366;fillColor=#d5e8d4;" value="&lt;b&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;installatie&lt;/font&gt;&lt;/b&gt;&lt;div&gt;&lt;b&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;eigenschappen&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70.6" width="30.8" x="340" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-16" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.file;aspect=fixed;strokeColor=#82b366;fillColor=#d5e8d4;" value="&lt;b&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;emissiepunt&lt;/font&gt;&lt;/b&gt;&lt;div&gt;&lt;span style=&quot;font-size: 11px;&quot;&gt;&lt;b&gt;eigenschappen&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70.6" width="30.8" x="430" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-17" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.file;aspect=fixed;strokeColor=#82b366;fillColor=#d5e8d4;" value="&lt;b&gt;...&lt;/b&gt;" vertex="1">
+          <mxGeometry height="70.6" width="30.8" x="519.2" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-18" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.file;aspect=fixed;strokeColor=#d6b656;fillColor=#fff2cc;" value="&lt;b style=&quot;font-size: 11px; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;waterzuiveringstechnieken&lt;/b&gt;" vertex="1">
+          <mxGeometry height="70.6" width="30.8" x="980" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-19" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.file;aspect=fixed;strokeColor=#d6b656;fillColor=#fff2cc;" value="&lt;b style=&quot;font-size: 11px; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;meettechnieken&lt;/b&gt;" vertex="1">
+          <mxGeometry height="70.6" width="30.8" x="830" y="119.7" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-21" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.file;aspect=fixed;strokeColor=#d6b656;fillColor=#fff2cc;" value="&lt;b style=&quot;font-size: 11px; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;CSOR&lt;/b&gt;" vertex="1">
+          <mxGeometry height="70.6" width="30.8" x="920" y="99.99999999999997" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-22" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.file;aspect=fixed;strokeColor=#d6b656;fillColor=#fff2cc;" value="&lt;b style=&quot;font-size: 11px; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;VLAREM&lt;/b&gt;" vertex="1">
+          <mxGeometry height="70.6" width="30.8" x="799.2" y="221.79999999999998" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-23" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.file;aspect=fixed;strokeColor=#d6b656;fillColor=#fff2cc;" value="&lt;b style=&quot;font-size: 11px; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;?&lt;/b&gt;" vertex="1">
+          <mxGeometry height="70.6" width="30.8" x="870" y="270.59999999999997" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-24" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;strokeWidth=4;fillColor=#f8cecc;strokeColor=#b85450;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="560" y="290" as="sourcePoint" />
+            <mxPoint x="660" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-25" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.file;aspect=fixed;strokeColor=#b85450;fillColor=#f8cecc;" value="&lt;b style=&quot;font-size: 11px; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;i&gt;codelijst&lt;/i&gt;&lt;/b&gt;&lt;div&gt;&lt;b style=&quot;font-size: 11px; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;i&gt;voor mapping&lt;/i&gt;&lt;/b&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70.6" width="30.8" x="670" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-26" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;strokeWidth=4;fillColor=#f8cecc;strokeColor=#b85450;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="710" y="290" as="sourcePoint" />
+            <mxPoint x="790" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-27" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.file;aspect=fixed;strokeColor=#b85450;fillColor=#f8cecc;" value="&lt;span style=&quot;font-size: 11px;&quot;&gt;&lt;b&gt;&lt;i&gt;tijdelijke&lt;/i&gt;&lt;/b&gt;&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 11px;&quot;&gt;&lt;b&gt;&lt;i&gt;codelijst&lt;/i&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70.6" width="30.8" x="670" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-28" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;strokeWidth=4;fillColor=#f8cecc;strokeColor=#b85450;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="560" y="250" as="sourcePoint" />
+            <mxPoint x="820" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-29" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;strokeWidth=4;fillColor=#f8cecc;strokeColor=#b85450;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="570" y="140" as="sourcePoint" />
+            <mxPoint x="660" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-31" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;strokeWidth=4;fillColor=#d5e8d4;strokeColor=#82b366;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="VZb5x5Zlxp0XdjdVF0v3-7" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="220" y="190" as="sourcePoint" />
+            <mxPoint x="480" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-32" edge="1" parent="1" source="VZb5x5Zlxp0XdjdVF0v3-2" style="endArrow=classic;html=1;rounded=0;strokeWidth=4;fillColor=#d5e8d4;strokeColor=#82b366;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" target="VZb5x5Zlxp0XdjdVF0v3-14" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="220" y="265" as="sourcePoint" />
+            <mxPoint x="300" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-33" parent="1" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;flipH=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;legacyAnchorPoints=0;rotation=90;" value="" vertex="1">
+          <mxGeometry height="250" width="20" x="900.4" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="VZb5x5Zlxp0XdjdVF0v3-34" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;b&gt;Externe codelijsten&lt;/b&gt;" vertex="1">
+          <mxGeometry height="30" width="150" x="835.4" y="399" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -7,7 +7,7 @@
   <body>
     <link rel="stylesheet" href="{{ site.baseUrl }}/reveal.js/dist/reset.css">
     <link rel="stylesheet" href="{{ site.baseUrl }}/reveal.js/dist/reveal.css">
-    {% if active_theme and active_theme != 'vlaanderen' and active_theme != 'omgeving' %}
+    {% if active_theme != 'vlaanderen' and active_theme != 'omgeving' and active_theme != 'vlaanderen-international' and active_theme %}
     <link rel="stylesheet" href="/reveal.js/dist/theme/{{ active_theme }}.css">
     {% endif %}
     <link rel="stylesheet" href="{{ site.baseUrl }}/reveal.js/plugin/highlight/monokai.css">
@@ -20,14 +20,22 @@
     <link rel="stylesheet" href="{{ site.baseUrl }}/css/omgeving-theme.css?{{ builddate }}">
     <link rel="stylesheet" href="{{ site.baseUrl }}/css/vlaanderen-icons.css?{{ builddate }}">
     {% endif %}
+    {% if active_theme == 'vlaanderen-international' %}
+    <link rel="stylesheet" href="{{ site.baseUrl }}/css/vlaanderen-theme.css?{{ builddate }}">
+    <link rel="stylesheet" href="{{ site.baseUrl }}/css/vlaanderen-international-theme.css?{{ builddate }}">
+    {% endif %}
     {% if custom_css %}
     <link rel="stylesheet" href="{{ custom_css }}?{{ builddate }}">
     {% endif %}
 
-    <div class="reveal {% if active_theme == 'omgeving' %}omgeving{% endif %}">
+    <div class="reveal {% if active_theme == 'omgeving' %}omgeving{% elif active_theme == 'vlaanderen-international' %}vlaanderen-international{% endif %}">
       <div class="slides">
         <div class="slide-corner-icon slide-corner-icon--fixed">
+          {% if active_theme == 'vlaanderen-international' %}
+          <img src="{{ site.baseUrl }}/images/logo-flanders-state-of-the-art.svg" class="sota-logo" alt="Flanders State of the Art">
+          {% else %}
           <i class="vl-vi vl-vi-vlaanderen"></i>
+          {% endif %}
         </div>
         {% if not hide_title_slide %}
         <section class="title-slide center" data-timing="15">

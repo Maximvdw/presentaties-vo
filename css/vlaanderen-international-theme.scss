@@ -1,0 +1,67 @@
+/**
+ * Internationale huisstijl extensie voor Reveal.js
+ * Gebaseerd op Vlaanderen theme met "Flanders, State of the Art" branding
+ * Richtlijnen: https://www.vlaanderen.be/vlaanderen-intern-communicatie/huisstijl-en-merkbeleid/internationale-huisstijl
+ */
+
+/* Replace left-side triangle with a bottom yellow band (~12% slide height, diagonal top edge) */
+.reveal.vlaanderen-international .slides .title-slide::before {
+  content: '';
+  /* Reset CSS-triangle technique from base theme */
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  border-left: none;
+  border-top: none;
+  /* Bottom band: diagonal top edge, ~12% at left tapering to ~9% at right */
+  background: var(--vl-geel);
+  clip-path: polygon(0 86%, 100% 91%, 100% 100%, 0 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Hide icon pseudo-element from base theme */
+.reveal.vlaanderen-international .slides .title-slide::after {
+  display: none;
+}
+
+/* Hide the off-screen yellow bar (not needed with bottom band) */
+.reveal.vlaanderen-international .title-slide-before-bar {
+  display: none;
+}
+
+/* Reset slide wrapper padding – content is centered, bottom pad clears yellow band */
+.reveal.vlaanderen-international .title-slide .slide-wrapper {
+  padding: 60px 100px 150px 100px;
+  justify-content: center;
+}
+
+/* Hide icon-font logo, the <img> is used instead */
+.reveal.vlaanderen-international .slide-corner-icon .vl-vi {
+  display: none;
+}
+
+/* Flanders State of the Art logo – regular slides (bottom-left) */
+.reveal.vlaanderen-international .slide-corner-icon {
+  bottom: 18px;
+  left: 20px;
+}
+
+.reveal.vlaanderen-international .slide-corner-icon .sota-logo {
+  display: block;
+  height: 38px;
+  width: auto;
+  margin: 0;
+  object-fit: contain;
+}
+
+/* Logo on title slide: positioned just above the yellow band */
+.reveal.vlaanderen-international.is-title-slide .slide-corner-icon {
+  bottom: 105px;
+  left: 60px;
+}
+
+.reveal.vlaanderen-international.is-title-slide .slide-corner-icon .sota-logo {
+  height: 70px;
+}

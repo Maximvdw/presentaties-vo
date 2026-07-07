@@ -29,6 +29,24 @@
 }
 
 @font-face {
+  font-family: 'Flanders Art Serif';
+      src: url('../fonts/Flanders%20Art%20Serif%20webfonts/Flanders%20Art%20Serif%20Regular/FlandersArtSerif-Regular.woff') format('woff'),
+        url('../fonts/Flanders%20Art%20Serif%20webfonts/Flanders%20Art%20Serif%20Regular/FlandersArtSerif-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Flanders Art Serif';
+      src: url('../fonts/Flanders%20Art%20Serif%20webfonts/Flanders%20Art%20Serif%20Bold/FlandersArtSerif-Bold.woff') format('woff'),
+        url('../fonts/Flanders%20Art%20Serif%20webfonts/Flanders%20Art%20Serif%20Bold/FlandersArtSerif-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
   font-family: 'vlaanderen-icon';
       src: url('../fonts/vlaanderen-icons/vlaanderen-icon.eea3757.woff2') format('woff2'),
         url('../fonts/vlaanderen-icons/vlaanderen-icon.3e433a0.woff') format('woff');
@@ -239,6 +257,12 @@ body {
 .reveal strong,
 .reveal b {
   font-weight: 700;
+}
+
+.reveal em,
+.reveal i {
+  font-family: 'Flanders Art Serif', Georgia, serif;
+  font-style: normal;
 }
 
 .reveal img {

@@ -1,0 +1,323 @@
+---
+layout: presentation.njk
+title: "RIE-IEPR: Datamodel structuur"
+subtitle: Focus op data DOV
+author: Maxim Van de Wynckel
+presentationDate: 2026-07-07
+status: Published
+theme: omgeving
+---
+
+<section>
+    {% markdown %}
+    ## Inhoud
+    1. Introductie
+    2. Codelijsten
+    3. Datamodel
+    4. Basis voorbeelden
+    5. AGC Glass voorbeeld
+    { .large }
+    {% endmarkdown %}
+</section>
+
+<section>
+    {% markdown %}
+    ## Introductie
+    - Afname via **L**inked **D**ata **E**vent **S**treams (**LDES**)
+        - *Elke aangifte stroom heeft zijn eigen LDES (exploitatietoestanden en operationeel)*
+    - Elke aangifte (m.n. elke toestand) van de exploitatie is een *Event* binnen LDES
+    - Linked data standaarden aangevuld met bijkomende concepten die hierop verder bouwen
+    - We voorzien enkel data waarvan wij master zijn, voor de rest verwijzen (**linken**) we door naar de bron van de **data**
+    - Voorlopig enkel een toelichting van het datamodel voor de structuur/exploitatietoestand
+    {% endmarkdown %}
+</section>
+
+<section>
+    <section>
+        {% markdown %}
+        ## Codelijsten
+        > De doelstelling van de codelijsten is om variabele businessvereisten af te splitsen van het stabiele datamodel en de applicatie.
+
+        - **Typering codelijsten**: Geeft de (sub)typeringen aan van alle entiteiten binnen ons datamodel.
+        - **Eigenschappen codelijsten**: Geeft de eigenschappen/attributen aan van alle entiteiten binnen ons datamodel waarvan de inhoud veranderlijk is per subtype.
+        - *Operationele codelijsten nog te bepalen*
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Codelijsten ...
+        - **onttrekkingspunt_type**: pompput, opnamepunt, ...
+        - **emissiepunt_type**: lozingspunt, ...
+        - **uitwisselpunt_type**: geothermie, ...
+        - **meetpunt_type**: peilput, meetinrichting, ...
+        - **meetinstrument_type**: debietmeter, bi-directionele debietmeter, peillint, ...
+        - ...
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Codelijsten ...
+        - **meetpunt_eigenschappen**: 
+            - voor het type *peilput* hebben we een eigenschap *referentiepunt* met invoerveld voor diepte en benaming
+            - ...
+        - **onttrekkingspunt_eigenschappen**: 
+            - voor het type *pompput* hebben we een eigenschap *diepte* met invoerveld voor diepte
+            - voor het type *pompput* hebben we een eigenschap *waterlaag* dat refereert naar een andere codelijst (selectie)
+            - ...
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Codelijsten ...
+        {% endmarkdown %}
+        <object data="./images/codelijsten.svg" type="image/svg+xml" style="width: 100%; border: none;"></object>
+    </section>
+</section>
+
+<section>
+    <section>
+        {% markdown %}
+        ## Datamodel
+        ### Toestand
+        > Een exploitatietoestand bestaat uit;
+        - ... een unieke identifier van de exploitatie
+        - ... de datum waarop de (nieuwe) toestand actief is
+        - ... de datum waarop de (nieuwe) toestand ingediend is
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Datamodel
+        ### Inhoud vs Samenhang
+        > Inhoudelijk data gaat over de emissiepunten, installaties, ... en de gegevens die hieraan gekoppeld zijn.
+
+        **Gebruik van SOSA en SSN standaarden voor systemen voor te stellen**
+
+        > Samenhang data gaat over de processen die uitgevoerd worden op de installaties, emissiepunten, ... en hoe deze aan elkaar verbonden zijn.
+
+        **Gebruik van P-Plan standaard voor processen voor te stellen die systemen implementeren**
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Datamodel
+        ### Concepten
+        - **ssn:Deployment**
+            - Exploitatie
+        - **ssn:System**
+            - Installatie(s)
+            - Emissiepunt(en)
+            - Onttrekkingspunt(en)
+            - Uitwisselpunt(en)
+            - Meetpunt(en)
+            - Filter(s)
+            - Meetinstrument(en)
+        - ...
+        {% endmarkdown %}
+    </section>
+        <section>
+        {% markdown %}
+        ## Datamodel
+        ### Concepten ...
+        - **pplan:Plan** en **pplan:Step**
+            - Proces
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Datamodel
+        ### Inhoud + Samenhang
+        ```mermaid
+        flowchart LR
+            ONTTREKKINGSPUNT["Onttrekkingspunt<br>type=pompput"]
+            PROCES1["Proces<br>type=onttrekking"] 
+            PROCES1 -->|"ssn:implementedBy"| ONTTREKKINGSPUNT
+            PROCES2["Proces<br>type=overbrenging"]
+            PROCES2 -->|"pplan:isPrecededBy"| PROCES1
+            PROCES3["Proces<br>type=meet"]
+            PROCES3 -->|"pplan:isPrecededBy"| PROCES2
+            PROCES3 -->|"ssn:implementedBy"| MEETPUNT
+            MEETPUNT["Meetpunt<br>type=meetinrichting"]
+            FILTER["Filter<br>type=pompfilter"]
+            ONTTREKKINGSPUNT -->|"ssn:hasSubSystem"| FILTER
+            DEBIETMETER["Meetinstrument<br>type=debietmeter"]
+            MEETPUNT -->|"ssn:hasSubSystem"| DEBIETMETER
+
+            classDef ssn fill:#f9f,stroke:#333,stroke-width:2px;
+            classDef p-plan fill:#bbf,stroke:#333,stroke-width:2px;
+            classDef domg fill:#447a6d,stroke:#2d5957,stroke-width:2px,color:white;
+            class ONTTREKKINGSPUNT,MEETPUNT,DEBIETMETER,FILTER domg;
+            class PROCES1,PROCES2,PROCES3 p-plan;
+        ```
+        {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+        {% markdown %}
+        ## Basis voorbeelden
+        ### Pompput en Peilput
+        > Een pompput is een type van onttrekkingspunt en peilput is type van meetpunt
+        ```mermaid
+        flowchart LR
+            PUT1["**Onttrekkingspunt**<br>type=pompput"]
+            PUT2["**Meetpunt**<br>type=peilput"]
+            MEETINRICHTING1["**Meetpunt**<br>type=meetinrichting"]
+            PUT1-->MEETINRICHTING1
+        ```
+        {% endmarkdown %}
+    </section>
+        <section>
+        {% markdown %}
+        ## Basis voorbeelden
+        ### Filters en meetinstrumenten
+        **DATA**
+        ```mermaid
+        flowchart LR
+            PUT2["**Meetpunt**<br>type=meetinrichting"]
+            PUT1["**Onttrekkingspunt**<br>type=pompput"]
+            DEBIETMETER1["**Meetinstrument**<br>type=debietmeter"]
+            DEBIETMETER1---PUT2
+            FILTER1["**Filter**<br>type=pompfilter"]
+            FILTER1---PUT1
+            FILTER2["**Filter**<br>type=peilfilter"]
+            FILTER2---PUT3
+            PUT3["**Meetpunt**<br>type=peilput"]
+        ```
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Basis voorbeelden
+        ### Geothermie (bidirectionele put)
+        ```mermaid
+        flowchart LR
+            PUT1["**Uitwisselpunt**<br>type=geothermie"]
+            PUT2["**Uitwisselpunt**<br>type=geothermie"]
+            MEETINRICHTING1["**Meetpunt**<br>type=meetinrichting"]
+            MEETINRICHTING2["**Meetpunt**<br>type=meetinrichting"]
+            MEETINRICHTING3["**Meetpunt**<br>type=meetinrichting<br>naam=spui"]
+            PUT1 --> MEETINRICHTING1
+            MEETINRICHTING1 --> MEETINRICHTING2
+            MEETINRICHTING2 --> PUT2
+            PUT2 --> MEETINRICHTING2
+            MEETINRICHTING2 --> MEETINRICHTING1
+            MEETINRICHTING1 --> PUT1
+            MEETINRICHTING1 --> MEETINRICHTING3
+            MEETINRICHTING2 --> MEETINRICHTING3
+        ```
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Basis voorbeelden
+        ### Geothermie (aparte put in en uit)
+        ```mermaid
+        flowchart LR
+            PUT1["**Onttrekkingspunt**<br>type=pompput"]
+            PUT2["**Emissiepunt**<br>type=lozingspunt"]
+            MEETINRICHTING1["**Meetpunt**<br>type=meetinrichting"]
+            MEETINRICHTING2["**Meetpunt**<br>type=meetinrichting"]
+            MEETINRICHTING3["**Meetpunt**<br>type=meetinrichting<br>naam=spui"]
+            PUT1 --> MEETINRICHTING1
+            MEETINRICHTING1 --> MEETINRICHTING2
+            MEETINRICHTING2 --> PUT2
+            MEETINRICHTING1 --> MEETINRICHTING3
+        ```
+        {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+        {% markdown %}
+        ## AGC Glass voorbeeld
+        ### Exploitatie en Exploitant
+        ```turtle
+        <https://data.mjv.omgeving.vlaanderen.be/id/exploitant/019e9271-1452-7630-be04-59ea199007a7> a riepr:Exploitant ;
+            dct:created "2026-01-01T10:00:00Z"^^xsd:dateTime ;
+            dct:modified "2026-01-01T10:00:00Z"^^xsd:dateTime ;
+            prov:hadPrimarySource <https://data.vlaanderen.be/id/onderneming/0413638187> .
+
+        <https://data.mjv.omgeving.vlaanderen.be/id/exploitatielocatie/019e9271-1453-7810-92ea-ccac2e6932b1/2026-01-01/2026-01-01T10:00:00Z> a riepr:Exploitatielocatie ;
+            dct:isVersionOf <https://data.mjv.omgeving.vlaanderen.be/id/exploitatielocatie/019e9271-1453-7810-92ea-ccac2e6932b1> ;
+            dct:issued "2026-01-01"^^xsd:date ; dct:created "2026-01-01T10:00:00Z"^^xsd:dateTime ;
+            dct:modified "2026-01-01T10:00:00Z"^^xsd:dateTime ;
+            prov:wasAttributedTo <https://data.mjv.omgeving.vlaanderen.be/id/exploitant/019e9271-1452-7630-be04-59ea199007a7> ;
+            adms:status <https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/in_dienst> ;
+            prov:hadPrimarySource <https://data.vlaanderen.be/id/vestiging/2081766488> ;
+            locn:address [ a locn:Address ;
+                locn:streetAddress "Voortstraat 27" ; locn:postalCode "2400" ;
+                locn:addressLocality "Mol" ; locn:addressCountry "BE"
+            ] ;
+            ogc:hasGeometry [ a ogc:Point ;
+                ogc:asWKT "POINT (205700 209700)"^^ogc:wktLiteral ;
+                ogc:crs <http://www.opengis.net/gml/srs/epsg.xml#31370>
+            ] ;
+            adms:identifier [ a adms:Identifier ;
+                adms:scheme "DOMG" ; rdf:value "BE.VL.000000034.SITE"^^riepr:inspireId
+            ] .
+            ```
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## AGC Glass voorbeeld
+        ### Exploitatie en Exploitant ...
+        ```turtle
+        <https://data.mjv.omgeving.vlaanderen.be/id/exploitatie/019e9271-1454-7b38-9eae-505cace7ca54> a riepr:Exploitatie ;
+            prov:hadPrimarySource <https://data.vim.omgeving.vlaanderen.be/TBDTBD> .
+
+        <https://data.mjv.omgeving.vlaanderen.be/id/exploitatie/019e9271-1454-7b38-9eae-505cace7ca54/2026-01-01/2026-01-01T10:00:00Z> a riepr:Exploitatie ;
+            dct:isVersionOf <https://data.mjv.omgeving.vlaanderen.be/id/exploitatie/019e9271-1454-7b38-9eae-505cace7ca54> ;
+            rdfs:label "Een naam gekozen door de exploitant"@nl ;
+            dct:issued "2026-01-01"^^xsd:date ;
+            dct:created "2026-01-01T10:00:00Z"^^xsd:dateTime ;
+            dct:modified "2026-01-01T10:00:00Z"^^xsd:dateTime ;
+            adms:status <https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/in_dienst> ;
+            org:classification <http://data.europa.eu/ux2/nace2.1/231> ;
+            ssn:implements <https://data.mjv.omgeving.vlaanderen.be/id/proces/019e9271-1455-78f7-94b6-becb88019f89/2026-01-01/2026-01-01T10:00:00Z> ;
+            ssn:deployedOnPlatform <https://data.mjv.omgeving.vlaanderen.be/id/exploitatielocatie/019e9271-1453-7810-92ea-ccac2e6932b1/2026-01-01/2026-01-01T10:00:00Z> ;
+            adms:identifier [ a adms:Identifier ; adms:scheme "VMM" ;
+                rdf:value "01787986000160"^^vmm:cbbNummer
+            ] ;
+            ssn:deployedSystem <https://data.mjv.omgeving.vlaanderen.be/id/installatie/019e9271-1456-7a2f-ac4e-8904bab88f37/2026-01-01/2026-01-01T10:00:00Z>,
+                <https://data.mjv.omgeving.vlaanderen.be/id/installatie/019e9271-1457-7564-86c0-e28e802b8fa2/2026-01-01/2026-01-01T10:00:00Z>, 
+                <...> .
+        ```
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## AGC Glass voorbeeld
+        ### Pompput
+        ```turtle
+        <https://data.mjv.omgeving.vlaanderen.be/id/onttrekkingspunt/019e9271-1463-719b-948f-22a102653d02/2026-01-01/2026-01-01T10:00:00Z> a riepr:Onttrekkingspunt ;
+            dct:isVersionOf <https://data.mjv.omgeving.vlaanderen.be/id/onttrekkingspunt/019e9271-1463-719b-948f-22a102653d02> ;
+            adms:status <https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/in_dienst> ;
+            dct:type <https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunt-type/pompput> ;
+            dct:issued "2026-01-01"^^xsd:date ;
+            dct:created "2026-01-01T10:00:00Z"^^xsd:dateTime ;
+            riepr:inGebruikVanaf "2026-01-01"^^xsd:date ; # verzonnen mockdatum: geen ondubbelzinnige ingebruiknamedatum gevonden in brondata
+            sosa:isHostedBy <https://data.mjv.omgeving.vlaanderen.be/id/exploitatielocatie/019e9271-1453-7810-92ea-ccac2e6932b1/2026-01-01/2026-01-01T10:00:00Z> ;
+            adms:identifier [ a adms:Identifier ;
+                adms:scheme "VMM" ;
+                rdf:value "46769"^^vmm:onttrekkingspuntCode
+            ], [ a adms:Identifier ;
+                adms:scheme "VMM" ;
+                rdf:value "2019-010762"^^vmm:exploitantID
+            ], [ a adms:Identifier ;
+                adms:scheme "VMM" ;
+                rdf:value "ANT-00151-A"^^vmm:watnr
+            ] ;
+            rdfs:label "4 (KG atelier)"@nl ;
+            ssn:hasProperty <https://data.mjv.omgeving.vlaanderen.be/id/systeemeigenschap/019ecf80-eae8-7c21-b0a0-1a798becf2f9> ;
+            ogc:hasGeometry [ a ogc:Point ;
+                ogc:asWKT "POINT (205583.0 209510.0)"^^ogc:wktLiteral ;
+                ogc:crs <http://www.opengis.net/gml/srs/epsg.xml#31370>
+            ] .
+        ```
+        {% endmarkdown %}
+    </section>
+</section>

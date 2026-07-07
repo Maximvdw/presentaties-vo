@@ -1,0 +1,78 @@
+---
+layout: presentation.njk
+title: "OWL-SDA"
+subtitle: A Multi-Agent System for Generating Synthetic Data to Support Ontology Evaluation
+presentationDate: 2026-09-01
+status: WIP
+theme: vlaanderen-international
+author: Maxim Van de Wynckel, Emmelien De Roock
+organization: Flemish Government · Vrije Universiteit Brussel
+---
+
+<section>
+    <section>
+        <h2>Overview</h2>
+        <ul>
+            <li>Motivation: why synthetic data for ontology evaluation?</li>
+            <li>OWL-SDA architecture and agents</li>
+            <li>Evaluation on domain-specific ontologies</li>
+            <li>Results &amp; future work</li>
+        </ul>
+    </section>
+</section>
+
+<section>
+    <section>
+        <h2>Motivation</h2>
+        <p>When designing ontologies, assessing whether they capture required data without introducing inconsistencies is critical.</p>
+        <p>Producing synthetic data that exercises the ontology is time-consuming—especially across multiple iterations of complex or evolving data models.</p>
+    </section>
+    <section>
+        <h3>Research gap</h3>
+        <p>Existing LLM-based ontology tools focus primarily on <strong>ontology design support</strong>.</p>
+        <p>OWL-SDA takes a <strong>data-driven evaluation approach</strong>: generate and validate synthetic data rather than rely on LLMs to design the ontology.</p>
+    </section>
+</section>
+
+<section>
+    <section>
+        <h2>OWL-SDA</h2>
+        <p>An open-source multi-agent tool that uses AI agents to efficiently generate and validate synthetic data expressed in OWL.</p>
+        <div class="mermaid">
+            flowchart LR
+                ONTOLOGY[("OWL Ontology")]
+                GENERATOR("🤖 Generator Agent")
+                VALIDATOR("✅ Validator Agent")
+                DATA[("Synthetic Data")]
+
+                ONTOLOGY --> GENERATOR
+                GENERATOR --> DATA
+                DATA --> VALIDATOR
+                VALIDATOR -->|"Feedback"| GENERATOR
+        </div>
+    </section>
+</section>
+
+<section>
+    <h2>Evaluation</h2>
+    <p>Demonstrated on two domain-specific ontologies:</p>
+    <ul>
+        <li><strong>Industrial emissions reporting</strong> (RIE-IEPR, Flemish Government)</li>
+        <li><strong>Healthcare ontology</strong> (UZ Brussel)</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Results</h2>
+    <p>OWL-SDA successfully surfaced inconsistencies and missing relations in both ontologies across multiple generation iterations.</p>
+</section>
+
+<section>
+    <h2>Conclusion &amp; Future Work</h2>
+    <ul>
+        <li>OWL-SDA automates synthetic data generation for ontology evaluation</li>
+        <li>Multi-agent validation loop reduces manual effort</li>
+        <li>Future: support for SHACL constraints, larger ontologies, benchmarking</li>
+    </ul>
+    <p><small>Source code available on GitHub · SEMANTICS 2026</small></p>
+</section>

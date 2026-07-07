@@ -1,0 +1,87 @@
+---
+layout: presentation.njk
+title: "ODDToolkit"
+subtitle: Bridging the Developer Gap in Ontology Driven Design
+presentationDate: 2026-09-01
+status: WIP
+theme: vlaanderen-international
+author: Maxim Van de Wynckel, Geert Van Haute
+organization: Departement Omgeving · Vrije Universiteit Brussel
+---
+
+<section>
+    <section>
+        <h2>Overview</h2>
+        <ul>
+            <li>The developer gap in ontology-driven projects</li>
+            <li>ODDToolkit: architecture and pipeline</li>
+            <li>SKOS naming bridge</li>
+            <li>Generated artefacts</li>
+            <li>Real-world use case &amp; results</li>
+        </ul>
+    </section>
+</section>
+
+<section>
+    <section>
+        <h2>The Developer Gap</h2>
+        <p>Despite growing adoption of linked open data, ontology engineers and software teams speak different languages.</p>
+        <p>OWL/RDF-based data models are often <strong>too abstract</strong> for developers to implement against directly.</p>
+    </section>
+    <section>
+        <h3>The challenge</h3>
+        <p>Documentation and traceability help—but keeping them aligned with a <strong>continuously evolving ontology and codebase</strong> is unsustainable manually.</p>
+    </section>
+</section>
+
+<section>
+    <section>
+        <h2>ODDToolkit</h2>
+        <p>An extensible open-source toolkit that generates implementation artefacts from an OWL ontology enriched with a SKOS concept scheme.</p>
+        <div class="mermaid">
+            flowchart LR
+                OWL[("OWL Ontology")]
+                SKOS[("SKOS Concept Scheme")]
+                CONFIG["⚙️ Config Rules"]
+                PIPELINE("ODDToolkit Pipeline")
+                ARTEFACTS["📦 Artefacts"]
+
+                OWL --> PIPELINE
+                SKOS --> PIPELINE
+                CONFIG --> PIPELINE
+                PIPELINE --> ARTEFACTS
+        </div>
+    </section>
+    <section>
+        <h3>SKOS naming bridge</h3>
+        <p>A SKOS concept scheme acts as an <strong>explicit naming bridge</strong>: ontology predicates are projected to developer-friendly identifiers without modifying the ontology itself.</p>
+    </section>
+</section>
+
+<section>
+    <h2>Generated Artefacts</h2>
+    <ul>
+        <li>Visual UML class and ER diagrams</li>
+        <li>SQL schemas</li>
+        <li>Java and TypeScript models</li>
+        <li>SHACL shapes</li>
+        <li>JSON-LD frames</li>
+        <li>Bikeshed specification documents</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Real-World Use Case</h2>
+    <p>Demonstrated using a <strong>real-world industrial emissions ontology</strong> for environmental reporting (Flemish Government).</p>
+    <p>ODDToolkit generated documentation and implementation artefacts for development teams, integrated into CI workflows.</p>
+</section>
+
+<section>
+    <h2>Conclusion &amp; Future Work</h2>
+    <ul>
+        <li>ODDToolkit closes the gap between ontology engineers and developers</li>
+        <li>CI integration keeps artefacts synchronised with the ontology</li>
+        <li>Future: additional generators, richer SKOS mapping rules, community plugins</li>
+    </ul>
+    <p><small>Source code available · SEMANTICS 2026</small></p>
+</section>
