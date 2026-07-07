@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <title>ODDToolkit</title>
+  
+  
+  
+  
+  <meta name="author" content="Maxim Van de Wynckel, Geert Van Haute">
+  
+</head>
+
+<link rel="stylesheet" href="/presentaties-vo/css/hljs.css">
+
+  
+  
+  
+  <body>
+    <link rel="stylesheet" href="/presentaties-vo/reveal.js/dist/reset.css">
+    <link rel="stylesheet" href="/presentaties-vo/reveal.js/dist/reveal.css">
+    
+    <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
+    
+    
+    
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1783418056">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-international-theme.css?1783418056">
+    
+    
+
+    <div class="reveal vlaanderen-international">
+      <div class="slides">
+        <div class="slide-corner-icon slide-corner-icon--fixed">
+          
+          <img src="/presentaties-vo/images/logo-flanders-state-of-the-art.svg" class="sota-logo" alt="Flanders State of the Art">
+          
+        </div>
+        
+        <section class="title-slide center" data-timing="15">
+          <div class="title-slide-before-bar"></div>
+          <div class="slide-wrapper">
+            <div class="slide-content">
+              <h1>ODDToolkit</h1>
+              
+              <h3>Bridging the Developer Gap in Ontology Driven Design</h3>
+              
+              
+              <p class="author">Maxim Van de Wynckel, Geert Van Haute</p>
+              
+              
+              <p class="organization">Departement Omgeving · Vrije Universiteit Brussel</p>
+              
+              
+              <p class="date">1 september 2026</p>
+              
+            </div>
+          </div>
+        </section>
+        
+
+        
+<section>
+    <section>
+        <h2>Overview</h2>
+        <ul>
+            <li>The developer gap in ontology-driven projects</li>
+            <li>ODDToolkit: architecture and pipeline</li>
+            <li>SKOS naming bridge</li>
+            <li>Generated artefacts</li>
+            <li>Real-world use case &amp; results</li>
+        </ul>
+    </section>
+</section>
+
+<section>
+    <section>
+        <h2>The Developer Gap</h2>
+        <p>Despite growing adoption of linked open data, ontology engineers and software teams speak different languages.</p>
+        <p>OWL/RDF-based data models are often <strong>too abstract</strong> for developers to implement against directly.</p>
+    </section>
+    <section>
+        <h3>The challenge</h3>
+        <p>Documentation and traceability help—but keeping them aligned with a <strong>continuously evolving ontology and codebase</strong> is unsustainable manually.</p>
+    </section>
+</section>
+
+<section>
+    <section>
+        <h2>ODDToolkit</h2>
+        <p>An extensible open-source toolkit that generates implementation artefacts from an OWL ontology enriched with a SKOS concept scheme.</p>
+        <div class="mermaid">
+            flowchart LR
+                OWL[("OWL Ontology")]
+                SKOS[("SKOS Concept Scheme")]
+                CONFIG["⚙️ Config Rules"]
+                PIPELINE("ODDToolkit Pipeline")
+                ARTEFACTS["📦 Artefacts"]
+
+                OWL --> PIPELINE
+                SKOS --> PIPELINE
+                CONFIG --> PIPELINE
+                PIPELINE --> ARTEFACTS
+        </div>
+    </section>
+    <section>
+        <h3>SKOS naming bridge</h3>
+        <p>A SKOS concept scheme acts as an <strong>explicit naming bridge</strong>: ontology predicates are projected to developer-friendly identifiers without modifying the ontology itself.</p>
+    </section>
+</section>
+
+<section>
+    <h2>Generated Artefacts</h2>
+    <ul>
+        <li>Visual UML class and ER diagrams</li>
+        <li>SQL schemas</li>
+        <li>Java and TypeScript models</li>
+        <li>SHACL shapes</li>
+        <li>JSON-LD frames</li>
+        <li>Bikeshed specification documents</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Real-World Use Case</h2>
+    <p>Demonstrated using a <strong>real-world industrial emissions ontology</strong> for environmental reporting (Flemish Government).</p>
+    <p>ODDToolkit generated documentation and implementation artefacts for development teams, integrated into CI workflows.</p>
+</section>
+
+<section>
+    <h2>Conclusion &amp; Future Work</h2>
+    <ul>
+        <li>ODDToolkit closes the gap between ontology engineers and developers</li>
+        <li>CI integration keeps artefacts synchronised with the ontology</li>
+        <li>Future: additional generators, richer SKOS mapping rules, community plugins</li>
+    </ul>
+    <p><small>Source code available · SEMANTICS 2026</small></p>
+</section>
+
+
+      </div>
+    </div>
+
+    <script src="/presentaties-vo/reveal.js/dist/reveal.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/notes/notes.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/zoom/zoom.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/search/search.js"></script>
+    
+    <!-- Expose Reveal globally for decktape compatibility -->
+    <script>
+      window.Reveal = Reveal;
+    </script>
+    
+    <script type="module">
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1783418056';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1783418056';
+      
+      // Make mermaid available globally
+      window.mermaidInstance = Mermaid;
+      
+      Mermaid.initialize({ 
+        startOnLoad: false, 
+        theme: 'default',
+        securityLevel: 'loose',
+        fontFamily: 'Flanders Art Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif',
+        fontSize: 12,
+        flowchart: {
+          useMaxWidth: true
+        },
+        themeVariables: {
+          fontFamily: 'Flanders Art Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif',
+          fontSize: '12px'
+        }
+      });
+
+      const options = {
+        center: false,
+        margin: 0.08,
+        transition: 'slide',
+        slideNumber: true,
+        width: 1280,
+        height: 720,
+        controls: true,
+        progress: true,
+        history: true,
+        plugins: [ 
+          RevealMarkdown, 
+          RevealHighlight, 
+          RevealNotes,
+          RevealZoom,
+          RevealSearch
+        ],
+        
+      };
+
+      // Initialize presentation
+      const urlParams = new URLSearchParams(window.location.search);
+
+      if (urlParams.has('presenter') || window.location.search.indexOf('presenter') > -1) {
+        // Presenter mode: linear navigation, hide controls and use compact slide numbering
+        const presenterOptions = Object.assign({}, options, {
+          navigationMode: 'linear',
+          slideNumber: 'c',
+          controls: false
+        });
+
+        console.log('Starting in presenter mode');
+        initPresentation({ initialize: () => Reveal.initialize(presenterOptions) });
+
+        // Add presenter-specific behavior after Reveal ready
+        Reveal.on('ready', () => {
+          // When generating PDF, remove uncounted pages
+          Reveal.on && Reveal.on('pdf-ready', () => {
+            document.querySelectorAll(`.pdf-page section[data-visibility="uncounted"]`).forEach(e => e.closest('.pdf-page').remove());
+          });
+
+          // Ensure linear navigation for slides marked with data-visibility
+          Reveal.on('slidechanged', (event) => {
+            if (!event.currentSlide) return;
+            if (event.currentSlide.hasAttribute('data-visibility') && !Reveal.isOverview()) {
+              const prevIndices = Reveal.getIndices(event.previousSlide);
+              const currentIndices = Reveal.getIndices(event.currentSlide);
+              if (prevIndices.h < currentIndices.h || (prevIndices.h === currentIndices.h && prevIndices.v < currentIndices.v)) {
+                Reveal.next();
+              } else if (prevIndices.h > currentIndices.h || (prevIndices.h === currentIndices.h && prevIndices.v > currentIndices.v)) {
+                Reveal.prev();
+              }
+            }
+          });
+        });
+      } else {
+        initPresentation({ initialize: () => Reveal.initialize(options) });
+      }
+      
+      // Initialize Mermaid configuration first
+      if (window.mermaidInstance) {
+        initMermaid(window.mermaidInstance);
+        
+        // Assign unique IDs to all mermaid diagrams
+        let diagramCounter = 0;
+        document.querySelectorAll('.mermaid').forEach(diagram => {
+          if (!diagram.id) {
+            diagram.id = `mermaid-${diagramCounter++}`;
+          }
+        });
+        
+        const renderedDiagrams = new Set();
+        
+        // Render diagrams when a slide is shown
+        const renderDiagramsOnSlide = async () => {
+          const currentSlide = Reveal.getCurrentSlide();
+          if (!currentSlide) return;
+          
+          const diagrams = currentSlide.querySelectorAll('.mermaid');
+          
+          for (const diagram of diagrams) {
+            const diagramId = diagram.id;
+            
+            // Only render if not already rendered
+            if (!renderedDiagrams.has(diagramId)) {
+              renderedDiagrams.add(diagramId);
+              
+              // Wait a tick to ensure layout is ready
+              await new Promise(resolve => setTimeout(resolve, 50));
+              
+              try {
+                await window.mermaidInstance.run({
+                  nodes: [diagram],
+                });
+                
+                // Setup pan/zoom after rendering
+                if (window.setupMermaidPanZoom) {
+                  window.setupMermaidPanZoom();
+                }
+              } catch (error) {
+                console.error('Mermaid rendering error for ' + diagramId + ':', error);
+              }
+            }
+          }
+        };
+        
+        // Render on ready and on slide changes
+        Reveal.on('ready', renderDiagramsOnSlide);
+        Reveal.on('slidechanged', renderDiagramsOnSlide);
+      }
+    </script>
+  </body>
+</html>
