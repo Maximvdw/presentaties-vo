@@ -1,0 +1,366 @@
+---
+layout: presentation.njk
+title: "Business concepten als codelijsten"
+subtitle: Simple Knowledge Organization System
+presentationDate: 2026-09-01
+status: WIP
+theme: omgeving
+author: Maxim Van de Wynckel
+organization: Departement Omgeving · Vrije Universiteit Brussel
+---
+
+<section>
+{% markdown %}
+    ## Inhoud
+    1. Introductie
+    2. Kennisniveau's bij codelijsten
+    3. Het begrip codelijsten
+    4. Simple Knowledge Organization System
+    5. Uitbreidingen van SKOS
+    6. Technisch beheer
+    7. Demo a.h.v. secenario's
+    {.large}
+{% endmarkdown %}
+</section>
+
+<section>
+    <section>
+    {% markdown %}
+        ## Introductie
+        ### Concepten en codes
+        - Hierarchische lijst van codes
+        - Associatieve relaties tussen codes
+        - Mapping relaties met bestaande concepten
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Introductie
+        ### Linked Open Data
+        **Subjects** worden beschreven met **predicates** die naar **objecten** verwijzen
+
+        <object data="./images/lod2.svg" type="image/svg+xml" style="width: 100%; border: none;"></object>
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Introductie
+        ### Linked Open Data ...
+        **CURIE** (Compact URI) geeft prefixes aan een URI
+
+        <object data="./images/lod3.svg" type="image/svg+xml" style="width: 100%; border: none;"></object>
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Introductie
+        ### Linked Open Data ...
+        Niet atomaire **objecten** kunnen op zichzelf ook **subject** zijn
+
+        <object data="./images/lod1.svg" type="image/svg+xml" style="width: 80%; border: none;"></object>
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Introductie
+        ### Linked Open Data ...
+        > Anyone can say anything about any topic (AAA)
+
+        <object data="./images/lod4.svg" type="image/svg+xml" style="width: 100%; border: none;"></object>
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Introductie
+        ### Informatiemodel en Datamodel
+        **Informatiemodel** beschrijft *wat* het business domein omvat en de achterliggende betekenis
+
+        **Datamodel** beschrijft *hoe* data van het informatiemodel kan gecapteerd worden
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Introductie
+        ### Informatiemodel en Datamodel ...
+        > Codelijsten is de brug tussen het informatiemodel (business inhoud en vereisten) en hoe zich dit semantisch in data verhoud
+    {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+    {% markdown %}
+        ## Kennisniveau's bij codelijsten
+        1. **Afnemer**: Een afnemer moet in staat zijn om de codelijsten op te halen en inhoudelijk te begrijpen voor zijn/haar afnameusecase
+        2. **Business beheerder**: Een business beheerder is verantwoordelijk voor de inhoud van codelijsten en moet in staat zijn om nieuwe codes toe te voegen aan de codelijsten op basis van templates en andere codes
+        3. **Technisch beheerder**: Een technisch beheerder is niet verantwoordelijk voor de inhoud en moet in staat zijn om codelijsten structureel te valideren en te bepalen hoe deze gestructureerd worden en tot stand komen
+
+        > Een technisch beheerder moet alsook de nodige kennis hebben om afnemers en business te kunnen bijstaan in vragen en beslissingen
+    {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+    {% markdown %}
+        ## Het begrip codelijsten
+        ### ... vanuit het perspectief van business
+        > Parameters
+
+        ![](./images/parameters.png)
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Het begrip codelijsten
+        ### ... vanuit het perspectief van technisch beheerders
+        > Parameters, Aspecten, Variabelen, ...
+
+        ![](./images/csor.png)
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Het begrip codelijsten
+        ### ... vanuit het perspectief van technisch beheerders
+        > Web van dimensies die de totstandkoming van codes beschrijven
+
+        ![](./images/parameter.png)
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Het begrip codelijsten
+        ### ... vanuit het perspectief van technisch beheerders
+        ![](./images/vmm-parameters-3.png)
+    {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+    {% markdown %}
+        ## Simple Knowledge Organization System (SKOS)
+        SKOS is een W3C-standaard voor het modelleren van taxonomieën, thesauri en andere gecontroleerde vocabularia.
+        {.medium}
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Simple Knowledge Organization System
+        ### Concept (`skos:Concept`)
+        Conceptuele of intellectuele representatie van een idee of object. Een concept kan worden beschreven met labels, definities en relaties met andere concepten.
+        {.medium}
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Simple Knowledge Organization System
+        ### Conceptschemas (`skos:ConceptScheme`)
+        Een aggregatie van meerdere concepten die een bepaald domein beschrijven.
+        {.medium}
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Simple Knowledge Organization System
+        ### Relaties tussen concepten
+        - Hiërarchische relaties: `skos:broader`, `skos:narrower`
+        - Associatieve relaties: `skos:related`
+        - Mapping relaties: `skos:exactMatch`, `skos:closeMatch`, `skos:broadMatch`, `skos:narrowMatch`, `skos:relatedMatch`
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Simple Knowledge Organization System (SKOS)
+        ### Relaties tussen concepten en conceptschemas
+        - `skos:inScheme`: geeft aan dat een concept deel uitmaakt van een bepaald conceptschema.
+        - `skos:hasTopConcept`: geeft aan dat een concept een topconcept is binnen een bepaald conceptschema.
+    {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+    {% markdown %}
+        ## Uitbreidingen van SKOS
+        Linked Data zorgt dat concepten uitbreid kunnen worden met extra metadata. Voorbeelden zijn:
+        - Dublin Core Metadata Initiative (DCMI)
+        - Data Catalog Vocabulary (DCAT)
+        - SKOS-Thesaurus Extension (SKOS-Thes)
+    {% endmarkdown %}
+    </section>
+        <section>
+    {% markdown %}
+        ## Uitbreidingen van SKOS
+        ### dOMG uitbreidingen
+        > Vaak voorkomende predicates in codelijsten beheerd door dOMG
+
+        - `relevantCodeList`, `min`, `max`
+        - ...
+    {% endmarkdown %}
+    </section>
+       <section>
+    {% markdown %}
+        ## Uitbreidingen van SKOS
+        ### Eigen uitbreidingen
+        - `riepr:isVerplicht`: geeft aan dat een concept verplicht is in een bepaald proces of context.
+        - `riepr:isMeervoudig`: geeft aan dat een concept meerdere keren kan voorkomen in een bepaald proces of context.
+        - ...
+    {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+    {% markdown %}
+        ## Technisch beheer
+        1. Technische configuratie (config.yml en context)
+        2. CSV files (de codelijsten)
+        3. Transformatie
+        4. Publicatie
+        {.medium}
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Technisch beheer
+        ### Technische configuratie: config.yml
+
+        ```yaml
+        skos:
+          name: rie-iepr                 # IRI-basis
+          rules: [skos, dcterms, riepr]  # N3-regels
+        source:
+          codelijst_csv: [...]           # 29 CSV-bestanden
+          context: context.json
+        metadata: {...}                  # DCAT + versiebeheer
+        prefixes: {...}                  # CURIE → IRI
+        ```
+
+        - `skos` — outputpad, 7 formaten (ttl, jsonld, json, csv, nt, xlsx, parquet)
+        - `source` — welke CSV's, welke JSON-LD context
+        - `metadata` — DCAT-metadata + versiebeheer t.o.v. vorige publicatie
+        - `prefixes` + `deploy` — CURIE-prefixes, triplestore
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Technisch beheer
+        ### Technische configuratie: context.json
+
+        JSON-LD context: CSV-kolom → RDF-predicate
+
+        ```json
+        {
+          "_id":       { "@id": "@id", "@type": "@id" },
+          "prefLabel": { "@id": "skos:prefLabel", "@language": "nl" },
+          "broader":   { "@id": "skos:broader", "@type": "@id" },
+          "code":      { "@id": "skos:notation" }
+        }
+        ```
+
+        - 184 termen (IRI's hier afgekort)
+        - Bepaalt de betekenis én het datatype van elke kolomwaarde
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Technisch beheer
+        ### CSV files (de codelijsten)
+
+        Elk CSV-bestand in `src/source/` = één codelijst (`skos:ConceptScheme`)
+
+        ```csv
+        _id,_type,prefLabel,notation
+        conceptscheme:rubriek_type,skos:ConceptScheme,Rubriek types,
+        riepr-rubriek-type:vlarem,skos:Concept,VLAREM,vlarem
+        ```
+
+        - Kolommen = attributen: `prefLabel`, `definition`, `broader`, `relevantCodeList`, `isVerplicht`, ...
+        - **Structureel**: types en eigenschappen · **Operationeel**: thematische stromen
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Technisch beheer
+        ### Transformatie
+
+        `npm run generate_skos` (`01_codelijst_skos_from_csv.js`)
+
+        1. CSV → JSON-LD (kolom → predicate via `context.json`)
+        2. N3-reasoning (skos, dcterms, riepr-regels)
+        3. Validatie: prefixen + `relevantRiepr`-referenties
+        4. Versioning t.o.v. vorige publicatie
+        5. Output: json, jsonld, ttl, csv, nt, xlsx, parquet
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Technisch beheer
+        ### Transformatie: versioning
+
+        Diff met de vorige publicatie (`versioning.release_url`):
+
+        - **added** → `dct:created` + `adms:status = active`
+        - **edited** → `dct:modified` + `dct:isVersionOf` (lineage)
+        - **deleted** → `adms:status = withdrawn`
+        - Idempotent: versie-eigenschappen vóór de diff weggestript
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Technisch beheer
+        ### Transformatie: validatie
+
+        - `npm run csv:check` — consistent aantal kolommen per CSV
+        - Onbekende prefix of kapotte `relevantRiepr`-referentie → build faalt
+        - SHACL-shapes (AP-constraints) valideren de gegenereerde graaf
+        - Violaties → `validation_result.json` → build faalt
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Technisch beheer
+        ### Publicatie
+        ```mermaid
+        flowchart LR
+            GIT["GitHub<br/>codelijst-rie-iepr"] --> JENKINS["Jenkins<br/>Trivy · Sonar · Maven release"]
+            JENKINS --> ART["Artifactory"]
+            JENKINS --> VIRT["Virtuoso"]
+            JENKINS --> GHP["GitHub Pages (POC)"]
+        ```
+    {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+  <section>
+  {% markdown %}
+      ## Demo
+      ### Scenario 1. - Een vraag over typeringen
+      > De PO vraagt wat hij/zij moet doen om een (fictief) "chemische waterzuiveringsinstallatie" toe te voegen met dezelfde eigenschappen als een gewone waterzuiveringsinstallatie
+  {% endmarkdown %}
+  </section>
+    <section>
+  {% markdown %}
+      ## Demo
+      ### Scenario 2. - Een vraag over de structuur
+      > De PO wil een eigenschap toevoegen (fictief) "Meetgevoeligheid" aan een controleinrichting met volgende selectiemogelijkheden "licht gevoelig", "middelmatig gevoelig", "zeer gevoelig"
+  {% endmarkdown %}
+  </section>
+  <section>
+  {% markdown %}
+      ## Demo
+      ### Scenario 3. - Een vraag over validatie
+      > Het is 2028, we merken dat sommige exploitanten negatieve percentages ingeven. De PO vraag hoe we dit het beste oplossen.
+  {% endmarkdown %}
+  </section>
+  <section>
+  {% markdown %}
+      ## Demo
+      ### Scenario 4. - Een vraag over validatie
+      > Bijkomend willen we ook limiteren wat de nauwkeurigheid is van de hoogte van een schouw.
+  {% endmarkdown %}
+  </section>
+</section>

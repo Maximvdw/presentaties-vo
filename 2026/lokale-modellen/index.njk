@@ -1,0 +1,225 @@
+---
+layout: presentation.njk
+title: "Lokale LLM Modellen"
+subtitle: Basisconcepten en achter de schermen
+presentationDate: 2026-08-27
+status: WIP
+theme: omgeving
+author: Maxim Van de Wynckel
+organization: Departement Omgeving · Vrije Universiteit Brussel
+---
+
+<section>
+    <section>
+        {% markdown %}
+        # Documentatie van een open weight model
+        > Qwen 3.8:27b is a dense model avalable in FP16, Q8 and Q4 with the following recommended settings:
+        > Jinja template engine,
+        {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+        {% markdown %}
+        # Inhoud
+        1. Basis concepten van een LLM
+        2. Open weight VS open source
+        3. LLM backend (hosting)
+        4. LLM harnas (agent)
+        {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+        {% markdown %}
+        # Basis concepten van een LLM
+        ## Neuraal netwerk
+        > Van input naar output door vermenigvuldigingen van gewichten
+
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        # Basis concepten van een LLM
+        ## Large Language Model
+        - Bepaald tokens op basis van vorige (gegenereerde) tokens
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        # Basis concepten van een LLM
+        ## Token
+        - Token is een vectorieele voorstelling van een woord of stuk woord
+        - Elk model bepaald op verschillende manier zijn tokens (# tokens bij GPT-5.5 is niet gelijk aan # bij Claude Fable)
+        - Token bevat niet enkel tekst, maar ook **context**
+        {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+        {% markdown %}
+        # Reasoning
+        LLMs kunnen niet stil nadenken. Ze bepalen het volgende token a.h.v. voorgaande tokens.
+        - Reasoning is een onzichtbare beredenering die uitgeschreven is
+        - Vaak niet zichtbaar bij closed weight modellen omwille van reverse engineering
+        - Meestal niet permanent bewaard in de context
+        - Vaak met een budget (om eindeloos denken te vermijden)
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        # Reasoning ...
+        > "Kijk na waarom de cypress testen falen via npm run test."
+
+        De gebruiker vraag mij om na te kijken waarom de Cypress testen falen. Ik moet eerst bepalen
+        welke testen er zijn voordat ik kan bepalen waarom deze falen. Wacht, de gebruiker geeft aan dat ze falen via het commando npm run test, ik kan dit
+        uitvoeren. Wacht, misschien moet ik eerst zeker zijn en nagaan of dit commando effectief de testen start. Ik zal de package.json lezen om meer info te krijgen.
+        {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+    {% markdown %}
+        # Open weight VS open source
+        **Open weight**
+        - Gewichten gedeeld
+        - Architectuur impliciet gedeeld
+
+        **Open source**
+        - ...
+        - Training data gedeeld
+        - Architectuur gedeeld en uitgelegd
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        # Open weight VS open source
+        ## Training data
+        >
+    {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+    {% markdown %}
+        # LLM Backend
+        ## Ollama
+        - Snel te installeren om modellen te testen
+        - Weinig controle over de opties per model
+        - Niet performant
+        - Vaak niet de beste versie van een model
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        # LLM Backend
+        ## vLLM
+        - Moeilijk te installeren (server)
+        - Gemaakt voor concurrent productieomgevingen
+        - Zeer uitgebreide instellingen mogelijk
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        # LLM Backend
+        ## llama.cpp + llama-swap
+        - Web UI om te testen
+        - Performant
+        - Veel instellingen mogelijk
+        - GGUF versie van modellen nodig
+    {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+    {% markdown %}
+        # Harnas
+        - OpenCode
+        - Pi Agent
+        - Kilo Agent
+        - Continue
+    {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+    {% markdown %}
+        # Gewichten van een LLM
+        Gewichten zijn de getrainde parameters (rekensommen) die de LLM doorloopt bij het processen van een prompt en het genereren van nieuwe tokens.
+
+        **LLMs liggen tussen de 0.5B (miljard) en >3T (biljoen) parameters**
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        # Gewichten van een LLM
+        ## Quantization
+        Standaard zijn gewichten getrained met floating point 16-bit.
+        - Bij `Qwen3.8:27b` heb je dus 2-byte * 27 miljard = 54 GB
+        - Dit komt overeen met het geheugen dat je nodig hebt om het model te draaien (zonder context)
+        - Quantization verlaagt de precisie van de gewichten (naar 8-bit, 4-bit, ...)
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        # Gewichten van een LLM
+        ## Quantization ...
+        > Kleinere quantizations kunnen makkelijker op eigen hardware draaien maar zijn minder nauwkeurig.
+        Hoe ver je kan gaan met quantization hangt af per model (impact per parameter)
+    {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+    {% markdown %}
+        # Context van een LLM
+        1. Elk token in de prompt, output, reasoning*, tool-call telt mee bij de gehele context
+        2. Elk token (vector) bestaat uit een aantal dimensies (bv. 5120 bij `qwen3.8:27b`)
+        3. Elk getal in de vector heeft een grote (FP16, ...)
+
+        Een niet-geoptimaliseerde context van 128K bij `qwen3.8:27b` is dus 128.000 * 5120 * 2-bytes = 1.22 GB
+    {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+    {% markdown %}
+        # Mix of Experts
+
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        # Mix of Experts
+        > Gebaseerd op de filosofie dat je niet je hele brein nodig hebt voor alles wat je doet.
+
+        **Overgesimplificeerde analogie:**
+        Een apart stuk LLM voor security, voor Java, voor Frans, voor Chinees, ...
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        # Mix of Experts
+        ## Router
+        1. Voordat er een token gegenereerd wordt is er een snelle run doorheen het hele model.
+        2. De run bepaald welke neurons in de tussenlagen het meeste impact hebben.
+        3. De router kiest de beste `X` neuronen. De rest wordt niet gebruikt.
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        # Mix of Experts
+        ## Snelheid en Geheugenverbruik
+
+    {% endmarkdown %}
+    </section>
+</section>
