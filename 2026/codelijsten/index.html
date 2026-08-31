@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <title>Business concepten als codelijsten</title>
+  
+  
+  
+  
+  <meta name="author" content="Maxim Van de Wynckel">
+  
+</head>
+
+<link rel="stylesheet" href="/presentaties-vo/css/hljs.css">
+
+  
+  
+  
+  <body>
+    <link rel="stylesheet" href="/presentaties-vo/reveal.js/dist/reset.css">
+    <link rel="stylesheet" href="/presentaties-vo/reveal.js/dist/reveal.css">
+    
+    <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
+    
+    
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1788185256">
+    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1788185256">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1788185256">
+    
+    
+    
+
+    <div class="reveal omgeving">
+      <div class="slides">
+        <div class="slide-corner-icon slide-corner-icon--fixed">
+          
+          <i class="vl-vi vl-vi-vlaanderen"></i>
+          
+        </div>
+        
+        <section class="title-slide center" data-timing="15">
+          <div class="title-slide-before-bar"></div>
+          <div class="slide-wrapper">
+            <div class="slide-content">
+              <h1>Business concepten als codelijsten</h1>
+              
+              <h3>Simple Knowledge Organization System</h3>
+              
+              
+              <p class="author">Maxim Van de Wynckel</p>
+              
+              
+              <p class="organization">Departement Omgeving · Vrije Universiteit Brussel</p>
+              
+              
+              <p class="date">1 september 2026</p>
+              
+            </div>
+          </div>
+        </section>
+        
+
+        
+<section>
+<h2 id="inhoud" tabindex="-1">Inhoud</h2>
+<ol class="large">
+<li>Introductie</li>
+<li>Kennisniveau's bij codelijsten</li>
+<li>Het begrip codelijsten</li>
+<li>Simple Knowledge Organization System</li>
+<li>Uitbreidingen van SKOS</li>
+<li>Technisch beheer</li>
+<li>Demo a.h.v. secenario's</li>
+</ol>
+
+</section>
+
+<section>
+    <section>
+    <h2 id="introductie" tabindex="-1">Introductie</h2>
+<h3 id="concepten-en-codes" tabindex="-1">Concepten en codes</h3>
+<ul>
+<li>Hierarchische lijst van codes</li>
+<li>Associatieve relaties tussen codes</li>
+<li>Mapping relaties met bestaande concepten</li>
+</ul>
+
+    </section>
+    <section>
+    <h2 id="introductie" tabindex="-1">Introductie</h2>
+<h3 id="linked-open-data" tabindex="-1">Linked Open Data</h3>
+<p><strong>Subjects</strong> worden beschreven met <strong>predicates</strong> die naar <strong>objecten</strong> verwijzen</p>
+<p><object data="./images/lod2.svg" type="image/svg+xml" style="width: 100%; border: none;"></object></p>
+
+    </section>
+    <section>
+    <h2 id="introductie" tabindex="-1">Introductie</h2>
+<h3 id="linked-open-data-..." tabindex="-1">Linked Open Data ...</h3>
+<p><strong>CURIE</strong> (Compact URI) geeft prefixes aan een URI</p>
+<p><object data="./images/lod3.svg" type="image/svg+xml" style="width: 100%; border: none;"></object></p>
+
+    </section>
+    <section>
+    <h2 id="introductie" tabindex="-1">Introductie</h2>
+<h3 id="linked-open-data-..." tabindex="-1">Linked Open Data ...</h3>
+<p>Niet atomaire <strong>objecten</strong> kunnen op zichzelf ook <strong>subject</strong> zijn</p>
+<p><object data="./images/lod1.svg" type="image/svg+xml" style="width: 80%; border: none;"></object></p>
+
+    </section>
+    <section>
+    <h2 id="introductie" tabindex="-1">Introductie</h2>
+<h3 id="linked-open-data-..." tabindex="-1">Linked Open Data ...</h3>
+<blockquote>
+<p>Anyone can say anything about any topic (AAA)</p>
+</blockquote>
+<p><object data="./images/lod4.svg" type="image/svg+xml" style="width: 100%; border: none;"></object></p>
+
+    </section>
+    <section>
+    <h2 id="introductie" tabindex="-1">Introductie</h2>
+<h3 id="informatiemodel-en-datamodel" tabindex="-1">Informatiemodel en Datamodel</h3>
+<p><strong>Informatiemodel</strong> beschrijft <em>wat</em> het business domein omvat en de achterliggende betekenis</p>
+<p><strong>Datamodel</strong> beschrijft <em>hoe</em> data van het informatiemodel kan gecapteerd worden</p>
+
+    </section>
+    <section>
+    <h2 id="introductie" tabindex="-1">Introductie</h2>
+<h3 id="informatiemodel-en-datamodel-..." tabindex="-1">Informatiemodel en Datamodel ...</h3>
+<blockquote>
+<p>Codelijsten is de brug tussen het informatiemodel (business inhoud en vereisten) en hoe zich dit semantisch in data verhoud</p>
+</blockquote>
+
+    </section>
+</section>
+
+<section>
+    <section>
+    <h2 id="kennisniveau's-bij-codelijsten" tabindex="-1">Kennisniveau's bij codelijsten</h2>
+<ol>
+<li><strong>Afnemer</strong>: Een afnemer moet in staat zijn om de codelijsten op te halen en inhoudelijk te begrijpen voor zijn/haar afnameusecase</li>
+<li><strong>Business beheerder</strong>: Een business beheerder is verantwoordelijk voor de inhoud van codelijsten en moet in staat zijn om nieuwe codes toe te voegen aan de codelijsten op basis van templates en andere codes</li>
+<li><strong>Technisch beheerder</strong>: Een technisch beheerder is niet verantwoordelijk voor de inhoud en moet in staat zijn om codelijsten structureel te valideren en te bepalen hoe deze gestructureerd worden en tot stand komen</li>
+</ol>
+<blockquote>
+<p>Een technisch beheerder moet alsook de nodige kennis hebben om afnemers en business te kunnen bijstaan in vragen en beslissingen</p>
+</blockquote>
+
+    </section>
+</section>
+
+<section>
+    <section>
+    <h2 id="het-begrip-codelijsten" tabindex="-1">Het begrip codelijsten</h2>
+<h3 id="...-vanuit-het-perspectief-van-business" tabindex="-1">... vanuit het perspectief van business</h3>
+<blockquote>
+<p>Parameters</p>
+</blockquote>
+<p><img src="./images/parameters.png" alt=""></p>
+
+    </section>
+    <section>
+    <h2 id="het-begrip-codelijsten" tabindex="-1">Het begrip codelijsten</h2>
+<h3 id="...-vanuit-het-perspectief-van-technisch-beheerders" tabindex="-1">... vanuit het perspectief van technisch beheerders</h3>
+<blockquote>
+<p>Parameters, Aspecten, Variabelen, ...</p>
+</blockquote>
+<p><img src="./images/csor.png" alt=""></p>
+
+    </section>
+    <section>
+    <h2 id="het-begrip-codelijsten" tabindex="-1">Het begrip codelijsten</h2>
+<h3 id="...-vanuit-het-perspectief-van-technisch-beheerders" tabindex="-1">... vanuit het perspectief van technisch beheerders</h3>
+<blockquote>
+<p>Web van dimensies die de totstandkoming van codes beschrijven</p>
+</blockquote>
+<p><img src="./images/parameter.png" alt=""></p>
+
+    </section>
+    <section>
+    <h2 id="het-begrip-codelijsten" tabindex="-1">Het begrip codelijsten</h2>
+<h3 id="...-vanuit-het-perspectief-van-technisch-beheerders" tabindex="-1">... vanuit het perspectief van technisch beheerders</h3>
+<p><img src="./images/vmm-parameters-3.png" alt=""></p>
+
+    </section>
+</section>
+
+<section>
+    <section>
+    <h2 id="simple-knowledge-organization-system-(skos)" tabindex="-1">Simple Knowledge Organization System (SKOS)</h2>
+<p class="medium">SKOS is een W3C-standaard voor het modelleren van taxonomieën, thesauri en andere gecontroleerde vocabularia.</p>
+
+    </section>
+    <section>
+    <h2 id="simple-knowledge-organization-system" tabindex="-1">Simple Knowledge Organization System</h2>
+<h3 id="concept-(skos%3Aconcept)" tabindex="-1">Concept (<code>skos:Concept</code>)</h3>
+<p class="medium">Conceptuele of intellectuele representatie van een idee of object. Een concept kan worden beschreven met labels, definities en relaties met andere concepten.</p>
+
+    </section>
+    <section>
+    <h2 id="simple-knowledge-organization-system" tabindex="-1">Simple Knowledge Organization System</h2>
+<h3 id="conceptschemas-(skos%3Aconceptscheme)" tabindex="-1">Conceptschemas (<code>skos:ConceptScheme</code>)</h3>
+<p class="medium">Een aggregatie van meerdere concepten die een bepaald domein beschrijven.</p>
+
+    </section>
+    <section>
+    <h2 id="simple-knowledge-organization-system" tabindex="-1">Simple Knowledge Organization System</h2>
+<h3 id="relaties-tussen-concepten" tabindex="-1">Relaties tussen concepten</h3>
+<ul>
+<li>Hiërarchische relaties: <code>skos:broader</code>, <code>skos:narrower</code></li>
+<li>Associatieve relaties: <code>skos:related</code></li>
+<li>Mapping relaties: <code>skos:exactMatch</code>, <code>skos:closeMatch</code>, <code>skos:broadMatch</code>, <code>skos:narrowMatch</code>, <code>skos:relatedMatch</code></li>
+</ul>
+
+    </section>
+    <section>
+    <h2 id="simple-knowledge-organization-system-(skos)" tabindex="-1">Simple Knowledge Organization System (SKOS)</h2>
+<h3 id="relaties-tussen-concepten-en-conceptschemas" tabindex="-1">Relaties tussen concepten en conceptschemas</h3>
+<ul>
+<li><code>skos:inScheme</code>: geeft aan dat een concept deel uitmaakt van een bepaald conceptschema.</li>
+<li><code>skos:hasTopConcept</code>: geeft aan dat een concept een topconcept is binnen een bepaald conceptschema.</li>
+</ul>
+
+    </section>
+</section>
+
+<section>
+    <section>
+    <h2 id="uitbreidingen-van-skos" tabindex="-1">Uitbreidingen van SKOS</h2>
+<p>Linked Data zorgt dat concepten uitbreid kunnen worden met extra metadata. Voorbeelden zijn:</p>
+<ul>
+<li>Dublin Core Metadata Initiative (DCMI)</li>
+<li>Data Catalog Vocabulary (DCAT)</li>
+<li>SKOS-Thesaurus Extension (SKOS-Thes)</li>
+</ul>
+
+    </section>
+        <section>
+    <h2 id="uitbreidingen-van-skos" tabindex="-1">Uitbreidingen van SKOS</h2>
+<h3 id="domg-uitbreidingen" tabindex="-1">dOMG uitbreidingen</h3>
+<blockquote>
+<p>Vaak voorkomende predicates in codelijsten beheerd door dOMG</p>
+</blockquote>
+<ul>
+<li><code>relevantCodeList</code>, <code>min</code>, <code>max</code></li>
+<li>...</li>
+</ul>
+
+    </section>
+       <section>
+    <h2 id="uitbreidingen-van-skos" tabindex="-1">Uitbreidingen van SKOS</h2>
+<h3 id="eigen-uitbreidingen" tabindex="-1">Eigen uitbreidingen</h3>
+<ul>
+<li><code>riepr:isVerplicht</code>: geeft aan dat een concept verplicht is in een bepaald proces of context.</li>
+<li><code>riepr:isMeervoudig</code>: geeft aan dat een concept meerdere keren kan voorkomen in een bepaald proces of context.</li>
+<li>...</li>
+</ul>
+
+    </section>
+</section>
+
+<section>
+    <section>
+    <h2 id="technisch-beheer" tabindex="-1">Technisch beheer</h2>
+<ol class="medium">
+<li>Technische configuratie (config.yml en context)</li>
+<li>CSV files (de codelijsten)</li>
+<li>Transformatie</li>
+<li>Publicatie</li>
+</ol>
+
+    </section>
+    <section>
+    <h2 id="technisch-beheer" tabindex="-1">Technisch beheer</h2>
+<h3 id="technische-configuratie%3A-config.yml" tabindex="-1">Technische configuratie: config.yml</h3>
+<pre class="hljs language-yaml"><span class="hljs-attr">skos:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">rie-iepr</span>                 <span class="hljs-comment"># IRI-basis</span>
+  <span class="hljs-attr">rules:</span> [<span class="hljs-string">skos</span>, <span class="hljs-string">dcterms</span>, <span class="hljs-string">riepr</span>]  <span class="hljs-comment"># N3-regels</span>
+<span class="hljs-attr">source:</span>
+  <span class="hljs-attr">codelijst_csv:</span> [<span class="hljs-string">...</span>]           <span class="hljs-comment"># 29 CSV-bestanden</span>
+  <span class="hljs-attr">context:</span> <span class="hljs-string">context.json</span>
+<span class="hljs-attr">metadata:</span> {<span class="hljs-string">...</span>}                  <span class="hljs-comment"># DCAT + versiebeheer</span>
+<span class="hljs-attr">prefixes:</span> {<span class="hljs-string">...</span>}                  <span class="hljs-comment"># CURIE → IRI</span>
+</pre><ul>
+<li><code>skos</code> — outputpad, 7 formaten (ttl, jsonld, json, csv, nt, xlsx, parquet)</li>
+<li><code>source</code> — welke CSV's, welke JSON-LD context</li>
+<li><code>metadata</code> — DCAT-metadata + versiebeheer t.o.v. vorige publicatie</li>
+<li><code>prefixes</code> + <code>deploy</code> — CURIE-prefixes, triplestore</li>
+</ul>
+
+    </section>
+    <section>
+    <h2 id="technisch-beheer" tabindex="-1">Technisch beheer</h2>
+<h3 id="technische-configuratie%3A-context.json" tabindex="-1">Technische configuratie: context.json</h3>
+<p>JSON-LD context: CSV-kolom → RDF-predicate</p>
+<pre class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span>       <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;@id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;@id&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;@type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;@id&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;prefLabel&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;@id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;skos:prefLabel&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;@language&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;nl&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;broader&quot;</span><span class="hljs-punctuation">:</span>   <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;@id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;skos:broader&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;@type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;@id&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;code&quot;</span><span class="hljs-punctuation">:</span>      <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;@id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;skos:notation&quot;</span> <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</pre><ul>
+<li>184 termen (IRI's hier afgekort)</li>
+<li>Bepaalt de betekenis én het datatype van elke kolomwaarde</li>
+</ul>
+
+    </section>
+    <section>
+    <h2 id="technisch-beheer" tabindex="-1">Technisch beheer</h2>
+<h3 id="csv-files-(de-codelijsten)" tabindex="-1">CSV files (de codelijsten)</h3>
+<p>Elk CSV-bestand in <code>src/source/</code> = één codelijst (<code>skos:ConceptScheme</code>)</p>
+<pre><code>_id,_type,prefLabel,notation
+conceptscheme:rubriek_type,skos:ConceptScheme,Rubriek types,
+riepr-rubriek-type:vlarem,skos:Concept,VLAREM,vlarem
+</code></pre><ul>
+<li>Kolommen = attributen: <code>prefLabel</code>, <code>definition</code>, <code>broader</code>, <code>relevantCodeList</code>, <code>isVerplicht</code>, ...</li>
+<li><strong>Structureel</strong>: types en eigenschappen · <strong>Operationeel</strong>: thematische stromen</li>
+</ul>
+
+    </section>
+    <section>
+    <h2 id="technisch-beheer" tabindex="-1">Technisch beheer</h2>
+<h3 id="transformatie" tabindex="-1">Transformatie</h3>
+<p><code>npm run generate_skos</code> (<code>01_codelijst_skos_from_csv.js</code>)</p>
+<ol>
+<li>CSV → JSON-LD (kolom → predicate via <code>context.json</code>)</li>
+<li>N3-reasoning (skos, dcterms, riepr-regels)</li>
+<li>Validatie: prefixen + <code>relevantRiepr</code>-referenties</li>
+<li>Versioning t.o.v. vorige publicatie</li>
+<li>Output: json, jsonld, ttl, csv, nt, xlsx, parquet</li>
+</ol>
+
+    </section>
+    <section>
+    <h2 id="technisch-beheer" tabindex="-1">Technisch beheer</h2>
+<h3 id="transformatie%3A-versioning" tabindex="-1">Transformatie: versioning</h3>
+<p>Diff met de vorige publicatie (<code>versioning.release_url</code>):</p>
+<ul>
+<li><strong>added</strong> → <code>dct:created</code> + <code>adms:status = active</code></li>
+<li><strong>edited</strong> → <code>dct:modified</code> + <code>dct:isVersionOf</code> (lineage)</li>
+<li><strong>deleted</strong> → <code>adms:status = withdrawn</code></li>
+<li>Idempotent: versie-eigenschappen vóór de diff weggestript</li>
+</ul>
+
+    </section>
+    <section>
+    <h2 id="technisch-beheer" tabindex="-1">Technisch beheer</h2>
+<h3 id="transformatie%3A-validatie" tabindex="-1">Transformatie: validatie</h3>
+<ul>
+<li><code>npm run csv:check</code> — consistent aantal kolommen per CSV</li>
+<li>Onbekende prefix of kapotte <code>relevantRiepr</code>-referentie → build faalt</li>
+<li>SHACL-shapes (AP-constraints) valideren de gegenereerde graaf</li>
+<li>Violaties → <code>validation_result.json</code> → build faalt</li>
+</ul>
+
+    </section>
+    <section>
+    <h2 id="technisch-beheer" tabindex="-1">Technisch beheer</h2>
+<h3 id="publicatie" tabindex="-1">Publicatie</h3>
+<div class="mermaid">
+flowchart LR
+    GIT[&quot;GitHub&lt;br/&gt;codelijst-rie-iepr&quot;] --&gt; JENKINS[&quot;Jenkins&lt;br/&gt;Trivy · Sonar · Maven release&quot;]
+    JENKINS --&gt; ART[&quot;Artifactory&quot;]
+    JENKINS --&gt; VIRT[&quot;Virtuoso&quot;]
+    JENKINS --&gt; GHP[&quot;GitHub Pages (POC)&quot;]
+
+</div>
+    </section>
+</section>
+
+<section>
+  <section>
+  <h2 id="demo" tabindex="-1">Demo</h2>
+<h3 id="scenario-1.---een-vraag-over-typeringen" tabindex="-1">Scenario 1. - Een vraag over typeringen</h3>
+<blockquote>
+<p>De PO vraagt wat hij/zij moet doen om een (fictief) &quot;chemische waterzuiveringsinstallatie&quot; toe te voegen met dezelfde eigenschappen als een gewone waterzuiveringsinstallatie</p>
+</blockquote>
+
+  </section>
+    <section>
+  <h2 id="demo" tabindex="-1">Demo</h2>
+<h3 id="scenario-2.---een-vraag-over-de-structuur" tabindex="-1">Scenario 2. - Een vraag over de structuur</h3>
+<blockquote>
+<p>De PO wil een eigenschap toevoegen (fictief) &quot;Meetgevoeligheid&quot; aan een controleinrichting met volgende selectiemogelijkheden &quot;licht gevoelig&quot;, &quot;middelmatig gevoelig&quot;, &quot;zeer gevoelig&quot;</p>
+</blockquote>
+
+  </section>
+  <section>
+  <h2 id="demo" tabindex="-1">Demo</h2>
+<h3 id="scenario-3.---een-vraag-over-validatie" tabindex="-1">Scenario 3. - Een vraag over validatie</h3>
+<blockquote>
+<p>Het is 2028, we merken dat sommige exploitanten negatieve percentages ingeven. De PO vraag hoe we dit het beste oplossen.</p>
+</blockquote>
+
+  </section>
+  <section>
+  <h2 id="demo" tabindex="-1">Demo</h2>
+<h3 id="scenario-4.---een-vraag-over-validatie" tabindex="-1">Scenario 4. - Een vraag over validatie</h3>
+<blockquote>
+<p>Bijkomend willen we ook limiteren wat de nauwkeurigheid is van de hoogte van een schouw.</p>
+</blockquote>
+
+  </section>
+</section>
+
+
+      </div>
+    </div>
+
+    <script src="/presentaties-vo/reveal.js/dist/reveal.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/notes/notes.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/zoom/zoom.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/search/search.js"></script>
+    
+    <!-- Expose Reveal globally for decktape compatibility -->
+    <script>
+      window.Reveal = Reveal;
+    </script>
+    
+    <script type="module">
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1788185256';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1788185256';
+      
+      // Make mermaid available globally
+      window.mermaidInstance = Mermaid;
+      
+      Mermaid.initialize({ 
+        startOnLoad: false, 
+        theme: 'default',
+        securityLevel: 'loose',
+        fontFamily: 'Flanders Art Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif',
+        fontSize: 12,
+        flowchart: {
+          useMaxWidth: true
+        },
+        themeVariables: {
+          fontFamily: 'Flanders Art Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif',
+          fontSize: '12px'
+        }
+      });
+
+      const options = {
+        center: false,
+        margin: 0.08,
+        transition: 'slide',
+        slideNumber: true,
+        width: 1280,
+        height: 720,
+        controls: true,
+        progress: true,
+        history: true,
+        plugins: [ 
+          RevealMarkdown, 
+          RevealHighlight, 
+          RevealNotes,
+          RevealZoom,
+          RevealSearch
+        ],
+        
+      };
+
+      // Initialize presentation
+      const urlParams = new URLSearchParams(window.location.search);
+
+      if (urlParams.has('presenter') || window.location.search.indexOf('presenter') > -1) {
+        // Presenter mode: linear navigation, hide controls and use compact slide numbering
+        const presenterOptions = Object.assign({}, options, {
+          navigationMode: 'linear',
+          slideNumber: 'c',
+          controls: false
+        });
+
+        console.log('Starting in presenter mode');
+        initPresentation({ initialize: () => Reveal.initialize(presenterOptions) });
+
+        // Add presenter-specific behavior after Reveal ready
+        Reveal.on('ready', () => {
+          // When generating PDF, remove uncounted pages
+          Reveal.on && Reveal.on('pdf-ready', () => {
+            document.querySelectorAll(`.pdf-page section[data-visibility="uncounted"]`).forEach(e => e.closest('.pdf-page').remove());
+          });
+
+          // Ensure linear navigation for slides marked with data-visibility
+          Reveal.on('slidechanged', (event) => {
+            if (!event.currentSlide) return;
+            if (event.currentSlide.hasAttribute('data-visibility') && !Reveal.isOverview()) {
+              const prevIndices = Reveal.getIndices(event.previousSlide);
+              const currentIndices = Reveal.getIndices(event.currentSlide);
+              if (prevIndices.h < currentIndices.h || (prevIndices.h === currentIndices.h && prevIndices.v < currentIndices.v)) {
+                Reveal.next();
+              } else if (prevIndices.h > currentIndices.h || (prevIndices.h === currentIndices.h && prevIndices.v > currentIndices.v)) {
+                Reveal.prev();
+              }
+            }
+          });
+        });
+      } else {
+        initPresentation({ initialize: () => Reveal.initialize(options) });
+      }
+      
+      // Initialize Mermaid configuration first
+      if (window.mermaidInstance) {
+        initMermaid(window.mermaidInstance);
+        
+        // Assign unique IDs to all mermaid diagrams
+        let diagramCounter = 0;
+        document.querySelectorAll('.mermaid').forEach(diagram => {
+          if (!diagram.id) {
+            diagram.id = `mermaid-${diagramCounter++}`;
+          }
+        });
+        
+        const renderedDiagrams = new Set();
+        
+        // Render diagrams when a slide is shown
+        const renderDiagramsOnSlide = async () => {
+          const currentSlide = Reveal.getCurrentSlide();
+          if (!currentSlide) return;
+          
+          const diagrams = currentSlide.querySelectorAll('.mermaid');
+          
+          for (const diagram of diagrams) {
+            const diagramId = diagram.id;
+            
+            // Only render if not already rendered
+            if (!renderedDiagrams.has(diagramId)) {
+              renderedDiagrams.add(diagramId);
+              
+              // Wait a tick to ensure layout is ready
+              await new Promise(resolve => setTimeout(resolve, 50));
+              
+              try {
+                await window.mermaidInstance.run({
+                  nodes: [diagram],
+                });
+                
+                // Setup pan/zoom after rendering
+                if (window.setupMermaidPanZoom) {
+                  window.setupMermaidPanZoom();
+                }
+              } catch (error) {
+                console.error('Mermaid rendering error for ' + diagramId + ':', error);
+              }
+            }
+          }
+        };
+        
+        // Render on ready and on slide changes
+        Reveal.on('ready', renderDiagramsOnSlide);
+        Reveal.on('slidechanged', renderDiagramsOnSlide);
+      }
+    </script>
+  </body>
+</html>
