@@ -76,6 +76,8 @@ organization: Departement Omgeving · Vrije Universiteit Brussel
         **Informatiemodel** beschrijft *wat* het business domein omvat en de achterliggende betekenis
 
         **Datamodel** beschrijft *hoe* data van het informatiemodel kan gecapteerd worden
+
+        ![](./images/informatiemodel.png)
     {% endmarkdown %}
     </section>
     <section>
@@ -293,6 +295,17 @@ organization: Departement Omgeving · Vrije Universiteit Brussel
         3. Validatie: prefixen + `relevantRiepr`-referenties
         4. Versioning t.o.v. vorige publicatie
         5. Output: json, jsonld, ttl, csv, nt, xlsx, parquet
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Technisch beheer
+        ### Transformatie: embedding
+
+        Codelijsten worden gemerged in een enkele JSON(-LD).
+
+        **src/utils/variables.js**
+        Configureerd de nesting van concepten
     {% endmarkdown %}
     </section>
     <section>
