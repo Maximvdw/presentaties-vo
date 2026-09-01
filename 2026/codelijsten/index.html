@@ -25,9 +25,9 @@
     <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
     
     
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1788185737">
-    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1788185737">
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1788185737">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1788248605">
+    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1788248605">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1788248605">
     
     
     
@@ -123,6 +123,7 @@
 <h3 id="informatiemodel-en-datamodel" tabindex="-1">Informatiemodel en Datamodel</h3>
 <p><strong>Informatiemodel</strong> beschrijft <em>wat</em> het business domein omvat en de achterliggende betekenis</p>
 <p><strong>Datamodel</strong> beschrijft <em>hoe</em> data van het informatiemodel kan gecapteerd worden</p>
+<p><img src="./images/informatiemodel.png" alt=""></p>
 
     </section>
     <section>
@@ -334,6 +335,14 @@ riepr-rubriek-type:vlarem,skos:Concept,VLAREM,vlarem
     </section>
     <section>
     <h2 id="technisch-beheer" tabindex="-1">Technisch beheer</h2>
+<h3 id="transformatie%3A-embedding" tabindex="-1">Transformatie: embedding</h3>
+<p>Codelijsten worden gemerged in een enkele JSON(-LD).</p>
+<p><strong>src/utils/variables.js</strong><br>
+Configureerd de nesting van concepten</p>
+
+    </section>
+    <section>
+    <h2 id="technisch-beheer" tabindex="-1">Technisch beheer</h2>
 <h3 id="transformatie%3A-versioning" tabindex="-1">Transformatie: versioning</h3>
 <p>Diff met de vorige publicatie (<code>versioning.release_url</code>):</p>
 <ul>
@@ -421,8 +430,8 @@ flowchart LR
     </script>
     
     <script type="module">
-      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1788185737';
-      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1788185737';
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1788248605';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1788248605';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;
