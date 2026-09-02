@@ -141,8 +141,12 @@ async function startStaticServer(preferredPort = 8080) {
   });
 }
 
+// Onthoudt of Chromium met sandbox kan draaien (null = nog niet getest)
+let sandboxWorks = process.env.EXPORT_NO_SANDBOX === '1' ? false : null;
+
 async function runDecktape(url, outputPath) {
   const { spawn } = await import('child_process');
+  const noSandbox = sandboxWorks === false;
   const args = [
     'decktape',
     url,
@@ -150,15 +154,34 @@ async function runDecktape(url, outputPath) {
     `--size=${BASE_WIDTH}x${BASE_HEIGHT}`,
     '--load-pause', '5000',
   ];
+  if (noSandbox) {
+    args.push('--chrome-arg=--no-sandbox');
+  }
 
-  return new Promise((resolve, reject) => {
+  const lastError = { output: '' };
+  const once = () => new Promise((resolve, reject) => {
     const proc = spawn('npx', args, { stdio: ['ignore', 'pipe', 'pipe'] });
 
-    proc.stdout.on('data', d => console.log(d.toString()));
-    proc.stderr.on('data', d => console.error(d.toString()));
+    proc.stdout.on('data', d => { lastError.output += d.toString(); console.log(d.toString()); });
+    proc.stderr.on('data', d => { lastError.output += d.toString(); console.error(d.toString()); });
     proc.on('close', code => code === 0 ? resolve() : reject(new Error(`Decktape exited with code ${code}`)));
     proc.on('error', err => reject(err));
   });
+
+  try {
+    await once();
+    if (sandboxWorks === null) sandboxWorks = true;
+    return;
+  } catch (err) {
+    if (noSandbox === false && lastError.output.includes('No usable sandbox')) {
+      sandboxWorks = false;
+      console.log('⚠️ Chromium-sandbox niet beschikbaar, opnieuw proberen met --no-sandbox');
+      lastError.output = '';
+      args.push('--chrome-arg=--no-sandbox');
+      return once();
+    }
+    throw err;
+  }
 }
 
 async function exportPresentation(presentation, baseUrl) {
