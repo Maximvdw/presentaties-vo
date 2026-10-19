@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ site.baseUrl }}/reveal.js/dist/reset.css">
     <link rel="stylesheet" href="{{ site.baseUrl }}/reveal.js/dist/reveal.css">
     {% if active_theme != 'vlaanderen' and active_theme != 'omgeving' and active_theme != 'vlaanderen-international' and active_theme %}
-    <link rel="stylesheet" href="/reveal.js/dist/theme/{{ active_theme }}.css">
+    <link rel="stylesheet" href="{{ site.baseUrl }}/reveal.js/dist/theme/{{ active_theme }}.css">
     {% endif %}
     <link rel="stylesheet" href="{{ site.baseUrl }}/reveal.js/plugin/highlight/monokai.css">
     {% if active_theme == 'vlaanderen' or not active_theme %}
@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ site.baseUrl }}/css/vlaanderen-theme.css?{{ builddate }}">
     <link rel="stylesheet" href="{{ site.baseUrl }}/css/vlaanderen-international-theme.css?{{ builddate }}">
     {% endif %}
+    <link rel="stylesheet" href="{{ site.baseUrl }}/css/claper.css?{{ builddate }}">
     {% if custom_css %}
     <link rel="stylesheet" href="{{ custom_css }}?{{ builddate }}">
     {% endif %}
@@ -80,6 +81,7 @@
     <script type="module">
       import { default as Mermaid } from '{{ site.baseUrl }}/js/mermaid/mermaid.esm.min.mjs?{{ builddate }}';
       import { initPresentation, initMermaid } from '{{ site.baseUrl }}/js/presentation.js?{{ builddate }}';
+      import { initClaper } from '{{ site.baseUrl }}/js/claper.js?{{ builddate }}';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;
@@ -159,6 +161,8 @@
       } else {
         initPresentation({ initialize: () => Reveal.initialize(options) });
       }
+
+      initClaper(Reveal);
       
       // Initialize Mermaid configuration first
       if (window.mermaidInstance) {

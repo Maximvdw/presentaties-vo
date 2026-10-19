@@ -1,0 +1,744 @@
+---
+layout: presentation.njk
+title: "Interoperabele Overheidsapplicaties"
+subtitle: "Kennismaking met Linked Data voor toekomstbestendige datamodellering"
+summary: "In een datagedreven overheid is het essentieel dat applicaties probleemloos gegevens kunnen uitwisselen. Daarnaast moeten ze bestand zijn tegen wijzigende regelgeving. In deze workshop verkennen we wat applicaties en datamodellen 'interoperabel' maakt, en welke rol Linked Data daarin speelt. De workshop biedt een high-level overzicht van de betrokken technologieën, met aandacht voor zowel de voordelen als de nadelen waarmee rekening moet worden gehouden."
+presentationDate: 2026-12-03
+status: wip
+theme: vlaanderen
+author: Maxim Van de Wynckel
+organization: Departement Omgeving
+---
+
+<section>
+    {% markdown %}
+        ## Doelstelling van de workshop
+        1. Probleemstelling bij huidige applicaties
+
+        {.large}
+    {% endmarkdown %}
+    <aside class="notes">
+        Hallo, ik ben Maxim Van de Wynckel en ik werk op het Departement Omgeving. Ik zit in een ontwikkelteam, maar met een expertise in linked data en applicaties die makkelijk gegevens kunnen uitwisselen.
+        Het komende uur wil ik een high level overzicht geven van interoperable overheidsapplicaties en linked data. Zowel de voordelen, maar ook de nadelen en hindernissen waar je mee geconfronteerd gaat worden.
+
+        Voor deze workshop
+    </aside>
+</section>
+
+<section>
+    <section>
+        {% markdown %}
+            ## Probleemstelling
+            ### "Wat is een smartphone?"
+        {% endmarkdown %}
+        <div style="margin-top: 1rem; display: grid; grid-template-columns: 1fr 130px 1fr; align-items: center; column-gap: 1rem;">
+            <div style="text-align: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.8rem;">
+                <img src="./images/smartphone-display.jpg" alt="Smartphone" style="height: 180px; object-fit: cover;">
+                <div style="font-size: 0.75em; margin-top: 0.4rem;">Smartphone</div>
+            </div>
+            <div style="text-align: center; color: #1f5fbf; font-size: 2.3em; line-height: 1.2;">
+                <div>↗</div>
+                <div>↘</div>
+            </div>
+            <div style="display: grid; row-gap: 0.8rem;">
+                <div style="display: flex; align-items: center; gap: 0.6rem; justify-content: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.6rem;">
+                    <img src="./images/nokia-6300.jpg" alt="GSM (oude Nokia)" style="height: 90px; object-fit: cover;">
+                    <span style="font-size: 0.7em;">GSM</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.6rem; justify-content: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.6rem;">
+                    <img src="./images/excel-named-variables.png" alt="WIMP-programma (Excel)" style="height: 90px; object-fit: cover;">
+                    <span style="font-size: 0.7em;">Programma</span>
+                </div>
+            </div>
+        </div>
+        {% markdown %}
+            > Een gsm waar je programma's op kan draaien
+        {% endmarkdown %}
+        <aside class="notes">
+            Ik begin deze workshop graag met een hypothetische vraag. Stel, je gaat terug in de tijd naar een onbekend jaar en je krijgt de vraag om te beschrijven wat een smartphone is.
+            Je weet niet welk jaar je bent dus je begint je beschrijving simpel met "een gsm waar je programma's op kan draaien"
+        </aside>
+    </section>
+    <section>
+        {% markdown %}
+            ## Probleemstelling
+            ### "Wat is een gsm?", "Wat is een programma?"
+        {% endmarkdown %}
+        <div style="margin-top: 0.8rem; display: grid; grid-template-columns: 1fr 70px 1fr 100px 1fr; grid-template-rows: auto auto; align-items: center; column-gap: 0.5rem; row-gap: 0.8rem;">
+            <div style="grid-column: 1; grid-row: 1 / span 2; text-align: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.7rem;">
+                <img src="./images/smartphone-display.jpg" alt="Smartphone" style="height: 210px; object-fit: cover;">
+                <div style="font-size: 0.65em;">Smartphone</div>
+            </div>
+
+            <div style="grid-column: 2; grid-row: 1; text-align: center; font-size: 1.9em; color: #1f5fbf;">↗</div>
+            <div style="grid-column: 2; grid-row: 2; text-align: center; font-size: 1.9em; color: #1f5fbf;">↘</div>
+
+            <div style="grid-column: 3; grid-row: 1; text-align: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.5rem;">
+                <img src="./images/nokia-6300.jpg" alt="GSM" style="height: 95px; object-fit: cover;">
+                <div style="font-size: 0.65em;">GSM</div>
+            </div>
+            <div style="grid-column: 3; grid-row: 2; text-align: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.5rem;">
+                <img src="./images/excel-named-variables.png" alt="Programma" style="height: 95px; object-fit: cover;">
+                <div style="font-size: 0.65em;">Programma</div>
+            </div>
+
+            <div style="grid-column: 4; grid-row: 1; text-align: center; color: #9a3412;">
+                <div style="font-size: 1.4em;">⟶</div>
+                <div style="font-size: 1.6em; line-height: 0.8;">✕</div>
+            </div>
+            <div style="grid-column: 4; grid-row: 2; text-align: center; font-size: 1.9em; color: #9a3412;">⟶</div>
+
+            <div style="grid-column: 5; grid-row: 1; text-align: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.5rem;">
+                <img src="./images/rotary-telephone.jpg" alt="Telefoon met draad" style="height: 95px; object-fit: cover;">
+                <div style="font-size: 0.65em;">Telefoon met draad</div>
+            </div>
+            <div style="grid-column: 5; grid-row: 2; text-align: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.5rem;">
+                <img src="./images/code-monitor.jpg" alt="Programma" style="height: 95px; object-fit: cover;">
+                <div style="font-size: 0.65em;">Programma</div>
+            </div>
+        </div>
+        {% markdown %}
+            > Een gsm is een draadloze telefoon, ...
+        {% endmarkdown %}
+        <aside class="notes">
+            Maar je krijgt vervolgvragen. "Wat is een gsm?" bijvoorbeeld. En je legt uit dat het een draadloze telefoon is en dat programma's stukken code zijn die taken vereenvoudigen.
+        </aside>
+    </section>
+    <section>
+        {% markdown %}
+            ## Probleemstelling
+            ### Drift in betekenis
+        {% endmarkdown %}
+        <div style="margin-top: 1rem; display: grid; grid-template-columns: 1fr 120px 1fr; align-items: center; column-gap: 0.8rem;">
+            <div style="text-align: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.6rem;">
+                <img src="./images/smartphone-full.jpg" alt="Volledige smartphone" style="height: 170px; object-fit: cover;">
+                <div style="font-size: 0.68em; margin-top: 0.35rem;">Vandaag: smartphone (volledig toestel)</div>
+            </div>
+            <div style="text-align: center; color: #1f5fbf;">
+                <div style="font-size: 2em;">⟷</div>
+                <div style="font-size: 0.55em;">betekenis schuift</div>
+            </div>
+            <div style="text-align: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.6rem;">
+                <img src="./images/hologram-phone-2018.jpg" alt="Recente hologram smartphone-demo" style="height: 170px; object-fit: cover;">
+                <div style="font-size: 0.68em; margin-top: 0.35rem;">Recente sci-fi interpretatie: hologram-demo (2018)</div>
+            </div>
+        </div>
+        <aside class="notes">
+            En deze uitleg zal je blijven geven tot dat het duidelijk is voor de persoon voor jou wat de betekenis van het woord 'smartphone' is.
+            Wat je merkt is dat je gaat beschrijven aan de hand van jou veronderstelling dat de persoon kent. En als dit niet voldoende is ga je altijd dieper en meer
+            in detail gaan beschrijven wat het betekend. En van zodra je stopt met deze beschrijving dan ga je verder met de interpretatie en kennis van de afnemer over die term, ook al
+            komt die misschien niet overeen met wat jij voor ogen hebt.
+        </aside>
+    </section>
+    <section>
+        {% markdown %}
+            ## Probleemstelling
+            ### Drift in betekenis ...
+            <!-- TODO:
+                Een tekening van twee applicaties (icons). Een loket waar een dosser
+            -->
+        {% endmarkdown %}
+        <aside class="notes">
+            Overheidsapplicaties zijn gelijkaardig. We spreken over data die soms 10 jaar of langer moet meegaan. En historisch of tussen applicaties door heb je gelijkaardige termen zoals 'dossier', 'basisdossier',
+            'stamdossier' en 'aangifte' - maar liggen die vaak niet per applicatie gelijk.
+        </aside>
+    </section>
+</section>
+
+<!-- TODO: Poll vragen naar ervaring wat de grootste problemen zijn met huidige samenwerking met andere applicaties en hun data -->
+
+<section>
+    <section>
+    {% markdown %}
+        ## Interoperabiliteit
+        > Interoperabiliteit is het vermogen van verschillende computersystemen of programma's om naadloos informatie uit te wisselen op een manier die **toegankelijk**, **leesbaar** en **begrijpelijk** is voor andere systemen.
+
+        Of samengevat: een uniforme en gestandardiseerde manier van **informatie**uitwisseling
+        {.medium}
+        {% endmarkdown %}
+        <aside class="notes">
+            En dit brengt ons naar interoperabiliteit. Letterlijk gedefinieerd is interoperabiliteit is het vermogen van verschillende systemen om informatie uit te wisselen die toegangkelijk, leesbaar en begrijpelijk is voor anderen.
+            Wat eigenlijk neerkomt dat we op een uniforme en gestandaardiseerde manier 'informatie' kunnen uitwisselen.
+        </aside>
+    </section>
+    <section>
+    {% markdown %}
+        ## Interoperabiliteit
+        ### Toegankelijkheid
+        > Het moet voor een agentschap of departement, of in sommige gevallen eindgebruikers mogelijk zijn om toegang te krijgen tot data
+        {% endmarkdown %}
+        <img src="./images/interop-find.svg" alt="Iemand vraagt alle data over een gebouw op, maar weet niet waar" class="interop-img" style="height: 260px">
+        <aside class="notes">
+        Bij het toegankelijke ga ik niet te lang blijven stilstaan. Concreet houdt het in dat er manieren moeten bestaan voor een ander agentschap, departement of eindgebruiker om toegang te krijgen tot data waar
+        dit verantwoord is. Maar algemeen is dit iets dat via regelgeving en stuurgroepen meestal wel al goed in elkaar zit.
+        </aside>
+    </section>
+    <section>
+    {% markdown %}
+        ## Interoperabiliteit
+        ### Leesbaarheid
+        > Het formaat moet leesbaar zijn door iedereen
+        {% endmarkdown %}
+        <img src="./images/interop-find_interface.svg" alt="De data komt terug in een onleesbaar formaat" class="interop-img" style="height: 300px">
+        <aside class="notes">
+        Vervolgens komen we aan bij de leesbaarheid van data. Overheidsapplicaties leven soms heel lang, de data vaak nog langer. We willen bij interoperabele applicaties data kunnen lezen die niet
+        vasthangt aan bepaalde gesloten formaten die mogelijk niet blijven bestaan. Denk maar aan uitwisseling in Microsoft Excel.
+        </aside>
+    </section>
+    <section>
+    {% markdown %}
+        ## Interoperabiliteit
+        ### Begrijpelijk
+        > Er mag geen betekenis verloren gaan in de vertaling.
+
+        Wat is het verschil en verband tussen een dossier, aangifte, basisdossier, stamdossier, ... ?
+        {% endmarkdown %}
+        <aside class="notes">
+        Tenslotte, het laatste is dat data begrijpelijk moet zijn zonder ambiguiteit. We willen ervoor zorgen dat als we data doorgeven, dat het voor het systeem dat onze data gebruikt duidelijk is
+        wat we ermee bedoelen. Ik denk dat zelfs als we buiten de context van data denken dat er zeker wel voorbeelden zijn waar iedereen aan kan denken waar de grootste struikelblok in communicatie
+        was dat iedereen een verschillend begrip had voor dezelfde term.
+        </aside>
+    </section>
+    <section>
+        {% markdown %}
+        ## Interoperabiliteit
+        ### Waarom een handleiding niet werkt
+        {% endmarkdown %}
+        <aside class="notes">
+            Nu, eigenlijk kan ik deze drie vraagstukken van toegangkelijkheid, leesbaarheid en begrijpelijkheid oplossen door gewoon een handleiding mee te geven als PDF of confluence pagina.
+            Maar net zoals het voorbeeld van de beschrijving van een smartphone ga je altijd vervolgvragen krijgen. En krijg je die niet, dan werk je verder op kennis die misschien niet overeenkomt met
+            wat je bedoeld.
+
+            En omdat niemand staat te springen om 1000de pagina's handeleiding te schrijven of lezen per afnameusecase willen we namelijk dat de data zichzelf kan beschrijven zonder dat je een handleiding moet doorzoeken om te weten wat alles betekend.
+        </aside>
+    </section>
+</section>
+
+<!-- Poll over linked data om te polsen naar hun kennis -->
+{% claperPoll "q6tdq", 2 %}
+
+<section>
+    <section>
+        {% markdown %}
+        ## Linked Data
+        ![](./images/grafik.png)
+        {% endmarkdown %}
+        <aside class="notes">
+            De tekening die je hier ziet staan beschrijft eigenlijk. De eerste ster geeft aan dat je je data open moet kunnen stellen waar nodig en toegelaten aan externen.
+            De tweede ster gaat over het toelaten dat machines, applicaties en waarschijnlijk nu ook AI agents deze data makkelijk kunnen uitlezen.
+            De derde ster gaat dat je formaten en bestandstypen gebruiken die geen specifieke software vereisen.
+            Bij de vierde ster begint het interessant te worden voor ons. We gebruiken gestandaardiseerde formaten om deze data te beschrijven op een manier die makkelijk toelaat om naar andere concepten te linken.
+
+            En de laatste belangrijke ster gaat over het gebruik van open standaarden om gegevens te beschrijven. Of met andere woorden, in plaats van zelf de handleiding te schrijven voor zaken die overal in de wereld
+            of vlaamse overheid gebruikt worden ga je refereren naar standaarden die op hun beurt andere standaarden gebruiken om iets te beschrijven.
+            Ook ga je referen of linken naar data en geef je als het ware de locatie of weblink waar ze deze gegevens kunnen vinden.
+        </aside>
+    <section>
+        {% markdown %}
+        ## Linked Data
+        ## Voorbeeld
+        ![](./images/wikipedia.png)
+        {% endmarkdown %}
+    </section>
+    <section>
+        {% markdown %}
+        ## Linked Data
+        ## Voorbeeld
+        ![](./images/turtle.png)
+        {% endmarkdown %}
+    </section>
+    </section>
+    <section>
+        {% markdown %}
+        ## Linked Data
+        ### Beschrijf de data waar je master van bent
+        {% endmarkdown %}
+        <aside class="notes">
+            En dat laatste is interessant voor beheer van data. Bij veel traditionele
+        </aside>
+    </section>
+</section>
+
+{% claperPoll "q6tdq", 3 %}
+
+<style>
+    .sosa-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin-top: 0.6em;
+        text-align: left;
+    }
+    .sosa-card {
+        background: var(--vl-blauw-licht);
+        border-top: 8px solid var(--vl-blauw);
+        border-radius: 6px;
+        padding: 12px 20px;
+        font-size: 0.8em;
+        line-height: 1.3;
+    }
+    .sosa-card .vraag {
+        font-size: 1.3em;
+        font-weight: bold;
+        color: var(--vl-blauw-donker);
+    }
+    .sosa-card .begrip {
+        display: block;
+        margin-top: 0.3em;
+        font-weight: bold;
+    }
+    .sosa-card .term {
+        display: block;
+        color: var(--vl-grijs);
+        font-size: 0.75em;
+    }
+    .sosa-card .vb {
+        display: block;
+        margin-top: 0.5em;
+        font-style: italic;
+    }
+    .reveal table.sosa-patroon {
+        font-size: 0.6em;
+        margin: 0.5em auto;
+    }
+    .std-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin-top: 0.4em;
+        text-align: left;
+    }
+    .std-card {
+        background: var(--vl-blauw-licht);
+        border-top: 8px solid var(--vl-blauw);
+        border-radius: 6px;
+        padding: 10px 16px 12px;
+        font-size: 0.55em;
+        line-height: 1.3;
+    }
+    .std-card.std-vlaams {
+        border-top-color: var(--vl-geel);
+    }
+    .std-card .naam {
+        display: block;
+        font-size: 1.45em;
+        font-weight: bold;
+        color: var(--vl-blauw-donker);
+    }
+    .std-card .door {
+        display: block;
+        color: var(--vl-grijs);
+        font-size: 0.85em;
+    }
+    .std-card .waarvoor {
+        display: block;
+        margin-top: 0.4em;
+        font-weight: bold;
+    }
+    .std-card .vraag {
+        display: block;
+        margin-top: 0.4em;
+        font-style: italic;
+    }
+    .reveal table.sosa-patroon td:first-child {
+        font-weight: bold;
+        color: var(--vl-blauw-donker);
+    }
+</style>
+
+<section>
+    <section>
+    {% markdown %}
+        ## Standardisaties en modellen
+        ### Silo's doorbreken
+        - Een verkeerstelling, een schooldoorlichting, een premieaanvraag, een EPC, een erkenning, ...
+        - Elk agentschap, elke toepassing krijgt een **eigen datamodel**
+        - Telkens dezelfde vragen opnieuw beantwoorden: wie, wat, wanneer, waarover?
+        {.medium}
+    {% endmarkdown %}
+        <aside class="notes">
+            Wie is er bezig aan een greenfield project waar je bijna carte blanche hebt? Wie heeft er bij het maken van deze projecten ook bestaande standaardisaties, of ze nu OSLO of iets internationeel zijn gebruikt?
+
+        </aside>
+    </section>
+    <section>
+    {% markdown %}
+        ## Standardisaties en modellen
+        ### Wat als we een bestaand patroon hergebruiken?
+        > Veel van wat we modelleren zijn **varianten van hetzelfde patroon**: iemand of iets bepaalt iets over een onderwerp, op een bepaalde manier en een bepaald moment, met een resultaat
+
+        Eén standaard die dit patroon beschrijft: **SOSA/SSN**
+        {.medium}
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Eén standaard, veel datamodellen
+        ### Wat is SOSA/SSN?
+        - Een internationale standaard (W3C en OGC)
+        - **SOSA**: Sensor, Observation, Sample, Actuator, de lichte kern
+        - **SSN**: Semantic Sensor Network, de uitbreiding met systemen, inzet en capaciteiten
+        - De naam zegt "sensor", maar de begrippen zijn **domeinneutraal**
+        {.medium}
+    {% endmarkdown %}
+        <aside class="notes">
+            Laat je niet afschrikken door de naam. Het woord "sensor" betekent hier gewoon: wie of wat
+            een waarde bepaalt. Dat kan een toestel zijn, maar ook een persoon, een labo of software.
+        </aside>
+    </section>
+</section>
+
+<section>
+    <section>
+    {% markdown %}
+        ## Het patroon: zes vragen
+    {% endmarkdown %}
+        <div class="sosa-grid">
+            <div class="sosa-card"><span class="vraag">Waarover?</span><span class="begrip">Onderwerp</span><span class="term">Feature of Interest</span></div>
+            <div class="sosa-card"><span class="vraag">Wat?</span><span class="begrip">Eigenschap</span><span class="term">Property</span></div>
+            <div class="sosa-card"><span class="vraag">Wie of wat?</span><span class="begrip">Uitvoerder</span><span class="term">Sensor / Actuator</span></div>
+            <div class="sosa-card"><span class="vraag">Hoe?</span><span class="begrip">Werkwijze</span><span class="term">Procedure</span></div>
+            <div class="sosa-card"><span class="vraag">Wanneer?</span><span class="begrip">Tijdstip</span><span class="term">Phenomenon / Result Time</span></div>
+            <div class="sosa-card"><span class="vraag">Met welk resultaat?</span><span class="begrip">Resultaat</span><span class="term">Result</span></div>
+        </div>
+        <aside class="notes">
+            De handeling die deze zes antwoorden samenbrengt, is een observatie (iets vaststellen) of een
+            actuatie (iets veranderen). "Wanneer" heeft twee kanten: wanneer het gebeurde en wanneer het
+            resultaat er was.
+        </aside>
+    </section>
+    <section>
+    {% markdown %}
+        ## Het patroon: zes vragen
+        ### Mobiliteit: een verkeerstelling
+    {% endmarkdown %}
+        <div class="sosa-grid">
+            <div class="sosa-card"><span class="vraag">Waarover?</span><span class="begrip">Onderwerp</span><span class="vb">Fietspad langs de Coupure in Gent</span></div>
+            <div class="sosa-card"><span class="vraag">Wat?</span><span class="begrip">Eigenschap</span><span class="vb">Aantal fietsers per uur</span></div>
+            <div class="sosa-card"><span class="vraag">Wie of wat?</span><span class="begrip">Uitvoerder</span><span class="vb">Telcamera</span></div>
+            <div class="sosa-card"><span class="vraag">Hoe?</span><span class="begrip">Werkwijze</span><span class="vb">Automatische beeldherkenning</span></div>
+            <div class="sosa-card"><span class="vraag">Wanneer?</span><span class="begrip">Tijdstip</span><span class="vb">3 december 2026, 8:00 tot 9:00</span></div>
+            <div class="sosa-card"><span class="vraag">Met welk resultaat?</span><span class="begrip">Resultaat</span><span class="vb">1 214 fietsers</span></div>
+        </div>
+    </section>
+    <section>
+    {% markdown %}
+        ## Het patroon: zes vragen
+        ### Onderwijs: een doorlichting
+    {% endmarkdown %}
+        <div class="sosa-grid">
+            <div class="sosa-card"><span class="vraag">Waarover?</span><span class="begrip">Onderwerp</span><span class="vb">Een basisschool</span></div>
+            <div class="sosa-card"><span class="vraag">Wat?</span><span class="begrip">Eigenschap</span><span class="vb">Kwaliteit van de leerlingenbegeleiding</span></div>
+            <div class="sosa-card"><span class="vraag">Wie of wat?</span><span class="begrip">Uitvoerder</span><span class="vb">Het inspectieteam</span></div>
+            <div class="sosa-card"><span class="vraag">Hoe?</span><span class="begrip">Werkwijze</span><span class="vb">Referentiekader voor onderwijskwaliteit</span></div>
+            <div class="sosa-card"><span class="vraag">Wanneer?</span><span class="begrip">Tijdstip</span><span class="vb">Doorlichting van 12 november</span></div>
+            <div class="sosa-card"><span class="vraag">Met welk resultaat?</span><span class="begrip">Resultaat</span><span class="vb">"Voldoet" (uit een codelijst)</span></div>
+        </div>
+    </section>
+    <section>
+    {% markdown %}
+        ## Het patroon: zes vragen
+        ### ... en zoveel meer
+    {% endmarkdown %}
+        <table class="sosa-patroon">
+            <thead>
+                <tr><th>Domein</th><th>Waarover?</th><th>Wat?</th><th>Wie of wat?</th><th>Hoe?</th><th>Resultaat</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Wonen</td><td>Woning</td><td>Energieprestatie</td><td>Energiedeskundige</td><td>EPC-methode</td><td>Label C</td></tr>
+                <tr><td>Welzijn</td><td>Kinderopvang</td><td>Bezettingsgraad</td><td>De opvang zelf (melding)</td><td>Maandelijkse registratie</td><td>87 %</td></tr>
+                <tr><td>Landbouw</td><td>Landbouwperceel</td><td>Teelt</td><td>Algoritme op satellietbeelden</td><td>Beeldclassificatie</td><td>Maïs</td></tr>
+                <tr><td>Economie</td><td>Steunaanvraag</td><td>Ontvankelijkheid</td><td>Dossierbehandelaar</td><td>Beoordelingskader</td><td>Ontvankelijk</td></tr>
+                <tr><td>Cultuur</td><td>Museum</td><td>Aantal bezoekers</td><td>Ticketsysteem</td><td>Scan aan de ingang</td><td>1 240 per dag</td></tr>
+                <tr><td>Omgeving</td><td>De Dender</td><td>Nitraatgehalte</td><td>Labo</td><td>Analysemethode</td><td>8,1 mg/l</td></tr>
+            </tbody>
+        </table>
+    {% markdown %}
+        > Ander beleidsdomein, **dezelfde structuur**: één patroon, en dus ook dezelfde tools, validatie en koppelingen
+    {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+    {% markdown %}
+        ## Meer bouwstenen
+        ### Vaststellen of veranderen
+        Een **observatie** stelt vast hoe iets *is*, een **actuatie** verandert hoe iets *wordt*
+
+        ```mermaid
+        flowchart LR
+            OBS(["Observatie<br>aanvraag voldoet"]) -->|leidt tot| ACT(["Actuatie<br>premie toekennen"])
+            ACT -->|door| WIE["Uitvoerder<br>bevoegde administratie"]
+            ACT -->|verandert| ONDERWERP["Woning<br>geen premie → premie toegekend"]
+            classDef obs fill:#FFED00,stroke:#333,stroke-width:2px,color:#000;
+            class OBS obs;
+        ```
+        Premies, erkenningen, vergunningen, verkeersmaatregelen, statuswijzigingen: allemaal actuaties
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Meer bouwstenen
+        ### Stalen
+        Soms bekijk je niet het onderwerp zelf, maar een **deel dat het vertegenwoordigt**
+        - Een **steekproef** van scholen voor alle Vlaamse scholen
+        - Een **panel** van burgers voor de hele bevolking
+        - Een **selectie** van dossiers voor een audit
+        - Een waterstaal voor een rivier
+        {.medium}
+
+        > Zo blijft het verband tussen resultaat en het eigenlijke onderwerp bewaard
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Meer bouwstenen
+        ### De context
+        - **Systeem**: toestellen, software, teams of organisaties die iets uitvoeren
+        - **Platform**: waarop of waarin een systeem zit (meetpaal, voertuig, school, applicatie)
+        - **Inzet**: wanneer en waarvoor een systeem ergens ingezet is
+        - **Capaciteiten**: wat een systeem kan en hoe nauwkeurig
+        {.medium}
+    {% endmarkdown %}
+        <aside class="notes">
+            Hiermee beantwoord je vragen als "mag ik dit resultaat vertrouwen?" en "wie of wat was
+            hier toen actief?". Ook een organisatie of een applicatie kan een systeem zijn.
+        </aside>
+    </section>
+    <section>
+    {% markdown %}
+        ## Meer bouwstenen
+        ### Uit eigen ervaring: milieurapportering bij Omgeving
+        - De **activiteit** van een bedrijf op een locatie is een *inzet* van installaties
+        - Installaties zijn *systemen* op een *platform*: de bedrijfssite
+        - Metingen én aangiftes van bedrijven zijn *observaties*
+        - Parameters en eenheden komen uit gedeelde **codelijsten**
+
+        > Een volledig domein, grotendeels zonder klassieke sensoren, past in het patroon
+    {% endmarkdown %}
+    </section>
+</section>
+
+<section data-claper-activate="quiz:1">
+    <section>
+    {% markdown %}
+        ## Test jezelf
+        Drie korte situaties uit drie beleidsdomeinen, zonder één sensor in zicht.
+        {.medium}
+
+        De quiz staat nu open op je gsm: beantwoord de drie vragen en zie meteen je score
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Situatie 1: Welzijn
+        > Een kinderopvang meldt elke maand hoeveel kinderen er aanwezig waren.
+
+        **Wie of wat is hier de "sensor"?**
+        {.medium}
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Situatie 2: Mobiliteit
+        > Een gemeente voert een zone 30 in aan een schoolpoort.
+
+        **Wat is dit?**
+        {.medium}
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Situatie 3: Onderwijs
+        > Voor een peiling naar leesvaardigheid worden 150 scholen geselecteerd uit alle Vlaamse scholen.
+
+        **Wat zijn die 150 scholen?**
+        {.medium}
+    {% endmarkdown %}
+        <aside class="notes">
+            Geef de zaal even tijd om de quiz af te werken. Op de volgende slides: eerst de
+            verdeling tonen en laten raden, dan met één klik het juiste antwoord markeren.
+        </aside>
+    </section>
+</section>
+
+{% claperQuiz "q6tdq", 1, 1, "Situatie 1: wie of wat is de sensor?" %}
+
+<section>
+    {% markdown %}
+        ## Situatie 1: Welzijn
+        - De **kinderopvang** bepaalt het cijfer dat de overheid ontvangt: zij is de uitvoerder
+        - De aanwezigheidslijst is een eerdere observatie waarop ze zich baseert
+        - Het registratiesysteem is enkel het kanaal
+        {.medium}
+
+        > Door dat onderscheid te maken weet je ook wie verantwoordelijk is voor het cijfer
+    {% endmarkdown %}
+</section>
+
+{% claperQuiz "q6tdq", 1, 2, "Situatie 2: zone 30 aan de schoolpoort" %}
+
+<section>
+    {% markdown %}
+        ## Situatie 2: Mobiliteit
+        - De zone 30 invoeren is een **actuatie**: de maximumsnelheid van de straat verandert
+        - De snelheidsmetingen en klachten die eraan voorafgingen zijn **observaties**
+        - Uitvoerder: de gemeente · onderwerp: de straat · eigenschap: de maximumsnelheid
+        {.medium}
+    {% endmarkdown %}
+</section>
+
+{% claperQuiz "q6tdq", 1, 3, "Situatie 3: 150 scholen voor een peiling" %}
+
+<section>
+    {% markdown %}
+        ## Situatie 3: Onderwijs
+        - De 150 scholen zijn een **staal** (de steekproef)
+        - Het eigenlijke **onderwerp** zijn alle Vlaamse scholen
+        - Eigenschap: leesvaardigheid · werkwijze: de peilingstoets
+        {.medium}
+
+        > Een standaard met "sensor" in de naam beschrijft net zo goed een onderwijspeiling
+    {% endmarkdown %}
+</section>
+
+<section>
+    {% markdown %}
+        ## En jouw datamodel?
+        Denk aan een datamodel uit je eigen werk.
+
+        **Stuur via Claper een bericht:** welk gegeven uit jouw werk past in het patroon, en wat is daar het onderwerp, de eigenschap en de uitvoerder?
+        {.medium}
+
+        **Waarover? · Wat? · Wie of wat? · Hoe? · Wanneer? · Met welk resultaat?**
+    {% endmarkdown %}
+    <aside class="notes">
+        Pin in /manage de berichten die op de muur mogen. Enkel vastgepinde berichten verschijnen,
+        zonder naam. Kies er een paar uit om hardop te ontleden met de zes vragen.
+    </aside>
+</section>
+
+{% claperWall "q6tdq", "Jullie datamodellen", "Vastgepind uit jullie berichten" %}
+
+<section data-claper-activate="7">
+    {% markdown %}
+        ## En jouw datamodel?
+        Hoeveel van jouw eigen datamodel zou je met dit patroon kunnen voorstellen?
+        {.medium}
+    {% endmarkdown %}
+</section>
+
+{% claperPoll "q6tdq", 7 %}
+
+<section>
+    <section>
+    {% markdown %}
+        ## Waarom een bestaand patroon?
+        ### Voordelen
+        - **Gedeelde taal** tussen business, analisten en ontwikkelaars
+        - Datamodellen uit verschillende domeinen worden **combineerbaar**
+        - **Niet zelf uitvinden**: internationaal gedragen en al doordacht
+        - **Uitbreidbaar**: voeg toe wat je domein nodig heeft
+        - Herbruikbare tools, validatie en koppelingen
+    {% endmarkdown %}
+    </section>
+    <section>
+    {% markdown %}
+        ## Waarom een bestaand patroon?
+        ### Aandachtspunten
+        - De begrippen zijn **abstract** en vragen even gewenning
+        - Veel **vrijheid**: zonder onderlinge afspraken modelleert elk team het toch anders
+        - **Niet alles past**: duw niet elk gegeven in het patroon
+        - Voor een eenvoudige toepassing kan het **te zwaar** aanvoelen
+    {% endmarkdown %}
+    </section>
+</section>
+
+<section>
+    <section>
+    {% markdown %}
+        ## Een gereedschapskist van standaarden
+        SOSA/SSN is er één van. Voor de meeste vragen bestaat al een standaard:
+    {% endmarkdown %}
+        <div class="std-grid">
+            <div class="std-card"><span class="naam">SOSA/SSN</span><span class="door">W3C · OGC</span><span class="waarvoor">Systemen, metingen en andere observaties</span><span class="vraag">Wie stelde wat vast, waarover en hoe?</span></div>
+            <div class="std-card"><span class="naam">P-PLAN</span><span class="door">uitbreiding op PROV-O</span><span class="waarvoor">Bedrijfsprocessen, procedures en plannen</span><span class="vraag">Welke stappen hoort een procedure te volgen?</span></div>
+            <div class="std-card"><span class="naam">PROV-O</span><span class="door">W3C</span><span class="waarvoor">Herkomst en traceerbaarheid van gegevens</span><span class="vraag">Waar komt dit gegeven vandaan en wie heeft eraan gewerkt?</span></div>
+            <div class="std-card"><span class="naam">SKOS</span><span class="door">W3C</span><span class="waarvoor">Thesauri, codelijsten en andere vocabularia</span><span class="vraag">Wat betekent deze code en welk begrip is breder?</span></div>
+            <div class="std-card"><span class="naam">DCAT</span><span class="door">W3C</span><span class="waarvoor">Catalogi van datasets en dataservices</span><span class="vraag">Welke data bestaat er en waar vind ik ze?</span></div>
+            <div class="std-card"><span class="naam">OWL-Time · GeoSPARQL</span><span class="door">W3C · OGC</span><span class="waarvoor">Tijd en plaats</span><span class="vraag">Wanneer en waar, als periode of als geometrie?</span></div>
+            <div class="std-card"><span class="naam">Dublin Core</span><span class="door">DCMI</span><span class="waarvoor">Basismetadata van documenten en data</span><span class="vraag">Wat is de titel, de maker, de datum?</span></div>
+            <div class="std-card std-vlaams"><span class="naam">OSLO</span><span class="door">Digitaal Vlaanderen</span><span class="waarvoor">Vlaamse afspraken die deze standaarden toepassen op onze domeinen</span><span class="vraag">Hoe beschrijven we in Vlaanderen een adres, organisatie, ...?</span></div>
+        </div>
+        <aside class="notes">
+            Geen uitputtende lijst. De boodschap: kijk eerst wat er bestaat voor je zelf iets bedenkt.
+            OSLO is het Vlaamse kader dat net deze internationale standaarden hergebruikt en
+            afspraken maakt per domein.
+        </aside>
+    </section>
+    <section>
+    {% markdown %}
+        ## Een gereedschapskist van standaarden
+        ### Samen gebruiken: een premieaanvraag
+        ```mermaid
+        flowchart LR
+            PLAN["Procedure premieaanvraag<br><small>P-PLAN</small>"]
+            BEOORD(["Beoordeling van de aanvraag<br><small>SOSA</small>"])
+            CODE["'Goedgekeurd'<br>uit een codelijst<br><small>SKOS</small>"]
+            HERKOMST["Wie, wanneer en op basis<br>van welke documenten<br><small>PROV-O</small>"]
+            DATASET["Dataset toegekende premies<br><small>DCAT</small>"]
+            PLAN -->|beschrijft de stap| BEOORD
+            BEOORD -->|resultaat| CODE
+            BEOORD -->|herkomst| HERKOMST
+            DATASET -.->|bevat| BEOORD
+            classDef obs fill:#FFED00,stroke:#333,stroke-width:2px,color:#000;
+            class BEOORD obs;
+        ```
+    {% endmarkdown %}
+        <aside class="notes">
+            Elke standaard doet één ding goed; samen beschrijven ze het hele dossier.
+        </aside>
+    </section>
+</section>
+
+{% claperPoll "q6tdq", 8 %}
+
+<section>
+    {% markdown %}
+        ## Interoperabiliteit en de toekomst
+        AI agents zijn ook systemen. De beste manier om ervoor te zorgen dat deze interne overheidsapplicaties begrijpen
+        is om te berusten op standaarden en begrijpbare data.
+    {% endmarkdown %}
+</section>
+
+<section>
+    {% markdown %}
+        ## Om te onthouden
+        1. Veel datamodellen zijn **varianten van hetzelfde patroon**
+        2. SOSA/SSN beschrijft dat patroon, ook **zonder sensoren**
+        3. Hergebruik **bestaande standaarden** (SOSA/SSN, P-PLAN, PROV-O, SKOS, ...) in plaats van een eigen model
+        4. Maak **afspraken** over hoe je de standaard toepast
+        {.medium}
+    {% endmarkdown %}
+</section>
+
+<section data-claper-activate="form:1" data-claper-reactions="clap">
+    <h2>Vragen en feedback</h2>
+    <div class="row" style="align-items: center;">
+        <div class="col-half">
+        {% markdown %}
+            - Stel je **vragen** via Claper, ook na de sessie
+            - Laat weten wat je **meeneemt** en wat je nog **mist**
+            - Vond je het de moeite? Geef een 👏 in Claper
+            {.medium}
+        {% endmarkdown %}
+        </div>
+        <div class="col-half">
+            <div class="claper-join claper-join--large">
+                <div class="claper-qr">{% qrcode "https://claper.maximvdw.be/e/q6tdq" %}</div>
+                <p class="claper-join-url">claper.maximvdw.be/e/<strong>q6tdq</strong></p>
+            </div>
+        </div>
+    </div>
+</section>
