@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="280" viewBox="0 0 900 280" role="img" aria-labelledby="title description">
+  <title id="title">Toegankelijke gegevens tussen overheidsdiensten</title>
+  <desc id="description">Een departement vindt via een gegevenscatalogus de gegevens van een agentschap en krijgt toegang via een duidelijk toegangspunt, met de juiste rechten.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse">
+      <path d="M0 0 8 4 0 8Z" fill="#1f5fbf"/>
+    </marker>
+  </defs>
+  <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle" fill="#243746">
+    <rect x="15" y="30" width="240" height="190" rx="14" fill="#f5f7fa" stroke="#c7d1dd" stroke-width="2"/>
+    <g fill="none" stroke="#243746" stroke-width="3">
+      <ellipse cx="135" cy="72" rx="30" ry="10" fill="#fff"/>
+      <path d="M105 72v44c0 14 60 14 60 0V72M105 94c0 14 60 14 60 0"/>
+    </g>
+    <text x="135" y="162" font-size="24" font-weight="700">Agentschap</text>
+    <text x="135" y="193" font-size="19">Gegevensbron</text>
+    <path d="M270 125H310M590 125H630" stroke="#1f5fbf" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="325" y="30" width="250" height="190" rx="14" fill="#fff8d6" stroke="#e0b900" stroke-width="2"/>
+    <g fill="none" stroke="#243746" stroke-width="3">
+      <rect x="417" y="61" width="54" height="60" rx="5"/>
+      <path d="M428 76h22M428 88h13"/>
+      <circle cx="465" cy="104" r="13" fill="#fff8d6"/>
+      <path d="m475 114 12 12"/>
+    </g>
+    <text x="450" y="162" font-size="23" font-weight="700">Catalogus + API</text>
+    <text x="450" y="193" font-size="19">Vindbaar en bereikbaar</text>
+    <rect x="645" y="30" width="240" height="190" rx="14" fill="#f5f7fa" stroke="#c7d1dd" stroke-width="2"/>
+    <g fill="none" stroke="#243746" stroke-width="3">
+      <rect x="734" y="63" width="62" height="44" rx="5"/>
+      <path d="M765 107v15M746 122h38"/>
+    </g>
+    <text x="765" y="162" font-size="24" font-weight="700">Departement</text>
+    <text x="765" y="193" font-size="19">Gegevensafnemer</text>
+  </g>
+</svg>

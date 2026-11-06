@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500" role="img" aria-labelledby="title description">
+  <title id="title">Eigen applicatiemodellen, telkens opnieuw vertalen</title>
+  <desc id="description">Drie fictieve overheidsapplicaties voor vergunningen, subsidies en handhaving hebben elk een eigen datamodel. Binnen elke applicatie zetten transformaties velden, codes en betekenis om voor de onderlinge uitwisseling. Een modelwijziging kan meerdere koppelingen raken. Bewerkbare bron: applicatie-modellen.drawio.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse">
+      <path d="M0 0 8 4 0 8Z" fill="#c66a2b"/>
+    </marker>
+  </defs>
+  <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle" fill="#243746">
+    <g stroke="#c7d1dd" stroke-width="2" fill="#f5f7fa">
+      <rect x="20" y="60" width="340" height="330" rx="14"/>
+      <rect x="430" y="60" width="340" height="330" rx="14"/>
+      <rect x="840" y="60" width="340" height="330" rx="14"/>
+    </g>
+    <g font-size="25" font-weight="700">
+      <text x="190" y="104">Vergunningen</text>
+      <text x="600" y="104">Subsidies</text>
+      <text x="1010" y="104">Handhaving</text>
+    </g>
+    <rect x="45" y="135" width="290" height="100" rx="10" fill="#eaf2ff" stroke="#1f5fbf" stroke-width="2"/>
+    <rect x="455" y="135" width="290" height="100" rx="10" fill="#f2ecfa" stroke="#8261ad" stroke-width="2"/>
+    <rect x="865" y="135" width="290" height="100" rx="10" fill="#eaf5ef" stroke="#39815b" stroke-width="2"/>
+    <g font-size="20">
+      <text x="190" y="174">Eigen model: Dossier</text>
+      <text x="190" y="205">nummer · aanvrager · status</text>
+      <text x="600" y="174">Eigen model: Aanvraag</text>
+      <text x="600" y="205">id · begunstigde · fase</text>
+      <text x="1010" y="174">Eigen model: Zaak</text>
+      <text x="1010" y="205">referentie · betrokkene · code</text>
+    </g>
+    <g fill="none" stroke="#c66a2b" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)">
+      <path d="M190 238V282"/>
+      <path d="M600 238V282"/>
+      <path d="M1010 238V282"/>
+    </g>
+    <g fill="#fff2e8" stroke="#c66a2b" stroke-width="2">
+      <rect x="45" y="285" width="290" height="80" rx="10"/>
+      <rect x="455" y="285" width="290" height="80" rx="10"/>
+      <rect x="865" y="285" width="290" height="80" rx="10"/>
+    </g>
+    <g font-size="20" fill="#873e15">
+      <text x="190" y="316">Transformaties</text>
+      <text x="190" y="347">velden · codes · betekenis</text>
+      <text x="600" y="316">Transformaties</text>
+      <text x="600" y="347">velden · codes · betekenis</text>
+      <text x="1010" y="316">Transformaties</text>
+      <text x="1010" y="347">velden · codes · betekenis</text>
+    </g>
+    <g fill="none" stroke="#c66a2b" stroke-width="3" marker-start="url(#arrow)" marker-end="url(#arrow)">
+      <path d="M338 325H452"/>
+      <path d="M748 325H862"/>
+      <path d="M190 368V425Q190 435 200 435H1000Q1010 435 1010 425V368"/>
+    </g>
+    <rect x="407" y="420" width="386" height="30" fill="#fff"/>
+    <text x="600" y="441" font-size="19" fill="#873e15">Ook rechtstreeks: opnieuw een mapping</text>
+  </g>
+</svg>
