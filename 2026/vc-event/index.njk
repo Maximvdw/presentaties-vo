@@ -10,6 +10,44 @@ author: Maxim Van de Wynckel
 organization: Departement Omgeving
 ---
 
+<style>
+    .reveal .slide-screenshot {
+        width: auto;
+        height: 520px;
+    }
+    .reveal .slide-screenshot--resource {
+        height: 300px;
+    }
+    .reveal .workshop-exercise .medium {
+        font-size: 1.15em;
+    }
+    .reveal .slides section[data-claper-poll="2"] h2.claper-poll-title {
+        font-size: 1.35em;
+        padding-left: 12px;
+        padding-right: 12px;
+        white-space: nowrap;
+    }
+</style>
+
+<section id="inhoudstafel">
+    {% markdown %}
+        ## Inhoud
+        1. **Probleemstelling**: introductie tot interoperabiliteit
+        2. **Linked Data**: betekenis, URI's en relaties begrijpen
+        3. **Standaarden**: bestaande modellen leren kennen
+        4. **Voorbeelden**
+        5. **Vervolgstappen**: uitdagingen afwegen
+        {.medium}
+    {% endmarkdown %}
+    <aside class="notes">
+        We starten met de reden waarom gegevensuitwisseling zo vaak moeilijk is, gevolgd door de basis van Linked Data.
+        Daarna combineren we standaarden in één fictieve casus en oefenen we met de belangrijkste begrippen.
+        We sluiten af met de technische en organisatorische uitdagingen en een eerste stap voor de eigen toepassing.
+        Voor een sessie van een uur: ongeveer 15 minuten introductie en Linked Data, 10 minuten modellen, 20 minuten casus en oefeningen, 10 minuten uitdagingen en vervolgstappen en 5 minuten vragen.
+        De bonusvragen zijn optioneel. Gebruik de klassikale begrippenquiz als alternatief voor een deel van de tekenoefeningen wanneer de tijd beperkt is.
+    </aside>
+</section>
+
 <section>
     <section>
         {% markdown %}
@@ -226,7 +264,6 @@ organization: Departement Omgeving
         ### Begrijpelijk
         > Er mag geen betekenis verloren gaan in de vertaling.
 
-        Wat is het verschil en verband tussen een dossier, aangifte, basisdossier, stamdossier, ... ?
         {% endmarkdown %}
         <img src="./images/interop-begrijpelijkheid.svg" alt="Een agentschap en een departement gebruiken hetzelfde gedeelde begrip met een eenduidige definitie, zodat de betekenis behouden blijft" class="interop-img" style="height: 260px">
         <aside class="notes">
@@ -238,11 +275,9 @@ organization: Departement Omgeving
     <section>
         {% markdown %}
         ## Interoperabiliteit
-        ### Waarom een handleiding niet werkt
-        <!-- TODO: Screenshot van een confluence -->
-        - Veel informatie per silo
-        - Stopt op een bepaald punt
+        ### Waarom een handleiding (aleen) niet werkt
         {% endmarkdown %}
+        <img src="./images/confluence-begripsverwarring.svg" alt="Fictieve Confluence-handleiding met een keten van definitielinks: dossier verwijst naar aanvraag, aanvraag naar activiteit, activiteit naar inrichting, enzovoort. Elke uitleg vraagt weer om uitleg. Waar de uitleg of het lezen stopt, vult de lezer zelf betekenis in." style="width: 1060px; height: auto; margin: 0;">
         <aside class="notes">
             Nu, eigenlijk kan ik deze drie vraagstukken van toegangkelijkheid, leesbaarheid en begrijpelijkheid oplossen door gewoon een handleiding mee te geven als PDF of confluence pagina.
             Maar net zoals het voorbeeld van de beschrijving van een smartphone ga je altijd vervolgvragen krijgen. En krijg je die niet, dan werk je verder op kennis die misschien niet overeenkomt met
@@ -251,11 +286,11 @@ organization: Departement Omgeving
             En omdat niemand staat te springen om 1000de pagina's handeleiding te schrijven of lezen per afnameusecase willen we namelijk dat de data zichzelf kan beschrijven zonder dat je een handleiding moet doorzoeken om te weten wat alles betekend.
         </aside>
     </section>
-        <section>
+    <section>
         {% markdown %}
         ## Interoperabiliteit
         ### Standaardisaties
-        ![](./images/oslo.png)
+        ![Overzicht van datastandaarden bij Digitaal Vlaanderen](./images/oslo.png){.slide-screenshot}
         {% endmarkdown %}
         <aside class="notes">
             Daarom dat de oplossing van interoperabiliteit vaak geduwt wordt richting standaardisaties. Dit is een pagina van digitaal vlaanderen, ik denk dat er veel
@@ -264,10 +299,29 @@ organization: Departement Omgeving
     </section>
 </section>
 
+{% claperPoll "q6tdq", 9 %}
+
 <!-- Poll over linked data om te polsen naar hun kennis -->
 {% claperPoll "q6tdq", 2 %}
 
 <section>
+    <section>
+        {% markdown %}
+        ## Linked Data
+        ### Wat is Linked (Open) Data (LOD)?
+        ![](./images/grafik.png)
+        {% endmarkdown %}
+        <aside class="notes">
+            De tekening die je hier ziet staan beschrijft eigenlijk. De eerste ster geeft aan dat je je data open moet kunnen stellen waar nodig en toegelaten aan externen.
+            De tweede ster gaat over het toelaten dat machines, applicaties en waarschijnlijk nu ook AI agents deze data makkelijk kunnen uitlezen.
+            De derde ster gaat dat je formaten en bestandstypen gebruiken die geen specifieke software vereisen.
+            Bij de vierde ster begint het interessant te worden voor ons. We gebruiken gestandaardiseerde formaten om deze data te beschrijven op een manier die makkelijk toelaat om naar andere concepten te linken.
+
+            En de laatste belangrijke ster gaat over het gebruik van open standaarden om gegevens te beschrijven. Of met andere woorden, in plaats van zelf de handleiding te schrijven voor zaken die overal in de wereld
+            of vlaamse overheid gebruikt worden ga je refereren naar standaarden die op hun beurt andere standaarden gebruiken om iets te beschrijven.
+            Ook ga je referen of linken naar data en geef je als het ware de locatie of weblink waar ze deze gegevens kunnen vinden.
+        </aside>
+    </section>
     <section>
     {% markdown %}
         ## Linked Data
@@ -275,6 +329,17 @@ organization: Departement Omgeving
         Data voorgesteld als triples: **Subject**, **Predicate** en **Object**
 
         <object data="./images/subject-predicate-object.svg" type="image/svg+xml" style="width: 100%; border: none;"></object>
+    {% endmarkdown %}
+    </section>
+        <section>
+    {% markdown %}
+        ## Linked Data
+        ### RDF (Resource Description Framework)
+        **URI** identificeert gelijke concepten
+
+        <object data="./images/lod6.svg" type="image/svg+xml" style="width: 100%; border: none;"></object>
+
+        *Anders dan JSON, Spreadsheet, database waar elke kolom een stukje tekst is*
     {% endmarkdown %}
     </section>
     <section>
@@ -329,84 +394,18 @@ organization: Departement Omgeving
         <object data="./images/cloud2.svg" type="image/svg+xml" style="width: 60%; border: none;"></object>
     {% endmarkdown %}
     </section>
-    <section id="vocabularium">
-        {% markdown %}
-        ## Linked Data
-        ### Wat is een vocabularium?
-        Een **herbruikbare verzameling termen** met URI's en definities.
-        {.medium}
-
-        - **Klassen**: welke soorten dingen beschrijven we? Bijvoorbeeld `sosa:Observation`
-        - **Eigenschappen en relaties**: hoe beschrijven en verbinden we die? Bijvoorbeeld `sosa:madeBySensor`
-        - We hergebruiken de **URI en betekenis**, niet alleen dezelfde veldnaam
-        {.medium}
-        {% endmarkdown %}
-        <aside class="notes">
-            Een vocabularium is onze gedeelde woordenschat voor data. De prefix sosa: is alleen een afkorting voor een namespace; de volledige URI identificeert de term.
-            Observation verwijst bijvoorbeeld naar http://www.w3.org/ns/sosa/Observation.
-            Een lokaal veld met de naam Observation heeft niet automatisch dezelfde betekenis.
-            Een vocabularium kan klassen en eigenschappen bevatten, maar ook een gecontroleerde verzameling begrippen. Met SKOS komen we later op dat laatste terug.
-            De termen vocabularium en ontologie worden in de praktijk deels door elkaar gebruikt: dit is geen harde tweedeling.
-            Bron: https://www.w3.org/TR/rdf11-primer/#section-vocabulary
-        </aside>
-    </section>
-    <section id="ontologie">
-        {% markdown %}
-        ## Linked Data
-        ### Wat is een ontologie?
-        Een ontologie legt ook **formele relaties en axioma's** vast, bijvoorbeeld met RDFS of OWL.
-        {.medium}
-
-        ```turtle
-        @prefix ex: <https://example.org/> .
-        @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-        @prefix sosa: <http://www.w3.org/ns/sosa/> .
-
-        ex:Watermeting a rdfs:Class ;
-            rdfs:subClassOf sosa:Observation .
-        ex:meting42 a ex:Watermeting .
-        ```
-
-        Hieruit kan je afleiden: `ex:meting42` is ook een `sosa:Observation`.
-        {.medium}
-        {% endmarkdown %}
-        <aside class="notes">
-            Een ontologie maakt betekenis machine-interpreteerbaar. RDFS ondersteunt onder andere klassenhiërarchieën; OWL biedt rijkere mogelijkheden om axioma's uit te drukken.
-            Het voorbeeld is bewust eenvoudig: uit de subklasserelatie kan een RDFS-reasoner het extra type afleiden. Je toepassing moet die afleiding wel ondersteunen of uitvoeren.
-            Vocabularium en ontologie overlappen: SOSA wordt bijvoorbeeld als ontologie beschreven, maar levert tegelijk een herbruikbare woordenschat.
-            Dit is niet hetzelfde als datavalidatie. Ontbrekende waarden maken RDF/OWL-data niet automatisch ongeldig: onder de open-world-aanname kunnen gegevens nog onbekend zijn.
-            Verplichte velden en toepassingsafspraken leg je vast in een profiel en bijvoorbeeld SHACL-shapes.
-            Bronnen: https://www.w3.org/TR/rdf11-primer/#section-vocabulary en https://www.w3.org/TR/owl2-primer/
-        </aside>
-    </section>
-    <section>
-        {% markdown %}
-        ## Linked Data
-        ![](./images/grafik.png)
-        {% endmarkdown %}
-        <aside class="notes">
-            De tekening die je hier ziet staan beschrijft eigenlijk. De eerste ster geeft aan dat je je data open moet kunnen stellen waar nodig en toegelaten aan externen.
-            De tweede ster gaat over het toelaten dat machines, applicaties en waarschijnlijk nu ook AI agents deze data makkelijk kunnen uitlezen.
-            De derde ster gaat dat je formaten en bestandstypen gebruiken die geen specifieke software vereisen.
-            Bij de vierde ster begint het interessant te worden voor ons. We gebruiken gestandaardiseerde formaten om deze data te beschrijven op een manier die makkelijk toelaat om naar andere concepten te linken.
-
-            En de laatste belangrijke ster gaat over het gebruik van open standaarden om gegevens te beschrijven. Of met andere woorden, in plaats van zelf de handleiding te schrijven voor zaken die overal in de wereld
-            of vlaamse overheid gebruikt worden ga je refereren naar standaarden die op hun beurt andere standaarden gebruiken om iets te beschrijven.
-            Ook ga je referen of linken naar data en geef je als het ware de locatie of weblink waar ze deze gegevens kunnen vinden.
-        </aside>
-    </section>
     <section>
         {% markdown %}
         ## Linked Data
         ### Voorbeeld
-        ![](./images/wikipedia.png)
+        ![Wikipedia-pagina over koolstofdioxide](./images/wikipedia.png){.slide-screenshot}
         {% endmarkdown %}
     </section>
     <section>
         {% markdown %}
         ## Linked Data
         ### Voorbeeld
-        ![](./images/turtle.png)
+        ![Machineleesbare beschrijving in Turtle](./images/turtle.png){.slide-screenshot}
         {% endmarkdown %}
     </section>
 </section>
@@ -496,6 +495,57 @@ organization: Departement Omgeving
         font-weight: bold;
         color: var(--vl-blauw-donker);
     }
+    #begrippenquiz .claper-poll-title {
+        font-size: 1.15em;
+    }
+    #begrippenquiz-casus .begrippen-join {
+        flex-direction: row;
+        justify-content: center;
+        gap: 24px;
+        margin-top: 0.5em;
+    }
+    #begrippenquiz-casus .begrippen-join .claper-join-url {
+        margin: 0;
+        font-size: 0.65em;
+    }
+    #begrippenquiz-casus p.medium {
+        font-size: 1.15em;
+    }
+    #begrippenquiz-casus .begrippen-join .claper-qr {
+        width: 120px;
+        height: 120px;
+    }
+    #begrippenquiz-definities p {
+        font-size: 0.8em;
+        line-height: 1.3;
+        margin: 0.4em 0;
+    }
+    #begrippenquiz-definities h2 {
+        font-size: 1.1em;
+        margin-bottom: 0.2em;
+    }
+    #begrippenquiz .claper-live {
+        gap: 24px;
+    }
+    #begrippenquiz .claper-bar {
+        grid-template-columns: minmax(0, 1fr) 110px 65px;
+        gap: 12px;
+        font-size: 0.55em;
+        line-height: 1.25;
+    }
+    #begrippenquiz .matching-options {
+        margin: 0 0 0 1.4em;
+        font-size: 0.6em;
+        line-height: 1.35;
+    }
+    #begrippenquiz .matching-options li {
+        margin-bottom: 0.8em;
+        padding: 0.3em 0.5em;
+    }
+    #begrippenquiz .claper-reveal.visible ~ .claper-live .matching-options .is-correct {
+        background: #eaf5ef;
+        font-weight: bold;
+    }
 </style>
 
 <section>
@@ -503,9 +553,9 @@ organization: Departement Omgeving
     {% markdown %}
         ## Standardisaties en modellen
         ### Silo's doorbreken
-        - Een verkeerstelling, een schooldoorlichting, een premieaanvraag, een EPC, een erkenning, ...
+        - Een verkeerstelling, een schooldoorlichting, een premieaanvraag, een EPC, een erkenning, een vergunning, een subsidie, ...
         - Elk agentschap, elke toepassing krijgt een **eigen datamodel**
-        - Telkens dezelfde vragen opnieuw beantwoorden: wie, wat, wanneer, waarover?
+        - Gelijkaardige patronen: wie, wat, wanneer, waarover?
         {.medium}
     {% endmarkdown %}
         <aside class="notes">
@@ -513,14 +563,30 @@ organization: Departement Omgeving
 
         </aside>
     </section>
-    <section>
-    {% markdown %}
+    <section id="vocabularium">
+        {% markdown %}
         ## Standardisaties en modellen
-        ### Wat als we een bestaand patroon hergebruiken?
-        > Veel van wat we modelleren zijn **varianten van hetzelfde patroon**: iemand of iets bepaalt iets over een onderwerp, op een bepaalde manier en een bepaald moment, met een resultaat
-        Eén standaard die dit patroon beschrijft: **SOSA/SSN**
+        ### Vocabularium, ontologie, knowledge graph
+        **Vocabularium**
+        > Een **herbruikbare verzameling termen** met URI's en definities.
         {.medium}
-    {% endmarkdown %}
+
+        **Ontologie**
+        > Een ontologie legt ook **formele relaties en axioma's** vast.
+        {.medium}
+
+        **Knowledge graph**
+        > Een graaf van entiteiten en relaties die kennis representeert.
+        {.medium}
+        {% endmarkdown %}
+        <aside class="notes">
+            Een vocabularium is onze gedeelde woordenschat voor data. De prefix sosa: is alleen een afkorting voor een namespace; de volledige URI identificeert de term.
+            Observation verwijst bijvoorbeeld naar http://www.w3.org/ns/sosa/Observation.
+            Een lokaal veld met de naam Observation heeft niet automatisch dezelfde betekenis.
+            Een vocabularium kan klassen en eigenschappen bevatten, maar ook een gecontroleerde verzameling begrippen. Met SKOS komen we later op dat laatste terug.
+            De termen vocabularium en ontologie worden in de praktijk deels door elkaar gebruikt: dit is geen harde tweedeling.
+            Bron: https://www.w3.org/TR/rdf11-primer/#section-vocabulary
+        </aside>
     </section>
     <section>
     {% markdown %}
@@ -534,38 +600,36 @@ organization: Departement Omgeving
     </section>
 </section>
 
-<section id="model-overzicht">
-    {% markdown %}
-        ## Standaardmodellen
-        ### Eén casus, zes invalshoeken
-        Van waterstaal tot gepubliceerde meetgegevens.
-        {.medium}
-
-        | Vraag | Herbruikbaar model |
-        | --- | --- |
-        | Wat is gemeten, waarover en waarmee? | SOSA/SSN |
-        | Waar komt het rapport vandaan en wie was betrokken? | PROV-O |
-        | Welke stappen waren voorzien? | P-Plan |
-        | Wat betekenen onze begrippen en codes? | SKOS |
-        | Hoe beschrijven we het rapport? | Dublin Core Terms |
-        | Hoe vindt iemand de dataset en de toegang ertoe? | DCAT |
-        {.sosa-patroon}
-
-    {% endmarkdown %}
-    <aside class="notes">
-        Alle voorbeelden zijn fictief en gebruiken https://example.org/ als namespace. De zes modellen vullen elkaar aan; je hoeft niet alles met één standaard op te lossen.
-        Per model volgt een voorbeeld en een korte oefening. Reserveer samen ongeveer 15 minuten voor de oefeningen; de uitbreidingen zijn optioneel.
-        Turtle kennen is geen vereiste. Laat deelnemers ook vakjes met benoemde pijlen tekenen en bespreek welke betekenis en afspraken nog ontbreken.
-        Dezelfde URI kan in meerdere modellen terugkomen. Een meetgebeurtenis kan bijvoorbeeld zowel een sosa:Observation als een prov:Activity zijn.
-        De voorbeelden zijn kleine fragmenten, geen volledige toepassingsprofielen of productieklare datasets.
-    </aside>
-</section>
-
 <section>
+    <section id="model-overzicht">
+        {% markdown %}
+            ## Standaardmodellen
+            ### Overzicht
+
+            | Vraag | Herbruikbaar model |
+            | --- | --- |
+            | Wat is gemeten, waarover en waarmee? | SOSA/SSN |
+            | Waar komt het rapport vandaan en wie was betrokken? | PROV-O |
+            | Welke stappen waren voorzien? | P-Plan |
+            | Wat betekenen onze begrippen en codes? | SKOS |
+            | Wie zegt iets over wat? | Web Annotations |
+            | Eenheden, grootheden en numerieke waarden | QUDT |
+            {.sosa-patroon}
+
+        {% endmarkdown %}
+        <aside class="notes">
+            Alle voorbeelden zijn fictief en gebruiken https://example.org/ als namespace. De zes modellen vullen elkaar aan; je hoeft niet alles met één standaard op te lossen.
+            Per model volgt een voorbeeld en een korte oefening. Reserveer samen ongeveer 15 minuten voor de oefeningen; de uitbreidingen zijn optioneel.
+            Turtle kennen is geen vereiste. Laat deelnemers ook vakjes met benoemde pijlen tekenen en bespreek welke betekenis en afspraken nog ontbreken.
+            Dezelfde URI kan in meerdere modellen terugkomen. Een meetgebeurtenis kan bijvoorbeeld zowel een sosa:Observation als een prov:Activity zijn.
+            De voorbeelden zijn kleine fragmenten, geen volledige toepassingsprofielen of productieklare datasets.
+        </aside>
+    </section>
+
     <section id="model-sosa">
         {% markdown %}
         ## Standaardmodellen
-        ### SOSA/SSN · waarnemingen
+        ### SOSA/SSN
         **SOSA** beschrijft waarnemingen; **SSN** vult aan met systemen en capaciteiten.
         {.medium}
 
@@ -591,10 +655,21 @@ organization: Departement Omgeving
             Bronnen: https://www.w3.org/TR/vocab-ssn/ en https://informatievlaanderen.github.io/OSLOthema-SSNSOSA-VL/
         </aside>
     </section>
-    <section id="oefening-sosa">
+    <section id="documentatie-sosa">
         {% markdown %}
-        ## Workshop · SOSA/SSN
-        ### Twee metingen, hetzelfde staal
+        ## Standaardmodellen
+        ### SOSA/SSN Documentatie
+        ![SOSA/SSN-documentatie met klassen en hun definities](./images/documentatie-sosa.png){.slide-screenshot}
+        {% endmarkdown %}
+        <aside class="notes">
+            Bron: https://www.w3.org/TR/2017/REC-vocab-ssn-20171019/#x4-3-2-specification
+            Toon de URI, definitie, voorbeelden en relaties bij een klasse.
+        </aside>
+    </section>
+    <section id="oefening-sosa" class="workshop-exercise">
+        {% markdown %}
+        ## Standaardmodellen
+        ### SOSA/SSN Voorbeeld
         Een fotometer meet nitraat in **staal 42**: eerst **7,2 mg/L**, daarna **7,4 mg/L**.
         {.medium}
 
@@ -641,13 +716,11 @@ organization: Departement Omgeving
             {% endmarkdown %}
         </aside>
     </section>
-</section>
 
-<section>
     <section id="model-prov">
         {% markdown %}
         ## Standaardmodellen
-        ### PROV-O · herkomst en verantwoordelijkheid
+        ### PROV-O
         **Entity** = iets · **Activity** = een handeling · **Agent** = een betrokkene met verantwoordelijkheid
         {.medium}
 
@@ -673,10 +746,21 @@ organization: Departement Omgeving
             Bron: https://www.w3.org/TR/prov-o/
         </aside>
     </section>
-    <section id="oefening-prov">
+    <section id="documentatie-prov">
         {% markdown %}
-        ## Workshop · PROV-O
-        ### Een rapport wordt gecorrigeerd
+        ## Standaardmodellen
+        ### PROV-O Documentatie
+        ![PROV-O-documentatie met de definitie en eigenschappen van Entity](./images/documentatie-prov.png){.slide-screenshot}
+        {% endmarkdown %}
+        <aside class="notes">
+            Bron: https://www.w3.org/TR/2013/REC-prov-o-20130430/#Entity
+            Toon de URI, definitie, het voorbeeld en de eigenschappen van Entity.
+        </aside>
+    </section>
+    <section id="oefening-prov" class="workshop-exercise">
+        {% markdown %}
+        ## Standaardmodellen
+        ### PROV-O Voorbeeld
         Een medewerker corrigeert **rapport 42**. Er ontstaat een **nieuwe versie**, terwijl de oorspronkelijke versie bewaard blijft.
         {.medium}
 
@@ -712,13 +796,11 @@ organization: Departement Omgeving
             {% endmarkdown %}
         </aside>
     </section>
-</section>
 
-<section>
     <section id="model-p-plan">
         {% markdown %}
         ## Standaardmodellen
-        ### P-Plan · het plan achter de uitvoering
+        ### P-Plan
         **Plan en Step** beschrijven wat voorzien is. Een concrete **Activity** beschrijft een uitvoering, aansluitend op PROV-O.
         {.medium}
 
@@ -744,7 +826,18 @@ organization: Departement Omgeving
             Bron: https://www.opmw.org/model/p-plan/
         </aside>
     </section>
-    <section id="oefening-p-plan">
+    <section id="documentatie-p-plan">
+        {% markdown %}
+        ## Standaardmodellen
+        ### P-Plan Documentatie
+        ![P-Plan-documentatie met eigenschappen en een overzicht van het model](./images/pplan.png){.slide-screenshot}
+        {% endmarkdown %}
+        <aside class="notes">
+            Bron: https://www.opmw.org/model/p-plan/
+            Toon de eigenschappen en het diagram dat het plan met de uitvoering verbindt.
+        </aside>
+    </section>
+    <section id="oefening-p-plan" class="workshop-exercise">
         {% markdown %}
         ## Workshop · P-Plan
         ### Gepland is nog niet uitgevoerd
@@ -795,132 +888,219 @@ organization: Departement Omgeving
     </section>
 </section>
 
-<section>
-    <section id="model-skos">
-        {% markdown %}
-        ## Standaardmodellen
-        ### SKOS · begrippen en codelijsten
-        Een **begrip heeft een URI**; labels en codes beschrijven dat begrip.
-        {.medium}
-
-        ```turtle
-        @prefix ex: <https://example.org/> .
-        @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-
-        ex:kwaliteitsstatus a skos:ConceptScheme .
-        ex:gevalideerd a skos:Concept ;
-            skos:inScheme ex:kwaliteitsstatus ;
-            skos:prefLabel "Gevalideerd"@nl ;
-            skos:definition "De kwaliteitscontrole is afgerond."@nl ;
-            skos:notation "V" .
-        ```
-        {% endmarkdown %}
-        <aside class="notes">
-            SKOS staat voor Simple Knowledge Organization System. Je gebruikt het voor onder andere thesauri, taxonomieën en gecontroleerde begrippenlijsten.
-            De ontologie SKOS levert het model; onze concrete kwaliteitsstatussen vormen een begrippenschema dat daarmee beschreven wordt.
-            Een Concept is niet hetzelfde als een klasse van rapporten. Gevalideerd is hier een statuswaarde waarnaar een rapport met een afgesproken statuseigenschap kan verwijzen.
-            PrefLabel is het voorkeurslabel per taal; altLabel geeft een alternatief label. Notation is de code, niet de identiteit van het begrip.
-            Broader verbindt een begrip met een ruimer begrip. Voor koppelingen tussen schema's bestaan onder andere exactMatch, closeMatch en broadMatch.
-            Gebruik exactMatch alleen als de begrippen voldoende gelijkwaardig en uitwisselbaar zijn. Een gelijk label of een gelijke code volstaat niet.
-            Bron: https://www.w3.org/TR/skos-primer/
-        </aside>
-    </section>
-    <section id="oefening-skos">
-        {% markdown %}
-        ## Workshop · SKOS
-        ### Twee codes, dezelfde betekenis?
-        Het labo gebruikt **V**: kwaliteitscontrole afgerond.
-        Het publicatieteam gebruikt **OK**: publicatie is toegestaan.
-        {.medium}
-
-        1. Geef beide begrippen een URI, voorkeurslabel en definitie.
-        2. Zou je ze met `skos:exactMatch` verbinden? Waarom wel of niet?
-        3. **Bonus:** voeg een Engels label toe zonder een nieuw begrip te maken.
-        {.medium}
-
-        **2 minuten** · Vergelijk de definities, niet alleen de labels.
-        {.medium}
-        {% endmarkdown %}
-        <aside class="notes">
+    <section id="begrippenquiz"{% if modelMatchingQuiz.id %} data-claper-activate="quiz:{{ modelMatchingQuiz.id }}"{% endif %}>
+        <section id="begrippenquiz-casus">
             {% markdown %}
-            **Mogelijke oplossing**
+            ## Workshop · kies het modelbegrip
+            ### Van waterstaal tot rapport
+            Een labo meet nitraat met een **fotometer**, plant **kwaliteitscontrole** en bewaart een **PDF-rapport** met een eigen versie-URI.
+            {.medium}
+
+            Kies voor elke situatie de **best passende klasse voor de beschreven rol**.
+            De opties bevatten Nederlandse vertalingen van officiële klassedefinities.
+            {.medium}
+
+            **3 vragen · 3 minuten**
+            {.medium}
+            {% endmarkdown %}
+            {% if modelMatchingQuiz.id %}
+            {% set matchingJoinUrl = "https://claper.maximvdw.be/e/" ~ modelMatchingEvent %}
+            <div class="claper-join claper-join--large begrippen-join">
+                <div class="claper-qr">{% qrcode matchingJoinUrl %}</div>
+                <p class="claper-join-url">claper.maximvdw.be/e/<strong>{{ modelMatchingEvent }}</strong></p>
+            </div>
+            {% else %}
+            <p class="subtext">Claper nog niet gesynchroniseerd. Beantwoord de vragen voorlopig klassikaal.</p>
+            {% endif %}
+            <aside class="notes">
+                De definities zijn Nederlandse vertalingen, geen officiële Nederlandstalige versies. De klassennamen en prefixes blijven die van de ontologie.
+                Elke vraag noemt het te gebruiken model en vraagt naar een specifieke rol. Een object kan immers in meer dan één model en met meerdere types beschreven worden.
+                Laat deelnemers de definities lezen voordat je de antwoorden bespreekt. Bij de lokale versie en bij de Claper-resultaten markeert de volgende klik het juiste antwoord.
+                Een Claper-quiz verloopt in eigen tempo: het wisselen van resultaatslide stuurt deelnemers niet naar een volgende quizvraag.
+            </aside>
+        </section>
+        <section id="begrippenquiz-definities">
+            {% markdown %}
+            ## Workshop · de klassen
+            ### Wat betekenen de opties?
+
+            **sosa:Sample**: representatieve afspiegeling van een onderzoeksobject, waarop waarnemingen gebeuren.
+
+            **sosa:Sensor**: apparaat, agent of software die een waarneming uitvoert en een resultaat geeft.
+
+            **sosa:ObservableProperty**: een waarneembare eigenschap van een onderzoeksobject.
+
+            **p-plan:Plan**: een prov:Plan dat uit stappen bestaat die variabelen gebruiken en produceren.
+
+            **p-plan:Activity**: het uitvoeringsproces dat in een p-plan:Step gepland is.
+
+            **p-plan:Step**: een geplande uitvoeringsactiviteit.
+
+            **prov:Entity**: een fysiek, digitaal of conceptueel ding met vaste aspecten.
+
+            **prov:Activity**: iets dat in de tijd plaatsvindt en werkt op of met entiteiten.
+
+            **prov:Agent**: iets dat verantwoordelijk is voor een activiteit of entiteit.
+            {% endmarkdown %}
+        </section>
+        {% for question in modelMatchingQuiz.questions %}
+            {% if modelMatchingQuiz.id %}
+                {% claperQuiz modelMatchingEvent, modelMatchingQuiz.id, loop.index, question.title %}
+            {% else %}
+        <section class="claper-slide--quiz matching-local-question">
+            <h2 class="claper-poll-title">{{ question.title }}</h2>
+            <span class="fragment claper-reveal" data-fragment-index="0" aria-hidden="true"></span>
+            <div class="claper-live">
+                <div class="claper-results">
+                    <ol class="matching-options">
+                        {% for option in question.options %}
+                        <li{% if loop.index0 in question.correct %} class="is-correct"{% endif %}>{{ option }}</li>
+                        {% endfor %}
+                    </ol>
+                    <p class="claper-total">Lokale oefening · volgende klik toont het juiste antwoord.</p>
+                </div>
+            </div>
+        </section>
+            {% endif %}
+        {% endfor %}
+        <section id="begrippenquiz-nabespreking">
+            {% markdown %}
+            ## Workshop · nabespreking
+            ### De rol bepaalt het begrip
+
+            | Onderdeel uit de casus | Klasse | Waarom? |
+            | --- | --- | --- |
+            | Fotometer als meetapparaat | `sosa:Sensor` | Voert de meetprocedure uit |
+            | Geplande kwaliteitscontrole | `p-plan:Step` | Beschrijft een voorziene taak |
+            | Bewaarde rapportversie | `prov:Entity` | Een digitaal object met vaste aspecten |
+
+            {.sosa-patroon}
+
+            **Wat verandert er als de kwaliteitscontrole echt uitgevoerd wordt?**
+            {.medium}
+            {% endmarkdown %}
+            <aside class="notes">
+                Antwoord 1: sosa:Sensor. Het waterstaal is de Sample en de nitraatconcentratie is de ObservableProperty. De fotometer vervult hier de rol van meetapparaat.
+                Antwoord 2: p-plan:Step. Het volledige analyseplan is een Plan. De concrete uitvoering van de controle is een p-plan:Activity, die je met correspondsToStep aan de geplande Step koppelt.
+                Antwoord 3: prov:Entity. Het maken of corrigeren van het rapport is een Activity. Het verantwoordelijke labo of de medewerker kan een Agent zijn.
+                Een planstap en een uitvoering krijgen een afzonderlijke identiteit. Je vervangt de Step dus niet door een Activity zodra de taak uitgevoerd wordt.
+                Dezelfde concrete uitvoering kan ook een prov:Activity zijn: p-plan:Activity is daarvan een subklasse. Dit is geen keuze tussen elkaar uitsluitende modellen.
+                SOSA-vertalingen: de skos:definition van Sample, Sensor en ObservableProperty in https://www.w3.org/ns/sosa/sosa.ttl.
+                FeatureOfInterest is in deze opties vertaald als onderzoeksobject. De Sensor-definitie is volledig vertaald, inclusief de zinnen over prikkels, invoer en platforms.
+                P-Plan-vertalingen: prov:definition voor Plan en Step en rdfs:comment voor Activity in https://www.opmw.org/p-plan.owl.
+                PROV-O-vertalingen: prov:definition voor Entity, Activity en Agent in https://www.w3.org/ns/prov-o.ttl.
+                Documentatie: https://www.w3.org/TR/vocab-ssn/, https://www.opmw.org/model/p-plan/ en https://www.w3.org/TR/prov-o/.
+            </aside>
+        </section>
+    </section>
+
+    <section>
+        <section id="model-skos">
+            {% markdown %}
+            ## Standaardmodellen
+            ### SKOS · begrippen en codelijsten
+            Een **begrip heeft een URI**; labels en codes beschrijven dat begrip.
+            {.medium}
 
             ```turtle
             @prefix ex: <https://example.org/> .
             @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
             ex:kwaliteitsstatus a skos:ConceptScheme .
-            ex:publicatiestatus a skos:ConceptScheme .
             ex:gevalideerd a skos:Concept ;
                 skos:inScheme ex:kwaliteitsstatus ;
-                skos:prefLabel "Gevalideerd"@nl, "Validated"@en ;
+                skos:prefLabel "Gevalideerd"@nl ;
                 skos:definition "De kwaliteitscontrole is afgerond."@nl ;
                 skos:notation "V" .
-            ex:publiceerbaar a skos:Concept ;
-                skos:inScheme ex:publicatiestatus ;
-                skos:prefLabel "Publiceerbaar"@nl ;
-                skos:definition "Publicatie van het resultaat is toegestaan."@nl ;
-                skos:notation "OK" .
             ```
-
-            Geen exactMatch: kwaliteitscontrole en toestemming tot publicatie zijn verschillende voorwaarden.
-            Een gevalideerd resultaat kan bijvoorbeeld nog niet gepubliceerd mogen worden wegens persoonsgegevens of een embargo.
-            In deze oefening laten we een mapping weg. Een eventuele andere relatie vraagt een expliciete inhoudelijke afspraak.
-            Hetzelfde begrip krijgt meerdere taallabels, geen aparte URI per taal. Gebruik hoogstens één prefLabel per taal.
             {% endmarkdown %}
-        </aside>
-    </section>
-</section>
+            <aside class="notes">
+                SKOS staat voor Simple Knowledge Organization System. Je gebruikt het voor onder andere thesauri, taxonomieën en gecontroleerde begrippenlijsten.
+                De ontologie SKOS levert het model; onze concrete kwaliteitsstatussen vormen een begrippenschema dat daarmee beschreven wordt.
+                Een Concept is niet hetzelfde als een klasse van rapporten. Gevalideerd is hier een statuswaarde waarnaar een rapport met een afgesproken statuseigenschap kan verwijzen.
+                PrefLabel is het voorkeurslabel per taal; altLabel geeft een alternatief label. Notation is de code, niet de identiteit van het begrip.
+                Broader verbindt een begrip met een ruimer begrip. Voor koppelingen tussen schema's bestaan onder andere exactMatch, closeMatch en broadMatch.
+                Gebruik exactMatch alleen als de begrippen voldoende gelijkwaardig en uitwisselbaar zijn. Een gelijk label of een gelijke code volstaat niet.
+                Bron: https://www.w3.org/TR/skos-primer/
+            </aside>
+        </section>
+        <section id="documentatie-skos">
+            {% markdown %}
+            ## Standaardmodellen
+            ### SKOS Documentatie
+            ![SKOS-documentatie met de definitie van een Concept](./images/documentatie-skos.png){.slide-screenshot}
+            {% endmarkdown %}
+            <aside class="notes">
+                Bron: https://www.w3.org/TR/2009/REC-skos-reference-20090818/#L1289
+                Toon de opbouw met toelichting, vocabularium, formele definitie en voorbeelden.
+            </aside>
+        </section>
+        <section id="oefening-skos" class="workshop-exercise">
+            {% markdown %}
+            ## Workshop · SKOS
+            ### Twee codes, dezelfde betekenis?
+            Het labo gebruikt **V**: kwaliteitscontrole afgerond.
+            Het publicatieteam gebruikt **OK**: publicatie is toegestaan.
+            {.medium}
 
-<section>
-    <section id="model-dcterms">
+            1. Geef beide begrippen een URI, voorkeurslabel en definitie.
+            2. Zou je ze met `skos:exactMatch` verbinden? Waarom wel of niet?
+            3. **Bonus:** voeg een Engels label toe zonder een nieuw begrip te maken.
+            {.medium}
+
+            **2 minuten** · Vergelijk de definities, niet alleen de labels.
+            {.medium}
+            {% endmarkdown %}
+            <aside class="notes">
+                {% markdown %}
+                **Mogelijke oplossing**
+
+                ```turtle
+                @prefix ex: <https://example.org/> .
+                @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+                ex:kwaliteitsstatus a skos:ConceptScheme .
+                ex:publicatiestatus a skos:ConceptScheme .
+                ex:gevalideerd a skos:Concept ;
+                    skos:inScheme ex:kwaliteitsstatus ;
+                    skos:prefLabel "Gevalideerd"@nl, "Validated"@en ;
+                    skos:definition "De kwaliteitscontrole is afgerond."@nl ;
+                    skos:notation "V" .
+                ex:publiceerbaar a skos:Concept ;
+                    skos:inScheme ex:publicatiestatus ;
+                    skos:prefLabel "Publiceerbaar"@nl ;
+                    skos:definition "Publicatie van het resultaat is toegestaan."@nl ;
+                    skos:notation "OK" .
+                ```
+
+                Geen exactMatch: kwaliteitscontrole en toestemming tot publicatie zijn verschillende voorwaarden.
+                Een gevalideerd resultaat kan bijvoorbeeld nog niet gepubliceerd mogen worden wegens persoonsgegevens of een embargo.
+                In deze oefening laten we een mapping weg. Een eventuele andere relatie vraagt een expliciete inhoudelijke afspraak.
+                Hetzelfde begrip krijgt meerdere taallabels, geen aparte URI per taal. Gebruik hoogstens één prefLabel per taal.
+                {% endmarkdown %}
+            </aside>
+        </section>
+    </section>
+
+    <section id="documentatie-web-annotations">
         {% markdown %}
         ## Standaardmodellen
-        ### Dublin Core Terms · algemene metadata
-        Beschrijf een rapport of dataset: **titel, maker, uitgever, datum en licentie**.
-        {.medium}
-
-        ```turtle
-        @prefix ex: <https://example.org/> .
-        @prefix dcterms: <http://purl.org/dc/terms/> .
-        @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-        ex:rapport42 dcterms:title "Waterkwaliteit staal 42"@nl ;
-            dcterms:creator ex:labo ;
-            dcterms:publisher ex:departement ;
-            dcterms:issued "2026-12-03"^^xsd:date ;
-            dcterms:license <https://creativecommons.org/licenses/by/4.0/> .
-        ```
+        ### Web Annotations Documentatie
+        ![Web Annotation-documentatie met de Annotation-klasse en een voorbeeld](./images/oa.png){.slide-screenshot}
         {% endmarkdown %}
         <aside class="notes">
-            Dublin Core Terms, onderhouden door DCMI, biedt algemene metadata die je combineert met domeinmodellen.
-            Gebruik hier de namespace http://purl.org/dc/terms/. Die is niet dezelfde als de oudere namespace http://purl.org/dc/elements/1.1/.
-            Creator verwijst naar de maker; publisher naar de partij die de resource beschikbaar maakt. Created en issued beschrijven verschillende momenten.
-            Geef personen en organisaties waar mogelijk een URI. Gebruik voor teksten een taalcode en voor datums een passend datatype.
-            De licentie is een verwijzing naar een licentiedocument, niet alleen vrije tekst zoals "open". De licentie hier is uitsluitend een fictieve oefenafspraak, geen uitspraak over echte overheidsdata.
-            Dublin Core vervangt geen gedetailleerde provenance: voor afzonderlijke bewerkingen en herkomstketens gebruik je PROV-O.
-            Bron: https://www.dublincore.org/specifications/dublin-core/dcmi-terms/
+            Bron: https://www.w3.org/TR/annotation-vocab/
+            Toon de inhoudstafel, de URI, de eigenschappen, het diagram en het Turtle-voorbeeld.
         </aside>
     </section>
-    <section id="oefening-dcterms">
-        {% markdown %}
-        ## Workshop · Dublin Core Terms
-        ### Maker is niet altijd uitgever
-        Het **labo** maakt het rapport op **2 december 2026**.
-        Het **departement** publiceert het op **3 december**.
-        Voor deze oefening is **CC BY 4.0** afgesproken.
-        {.medium}
 
-        1. Ken `creator`, `publisher`, `created` en `issued` correct toe.
-        2. Voeg een Nederlandstalige titel en een verwijzing naar de licentie toe.
-        {.medium}
-
-        **2 minuten** · Welke informatie beschrijft het rapport, niet de meting?
-        {.medium}
-        {% endmarkdown %}
-        <aside class="notes">
+    <section>
+        <section id="model-dcterms">
             {% markdown %}
-            **Mogelijke oplossing**
+            ## Standaardmodellen
+            ### Dublin Core Terms · algemene metadata
+            Beschrijf een rapport of dataset: **titel, maker, uitgever, datum en licentie**.
+            {.medium}
 
             ```turtle
             @prefix ex: <https://example.org/> .
@@ -930,17 +1110,70 @@ organization: Departement Omgeving
             ex:rapport42 dcterms:title "Waterkwaliteit staal 42"@nl ;
                 dcterms:creator ex:labo ;
                 dcterms:publisher ex:departement ;
-                dcterms:created "2026-12-02"^^xsd:date ;
                 dcterms:issued "2026-12-03"^^xsd:date ;
                 dcterms:license <https://creativecommons.org/licenses/by/4.0/> .
             ```
-
-            Deze datums slaan op het rapport, niet op het meettijdstip of de staalname.
-            Stel als nabespreking de vraag wat je zou veranderen voor de gecorrigeerde rapportversie uit de PROV-O-oefening.
             {% endmarkdown %}
-        </aside>
+            <aside class="notes">
+                Dublin Core Terms, onderhouden door DCMI, biedt algemene metadata die je combineert met domeinmodellen.
+                Gebruik hier de namespace http://purl.org/dc/terms/. Die is niet dezelfde als de oudere namespace http://purl.org/dc/elements/1.1/.
+                Creator verwijst naar de maker; publisher naar de partij die de resource beschikbaar maakt. Created en issued beschrijven verschillende momenten.
+                Geef personen en organisaties waar mogelijk een URI. Gebruik voor teksten een taalcode en voor datums een passend datatype.
+                De licentie is een verwijzing naar een licentiedocument, niet alleen vrije tekst zoals "open". De licentie hier is uitsluitend een fictieve oefenafspraak, geen uitspraak over echte overheidsdata.
+                Dublin Core vervangt geen gedetailleerde provenance: voor afzonderlijke bewerkingen en herkomstketens gebruik je PROV-O.
+                Bron: https://www.dublincore.org/specifications/dublin-core/dcmi-terms/
+            </aside>
+        </section>
+        <section id="documentatie-dcterms">
+            {% markdown %}
+            ## Standaardmodellen
+            ### Dublin Core Terms Documentatie
+            ![Dublin Core-documentatie met URI's en definities van metadata-eigenschappen](./images/documentatie-dcterms.png){.slide-screenshot}
+            {% endmarkdown %}
+            <aside class="notes">
+                Bron: https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#section-2
+                Toon hoe elke eigenschap een URI, label en definitie krijgt.
+            </aside>
+        </section>
+        <section id="oefening-dcterms" class="workshop-exercise">
+            {% markdown %}
+            ## Workshop · Dublin Core Terms
+            ### Maker is niet altijd uitgever
+            Het **labo** maakt het rapport op **2 december 2026**.
+            Het **departement** publiceert het op **3 december**.
+            Voor deze oefening is **CC BY 4.0** afgesproken.
+            {.medium}
+
+            1. Ken `creator`, `publisher`, `created` en `issued` correct toe.
+            2. Voeg een Nederlandstalige titel en een verwijzing naar de licentie toe.
+            {.medium}
+
+            **2 minuten** · Welke informatie beschrijft het rapport, niet de meting?
+            {.medium}
+            {% endmarkdown %}
+            <aside class="notes">
+                {% markdown %}
+                **Mogelijke oplossing**
+
+                ```turtle
+                @prefix ex: <https://example.org/> .
+                @prefix dcterms: <http://purl.org/dc/terms/> .
+                @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+                ex:rapport42 dcterms:title "Waterkwaliteit staal 42"@nl ;
+                    dcterms:creator ex:labo ;
+                    dcterms:publisher ex:departement ;
+                    dcterms:created "2026-12-02"^^xsd:date ;
+                    dcterms:issued "2026-12-03"^^xsd:date ;
+                    dcterms:license <https://creativecommons.org/licenses/by/4.0/> .
+                ```
+
+                Deze datums slaan op het rapport, niet op het meettijdstip of de staalname.
+                Stel als nabespreking de vraag wat je zou veranderen voor de gecorrigeerde rapportversie uit de PROV-O-oefening.
+                {% endmarkdown %}
+            </aside>
+        </section>
     </section>
-</section>
 
 <section>
     <section id="model-dcat">
@@ -972,7 +1205,18 @@ organization: Departement Omgeving
             Bron: https://www.w3.org/TR/vocab-dcat-3/
         </aside>
     </section>
-    <section id="oefening-dcat">
+    <section id="documentatie-dcat">
+        {% markdown %}
+        ## Standaardmodellen
+        ### DCAT Documentatie
+        ![DCAT-documentatie met een overzicht van klassen en hun relaties](./images/documentatie-dcat.png){.slide-screenshot}
+        {% endmarkdown %}
+        <aside class="notes">
+            Bron: https://www.w3.org/TR/2024/REC-vocab-dcat-3-20240822/#vocabulary-overview
+            Toon het overzicht van de klassen en het diagram met hun relaties.
+        </aside>
+    </section>
+    <section id="oefening-dcat" class="workshop-exercise">
         {% markdown %}
         ## Workshop · DCAT
         ### Eén meetreeks, meerdere toegangsvormen
@@ -1027,25 +1271,227 @@ organization: Departement Omgeving
 <section>
     <section>
         {% markdown %}
+        ## Uitdagingen
+        ![](./images/loud.png){width=60%}
+
+        Tekening Patrick Hochstenbach{.small}
+        {% endmarkdown %}
+        <aside class="notes">
+            Ik had beloofd om ook de uitdagingen aan te kaarten. En dit is waarschijnlijk het belangrijkste stuk van heel deze presentatie. Want we hebben drie soorten gebruikers:
+            de business die vooral willen dat alles wat volgens regelgeving verplicht is bevraagd wordt. Aan het ander uiterste de afnemers die ook willen dat alles nauwkeurig is. Zeker naar
+            rapportering toe bijvoorbeeld of handhaving.
+
+            Maar daar tussen zitten ontwikkelaars die wel iets werkbaar willen hebben.
+        </aside>
+    </section>
+    <section data-claper-activate="form:2">
+        <h2>Welke uitdagingen ervaar jij bij gegevensuitwisseling?</h2>
+        <div class="row" style="align-items: center;">
+            <div class="col-half">
+            {% markdown %}
+                Deel een uitdaging uit je eigen praktijk via het **formulier in Claper**.
+                {.medium}
+
+                Denk aan begrippen, techniek, samenwerking of beheer.
+                {.medium}
+            {% endmarkdown %}
+            </div>
+            <div class="col-half">
+                <div class="claper-join claper-join--large">
+                    <div class="claper-qr">{% qrcode "https://claper.maximvdw.be/e/q6tdq" %}</div>
+                    <p class="claper-join-url">claper.maximvdw.be/e/<strong>q6tdq</strong></p>
+                </div>
+            </div>
+        </div>
+        <aside class="notes">
+            Geef deelnemers even tijd om een concrete uitdaging te beschrijven.
+            Antwoorden op dit formulier zijn alleen in het beheer van Claper zichtbaar, niet live op deze slide.
+            Bespreek enkele voorbeelden voordat je doorgaat naar de uitdagingen.
+        </aside>
+    </section>
+    <section>
+        {% markdown %}
+        ## Uitdagingen
+        ### Toekomstbestendigheid is (vaak) geen use case
+        Om interoperabiliteit te bereiken bij overheidsapplicaties moet je de problemen en use cases van vandaag oplossen en nadenken over de problemen en use cases van morgen.
+        {.medium}
+
+        ... er is geen beloning vandaag voor het oplossen van toekomstige problemen.
+        {% endmarkdown %}
+    </section>
+    <section id="uitdaging-analyse">
+        {% markdown %}
             ## Uitdagingen
             ### Bijkomend analysewerk
-            > Na de analyse van wat je van informatie moet capteren (informatiemodel) volgt een analyse hoe dit past binnen gestandardiseerde data modellen en waar je mee moet rekening houden voor de toekomst.
+            Een bestaand model hergebruiken vraagt eerst **inhoudelijke keuzes**.
+
+            - Welke standaard past bij de betekenis van onze gegevens?
+            - Welke lokale afspraken en uitbreidingen zijn echt nodig?
+            - Wie betaalt de eerste uitwerking als anderen later mee profiteren?
+
+            **Aanpak:** budgetteer analyse en beheer; bewijs de meerwaarde met één concrete gegevensuitwisseling.
+        {% endmarkdown %}
+        <aside class="notes">
+            Een veld aan een term koppelen is geen puur technische omzetting. De inhoudelijke expert moet bijvoorbeeld bevestigen dat een meetresultaat niet hetzelfde is als een goedkeuringsbeslissing.
+            Zoek eerst het patroon en de betekenis, pas daarna de eigenschap of klasse. Leg keuzes vast in een klein toepassingsprofiel met voorbeelden.
+            De eerste toepassing draagt vaak kosten waarvan volgende toepassingen profiteren. Voorzie daarvoor expliciet gezamenlijke tijd of financiering.
+            Vergelijk de investering met de huidige kosten van mappings, foutcorrecties en wijzigingen aan koppelingen, niet alleen met de ontwikkelkost van één applicatie.
+        </aside>
+    </section>
+    <section id="uitdaging-complexiteit">
+        {% markdown %}
+            ## Uitdagingen
+            ### Complexiteit en overmodellering
+            **Een standaard gebruiken betekent niet alles ervan implementeren.**
+
+            - Generieke modellen vragen een vertaalslag naar de eigen werking.
+            - Extra abstracties maken ontwikkeling en uitleg moeilijker.
+            - Automatische afleidingen zijn alleen nuttig als je ze nodig hebt.
+
+            **Aanpak:** kies een klein profiel met concrete voorbeelden. Breid uit zodra een echte usecase dat vraagt.
+        {% endmarkdown %}
+        <aside class="notes">
+            De zes modellen uit de casus zijn een gereedschapskist, geen verplichte checklist voor elke toepassing.
+            Voor een gedeelde statuslijst kunnen SKOS en duidelijke definities volstaan. Niet elk project heeft een redeneerlaag met OWL nodig.
+            Een toepassingsprofiel beschrijft welke termen je gebruikt, welke beperkingen gelden en hoe je uitbreidt. Het vervangt de betekenis van de onderliggende standaard niet.
+            Vermijd zowel alles vooraf modelleren als lokale varianten bouwen die alleen een andere naam hebben voor hetzelfde standaardbegrip.
+        </aside>
+    </section>
+    <section id="uitdaging-kwaliteit">
+        {% markdown %}
+            ## Uitdagingen
+            ### Gedeelde termen garanderen geen correcte data
+            **Een herkenbaar model is nog geen geldig meetrapport.**
+
+            - Zijn resultaat, eenheid en meettijdstip aanwezig?
+            - Gebruiken we dezelfde types en afgesproken statusbegrippen?
+            - Zijn onze definities inhoudelijk echt gelijkwaardig?
+
+            **Aanpak:** maak afspraken toetsbaar, bijvoorbeeld met **SHACL**, en valideer bij invoer en uitwisseling.
+        {% endmarkdown %}
+        <aside class="notes">
+            RDF laat toe gegevens flexibel te beschrijven, maar legt niet vanzelf alle verplichte velden of bedrijfsregels op.
+            SHACL is een W3C-standaard om voorwaarden te beschrijven en een RDF-graaf ertegen te valideren: aantallen, datatypes, waardebereiken en andere beperkingen.
+            Een validator kan een ontbrekende eenheid signaleren als het profiel die vereist. Hij bewijst niet dat het labo de juiste eenheid heeft geregistreerd of correct heeft gemeten.
+            Valideer zo dicht mogelijk bij de bron en geef fouten terug aan een verantwoordelijke. Ook een mapping zoals exactMatch moet inhoudelijk worden beoordeeld.
+        </aside>
+    </section>
+    <section id="uitdaging-identiteit">
+        {% markdown %}
+            ## Uitdagingen
+            ### Identiteit en wijzigingen door de tijd
+            **Wat gebeurt er met rapport 42 na een correctie?**
+
+            - Een URI mag niet plots een ander object of begrip betekenen.
+            - Rapporten, codelijsten en toepassingsprofielen evolueren.
+            - Afnemers moeten weten welke versie en definitie gelden.
+
+            **Aanpak:** spreek URI-beheer, versiebeleid en migratie af. Bewaar herkomst en kondig wijzigingen aan.
+        {% endmarkdown %}
+        <aside class="notes">
+            In de PROV-O-oefening hielden we de oorspronkelijke rapportversie bij en kreeg de correctie een nieuwe versie-URI.
+            Maak onderscheid tussen de identiteit van een rapport en de identiteit van een specifieke, onveranderlijke versie daarvan.
+            Een label corrigeren is niet hetzelfde als de betekenis van een status veranderen. Bij een inhoudelijk nieuw begrip is een nieuwe URI vaak nodig.
+            Kies beheerde domeinnamen, houd verwijzingen bruikbaar en documenteer vervangingen. Leg vast wie dit ook na een platformwissel onderhoudt.
+            Kies onderhouden standaarden en leg vast op welke versie het profiel steunt. Een nieuwe standaardversie mag niet ongemerkt een bestaande koppeling wijzigen.
+        </aside>
+    </section>
+    <section id="uitdaging-integratie">
+        {% markdown %}
+            ## Uitdagingen
+            ### Bestaande systemen en performantie
+            **Linked Data verplicht je niet om je databank te vervangen.**
+
+            - Bestaande applicaties hebben eigen modellen en koppelingen.
+            - Conversies, validatie en queries kosten rekentijd.
+            - Een extra publicatielaag vraagt synchronisatie en beheer.
+
+            **Aanpak:** migreer stapsgewijs, meet met echte workloads en gebruik gerichte API's of caching waar dat helpt.
+        {% endmarkdown %}
+        <aside class="notes">
+            Het gedeelde model is een afspraak over betekenis en uitwisseling, niet automatisch een keuze voor een triple store.
+            Je kan een relationele databank behouden en via een expliciete mapping Linked Data aanbieden. Maak daarbij de mapping testbaar, anders verplaats je alleen het oorspronkelijke probleem.
+            Een aparte publicatielaag kan nuttig zijn, maar vraagt afspraken over actualiteit, foutafhandeling en herstel wanneer synchronisatie faalt.
+            Er bestaat geen algemene garantie dat een graph sneller of trager is. Meet representatieve lees- en schrijfoperaties, datavolumes en responstijden.
+            Bied niet zonder noodzaak een onbeperkt query-endpoint aan. Een gerichte interface of vooraf berekende publicatie kan beter aansluiten bij de afnemers.
+        </aside>
+    </section>
+    <section id="uitdaging-toegang">
+        {% markdown %}
+            ## Uitdagingen
+            ### Toegankelijk betekent niet openbaar
+            **Een link naar data geeft niet automatisch recht op die data.**
+
+            - Persoonsgegevens en vertrouwelijke informatie blijven beschermd.
+            - Ook metadata en relaties kunnen gevoelige informatie onthullen.
+            - Hergebruik vraagt duidelijke toegangs- en gebruiksvoorwaarden.
+
+            **Aanpak:** bepaal wat deelbaar is, met wie en waarvoor. Pas authenticatie, autorisatie en logging toe.
+        {% endmarkdown %}
+        <aside class="notes">
+            Linked Data en open data zijn niet hetzelfde. Je kan URI's en gedeelde modellen gebruiken binnen een afgeschermde gegevensuitwisseling.
+            De waterkwaliteitcasus maakt het onderscheid concreet: een gevalideerd rapport is niet automatisch publiceerbaar.
+            Een URI is een identificator, geen toegangstoken. Controleer rechten aan de serverkant, ook wanneer iemand de URL al kent.
+            Bekijk welke informatie de catalogus, URI-structuur en relaties prijsgeven. Publiceer alleen de noodzakelijke metadata en inhoud.
+            Spreek doelbinding, bewaartermijnen, licentie of andere gebruiksvoorwaarden en verantwoordelijkheid af met de betrokken partijen.
+        </aside>
+    </section>
+    <section id="uitdaging-adoptie">
+        {% markdown %}
+            ## Uitdagingen
+            ### Mensen, kennis en afhankelijkheden
+            **Een werkende lokale oplossing vervangen voelt eerst als extra werk.**
+
+            - Het team moet nieuwe begrippen en tools leren.
+            - Een eigen variant lijkt soms eenvoudiger dan gedeelde afspraken.
+            - Leveranciersafhankelijkheid verdwijnt niet door alleen RDF te gebruiken.
+            - Verwijzen naar andere applicaties is moeilijker als die zelf geen Linked Data aanbieden.
+
+            **Aanpak:** werk samen aan een kleine proef, deel voorbeelden en vraag overdraagbare modellen, data en mappings.
+        {% endmarkdown %}
+        <aside class="notes">
+            Weerstand kan een terecht signaal zijn: de kosten zijn direct zichtbaar, de baten van hergebruik vaak pas bij een tweede afnemer.
+            Voorzie begeleiding en samen modelleren met een ervaren collega. Laat niet één specialist alle kennis vasthouden.
+            Bespreek ontbrekende termen met de beheerders van de standaard in plaats van ongemerkt een eigen concurrerende variant te maken.
+            Een open formaat alleen voorkomt geen lock-in. Ook exporteerbaarheid, documentatie, toegang tot mappings en contractuele overdracht moeten geregeld zijn.
+            Je kan zelf Linked Data aanbieden, maar voor verwijzingen naar gegevens uit andere applicaties blijf je afhankelijk van hun identificatoren en publicatieafspraken.
+            Zonder stabiele URI's en machineleesbare beschrijvingen bij de bron zijn extra mappings of een tussenlaag nodig. Spreek dan samen identiteit, betekenis en actualisatie af; ken niet zomaar een eigen identiteit toe aan andermans gegevens.
+            Toon bij de proef of een andere toepassing de gegevens werkelijk kan begrijpen en gebruiken zonder maatwerk door de oorspronkelijke leverancier.
+        </aside>
+    </section>
+    <section id="uitdaging-tools">
+        {% markdown %}
+            ## Uitdagingen
+            ### (Te) veel technische tools
+            - SPARQL
+            - LDES
+            - Triple stores (Virtuoso, Oxygraph, ...)
+            - SHACL
+            - ...
+
+            **Aanpak:** enkel wanneer je het er nut ervan inziet. Zolang je data model interoperabel is zijn je tools dit ook.
         {% endmarkdown %}
         <aside class="notes">
 
         </aside>
     </section>
-    <section>
+    <section id="uitdaging-beheer">
         {% markdown %}
             ## Uitdagingen
-            ### Complexiteit
-            > Generieke modellen houd in dat je buiten je business requirements kan denken en ook rekening houden met de toekomst of andere use cases.
+            ### Wie houdt de afspraken levend?
+            **Gedeelde definities zijn een blijvende verantwoordelijkheid.**
 
-            Dit kan in sommige gevallen overkomen als overengineering.
+            - Wie beheert de statuslijst en beslist over wijzigingen?
+            - Waar melden afnemers een fout of ontbrekend begrip?
+            - Wie voorziet tijd voor onderhoud na het project?
+
+            **Aanpak:** benoem eigenaars, organiseer een wijzigingsproces en reserveer beheercapaciteit vóór de eerste publicatie.
         {% endmarkdown %}
         <aside class="notes">
-            Nu we hebben heel veel voordelen gehoord. Dat we linked data kunnen gebruiken om alle problemen op te lossen die er bestaan in communicatie tussen applicaties
-            en dat standardisaties eigenlijk het herbruiken is van werk. Toch
+            Maak onderscheid tussen de inhoudelijke eigenaar van een begrip en het team dat de publicatie technisch beheert.
+            Leg een aanspreekpunt, reviewproces, versiebeleid en communicatie naar afnemers vast. Een klein regelmatig overleg kan voldoende zijn.
+            Deel verbeteringen terug met de standaardgemeenschap en documenteer lokale uitbreidingen zodat anderen ze kunnen hergebruiken.
+            Het succescriterium is niet dat er een RDF-bestand online staat, maar dat bron en afnemers dezelfde afspraken blijven toepassen wanneer regels, medewerkers of leveranciers veranderen.
         </aside>
     </section>
 </section>
@@ -1063,6 +1509,25 @@ organization: Departement Omgeving
     {% endmarkdown %}
 </section>
 
+<section id="vervolgstappen">
+    {% markdown %}
+        ## Hoe begin je in je eigen (nieuwe) toepassing?
+
+        1. Definier **de uitwisseling** met een herkenbaar probleem en een afnemer.
+        2. Zoek een **bestaand model** en spreek een gelijkenissen af.
+        3. Maak een **proef met echte data**: URI's, mapping en validatie.
+        4. Benoem een **eigenaar** en evalueer samen.
+        {.medium}
+    {% endmarkdown %}
+    <aside class="notes">
+        Een statuslijst of een afgebakend rapport is vaak een beter begin dan het volledige dossiermodel.
+        Betrek een inhoudelijke expert, een ontwikkelaar en minstens één afnemer bij de proef.
+        Maak de criteria vooraf concreet: behoud van betekenis, aangetoonde fouten, actualiteit, responstijd en benodigde mappinginspanning.
+        Als er geen concrete hergebruiker of verantwoordelijke is, werk dan eerst die vraag uit. Niet elke interne vaste opsomming heeft een gedeeld begrippenschema nodig.
+        Een geslaagde proef levert naast data ook een gedeelde afspraak, voorbeelden en een beheerder op.
+    </aside>
+</section>
+
 <section>
     <section>
         {% markdown %}
@@ -1071,7 +1536,7 @@ organization: Departement Omgeving
             Gericht op industrie en de Vlaamse Overheid
             https://www.ugain.ugent.be/MCKG2026.htm
 
-            ![](./images/ugent.png)
+            ![Opleiding Knowledge Graphs van UGent](./images/ugent.png){.slide-screenshot .slide-screenshot--resource}
             {.medium}
         {% endmarkdown %}
     </section>
@@ -1081,7 +1546,7 @@ organization: Departement Omgeving
             **Naslagwerk SOSA/SNN in Vlaanderen**
             https://informatievlaanderen.github.io/OSLOthema-SSNSOSA-VL/
 
-            ![](./images/sosassnvl.png)
+            ![Vlaams naslagwerk voor SOSA/SSN](./images/sosassnvl.png){.slide-screenshot .slide-screenshot--resource}
             {.medium}
         {% endmarkdown %}
     </section>

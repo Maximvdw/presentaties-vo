@@ -1,0 +1,187 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="confluence-handleiding" name="Elke uitleg vraagt weer om uitleg">
+    <mxGraphModel grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="560" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="element-2" value="" style="fillColor=#fff;strokeColor=none;strokeWidth=1;fillOpacity=100.0;rounded=1;absoluteArcSize=1;arcSize=0.0;" vertex="1" parent="1">
+          <mxGeometry x="0" y="0" width="1500" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="element-3" value="" style="fillColor=#0747a6;strokeColor=none;strokeWidth=1;fillOpacity=100.0;rounded=1;absoluteArcSize=1;arcSize=0.0;" vertex="1" parent="1">
+          <mxGeometry x="0" y="0" width="1500" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="element-4" value="" style="fillColor=#fff;strokeColor=none;strokeWidth=1;fillOpacity=100.0;shape=stencil(pZTLDsIgEEW/hq1pwaRxXR8fYOIeW7REhAbw9fei4xNMcHTHXOY255bJEFa7jveC0ELzrSBsTCidL2ah7rnvQhFOB5BZOShA6ECgxV3grheNB3XPreRLJeDGeWs24iBbfzNJ3Qkr/eWWTQirG6N18EqjXWgndAryylixtmanW6ivNNfT1uwvuEf43APhFNWPLympX/qrP/urTH/Mk/Y3yjjxKrwHKimSsBz9a8hlSpDQoegQyfictV8NuVAJEjpU/NQlQ84S2pD9CzHSBwN2/LKQyTjhHfmRjanwwZL3zmImI4V3ZIMlVN8EC4fnOlxJpWDJRi3xBg0SrHo2OQM=);" vertex="1" parent="1">
+          <mxGeometry x="25.0" y="22.0" width="31.0" height="20.0" as="geometry" />
+        </mxCell>
+        <mxCell id="element-5" value="Confluence" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=29.0;fontColor=#fff;fontStyle=1;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="76.0" y="17.220000000000002" width="174.0" height="34.8" as="geometry" />
+        </mxCell>
+        <mxCell id="element-6" value="Ruimtes" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=22.0;fontColor=#fff;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="276.0" y="21.96" width="92.39999999999999" height="26.4" as="geometry" />
+        </mxCell>
+        <mxCell id="element-7" value="Personen" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=22.0;fontColor=#fff;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="394.0" y="21.96" width="105.6" height="26.4" as="geometry" />
+        </mxCell>
+        <mxCell id="element-8" value="" style="fillColor=#2684ff;strokeColor=none;strokeWidth=1;fillOpacity=100.0;rounded=1;absoluteArcSize=1;arcSize=10.0;" vertex="1" parent="1">
+          <mxGeometry x="526" y="14" width="112" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="element-9" value="Maken" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=21.0;fontColor=#fff;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="549.0" y="21.78" width="63.0" height="25.2" as="geometry" />
+        </mxCell>
+        <mxCell id="element-10" value="" style="fillColor=#fff;strokeColor=none;strokeWidth=1;fillOpacity=16.0;rounded=1;absoluteArcSize=1;arcSize=10.0;" vertex="1" parent="1">
+          <mxGeometry x="1112" y="14" width="260" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="element-11" value="" style="fillColor=none;strokeColor=#fff;strokeWidth=2;fillOpacity=100.0;ellipse;" vertex="1" parent="1">
+          <mxGeometry x="1127.0" y="23.0" width="14.0" height="14.0" as="geometry" />
+        </mxCell>
+        <mxCell id="element-12" value="" style="fillColor=#172b4d;strokeColor=#fff;strokeWidth=2;fillOpacity=100.0;shape=stencil(ZZDdDsIgDIWfhluzQLIX0OkDmHiPWyeNrCyAm7693epf8K7f6Wl7QJltcnYEpSuyAyizU1ofTwfm0WbHwNUscr2phF3BNo3QZhEnG9GePUgn5RiuMGOXXzNIDiLmpWsaZbZtIOJZDJTYrvRe5D5EuMRwo054zbJWQ5iWsHdZV70jPAr+bPJIP/668Nd/fi6+x3r0Xp5QWMp8LMk3muYJ);" vertex="1" parent="1">
+          <mxGeometry x="1139.0" y="35.0" width="6.0" height="6.0" as="geometry" />
+        </mxCell>
+        <mxCell id="element-13" value="Zoeken" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=20.0;fontColor=#fff;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="1160.0" y="22.6" width="72.0" height="24.0" as="geometry" />
+        </mxCell>
+        <mxCell id="element-14" value="" style="fillColor=#deebff;strokeColor=none;strokeWidth=1;fillOpacity=100.0;ellipse;" vertex="1" parent="1">
+          <mxGeometry x="1431.0" y="13.0" width="38.0" height="38.0" as="geometry" />
+        </mxCell>
+        <mxCell id="element-15" value="JD" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=18.0;fontColor=#0747a6;fontStyle=1;align=center;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="1432.0" y="24.240000000000002" width="36.0" height="21.599999999999998" as="geometry" />
+        </mxCell>
+        <mxCell id="element-16" value="" style="fillColor=#f4f5f7;strokeColor=none;strokeWidth=1;fillOpacity=100.0;rounded=1;absoluteArcSize=1;arcSize=0.0;" vertex="1" parent="1">
+          <mxGeometry x="0" y="64" width="216" height="496" as="geometry" />
+        </mxCell>
+        <mxCell id="element-17" value="" style="fillColor=#172b4d;strokeColor=#dfe1e6;strokeWidth=1;fillOpacity=100.0;shape=stencil(fVBBDsIgEHwNV1PBmHiu1QeYeMd2KxspEMBWf++2q9X04G1mdmaZRagyGR1AyMLpDoTaCylP5yPxoLMhQmhgec3MMNvstquCFZ0C1JnlXkfUFws8STn6GwzY5HcKnYGIeZyqSqiy9s5RFr1LZBfywHLrI1yjv7uG+dRlQp3vx7IPXld8KjwXfN5k0f3x/xwxJwh8n2vRWj5iYVk2JIk/UlUv);" vertex="1" parent="1">
+          <mxGeometry x="216.0" y="64.0" width="1" height="496.0" as="geometry" />
+        </mxCell>
+        <mxCell id="element-18" value="" style="fillColor=#deebff;strokeColor=none;strokeWidth=1;fillOpacity=100.0;rounded=1;absoluteArcSize=1;arcSize=14.0;" vertex="1" parent="1">
+          <mxGeometry x="23" y="90" width="38" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="element-19" value="" style="fillColor=none;strokeColor=#0747a6;strokeWidth=2;fillOpacity=100.0;shape=stencil(nZLBDoIwDIafZlcDmxrviD6AifcJRRbnRrYJ+vYOqoALkeit/dq//ZeOsMSWvAJCI8WvQNiWUHo47n1ecVf6xEcN4niziBCUCGj0BtxWkDmkNTeCnyRgxTqjL9CI3L1EQpVghGurLCUsybRSXiu0sr6d0B3iQhs4G31TOeadmy666rq1e8dxvYVHkPeTpFCj/uER/wpmFaGlCUEmtYUx+HzUKpiwnvO4nBV8XxDHv26YUPhguFIhpMTbBy3hYT3CH8jSJw==);" vertex="1" parent="1">
+          <mxGeometry x="33.0" y="100.0" width="18.0" height="20.0" as="geometry" />
+        </mxCell>
+        <mxCell id="element-20" value="Datateam" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=20.0;fontColor=#172b4d;fontStyle=1;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="73.0" y="89.6" width="96.0" height="24.0" as="geometry" />
+        </mxCell>
+        <mxCell id="element-21" value="Kennisruimte" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=16.0;fontColor=#5e6c84;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="73.0" y="114.88" width="115.19999999999999" height="19.2" as="geometry" />
+        </mxCell>
+        <mxCell id="element-22" value="Overzicht" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=21.0;fontColor=#172b4d;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="24.0" y="163.78" width="113.39999999999999" height="25.2" as="geometry" />
+        </mxCell>
+        <mxCell id="element-23" value="Pagina&amp;#x27;s" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=21.0;fontColor=#172b4d;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="24.0" y="202.78" width="100.8" height="25.2" as="geometry" />
+        </mxCell>
+        <mxCell id="element-24" value="PAGINABOOM" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=15.0;fontColor=#5e6c84;fontStyle=1;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="24.0" y="258.7" width="90.0" height="18.0" as="geometry" />
+        </mxCell>
+        <mxCell id="element-25" value="⌄ Handleidingen" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=19.0;fontColor=#172b4d;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="24.0" y="294.42" width="171.0" height="22.8" as="geometry" />
+        </mxCell>
+        <mxCell id="element-26" value="Uitwisseling" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=19.0;fontColor=#172b4d;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="42.0" y="331.42" width="136.79999999999998" height="22.8" as="geometry" />
+        </mxCell>
+        <mxCell id="element-27" value="" style="fillColor=#deebff;strokeColor=none;strokeWidth=1;fillOpacity=100.0;rounded=1;absoluteArcSize=1;arcSize=8.0;" vertex="1" parent="1">
+          <mxGeometry x="16" y="365" width="186" height="39" as="geometry" />
+        </mxCell>
+        <mxCell id="element-28" value="Dossier" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=19.0;fontColor=#0747a6;fontStyle=1;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="42.0" y="375.42" width="79.8" height="22.8" as="geometry" />
+        </mxCell>
+        <mxCell id="element-29" value="Statuscodes" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=19.0;fontColor=#172b4d;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="42.0" y="419.42" width="125.39999999999999" height="22.8" as="geometry" />
+        </mxCell>
+        <mxCell id="element-30" value="FICTIEVE DEMO-INHOUD" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=15.0;fontColor=#5e6c84;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="24.0" y="517.7" width="180.0" height="18.0" as="geometry" />
+        </mxCell>
+        <mxCell id="element-31" value="Datateam / Handleidingen / Gegevensuitwisseling" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=18.0;fontColor=#5e6c84;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="254.0" y="88.24" width="507.59999999999997" height="21.599999999999998" as="geometry" />
+        </mxCell>
+        <mxCell id="element-32" value="" style="fillColor=#f4f5f7;strokeColor=none;strokeWidth=1;fillOpacity=100.0;rounded=1;absoluteArcSize=1;arcSize=8.0;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="81" width="158" height="33" as="geometry" />
+        </mxCell>
+        <mxCell id="element-33" value="Bewerken ···" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=18.0;fontColor=#42526e;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="1324.0" y="89.24" width="129.6" height="21.599999999999998" as="geometry" />
+        </mxCell>
+        <mxCell id="element-34" value="Dossier" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=36.0;fontColor=#172b4d;fontStyle=1;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="254.0" y="130.48" width="151.2" height="43.199999999999996" as="geometry" />
+        </mxCell>
+        <mxCell id="element-35" value="Gemaakt door het datateam · Laatst bijgewerkt op 2 november 2026" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=18.0;fontColor=#5e6c84;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="254.0" y="178.24" width="691.1999999999999" height="21.599999999999998" as="geometry" />
+        </mxCell>
+        <mxCell id="element-36" value="Definitie" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=24.0;fontColor=#172b4d;fontStyle=1;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="254.0" y="223.32" width="129.6" height="28.799999999999997" as="geometry" />
+        </mxCell>
+        <mxCell id="element-37" value="" style="fillColor=#fff0b3;strokeColor=none;strokeWidth=1;fillOpacity=100.0;rounded=1;absoluteArcSize=1;arcSize=6.0;" vertex="1" parent="1">
+          <mxGeometry x="310" y="262" width="91" height="31" as="geometry" />
+        </mxCell>
+        <mxCell id="element-38" value="Een dossier bundelt de gegevens over" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=24.0;fontColor=#172b4d;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="254.0" y="265.32" width="518.4" height="28.799999999999997" as="geometry" />
+        </mxCell>
+        <mxCell id="element-39" value="een &lt;span style=&quot;color:#0052cc;text-decoration:underline&quot;&gt;aanvraag&lt;/span&gt; en de &lt;span style=&quot;color:#0052cc;text-decoration:underline&quot;&gt;behandeling&lt;/span&gt; ervan." style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=24.0;fontColor=#172b4d;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="254.0" y="298.32" width="532.8" height="28.799999999999997" as="geometry" />
+        </mxCell>
+        <mxCell id="element-40" value="Zie ook" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=23.0;fontColor=#172b4d;fontStyle=1;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="254.0" y="345.14" width="96.6" height="27.599999999999998" as="geometry" />
+        </mxCell>
+        <mxCell id="element-41" value="Aanvraag · Behandeling · Statuscodes" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=22.0;fontColor=#0052cc;fontStyle=4;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="254.0" y="380.96" width="475.2" height="26.4" as="geometry" />
+        </mxCell>
+        <mxCell id="element-42" value="" style="fillColor=#fff8e6;strokeColor=none;strokeWidth=1;fillOpacity=100.0;rounded=1;absoluteArcSize=1;arcSize=12.0;" vertex="1" parent="1">
+          <mxGeometry x="254" y="419" width="570" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="element-43" value="“Aanvraag? Dat ken ik wel.”" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=22.0;fontColor=#172b4d;fontStyle=2;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="272.0" y="427.96" width="356.4" height="26.4" as="geometry" />
+        </mxCell>
+        <mxCell id="element-44" value="De lezer stopt en vult zelf de betekenis in." style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=20.0;fontColor=#6b4e00;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="272.0" y="456.6" width="528.0" height="24.0" as="geometry" />
+        </mxCell>
+        <mxCell id="element-45" value="" style="fillColor=#172b4d;strokeColor=#dfe1e6;strokeWidth=1;fillOpacity=100.0;shape=stencil(fVBBDsIwDHtNr2i04sB5DB6AxL1sGY0o6dSWDX5PtsBAO3CzHTt1qkyZnO1A6YLsDZTZKa2PpwPzzmbHhNEg8lqYE6Y321Uhik0d1Fnk3ka0Zw8ySTmGKwzY5HcKyUHEPE5NpUxZByLOYqDEdqX3IrchwiWGOzXCpy4TuoV+LPuQdcWnwnPB500e6Y//54g5weD7XIveyxELy7IhS/KRpnoB);" vertex="1" parent="1">
+          <mxGeometry x="858.0" y="223.0" width="1" height="259.0" as="geometry" />
+        </mxCell>
+        <mxCell id="element-46" value="Of doorklikken voor meer uitleg..." style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=22.0;fontColor=#172b4d;fontStyle=1;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="889.0" y="222.96" width="448.8" height="26.4" as="geometry" />
+        </mxCell>
+        <mxCell id="element-47" value="" style="fillColor=#f4f5f7;strokeColor=#dfe1e6;strokeWidth=1;fillOpacity=100.0;rounded=1;absoluteArcSize=1;arcSize=12.0;" vertex="1" parent="1">
+          <mxGeometry x="888" y="258" width="570" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="element-48" value="Pagina: Aanvraag" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=21.0;fontColor=#0052cc;fontStyle=1;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="906.0" y="266.78" width="201.6" height="25.2" as="geometry" />
+        </mxCell>
+        <mxCell id="element-49" value="Een verzoek om een &lt;span style=&quot;color:#0052cc;text-decoration:underline&quot;&gt;activiteit&lt;/span&gt; uit te voeren." style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=22.0;fontColor=#172b4d;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="906.0" y="292.96" width="580.8" height="26.4" as="geometry" />
+        </mxCell>
+        <mxCell id="element-50" value="" style="fillColor=none;strokeColor=#0052cc;strokeWidth=2;fillOpacity=100.0;shape=stencil(pZFLDsIgEIZPw9YgJHqAWj2AiXtsqUzEoQFs9fbSTh9pE924m/+b+ZkHTGbBqFozwVE9NJMHJsT5ckq6VtEkkaKW8FZsOAEzADkCFWpdRKKN8qCuVlMmRO/uuoUyDiZAoz3ELitzJrPCISYvOAypnIkj4cp5ffPuiSXpfpo+erimG/dFz+3GEd6k+ainlyzgj/p5h8mwbMBXhv3/DZaG+axfO6Rg3r8Ca+mqq5L1yRKiv5X5Bw==);" vertex="1" parent="1">
+          <mxGeometry x="1167.0" y="324.0" width="12.0" height="13.0" as="geometry" />
+        </mxCell>
+        <mxCell id="element-51" value="" style="fillColor=#f4f5f7;strokeColor=#dfe1e6;strokeWidth=1;fillOpacity=100.0;rounded=1;absoluteArcSize=1;arcSize=12.0;" vertex="1" parent="1">
+          <mxGeometry x="914" y="340" width="544" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="element-52" value="Pagina: Activiteit" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=21.0;fontColor=#0052cc;fontStyle=1;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="932.0" y="348.78" width="226.79999999999998" height="25.2" as="geometry" />
+        </mxCell>
+        <mxCell id="element-53" value="Een handeling binnen een &lt;span style=&quot;color:#0052cc;text-decoration:underline&quot;&gt;inrichting&lt;/span&gt;." style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=22.0;fontColor=#172b4d;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="932.0" y="374.96" width="475.2" height="26.4" as="geometry" />
+        </mxCell>
+        <mxCell id="element-54" value="" style="fillColor=none;strokeColor=#0052cc;strokeWidth=2;fillOpacity=100.0;shape=stencil(pZFLDsIgEIZPw9YgJHqAWj2AiXtsqUzEoQFs9fbSTh9pE924m/+b+ZkHTGbBqFozwVE9NJMHJsT5ckq6VtEkkaKW8FZsOAEzADkCFWpdRKKN8qCuVlMmRO/uuoUyDiZAoz3ELitzJrPCISYvOAypnIkj4cp5ffPuiSXpfpo+erimG/dFz+3GEd6k+ainlyzgj/p5h8mwbMBXhv3/DZaG+axfO6Rg3r8Ca+mqq5L1yRKiv5X5Bw==);" vertex="1" parent="1">
+          <mxGeometry x="1180.0" y="406.0" width="12.0" height="13.0" as="geometry" />
+        </mxCell>
+        <mxCell id="element-55" value="" style="fillColor=#f4f5f7;strokeColor=#dfe1e6;strokeWidth=1;fillOpacity=100.0;rounded=1;absoluteArcSize=1;arcSize=12.0;" vertex="1" parent="1">
+          <mxGeometry x="940" y="422" width="518" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="element-56" value="Pagina: Inrichting" style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=21.0;fontColor=#0052cc;fontStyle=1;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="958.0" y="430.78" width="226.79999999999998" height="25.2" as="geometry" />
+        </mxCell>
+        <mxCell id="element-57" value="Een geheel van &lt;span style=&quot;color:#0052cc;text-decoration:underline&quot;&gt;installaties&lt;/span&gt;... → ..." style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=22.0;fontColor=#172b4d;fontStyle=0;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="958.0" y="456.96" width="475.2" height="26.4" as="geometry" />
+        </mxCell>
+        <mxCell id="element-58" value="" style="fillColor=#fff0b3;strokeColor=none;strokeWidth=1;fillOpacity=100.0;rounded=1;absoluteArcSize=1;arcSize=10.0;" vertex="1" parent="1">
+          <mxGeometry x="254" y="503" width="1204" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="element-59" value="Je kunt niet alles blijven uitleggen. Waar de uitleg of het lezen stopt, begint de interpretatie." style="text;html=1;fillColor=none;strokeColor=none;fontFamily=Arial;fontSize=22.0;fontColor=#6b4e00;fontStyle=1;align=left;verticalAlign=top;spacing=0;whiteSpace=nowrap;overflow=visible;resizable=1;" vertex="1" parent="1">
+          <mxGeometry x="274.0" y="510.96" width="1280.3999999999999" height="26.4" as="geometry" />
+        </mxCell>
+        <mxCell id="element-60" value="" style="fillColor=none;strokeColor=#c7d1dd;strokeWidth=2;fillOpacity=100.0;rounded=1;absoluteArcSize=1;arcSize=24.0;" vertex="1" parent="1">
+          <mxGeometry x="1" y="1" width="1498" height="558" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

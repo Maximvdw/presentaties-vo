@@ -14,6 +14,17 @@
       ]
     },
     {
+      "id": 9,
+      "title": "Wat is je voornaamste functie?",
+      "multiple": false,
+      "options": [
+        "Ontwikkelteam",
+        "Datateam",
+        "Analist",
+        "Overige"
+      ]
+    },
+    {
       "id": 2,
       "title": "Hoe vertrouwd ben je met Linked Data?",
       "options": [
@@ -95,9 +106,59 @@
           ]
         }
       ]
+    },
+    {
+      "title": "Welk modelbegrip past bij de waterkwaliteitscasus?",
+      "id": 7,
+      "questions": [
+        {
+          "title": "De fotometer bepaalt het nitraatgehalte van waterstaal 42. Welke SOSA-klasse past het best bij de rol van dit meetapparaat?",
+          "options": [
+            "sosa:Sample",
+            "sosa:Sensor",
+            "sosa:ObservableProperty"
+          ],
+          "correct": [
+            1
+          ]
+        },
+        {
+          "title": "Het herbruikbare analyseplan bevat de taak 'kwaliteitscontrole uitvoeren'. Er is nog geen uitvoering gestart. Welke P-Plan-klasse beschrijft deze geplande taak?",
+          "options": [
+            "p-plan:Plan",
+            "p-plan:Activity",
+            "p-plan:Step"
+          ],
+          "correct": [
+            2
+          ]
+        },
+        {
+          "title": "De meetresultaten zijn vastgelegd in een ongewijzigd PDF-rapport met een eigen versie-URI. Welke PROV-O-klasse beschrijft dit bewaarde document?",
+          "options": [
+            "prov:Entity",
+            "prov:Activity",
+            "prov:Agent"
+          ],
+          "correct": [
+            0
+          ]
+        }
+      ]
     }
   ],
   "forms": [
+    {
+      "id": 2,
+      "title": "Welke uitdagingen ervaar jij bij gegevensuitwisseling?",
+      "fields": [
+        {
+          "name": "Welke uitdagingen ervaar jij bij gegevensuitwisseling?",
+          "type": "text",
+          "required": true
+        }
+      ]
+    },
     {
       "id": 1,
       "title": "Wat neem je mee uit deze sessie?",

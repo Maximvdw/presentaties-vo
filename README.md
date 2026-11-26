@@ -131,6 +131,10 @@ Het publiek kan live antwoorden via [Claper](https://claper.maximvdw.be). De vra
 Claper zelf (`https://claper.maximvdw.be/e/<code>/manage`); de slides tonen alleen een QR-code
 en de resultaten, in de huisstijl van de presentatie.
 
+Voor AI-agents zijn er skills in `.agents/skills/` (gelinkt vanuit `.github/skills/` en `.claude/skills/`)
+en een MCP-server `scripts/claper-mcp.mjs` (geconfigureerd in `.mcp.json` en `opencode.json`).
+Zie de `claper`-skill voor sync, openen/sluiten van vragen en het 502-probleem bij lange tekst.
+
 **Gebruik in een `.njk` presentatie:**
 
 ```njk
@@ -246,12 +250,13 @@ sequenceDiagram
 Zodat je niet tussen de slides en Claper hoeft te wisselen, kunnen de slides zelf de juiste vraag
 in Claper openen — de gsm's van het publiek wisselen dan mee.
 
-1. Open de presentatie **één keer** met de presenter-token:
-   `https://maximvdw.github.io/presentaties-vo/2026/vc-event/?claper-token=<token>`
-   De token verdwijnt meteen uit de adresbalk, maar blijft op die computer bewaard
-   (`localStorage`: alle tabbladen, ook na een herstart van de browser). Bij het laden verschijnt
-   kort "Claper: presentermodus actief". Vergeten doe je met `?claper-token=uit`. Zonder token doen de slides niets: wie de publieke slides bekijkt, kan
-   niets openen.
+1. Open de presentatie met `?presenter`:
+   `https://maximvdw.github.io/presentaties-vo/2026/vc-event/?presenter`
+   Zonder opgeslagen token verschijnt een venster om het Claper-token in te vullen. Het token wordt
+   op die computer bewaard (`localStorage`: alle tabbladen, ook na een herstart van de browser).
+   Overslaan kan ook; dan doen de slides in die sessie niets in Claper.
+   Vergeten doe je met `?claper-token=uit`. Een token kan ook direct in de URL
+   (`?claper-token=<token>`); die verdwijnt meteen uit de adresbalk.
    Bij het openen wordt ook het Claper-event **gestart** als de startdatum nog in de toekomst
    ligt (anders zien deelnemers een aftelling) — handig voor een dry run.
 2. Elke `claperPoll`-slide opent dan haar vraag zodra ze getoond wordt. Op een gewone section

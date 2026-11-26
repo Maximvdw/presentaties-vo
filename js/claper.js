@@ -19,7 +19,8 @@
  *                            once the slide's `.claper-reveal` fragment is shown.
  *   data-claper-kind="wall"  the messages the presenter pinned in Claper.
  *
- * Presenter control: open the deck once with `?claper-token=<token>`. The token is kept in
+ * Presenter control: open the deck with `?presenter` (or `?claper-token=<token>`). Without a stored
+ * token a dialog asks for it. The token is kept in
  * localStorage on this machine (all tabs, survives a browser restart) and removed from the address
  * bar; `?claper-token=uit` forgets it. While it is set, showing a `claperPoll` slide,
  * or any section with `data-claper-activate="<poll id>"` (also applies to its vertical slides),
@@ -157,11 +158,55 @@ function readToken() {
   try { return localStorage.getItem(TOKEN_KEY); } catch (e) { return null; }
 }
 
+// Not in the speaker view's preview frames (they show the *next* slide) or in a PDF export.
+const isPresenterWindow = () => window.self === window.top && !/print-pdf/.test(window.location.search);
+const isPresenterUrl = () => new URLSearchParams(window.location.search).has('presenter')
+  || window.location.search.indexOf('presenter') > -1;
+
+// Asks for the token when the deck is opened as ?presenter without one. Saving reloads the page.
+function promptForToken() {
+  const dialog = document.createElement('dialog');
+  dialog.className = 'claper-token-dialog';
+  dialog.innerHTML = `
+    <form method="dialog">
+      <h2>Presentermodus</h2>
+      <p>Voer het Claper-token in om vragen vanuit deze presentatie te openen. Het wordt op dit toestel bewaard.</p>
+      <label>Claper-token <input type="password" name="token" autocomplete="off" required></label>
+      <p class="claper-token-error" hidden></p>
+      <div class="claper-token-actions">
+        <button type="button" data-skip>Overslaan</button>
+        <button type="submit" class="claper-token-save">Opslaan</button>
+      </div>
+    </form>`;
+  document.body.appendChild(dialog);
+  const form = dialog.querySelector('form');
+  const error = dialog.querySelector('.claper-token-error');
+  dialog.querySelector('[data-skip]').addEventListener('click', () => dialog.close());
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const token = form.elements.token.value.trim();
+    if (!token) return;
+    try {
+      localStorage.setItem(TOKEN_KEY, token);
+    } catch (err) {
+      error.textContent = 'Opslaan is niet mogelijk in dit venster (privémodus?). Gebruik ?claper-token=<token>.';
+      error.hidden = false;
+      return;
+    }
+    window.location.reload();
+  });
+  dialog.addEventListener('close', () => dialog.remove());
+  dialog.showModal();
+  form.elements.token.focus();
+}
+
 function createControl(defaults) {
-  // Not in the speaker view's preview frames (they show the *next* slide) or in a PDF export.
-  if (window.self !== window.top || /print-pdf/.test(window.location.search)) return null;
+  if (!isPresenterWindow()) return null;
   const token = readToken();
-  if (!token) return null;
+  if (!token) {
+    if (isPresenterUrl()) promptForToken();
+    return null;
+  }
 
   const toast = document.createElement('div');
   toast.className = 'claper-control-toast';
