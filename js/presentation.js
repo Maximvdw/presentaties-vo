@@ -11,6 +11,9 @@ export function initPresentation({ initialize }) {
   // Get initial slide based on URL hash
   const getInitialSlide = () => {
     const hash = window.location.hash || '';
+    if (hash && hash !== '#' && hash !== '#/' && !/^#\/\d+(?:\/\d+){0,2}$/.test(hash)) {
+      return null;
+    }
     const match = hash.match(/^#\/([0-9]+)(?:\/([0-9]+))?/);
     const hIndex = match ? Number(match[1]) : 0;
     const vIndex = match && match[2] ? Number(match[2]) : 0;
@@ -38,8 +41,8 @@ export function initPresentation({ initialize }) {
       const isTitle = current && current.classList.contains('title-slide');
       revealRoot.classList.toggle('is-title-slide', isTitle);
     };
-    Reveal.on('ready', updateTitleClass);
     Reveal.on('slidechanged', updateTitleClass);
+    updateTitleClass();
 
     // Add parent section title to vertical subsections
     document.querySelectorAll('.reveal .slides section').forEach(stack => {

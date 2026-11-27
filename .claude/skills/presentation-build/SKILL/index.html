@@ -1,0 +1,20 @@
+<h1 id="build-en-pdf-export" tabindex="-1">Build en PDF-export</h1>
+<h2 id="build" tabindex="-1">Build</h2>
+<ul>
+<li><code>npm run build</code> runt <code>build:css</code> en daarna eleventy. Output: <code>_site/</code> (gitignored).</li>
+<li>Voor een controle zonder de repo-output te overschrijven: <code>npx eleventy --config=.eleventy.js --output=/tmp/site</code>. Verwijder <code>/tmp/site</code> daarna.</li>
+<li>Controleer dat een verwachte slide er is met <code>grep</code> op de gegenereerde HTML.</li>
+</ul>
+<h2 id="pdf-export" tabindex="-1">PDF-export</h2>
+<ul>
+<li><code>npm run export</code> runt eerst de build en daarna <code>scripts/export-pdf.js</code>. Output: <code>output/</code>.</li>
+<li>Het script heeft geen argumenten en exporteert alle presentaties die het vindt. Het start zelf een statische server op <code>PORT</code> (standaard 8080).</li>
+<li>Gebruikt decktape/puppeteer. In containers of als root kan Chrome de sandbox niet starten. Zet dan <code>EXPORT_NO_SANDBOX=1</code>.</li>
+</ul>
+<h2 id="deploy" tabindex="-1">Deploy</h2>
+<p>CI (<code>.github/workflows/main.yml</code>) bouwt bij een push naar <code>main</code> met <code>BASE_URL=/&lt;repo-naam&gt;</code> en publiceert <code>_site</code> naar de branch <code>gh-pages</code>. Lokaal hoeft niets gedeployd te worden.</p>
+<h2 id="gotchas" tabindex="-1">Gotchas</h2>
+<ul>
+<li>Een nieuwe presentatie vraagt om <code>layout: presentation.njk</code>, <code>title</code>, <code>presentationDate</code>, en <code>theme</code> (<code>vlaanderen</code> of <code>omgeving</code>) in de frontmatter.</li>
+<li>Als je Claper-slides wijzigt, bouw dan opnieuw. De quiz-id's staan in de HTML (zie de <code>claper</code> skill).</li>
+</ul>

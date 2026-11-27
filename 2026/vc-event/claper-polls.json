@@ -1,0 +1,179 @@
+{
+  "event": "q6tdq",
+  "polls": [
+    {
+      "id": 1,
+      "title": "Welke dataformaten gebruik je vandaag om gegevens uit te wisselen?",
+      "multiple": true,
+      "options": [
+        "CSV / Excel",
+        "JSON",
+        "XML",
+        "RDF / Linked Data",
+        "Geen idee"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Wat is je voornaamste functie?",
+      "multiple": false,
+      "options": [
+        "Ontwikkelteam",
+        "Datateam",
+        "Analist",
+        "Overige"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Hoe vertrouwd ben je met Linked Data?",
+      "options": [
+        "Nog nooit van gehoord",
+        "Van gehoord, nooit gebruikt",
+        "Al eens meegewerkt",
+        "Gebruik het dagelijks"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Wat is de grootste drempel voor interoperabiliteit?",
+      "options": [
+        "Verschillende begrippen en definities",
+        "Technische formaten",
+        "Wijzigende regelgeving",
+        "Geen afspraken tussen entiteiten"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Hoeveel van jouw eigen datamodel zou je met dit patroon kunnen voorstellen?",
+      "options": [
+        "Bijna alles",
+        "Een groot deel",
+        "Een klein deel",
+        "Niets"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Zie je SOSA/SSN (of een andere bestaande standaard) een plaats krijgen in jouw werk?",
+      "options": [
+        "Ja, we gebruiken het al",
+        "Ja, ik wil het verkennen",
+        "Misschien",
+        "Nee"
+      ]
+    }
+  ],
+  "quizzes": [
+    {
+      "id": 1,
+      "title": "Test jezelf: één patroon, veel domeinen",
+      "questions": [
+        {
+          "title": "Welzijn: een kinderopvang meldt elke maand hoeveel kinderen er aanwezig waren. Wie of wat is hier de \"sensor\"?",
+          "options": [
+            "De kinderopvang",
+            "De ouders",
+            "Het registratiesysteem",
+            "Er is geen sensor"
+          ],
+          "correct": [
+            0
+          ]
+        },
+        {
+          "title": "Mobiliteit: een gemeente voert een zone 30 in aan een schoolpoort. Wat is dit?",
+          "options": [
+            "Een observatie",
+            "Een actuatie",
+            "Geen van beide"
+          ],
+          "correct": [
+            1
+          ]
+        },
+        {
+          "title": "Onderwijs: voor een peiling worden 150 scholen geselecteerd uit alle Vlaamse scholen. Wat zijn die 150 scholen?",
+          "options": [
+            "Het onderwerp",
+            "Een staal",
+            "Het resultaat",
+            "De sensor"
+          ],
+          "correct": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Welk modelbegrip past bij de waterkwaliteitscasus?",
+      "id": 7,
+      "questions": [
+        {
+          "title": "De fotometer bepaalt het nitraatgehalte van waterstaal 42. Welke SOSA-klasse past het best bij de rol van dit meetapparaat?",
+          "options": [
+            "sosa:Sample",
+            "sosa:Sensor",
+            "sosa:ObservableProperty"
+          ],
+          "correct": [
+            1
+          ]
+        },
+        {
+          "title": "Het herbruikbare analyseplan bevat de taak 'kwaliteitscontrole uitvoeren'. Er is nog geen uitvoering gestart. Welke P-Plan-klasse beschrijft deze geplande taak?",
+          "options": [
+            "p-plan:Plan",
+            "p-plan:Activity",
+            "p-plan:Step"
+          ],
+          "correct": [
+            2
+          ]
+        },
+        {
+          "title": "De meetresultaten zijn vastgelegd in een ongewijzigd PDF-rapport met een eigen versie-URI. Welke PROV-O-klasse beschrijft dit bewaarde document?",
+          "options": [
+            "prov:Entity",
+            "prov:Activity",
+            "prov:Agent"
+          ],
+          "correct": [
+            0
+          ]
+        }
+      ]
+    }
+  ],
+  "forms": [
+    {
+      "id": 2,
+      "title": "Welke uitdagingen ervaar jij bij gegevensuitwisseling?",
+      "fields": [
+        {
+          "name": "Welke uitdagingen ervaar jij bij gegevensuitwisseling?",
+          "type": "text",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "title": "Wat neem je mee uit deze sessie?",
+      "fields": [
+        {
+          "name": "Wat neem je mee?",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "Wat mis je nog?",
+          "type": "text",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

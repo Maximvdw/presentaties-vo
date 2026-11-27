@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <title>Interoperabele Overheidsapplicaties</title>
+  
+  
+  
+  
+  <meta name="author" content="Maxim Van de Wynckel">
+  
+</head>
+
+<link rel="stylesheet" href="/presentaties-vo/css/hljs.css">
+
+  
+  
+  
+  <body>
+    <link rel="stylesheet" href="/presentaties-vo/reveal.js/dist/reset.css">
+    <link rel="stylesheet" href="/presentaties-vo/reveal.js/dist/reveal.css">
+    
+    <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
+    
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1795788639">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1795788639">
+    
+    
+    
+    <link rel="stylesheet" href="/presentaties-vo/css/claper.css?1795788639">
+    
+
+    <div class="reveal ">
+      <div class="slides">
+        <div class="slide-corner-icon slide-corner-icon--fixed">
+          
+          <i class="vl-vi vl-vi-vlaanderen"></i>
+          
+        </div>
+        
+        <section class="title-slide center" data-timing="15">
+          <div class="title-slide-before-bar"></div>
+          <div class="slide-wrapper">
+            <div class="slide-content">
+              <h1>Interoperabele Overheidsapplicaties</h1>
+              
+              <h3>Kennismaking met Linked Data voor toekomstbestendige datamodellering</h3>
+              
+              
+              <p class="author">Maxim Van de Wynckel</p>
+              
+              
+              <p class="organization">Departement Omgeving</p>
+              
+              
+              <p class="date">3 december 2026</p>
+              
+            </div>
+          </div>
+        </section>
+        
+
+        
+<style>
+    .reveal .slide-screenshot {
+        width: auto;
+        height: 520px;
+    }
+    .reveal .slide-screenshot--resource {
+        height: 300px;
+    }
+    .reveal .model-diagram {
+        width: 1100px;
+        height: 480px;
+        object-fit: contain;
+    }
+    .reveal .workshop-exercise .medium {
+        font-size: 1.15em;
+    }
+    .reveal .ontologie-model .mermaid {
+        height: 55%;
+        flex: none;
+    }
+    .reveal .ontologie-model .mermaid .divider {
+        stroke: #705a1b !important;
+    }
+    .reveal .ontologie-model .mermaid .edgeLabel .label rect,
+    .reveal .ontologie-model .mermaid .labelBkg {
+        fill: #fff8df !important;
+        background: #fff8df !important;
+    }
+    .reveal .ontologie-model .mermaid .edgeLabel .label span {
+        background: #fff8df !important;
+    }
+    .reveal .slides section[data-claper-poll="2"] h2.claper-poll-title {
+        font-size: 1.35em;
+        padding-left: 12px;
+        padding-right: 12px;
+        white-space: nowrap;
+    }
+</style>
+
+<section id="inhoudstafel">
+    <h2 id="inhoud" tabindex="-1">Inhoud</h2>
+<ol class="medium">
+<li><strong>Probleemstelling</strong>: introductie tot interoperabiliteit</li>
+<li><strong>Linked Data</strong>: betekenis, URI's en relaties begrijpen</li>
+<li><strong>Standaarden</strong>: bestaande modellen leren kennen</li>
+<li><strong>Voorbeelden</strong></li>
+<li><strong>Vervolgstappen</strong>: uitdagingen afwegen</li>
+</ol>
+
+    <aside class="notes">
+        We starten met de reden waarom gegevensuitwisseling zo vaak moeilijk is, gevolgd door de basis van Linked Data.
+        Daarna combineren we standaarden in één fictieve casus en oefenen we met de belangrijkste begrippen.
+        We sluiten af met de technische en organisatorische uitdagingen en een eerste stap voor de eigen toepassing.
+        Voor een sessie van een uur: ongeveer 15 minuten introductie en Linked Data, 10 minuten modellen, 20 minuten casus en oefeningen, 10 minuten uitdagingen en vervolgstappen en 5 minuten vragen.
+        De bonusvragen zijn optioneel. Gebruik de klassikale begrippenquiz als alternatief voor een deel van de tekenoefeningen wanneer de tijd beperkt is.
+    </aside>
+</section>
+
+<section>
+    <section>
+        <h2 id="waarom-deze-workshop%3F" tabindex="-1">Waarom deze workshop?</h2>
+<p class="medium">Vlaanderen is een van de overheden die het meest inzet op interoperabiliteit. Maar ...</p>
+<p><img src="./images/onion.png" alt=""></p>
+
+        <aside class="notes">
+            Hallo, ik ben Maxim Van de Wynckel en ik werk bij het Departement Omgeving. Ik zit in een ontwikkelteam en heb expertise in Linked Data en applicaties die vlot gegevens kunnen uitwisselen.
+            Het komende uur wil ik een overzicht op hoofdlijnen geven van interoperabele overheidsapplicaties en Linked Data, met aandacht voor zowel de voordelen als de nadelen en hindernissen waarmee je te maken kunt krijgen.
+
+            Waarom geef ik deze workshop? Ik denk dat we terecht trots mogen zijn op Vlaanderen als een van de overheden die het meest inzet op interoperabiliteit en open data.
+            Maar als je daaronder kijkt, zie je dat we vooral de buitenste schil en de publicatie ervan via gestandaardiseerde modellen aanpakken. Voor veel doeleinden is
+            dat perfect in orde, maar overheidsapplicaties staan in de meeste gevallen niet op zichzelf. Hoe dieper we in die kern gaan en hoe ouder de applicaties worden en veranderen door regelgeving, hoe verder ze van die buitenste schil af staan.
+        </aside>
+    </section>
+    <section>
+        <h2 id="waarom-deze-workshop%3F-..." tabindex="-1">Waarom deze workshop? ...</h2>
+
+        <img src="./images/applicatie-modellen.svg" alt="Drie overheidsapplicaties met elk een eigen datamodel en interne transformaties voor hun onderlinge koppelingen. Een modelwijziging kan meerdere koppelingen raken." style="width: 1100px; height: auto;">
+        <aside class="notes">
+            Overheidsapplicaties communiceren met elkaar, hergebruiken data. En de applicaties die dat niet doen hebben vaak hun eigen silo van gegevens
+            die mogelijk ergens in een andere silo ook te vinden zijn in een wat andere vorm.
+
+            Deze workshop brengt die problemen in kaart en toont hoe gestandaardiseerde modellen kunnen helpen om tot een uniforme
+            manier van gegevensuitwisseling te komen. Tegelijkertijd wil ik stilstaan bij de uitdagingen die daarmee samenhangen en bij mogelijke
+            oplossingen binnen jullie entiteiten.
+        </aside>
+    </section>
+</section>
+
+<section>
+    <section>
+        <h2 id="probleemstelling" tabindex="-1">Probleemstelling</h2>
+<h3 id="%22wat-is-een-smartphone%3F%22" tabindex="-1">&quot;Wat is een smartphone?&quot;</h3>
+
+        <div style="margin-top: 1rem; display: grid; grid-template-columns: 1fr 130px 1fr; align-items: center; column-gap: 1rem;">
+            <div style="text-align: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.8rem;">
+                <img src="./images/smartphone-display.jpg" alt="Smartphone" style="height: 180px; object-fit: cover;">
+                <div style="font-size: 0.75em; margin-top: 0.4rem;">Smartphone</div>
+            </div>
+            <div style="text-align: center; color: #1f5fbf; font-size: 2.3em; line-height: 1.2;">
+                <div>↗</div>
+                <div>↘</div>
+            </div>
+            <div style="display: grid; row-gap: 0.8rem;">
+                <div style="display: flex; align-items: center; gap: 0.6rem; justify-content: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.6rem;">
+                    <img src="./images/nokia-6300.jpg" alt="GSM (oude Nokia)" style="height: 90px; object-fit: cover;">
+                    <span style="font-size: 0.7em;">GSM</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.6rem; justify-content: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.6rem;">
+                    <img src="./images/excel-named-variables.png" alt="WIMP-programma (Excel)" style="height: 90px; object-fit: cover;">
+                    <span style="font-size: 0.7em;">Programma</span>
+                </div>
+            </div>
+        </div>
+        <blockquote>
+<p>Een gsm waar je programma's op kan draaien</p>
+</blockquote>
+
+        <aside class="notes">
+            Ik begin deze workshop graag met een hypothetische vraag. Stel, je gaat terug in de tijd naar een onbekend jaar en je krijgt de vraag om te beschrijven wat een smartphone is.
+            Je weet niet welk jaar je bent dus je begint je beschrijving simpel met "een gsm waar je programma's op kan draaien"
+        </aside>
+    </section>
+    <section>
+        <h2 id="probleemstelling" tabindex="-1">Probleemstelling</h2>
+<h3 id="%22wat-is-een-gsm%3F%22%2C-%22wat-is-een-programma%3F%22" tabindex="-1">&quot;Wat is een gsm?&quot;, &quot;Wat is een programma?&quot;</h3>
+
+        <div style="margin-top: 0.8rem; display: grid; grid-template-columns: 1fr 70px 1fr 100px 1fr; grid-template-rows: auto auto; align-items: center; column-gap: 0.5rem; row-gap: 0.8rem;">
+            <div style="grid-column: 1; grid-row: 1 / span 2; text-align: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.7rem;">
+                <img src="./images/smartphone-display.jpg" alt="Smartphone" style="height: 210px; object-fit: cover;">
+                <div style="font-size: 0.65em;">Smartphone</div>
+            </div>
+
+            <div style="grid-column: 2; grid-row: 1; text-align: center; font-size: 1.9em; color: #1f5fbf;">↗</div>
+            <div style="grid-column: 2; grid-row: 2; text-align: center; font-size: 1.9em; color: #1f5fbf;">↘</div>
+
+            <div style="grid-column: 3; grid-row: 1; text-align: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.5rem;">
+                <img src="./images/nokia-6300.jpg" alt="GSM" style="height: 95px; object-fit: cover;">
+                <div style="font-size: 0.65em;">GSM</div>
+            </div>
+            <div style="grid-column: 3; grid-row: 2; text-align: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.5rem;">
+                <img src="./images/excel-named-variables.png" alt="Programma" style="height: 95px; object-fit: cover;">
+                <div style="font-size: 0.65em;">Programma</div>
+            </div>
+
+            <div style="grid-column: 4; grid-row: 1; text-align: center; color: #9a3412;">
+                <div style="font-size: 1.4em;">⟶</div>
+                <div style="font-size: 1.6em; line-height: 0.8;">✕</div>
+            </div>
+            <div style="grid-column: 4; grid-row: 2; text-align: center; font-size: 1.9em; color: #9a3412;">⟶</div>
+
+            <div style="grid-column: 5; grid-row: 1; text-align: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.5rem;">
+                <img src="./images/rotary-telephone.jpg" alt="Telefoon met draad" style="height: 95px; object-fit: cover;">
+                <div style="font-size: 0.65em;">Telefoon met draad</div>
+            </div>
+            <div style="grid-column: 5; grid-row: 2; text-align: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.5rem;">
+                <img src="./images/code-monitor.jpg" alt="Programma" style="height: 95px; object-fit: cover;">
+                <div style="font-size: 0.65em;">Programma</div>
+            </div>
+        </div>
+        <blockquote>
+<p>Een gsm is een draadloze telefoon, ...</p>
+</blockquote>
+
+        <aside class="notes">
+            Maar je krijgt vervolgvragen. "Wat is een gsm?" bijvoorbeeld. En je legt uit dat het een draadloze telefoon is en dat programma's stukken code zijn die taken vereenvoudigen.
+        </aside>
+    </section>
+    <section>
+        <h2 id="probleemstelling" tabindex="-1">Probleemstelling</h2>
+<h3 id="drift-in-betekenis" tabindex="-1">Drift in betekenis</h3>
+
+        <div style="margin-top: 1rem; display: grid; grid-template-columns: 1fr 120px 1fr; align-items: center; column-gap: 0.8rem;">
+            <div style="text-align: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.6rem;">
+                <img src="./images/smartphone-full.jpg" alt="Volledige smartphone" style="height: 330px; object-fit: contain;">
+                <div style="font-size: 0.68em; margin-top: 0.35rem;">Vandaag: smartphone (volledig toestel)</div>
+            </div>
+            <div style="text-align: center; color: #1f5fbf;">
+                <div style="font-size: 2em;">⟷</div>
+                <div style="font-size: 0.55em;">betekenis schuift</div>
+            </div>
+            <div style="text-align: center; border: 1px solid #c7d1dd; border-radius: 12px; background: #f5f7fa; padding: 0.6rem;">
+                <img src="./images/star-trek-communicator.jpg" alt="Star Trek communicator (TOS replica)" style="height: 330px; object-fit: contain;">
+                <div style="font-size: 0.68em; margin-top: 0.35rem;">Sci-fi referentie: Star Trek communicator</div>
+            </div>
+        </div>
+        <aside class="notes">
+            Je blijft deze uitleg geven totdat de persoon voor je begrijpt wat het woord 'smartphone' betekent.
+            Je beschrijft het begrip op basis van jouw veronderstelling dat de persoon de term kent. Is dat niet voldoende, dan ga je dieper in op de details.
+            Zodra je stopt met die beschrijving, valt de afnemer terug op zijn eigen interpretatie en kennis van de term, ook al
+            komen die misschien niet overeen met wat jij voor ogen hebt.
+        </aside>
+    </section>
+    <section>
+        <h2 id="probleemstelling" tabindex="-1">Probleemstelling</h2>
+<h3 id="verschillen-bij-overheidsapplicaties" tabindex="-1">Verschillen bij overheidsapplicaties</h3>
+<p class="medium">Over verschillende beleidsdomeinen, toepassingen en regelgevingen heen worden gelijknamige termen gebruikt met een verschillende betekenis.</p>
+<p><em>v.b. stamdossier, aangifte, dossier, basisdossier, ...</em></p>
+
+        <aside class="notes">
+            Overheidsapplicaties zijn gelijkaardig. We spreken over data die soms 10 jaar of langer moet meegaan. En historisch of tussen applicaties door heb je gelijkaardige termen zoals 'dossier', 'basisdossier',
+            'stamdossier' en 'aangifte' - maar liggen die vaak niet per applicatie gelijk.
+        </aside>
+    </section>
+    <section>
+        <h2 id="probleemstelling" tabindex="-1">Probleemstelling</h2>
+<h3 id="ai-gebruik" tabindex="-1">AI-gebruik</h3>
+
+        <img src="./images/ai-gebruik.svg" alt="Zonder expliciete afspraken moet een AI-agent betekenis interpreteren. Gedeelde datamodellen en standaarden geven expliciete betekenis en beperken de ruimte voor aannames." style="width: 1100px; height: auto;">
+        <aside class="notes">
+            Hier ga ik niet diep op in, maar net zoals wij blokkades ervaren in de communicatie met andere partners, heeft AI daar ook last van.
+            Als we ervoor kunnen zorgen dat we op een uniforme en gelijke manier kunnen communiceren en data modellering uitoefenen dan zorgen we er ook
+            voor dat AI-agenten deze standaardisaties begrijpen en kunnen volgen zonder zelf keuzes te maken.
+        </aside>
+    </section>
+</section>
+
+<section>
+    <section>
+    <h2 id="interoperabiliteit" tabindex="-1">Interoperabiliteit</h2>
+<blockquote>
+<p>Interoperabiliteit is het vermogen van verschillende computersystemen of programma's om naadloos informatie uit te wisselen op een manier die <strong>toegankelijk</strong>, <strong>leesbaar</strong> en <strong>begrijpelijk</strong> is voor andere systemen.</p>
+</blockquote>
+<p class="medium">Of samengevat: een uniforme en gestandaardiseerde manier van <strong>informatie</strong>uitwisseling</p>
+
+        <aside class="notes">
+            De titel van deze workshop bevat het woord interoperabiliteit. Het woord bestaat al heel lang, zelfs al in de jaren 60 toen het gebruikt werd om aan te geven
+            dat in een militaire context bepaalde onderdelen makkelijk moesten kunnen samenwerken en hergebruikt worden.
+
+            In de context van gegevensuitwisseling is interoperabiliteit letterlijk gedefinieerd als het vermogen van verschillende systemen om informatie uit te wisselen die toegankelijk, leesbaar en begrijpelijk is voor anderen.
+            Wat eigenlijk neerkomt dat we op een uniforme en gestandaardiseerde manier 'informatie' kunnen uitwisselen.
+        </aside>
+    </section>
+    <section>
+    <h2 id="interoperabiliteit" tabindex="-1">Interoperabiliteit</h2>
+<h3 id="toegankelijkheid" tabindex="-1">Toegankelijkheid</h3>
+<blockquote>
+<p>Het moet voor een agentschap of departement, of in sommige gevallen eindgebruikers mogelijk en duidelijk zijn hoe ze toegang krijgen tot data.</p>
+</blockquote>
+
+        <img src="./images/interop-toegankelijkheid.svg" alt="Een departement vindt gegevens van een agentschap via een catalogus en krijgt toegang via een API met de juiste rechten" class="interop-img" style="height: 260px">
+        <aside class="notes">
+        Bij het toegankelijke ga ik niet te lang blijven stilstaan. Concreet houdt het in dat er manieren moeten bestaan voor een ander agentschap, departement of eindgebruiker om toegang te krijgen tot data waar
+        dit verantwoord is. Maar algemeen is dit iets dat via regelgeving en stuurgroepen meestal wel al goed in elkaar zit.
+        </aside>
+    </section>
+    <section>
+    <h2 id="interoperabiliteit" tabindex="-1">Interoperabiliteit</h2>
+<h3 id="leesbaarheid" tabindex="-1">Leesbaarheid</h3>
+<blockquote>
+<p>Het formaat moet voor iedereen leesbaar zijn en bij voorkeur gebaseerd zijn op algemeen gebruikte standaarden.</p>
+</blockquote>
+
+        <img src="./images/interop-leesbaarheid.svg" alt="Een agentschap en een departement schrijven en lezen gegevens in hetzelfde open, gestandaardiseerde formaat" class="interop-img" style="height: 260px">
+        <aside class="notes">
+        Vervolgens komen we aan bij de leesbaarheid van data. Overheidsapplicaties leven soms heel lang, de data vaak nog langer. We willen bij interoperabele applicaties data kunnen lezen die niet
+        vasthangt aan bepaalde gesloten formaten die mogelijk niet blijven bestaan. Denk maar aan uitwisseling in Microsoft Excel.
+        </aside>
+    </section>
+    <section>
+    <h2 id="interoperabiliteit" tabindex="-1">Interoperabiliteit</h2>
+<h3 id="begrijpelijk" tabindex="-1">Begrijpelijk</h3>
+<blockquote>
+<p>Er mag geen betekenis verloren gaan in de vertaling.</p>
+</blockquote>
+
+        <img src="./images/interop-begrijpelijkheid.svg" alt="Een agentschap en een departement gebruiken hetzelfde gedeelde begrip met een eenduidige definitie, zodat de betekenis behouden blijft" class="interop-img" style="height: 260px">
+        <aside class="notes">
+        Ten slotte, en waarschijnlijk het belangrijkste: data moet begrijpelijk zijn zonder ambiguïteit. We willen ervoor zorgen dat het voor het systeem dat onze data gebruikt duidelijk is
+        wat we ermee bedoelen. Ik denk dat zelfs als we buiten de context van data denken dat er zeker wel voorbeelden zijn waar iedereen aan kan denken waar de grootste struikelblok in communicatie
+        was dat iedereen een verschillend begrip had voor dezelfde term.
+        </aside>
+    </section>
+    <section>
+        <h2 id="interoperabiliteit" tabindex="-1">Interoperabiliteit</h2>
+<h3 id="waarom-een-handleiding-(alleen)-niet-werkt" tabindex="-1">Waarom een handleiding (alleen) niet werkt</h3>
+
+        <img src="./images/confluence-begripsverwarring.svg" alt="Fictieve Confluence-handleiding met een keten van definitielinks: dossier verwijst naar aanvraag, aanvraag naar activiteit, activiteit naar inrichting, enzovoort. Elke uitleg vraagt weer om uitleg. Waar de uitleg of het lezen stopt, vult de lezer zelf betekenis in." style="width: 1060px; height: auto; margin: 0;">
+        <aside class="notes">
+            Eigenlijk kan ik deze drie vraagstukken van toegankelijkheid, leesbaarheid en begrijpelijkheid oplossen door gewoon een handleiding mee te geven als PDF of Confluence-pagina.
+            Maar net zoals bij de beschrijving van een smartphone krijg je altijd vervolgvragen. En krijg je die niet, dan werk je verder op basis van kennis die misschien niet overeenkomt met
+            wat je bedoelt. Bij een handleiding is het net zo: als er ergens een term of beschrijving staat waarvan je al gehoord hebt, ga je niet verder lezen om te ontdekken wat die term betekent.
+
+            Omdat niemand staat te springen om duizenden pagina's handleidingen te schrijven of te lezen voor elke usecase van een afnemer, willen we dat de data zichzelf beschrijft. Zo hoef je geen handleiding door te zoeken om te weten wat alles betekent.
+        </aside>
+    </section>
+    <section>
+        <h2 id="interoperabiliteit" tabindex="-1">Interoperabiliteit</h2>
+<h3 id="standaardisaties" tabindex="-1">Standaardisaties</h3>
+<p><img src="./images/oslo.png" alt="Overzicht van datastandaarden bij Digitaal Vlaanderen" class="slide-screenshot"></p>
+
+        <aside class="notes">
+            Daarom wordt de oplossing voor interoperabiliteit vaak in de richting van standaardisatie geduwd. Dit is een pagina van Digitaal Vlaanderen; ik denk dat veel mensen de OSLO-standaarden wel kennen.
+        </aside>
+    </section>
+</section>
+
+<section class="claper-slide claper-slide--poll" data-claper-event="q6tdq" data-claper-kind="poll" data-claper-poll="9" data-claper-api="https://claper.maximvdw.be/public-api" data-claper-control="https://claper.maximvdw.be/control">
+    <h2 class="claper-poll-title"></h2>
+    <div class="claper-live">
+        <div class="claper-results" aria-live="polite"></div>
+        <div class="claper-join claper-join--small">
+            <div class="claper-qr"><svg class="qr" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 33 33" shape-rendering="crispEdges" role="img" aria-label="QR-code naar https://claper.maximvdw.be/e/q6tdq"><rect x="-2" y="-2" width="33" height="33" fill="#fff"/><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM15 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM13 1h1v1h-1zM16 1h1v1h-1zM18 1h1v1h-1zM20 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM16 2h1v1h-1zM18 2h1v1h-1zM19 2h1v1h-1zM20 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM17 3h1v1h-1zM18 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM11 4h1v1h-1zM14 4h1v1h-1zM16 4h1v1h-1zM19 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM15 5h1v1h-1zM16 5h1v1h-1zM17 5h1v1h-1zM18 5h1v1h-1zM19 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM8 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM16 7h1v1h-1zM17 7h1v1h-1zM19 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM13 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM25 8h1v1h-1zM27 8h1v1h-1zM28 8h1v1h-1zM4 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM13 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM18 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM24 9h1v1h-1zM28 9h1v1h-1zM2 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM10 10h1v1h-1zM11 10h1v1h-1zM12 10h1v1h-1zM13 10h1v1h-1zM16 10h1v1h-1zM21 10h1v1h-1zM23 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM3 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM10 11h1v1h-1zM11 11h1v1h-1zM16 11h1v1h-1zM19 11h1v1h-1zM20 11h1v1h-1zM21 11h1v1h-1zM22 11h1v1h-1zM28 11h1v1h-1zM1 12h1v1h-1zM2 12h1v1h-1zM4 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM11 12h1v1h-1zM14 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM19 12h1v1h-1zM23 12h1v1h-1zM25 12h1v1h-1zM26 12h1v1h-1zM3 13h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM10 13h1v1h-1zM11 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM17 13h1v1h-1zM19 13h1v1h-1zM21 13h1v1h-1zM22 13h1v1h-1zM26 13h1v1h-1zM27 13h1v1h-1zM28 13h1v1h-1zM0 14h1v1h-1zM1 14h1v1h-1zM3 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM8 14h1v1h-1zM10 14h1v1h-1zM11 14h1v1h-1zM12 14h1v1h-1zM13 14h1v1h-1zM16 14h1v1h-1zM18 14h1v1h-1zM19 14h1v1h-1zM20 14h1v1h-1zM22 14h1v1h-1zM23 14h1v1h-1zM26 14h1v1h-1zM27 14h1v1h-1zM28 14h1v1h-1zM3 15h1v1h-1zM4 15h1v1h-1zM7 15h1v1h-1zM10 15h1v1h-1zM11 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM16 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM27 15h1v1h-1zM0 16h1v1h-1zM1 16h1v1h-1zM2 16h1v1h-1zM3 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM7 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM23 16h1v1h-1zM24 16h1v1h-1zM25 16h1v1h-1zM27 16h1v1h-1zM1 17h1v1h-1zM3 17h1v1h-1zM4 17h1v1h-1zM7 17h1v1h-1zM11 17h1v1h-1zM14 17h1v1h-1zM15 17h1v1h-1zM17 17h1v1h-1zM20 17h1v1h-1zM23 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM27 17h1v1h-1zM0 18h1v1h-1zM2 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM7 18h1v1h-1zM9 18h1v1h-1zM10 18h1v1h-1zM13 18h1v1h-1zM14 18h1v1h-1zM15 18h1v1h-1zM17 18h1v1h-1zM22 18h1v1h-1zM24 18h1v1h-1zM26 18h1v1h-1zM2 19h1v1h-1zM3 19h1v1h-1zM4 19h1v1h-1zM5 19h1v1h-1zM7 19h1v1h-1zM10 19h1v1h-1zM12 19h1v1h-1zM13 19h1v1h-1zM14 19h1v1h-1zM16 19h1v1h-1zM17 19h1v1h-1zM18 19h1v1h-1zM20 19h1v1h-1zM22 19h1v1h-1zM24 19h1v1h-1zM26 19h1v1h-1zM1 20h1v1h-1zM2 20h1v1h-1zM4 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM12 20h1v1h-1zM13 20h1v1h-1zM14 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM25 20h1v1h-1zM26 20h1v1h-1zM8 21h1v1h-1zM12 21h1v1h-1zM16 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM25 21h1v1h-1zM26 21h1v1h-1zM27 21h1v1h-1zM28 21h1v1h-1zM0 22h1v1h-1zM1 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM8 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM14 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM27 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h1v1h-1zM9 23h1v1h-1zM13 23h1v1h-1zM14 23h1v1h-1zM15 23h1v1h-1zM18 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM25 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM15 24h1v1h-1zM16 24h1v1h-1zM17 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM26 24h1v1h-1zM27 24h1v1h-1zM0 25h1v1h-1zM2 25h1v1h-1zM3 25h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM8 25h1v1h-1zM11 25h1v1h-1zM13 25h1v1h-1zM15 25h1v1h-1zM19 25h1v1h-1zM20 25h1v1h-1zM21 25h1v1h-1zM23 25h1v1h-1zM24 25h1v1h-1zM25 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM9 26h1v1h-1zM10 26h1v1h-1zM17 26h1v1h-1zM18 26h1v1h-1zM19 26h1v1h-1zM23 26h1v1h-1zM26 26h1v1h-1zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM10 27h1v1h-1zM13 27h1v1h-1zM15 27h1v1h-1zM20 27h1v1h-1zM22 27h1v1h-1zM23 27h1v1h-1zM25 27h1v1h-1zM27 27h1v1h-1zM0 28h1v1h-1zM1 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM9 28h1v1h-1zM10 28h1v1h-1zM13 28h1v1h-1zM14 28h1v1h-1zM16 28h1v1h-1zM18 28h1v1h-1zM19 28h1v1h-1zM20 28h1v1h-1zM21 28h1v1h-1zM23 28h1v1h-1zM27 28h1v1h-1z" fill="#000"/></svg></div>
+            <p class="claper-join-url">claper.maximvdw.be/e/<strong>q6tdq</strong></p>
+        </div>
+    </div>
+</section>
+
+<!-- Poll over linked data om te polsen naar hun kennis -->
+<section class="claper-slide claper-slide--poll" data-claper-event="q6tdq" data-claper-kind="poll" data-claper-poll="2" data-claper-api="https://claper.maximvdw.be/public-api" data-claper-control="https://claper.maximvdw.be/control">
+    <h2 class="claper-poll-title"></h2>
+    <div class="claper-live">
+        <div class="claper-results" aria-live="polite"></div>
+        <div class="claper-join claper-join--small">
+            <div class="claper-qr"><svg class="qr" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 33 33" shape-rendering="crispEdges" role="img" aria-label="QR-code naar https://claper.maximvdw.be/e/q6tdq"><rect x="-2" y="-2" width="33" height="33" fill="#fff"/><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM15 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM13 1h1v1h-1zM16 1h1v1h-1zM18 1h1v1h-1zM20 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM16 2h1v1h-1zM18 2h1v1h-1zM19 2h1v1h-1zM20 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM17 3h1v1h-1zM18 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM11 4h1v1h-1zM14 4h1v1h-1zM16 4h1v1h-1zM19 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM15 5h1v1h-1zM16 5h1v1h-1zM17 5h1v1h-1zM18 5h1v1h-1zM19 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM8 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM16 7h1v1h-1zM17 7h1v1h-1zM19 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM13 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM25 8h1v1h-1zM27 8h1v1h-1zM28 8h1v1h-1zM4 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM13 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM18 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM24 9h1v1h-1zM28 9h1v1h-1zM2 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM10 10h1v1h-1zM11 10h1v1h-1zM12 10h1v1h-1zM13 10h1v1h-1zM16 10h1v1h-1zM21 10h1v1h-1zM23 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM3 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM10 11h1v1h-1zM11 11h1v1h-1zM16 11h1v1h-1zM19 11h1v1h-1zM20 11h1v1h-1zM21 11h1v1h-1zM22 11h1v1h-1zM28 11h1v1h-1zM1 12h1v1h-1zM2 12h1v1h-1zM4 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM11 12h1v1h-1zM14 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM19 12h1v1h-1zM23 12h1v1h-1zM25 12h1v1h-1zM26 12h1v1h-1zM3 13h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM10 13h1v1h-1zM11 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM17 13h1v1h-1zM19 13h1v1h-1zM21 13h1v1h-1zM22 13h1v1h-1zM26 13h1v1h-1zM27 13h1v1h-1zM28 13h1v1h-1zM0 14h1v1h-1zM1 14h1v1h-1zM3 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM8 14h1v1h-1zM10 14h1v1h-1zM11 14h1v1h-1zM12 14h1v1h-1zM13 14h1v1h-1zM16 14h1v1h-1zM18 14h1v1h-1zM19 14h1v1h-1zM20 14h1v1h-1zM22 14h1v1h-1zM23 14h1v1h-1zM26 14h1v1h-1zM27 14h1v1h-1zM28 14h1v1h-1zM3 15h1v1h-1zM4 15h1v1h-1zM7 15h1v1h-1zM10 15h1v1h-1zM11 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM16 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM27 15h1v1h-1zM0 16h1v1h-1zM1 16h1v1h-1zM2 16h1v1h-1zM3 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM7 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM23 16h1v1h-1zM24 16h1v1h-1zM25 16h1v1h-1zM27 16h1v1h-1zM1 17h1v1h-1zM3 17h1v1h-1zM4 17h1v1h-1zM7 17h1v1h-1zM11 17h1v1h-1zM14 17h1v1h-1zM15 17h1v1h-1zM17 17h1v1h-1zM20 17h1v1h-1zM23 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM27 17h1v1h-1zM0 18h1v1h-1zM2 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM7 18h1v1h-1zM9 18h1v1h-1zM10 18h1v1h-1zM13 18h1v1h-1zM14 18h1v1h-1zM15 18h1v1h-1zM17 18h1v1h-1zM22 18h1v1h-1zM24 18h1v1h-1zM26 18h1v1h-1zM2 19h1v1h-1zM3 19h1v1h-1zM4 19h1v1h-1zM5 19h1v1h-1zM7 19h1v1h-1zM10 19h1v1h-1zM12 19h1v1h-1zM13 19h1v1h-1zM14 19h1v1h-1zM16 19h1v1h-1zM17 19h1v1h-1zM18 19h1v1h-1zM20 19h1v1h-1zM22 19h1v1h-1zM24 19h1v1h-1zM26 19h1v1h-1zM1 20h1v1h-1zM2 20h1v1h-1zM4 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM12 20h1v1h-1zM13 20h1v1h-1zM14 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM25 20h1v1h-1zM26 20h1v1h-1zM8 21h1v1h-1zM12 21h1v1h-1zM16 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM25 21h1v1h-1zM26 21h1v1h-1zM27 21h1v1h-1zM28 21h1v1h-1zM0 22h1v1h-1zM1 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM8 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM14 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM27 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h1v1h-1zM9 23h1v1h-1zM13 23h1v1h-1zM14 23h1v1h-1zM15 23h1v1h-1zM18 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM25 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM15 24h1v1h-1zM16 24h1v1h-1zM17 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM26 24h1v1h-1zM27 24h1v1h-1zM0 25h1v1h-1zM2 25h1v1h-1zM3 25h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM8 25h1v1h-1zM11 25h1v1h-1zM13 25h1v1h-1zM15 25h1v1h-1zM19 25h1v1h-1zM20 25h1v1h-1zM21 25h1v1h-1zM23 25h1v1h-1zM24 25h1v1h-1zM25 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM9 26h1v1h-1zM10 26h1v1h-1zM17 26h1v1h-1zM18 26h1v1h-1zM19 26h1v1h-1zM23 26h1v1h-1zM26 26h1v1h-1zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM10 27h1v1h-1zM13 27h1v1h-1zM15 27h1v1h-1zM20 27h1v1h-1zM22 27h1v1h-1zM23 27h1v1h-1zM25 27h1v1h-1zM27 27h1v1h-1zM0 28h1v1h-1zM1 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM9 28h1v1h-1zM10 28h1v1h-1zM13 28h1v1h-1zM14 28h1v1h-1zM16 28h1v1h-1zM18 28h1v1h-1zM19 28h1v1h-1zM20 28h1v1h-1zM21 28h1v1h-1zM23 28h1v1h-1zM27 28h1v1h-1z" fill="#000"/></svg></div>
+            <p class="claper-join-url">claper.maximvdw.be/e/<strong>q6tdq</strong></p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <section>
+        <h2 id="linked-data" tabindex="-1">Linked Data</h2>
+<h3 id="wat-is-linked-(open)-data-(lod)%3F" tabindex="-1">Wat is Linked (Open) Data (LOD)?</h3>
+<p><img src="./images/grafik.png" alt=""></p>
+
+        <aside class="notes">
+            De tekening die je hier ziet staan beschrijft eigenlijk. De eerste ster geeft aan dat je je data open moet kunnen stellen waar nodig en toegelaten aan externen.
+            De tweede ster gaat over de mogelijkheid voor machines, applicaties en waarschijnlijk nu ook AI-agenten om deze data uit te lezen.
+            De derde ster gaat dat je formaten en bestandstypen gebruiken die geen specifieke software vereisen.
+            Bij de vierde ster begint het interessant te worden voor ons. We gebruiken gestandaardiseerde formaten om deze data te beschrijven op een manier die makkelijk toelaat om naar andere concepten te linken.
+
+            De laatste belangrijke ster gaat over het gebruik van open standaarden om gegevens te beschrijven. Met andere woorden: in plaats van zelf een handleiding te schrijven voor zaken die overal ter wereld
+            of bij de Vlaamse overheid worden gebruikt, verwijs je naar standaarden die op hun beurt andere standaarden gebruiken om iets te beschrijven.
+            Je verwijst ook naar data en geeft als het ware de locatie of weblink waar die gegevens te vinden zijn.
+        </aside>
+    </section>
+    <section>
+    <h2 id="linked-data" tabindex="-1">Linked Data</h2>
+<h3 id="rdf-(resource-description-framework)" tabindex="-1">RDF (Resource Description Framework)</h3>
+<p>Data voorgesteld als triples: <strong>Subject</strong>, <strong>Predicate</strong> en <strong>Object</strong></p>
+<p><object data="./images/subject-predicate-object.svg" type="image/svg+xml" style="width: 100%; border: none;"></object></p>
+
+    </section>
+        <section>
+    <h2 id="linked-data" tabindex="-1">Linked Data</h2>
+<h3 id="rdf-(resource-description-framework)" tabindex="-1">RDF (Resource Description Framework)</h3>
+<p><strong>URI</strong> identificeert gelijke concepten</p>
+<p><object data="./images/lod6.svg" type="image/svg+xml" style="width: 100%; border: none;"></object></p>
+<p><em>Anders dan JSON, Spreadsheet, database waar elke kolom een stukje tekst is</em></p>
+
+    </section>
+    <section>
+    <h2 id="linked-data" tabindex="-1">Linked Data</h2>
+<h3 id="rdf-(resource-description-framework)" tabindex="-1">RDF (Resource Description Framework)</h3>
+<p><strong>Subjects</strong> worden beschreven met <strong>predicates</strong> die naar <strong>objecten</strong> verwijzen</p>
+<p><object data="./images/lod2.svg" type="image/svg+xml" style="width: 100%; border: none;"></object></p>
+
+    </section>
+    <section>
+    <h2 id="linked-data" tabindex="-1">Linked Data</h2>
+<h3 id="rdf-(resource-description-framework)" tabindex="-1">RDF (Resource Description Framework)</h3>
+<p><strong>CURIE</strong> (Compact URI) geeft prefixes aan een URI</p>
+<p><object data="./images/lod4.svg" type="image/svg+xml" style="width: 100%; border: none;"></object></p>
+
+    </section>
+    <section>
+    <h2 id="linked-data" tabindex="-1">Linked Data</h2>
+<h3 id="rdf-(resource-description-framework)" tabindex="-1">RDF (Resource Description Framework)</h3>
+<p>Niet atomaire <strong>objecten</strong> kunnen op zichzelf ook <strong>subject</strong> zijn</p>
+<p><object data="./images/lod3.svg" type="image/svg+xml" style="width: 60%; border: none;"></object></p>
+
+    </section>
+    <section>
+    <h2 id="linked-data" tabindex="-1">Linked Data</h2>
+<h3 id="rdf-(resource-description-framework)" tabindex="-1">RDF (Resource Description Framework)</h3>
+<p><strong>Predicates</strong> kunnen op hun beurt elders beschreven worden</p>
+<p><object data="./images/lod5.svg" type="image/svg+xml" style="width: 100%; border: none;"></object></p>
+
+    </section>
+    <section>
+    <h2 id="linked-data" tabindex="-1">Linked Data</h2>
+<h3 id="een-web-van-informatie%2C-gelinkt-aan-data-..." tabindex="-1">Een web van informatie, gelinkt aan data ...</h3>
+<p><object data="./images/cloud1.svg" type="image/svg+xml" style="width: 60%; border: none;"></object></p>
+
+    </section>
+    <section>
+    <h2 id="linked-data" tabindex="-1">Linked Data</h2>
+<h3 id="...-en-standaarden" tabindex="-1">... en standaarden</h3>
+<p><object data="./images/cloud2.svg" type="image/svg+xml" style="width: 60%; border: none;"></object></p>
+
+    </section>
+    <section>
+        <h2 id="linked-data" tabindex="-1">Linked Data</h2>
+<h3 id="voorbeeld" tabindex="-1">Voorbeeld</h3>
+<p><img src="./images/wikipedia.png" alt="Wikipedia-pagina over koolstofdioxide" class="slide-screenshot"></p>
+
+    </section>
+    <section>
+        <h2 id="linked-data" tabindex="-1">Linked Data</h2>
+<h3 id="voorbeeld" tabindex="-1">Voorbeeld</h3>
+<p><img src="./images/turtle.png" alt="Machineleesbare beschrijving in Turtle" class="slide-screenshot"></p>
+
+    </section>
+</section>
+
+<section class="claper-slide claper-slide--poll" data-claper-event="q6tdq" data-claper-kind="poll" data-claper-poll="3" data-claper-api="https://claper.maximvdw.be/public-api" data-claper-control="https://claper.maximvdw.be/control">
+    <h2 class="claper-poll-title"></h2>
+    <div class="claper-live">
+        <div class="claper-results" aria-live="polite"></div>
+        <div class="claper-join claper-join--small">
+            <div class="claper-qr"><svg class="qr" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 33 33" shape-rendering="crispEdges" role="img" aria-label="QR-code naar https://claper.maximvdw.be/e/q6tdq"><rect x="-2" y="-2" width="33" height="33" fill="#fff"/><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM15 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM13 1h1v1h-1zM16 1h1v1h-1zM18 1h1v1h-1zM20 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM16 2h1v1h-1zM18 2h1v1h-1zM19 2h1v1h-1zM20 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM17 3h1v1h-1zM18 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM11 4h1v1h-1zM14 4h1v1h-1zM16 4h1v1h-1zM19 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM15 5h1v1h-1zM16 5h1v1h-1zM17 5h1v1h-1zM18 5h1v1h-1zM19 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM8 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM16 7h1v1h-1zM17 7h1v1h-1zM19 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM13 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM25 8h1v1h-1zM27 8h1v1h-1zM28 8h1v1h-1zM4 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM13 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM18 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM24 9h1v1h-1zM28 9h1v1h-1zM2 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM10 10h1v1h-1zM11 10h1v1h-1zM12 10h1v1h-1zM13 10h1v1h-1zM16 10h1v1h-1zM21 10h1v1h-1zM23 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM3 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM10 11h1v1h-1zM11 11h1v1h-1zM16 11h1v1h-1zM19 11h1v1h-1zM20 11h1v1h-1zM21 11h1v1h-1zM22 11h1v1h-1zM28 11h1v1h-1zM1 12h1v1h-1zM2 12h1v1h-1zM4 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM11 12h1v1h-1zM14 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM19 12h1v1h-1zM23 12h1v1h-1zM25 12h1v1h-1zM26 12h1v1h-1zM3 13h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM10 13h1v1h-1zM11 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM17 13h1v1h-1zM19 13h1v1h-1zM21 13h1v1h-1zM22 13h1v1h-1zM26 13h1v1h-1zM27 13h1v1h-1zM28 13h1v1h-1zM0 14h1v1h-1zM1 14h1v1h-1zM3 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM8 14h1v1h-1zM10 14h1v1h-1zM11 14h1v1h-1zM12 14h1v1h-1zM13 14h1v1h-1zM16 14h1v1h-1zM18 14h1v1h-1zM19 14h1v1h-1zM20 14h1v1h-1zM22 14h1v1h-1zM23 14h1v1h-1zM26 14h1v1h-1zM27 14h1v1h-1zM28 14h1v1h-1zM3 15h1v1h-1zM4 15h1v1h-1zM7 15h1v1h-1zM10 15h1v1h-1zM11 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM16 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM27 15h1v1h-1zM0 16h1v1h-1zM1 16h1v1h-1zM2 16h1v1h-1zM3 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM7 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM23 16h1v1h-1zM24 16h1v1h-1zM25 16h1v1h-1zM27 16h1v1h-1zM1 17h1v1h-1zM3 17h1v1h-1zM4 17h1v1h-1zM7 17h1v1h-1zM11 17h1v1h-1zM14 17h1v1h-1zM15 17h1v1h-1zM17 17h1v1h-1zM20 17h1v1h-1zM23 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM27 17h1v1h-1zM0 18h1v1h-1zM2 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM7 18h1v1h-1zM9 18h1v1h-1zM10 18h1v1h-1zM13 18h1v1h-1zM14 18h1v1h-1zM15 18h1v1h-1zM17 18h1v1h-1zM22 18h1v1h-1zM24 18h1v1h-1zM26 18h1v1h-1zM2 19h1v1h-1zM3 19h1v1h-1zM4 19h1v1h-1zM5 19h1v1h-1zM7 19h1v1h-1zM10 19h1v1h-1zM12 19h1v1h-1zM13 19h1v1h-1zM14 19h1v1h-1zM16 19h1v1h-1zM17 19h1v1h-1zM18 19h1v1h-1zM20 19h1v1h-1zM22 19h1v1h-1zM24 19h1v1h-1zM26 19h1v1h-1zM1 20h1v1h-1zM2 20h1v1h-1zM4 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM12 20h1v1h-1zM13 20h1v1h-1zM14 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM25 20h1v1h-1zM26 20h1v1h-1zM8 21h1v1h-1zM12 21h1v1h-1zM16 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM25 21h1v1h-1zM26 21h1v1h-1zM27 21h1v1h-1zM28 21h1v1h-1zM0 22h1v1h-1zM1 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM8 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM14 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM27 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h1v1h-1zM9 23h1v1h-1zM13 23h1v1h-1zM14 23h1v1h-1zM15 23h1v1h-1zM18 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM25 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM15 24h1v1h-1zM16 24h1v1h-1zM17 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM26 24h1v1h-1zM27 24h1v1h-1zM0 25h1v1h-1zM2 25h1v1h-1zM3 25h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM8 25h1v1h-1zM11 25h1v1h-1zM13 25h1v1h-1zM15 25h1v1h-1zM19 25h1v1h-1zM20 25h1v1h-1zM21 25h1v1h-1zM23 25h1v1h-1zM24 25h1v1h-1zM25 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM9 26h1v1h-1zM10 26h1v1h-1zM17 26h1v1h-1zM18 26h1v1h-1zM19 26h1v1h-1zM23 26h1v1h-1zM26 26h1v1h-1zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM10 27h1v1h-1zM13 27h1v1h-1zM15 27h1v1h-1zM20 27h1v1h-1zM22 27h1v1h-1zM23 27h1v1h-1zM25 27h1v1h-1zM27 27h1v1h-1zM0 28h1v1h-1zM1 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM9 28h1v1h-1zM10 28h1v1h-1zM13 28h1v1h-1zM14 28h1v1h-1zM16 28h1v1h-1zM18 28h1v1h-1zM19 28h1v1h-1zM20 28h1v1h-1zM21 28h1v1h-1zM23 28h1v1h-1zM27 28h1v1h-1z" fill="#000"/></svg></div>
+            <p class="claper-join-url">claper.maximvdw.be/e/<strong>q6tdq</strong></p>
+        </div>
+    </div>
+</section>
+
+<style>
+    .sosa-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin-top: 0.6em;
+        text-align: left;
+    }
+    .sosa-card {
+        background: var(--vl-blauw-licht);
+        border-top: 8px solid var(--vl-blauw);
+        border-radius: 6px;
+        padding: 12px 20px;
+        font-size: 0.8em;
+        line-height: 1.3;
+    }
+    .sosa-card .vraag {
+        font-size: 1.3em;
+        font-weight: bold;
+        color: var(--vl-blauw-donker);
+    }
+    .sosa-card .begrip {
+        display: block;
+        margin-top: 0.3em;
+        font-weight: bold;
+    }
+    .sosa-card .term {
+        display: block;
+        color: var(--vl-grijs);
+        font-size: 0.75em;
+    }
+    .sosa-card .vb {
+        display: block;
+        margin-top: 0.5em;
+        font-style: italic;
+    }
+    .reveal table.sosa-patroon {
+        font-size: 0.6em;
+        margin: 0.5em auto;
+    }
+    .std-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin-top: 0.4em;
+        text-align: left;
+    }
+    .std-card {
+        background: var(--vl-blauw-licht);
+        border-top: 8px solid var(--vl-blauw);
+        border-radius: 6px;
+        padding: 10px 16px 12px;
+        font-size: 0.55em;
+        line-height: 1.3;
+    }
+    .std-card.std-vlaams {
+        border-top-color: var(--vl-geel);
+    }
+    .std-card .naam {
+        display: block;
+        font-size: 1.45em;
+        font-weight: bold;
+        color: var(--vl-blauw-donker);
+    }
+    .std-card .door {
+        display: block;
+        color: var(--vl-grijs);
+        font-size: 0.85em;
+    }
+    .std-card .waarvoor {
+        display: block;
+        margin-top: 0.4em;
+        font-weight: bold;
+    }
+    .std-card .vraag {
+        display: block;
+        margin-top: 0.4em;
+        font-style: italic;
+    }
+    .reveal table.sosa-patroon td:first-child {
+        font-weight: bold;
+        color: var(--vl-blauw-donker);
+    }
+    #begrippenquiz .claper-poll-title {
+        font-size: 1.15em;
+    }
+    #begrippenquiz-casus .begrippen-join {
+        flex-direction: row;
+        justify-content: center;
+        gap: 24px;
+        margin-top: 0.5em;
+    }
+    #begrippenquiz-casus .begrippen-join .claper-join-url {
+        margin: 0;
+        font-size: 0.65em;
+    }
+    #begrippenquiz-casus p.medium {
+        font-size: 1.15em;
+    }
+    #begrippenquiz-casus .begrippen-join .claper-qr {
+        width: 120px;
+        height: 120px;
+    }
+    #begrippenquiz-definities p {
+        font-size: 0.8em;
+        line-height: 1.3;
+        margin: 0.4em 0;
+    }
+    #begrippenquiz-definities h2 {
+        font-size: 1.1em;
+        margin-bottom: 0.2em;
+    }
+    #begrippenquiz .claper-live {
+        gap: 24px;
+    }
+    #begrippenquiz .claper-bar {
+        grid-template-columns: minmax(0, 1fr) 110px 65px;
+        gap: 12px;
+        font-size: 0.55em;
+        line-height: 1.25;
+    }
+    #begrippenquiz .matching-options {
+        margin: 0 0 0 1.4em;
+        font-size: 0.6em;
+        line-height: 1.35;
+    }
+    #begrippenquiz .matching-options li {
+        margin-bottom: 0.8em;
+        padding: 0.3em 0.5em;
+    }
+    #begrippenquiz .claper-reveal.visible ~ .claper-live .matching-options .is-correct {
+        background: #eaf5ef;
+        font-weight: bold;
+    }
+</style>
+
+<section>
+    <section>
+    <h2 id="standardisaties-en-modellen" tabindex="-1">Standardisaties en modellen</h2>
+<h3 id="silo's-doorbreken" tabindex="-1">Silo's doorbreken</h3>
+<ul class="medium">
+<li>Een verkeerstelling, een schooldoorlichting, een premieaanvraag, een EPC, een erkenning, een vergunning, een subsidie, ...</li>
+<li>Elk agentschap, elke toepassing krijgt een <strong>eigen datamodel</strong></li>
+<li>Gelijkaardige patronen: wie, wat, wanneer, waarover?</li>
+</ul>
+
+        <aside class="notes">
+            Wie werkt aan een greenfieldproject waar je bijna carte blanche hebt? Wie gebruikt bij het maken van zulke projecten ook bestaande standaardisaties, of die nu Vlaams of internationaal zijn?
+
+        </aside>
+    </section>
+    <section id="vocabularium">
+        <h2 id="standardisaties-en-modellen" tabindex="-1">Standardisaties en modellen</h2>
+<h3 id="vocabularium%2C-ontologie%2C-knowledge-graph" tabindex="-1">Vocabularium, ontologie, knowledge graph</h3>
+<p><strong>Vocabularium</strong></p>
+<blockquote class="medium">
+<p>Een <strong>herbruikbare verzameling termen</strong> met URI's en definities.</p>
+</blockquote>
+<p><strong>Ontologie</strong></p>
+<blockquote class="medium">
+<p>Een ontologie legt ook <strong>formele relaties en axioma's</strong> vast.</p>
+</blockquote>
+<p><strong>Knowledge graph</strong></p>
+<blockquote class="medium">
+<p>Een graaf van entiteiten en relaties die kennis representeert.</p>
+</blockquote>
+
+        <aside class="notes">
+            Een vocabularium is onze gedeelde woordenschat voor data. De prefix sosa: is alleen een afkorting voor een namespace; de volledige URI identificeert de term.
+            Observation verwijst bijvoorbeeld naar http://www.w3.org/ns/sosa/Observation.
+            Een lokaal veld met de naam Observation heeft niet automatisch dezelfde betekenis.
+            Een vocabularium kan klassen en eigenschappen bevatten, maar ook een gecontroleerde verzameling begrippen. Met SKOS komen we later op dat laatste terug.
+            De termen vocabularium en ontologie worden in de praktijk deels door elkaar gebruikt: dit is geen harde tweedeling.
+            Bron: https://www.w3.org/TR/rdf11-primer/#section-vocabulary
+        </aside>
+    </section>
+    <section class="ontologie-model">
+    <h2 id="standardisaties-en-modellen" tabindex="-1">Standardisaties en modellen</h2>
+<h3 id="ontologie-klassen-als-blauwdruk" tabindex="-1">Ontologie klassen als blauwdruk</h3>
+<div class="mermaid">
+classDiagram
+    class System[&quot;ssn:System&quot;]:::standaard
+    class Apparaat:::lokaal {
+        +String uri
+        +String id #40;dcterms#58;identifier#41;
+        +String naam #40;rdfs#58;label#41;
+    }
+    class Installatie:::lokaal {
+        +String uri
+        +String id #40;dcterms#58;identifier#41;
+        +String naam #40;rdfs#58;label#41;
+    }
+    System &lt;|-- Apparaat
+    System &lt;|-- Installatie
+    classDef standaard fill:#fff8df,stroke:#705a1b,color:#25221a
+    classDef lokaal fill:#f2d785,stroke:#705a1b,color:#25221a
+
+</div>
+        <aside class="notes">
+            Apparaat en Installatie zijn lokale specialisaties van ssn:System. Hun URI identificeert de instantie en is geen RDF-eigenschap; dcterms:identifier en rdfs:label zijn eigenschappen voor respectievelijk een identificator en een leesbaar label.
+        </aside>
+    </section>
+    <section class="ontologie-model">
+    <h2 id="standardisaties-en-modellen" tabindex="-1">Standardisaties en modellen</h2>
+<h3 id="ontologie-als-blauwdruk-..." tabindex="-1">Ontologie als blauwdruk ...</h3>
+<p><strong>Requirement wijzigt waarbij een installatie meerdere apparaten kan hebben</strong></p>
+<p><img src="./images/ssnsosa_subsystem.png" alt=""></p>
+
+        <aside class="notes">
+        </aside>
+    </section>
+    <section class="ontologie-model">
+    <h2 id="standardisaties-en-modellen" tabindex="-1">Standardisaties en modellen</h2>
+<h3 id="ontologie-klassen-als-blauwdruk-..." tabindex="-1">Ontologie klassen als blauwdruk ...</h3>
+<p><strong>Requirement wijzigt waarbij een installatie meerdere apparaten kan hebben</strong></p>
+<div class="mermaid">
+classDiagram
+    class System[&quot;ssn:System&quot;]:::standaard
+    class Apparaat:::lokaal {
+        +String uri
+        +String id #40;dcterms#58;identifier#41;
+        +String naam #40;rdfs#58;label#41;
+    }
+    class Installatie:::lokaal {
+        +String uri
+        +String id #40;dcterms#58;identifier#41;
+        +String naam #40;rdfs#58;label#41;
+    }
+    System &lt;|-- Apparaat
+    System &lt;|-- Installatie
+    Installatie --&gt; &quot;0..*&quot; Apparaat : ssn#58;hasSubSystem
+    classDef standaard fill:#fff8df,stroke:#705a1b,color:#25221a
+    classDef lokaal fill:#f2d785,stroke:#705a1b,color:#25221a
+
+</div>
+        <aside class="notes">
+            Een installatie kan via ssn:hasSubSystem naar meerdere apparaten verwijzen. De relatie verbindt instanties; de klassen blijven specialisaties van ssn:System.
+        </aside>
+    </section>
+    <section class="ontologie-model">
+    <h2 id="standardisaties-en-modellen" tabindex="-1">Standardisaties en modellen</h2>
+<h3 id="ontologie-klassen-als-blauwdruk-..." tabindex="-1">Ontologie klassen als blauwdruk ...</h3>
+<p><strong>Requirement wijzigt waarbij een apparaat en installatie hetzelfde zijn</strong></p>
+<div class="mermaid">
+classDiagram
+    class System[&quot;ssn:System&quot;]:::standaard
+    class Installatie:::lokaal {
+        +String uri
+        +String id #40;dcterms#58;identifier#41;
+        +String naam #40;rdfs#58;label#41;
+    }
+    System &lt;|-- Installatie
+    Installatie --&gt; Installatie : ssn#58;hasSubSystem
+    classDef standaard fill:#fff8df,stroke:#705a1b,color:#25221a
+    classDef lokaal fill:#f2d785,stroke:#705a1b,color:#25221a
+
+</div>
+        <aside class="notes">
+            In dit gewijzigde lokale model gebruiken we één klasse Installatie voor beide begrippen. Een installatie kan zelf weer deelinstallaties bevatten via ssn:hasSubSystem.
+        </aside>
+    </section>
+    <section id="ontologie-relaties" class="ontologie-model">
+    <h2 id="standardisaties-en-modellen" tabindex="-1">Standardisaties en modellen</h2>
+<h3 id="ontologie-relaties-als-hulp" tabindex="-1">Ontologie relaties als hulp</h3>
+<p class="medium"><strong>We kennen de relaties, maar niet de typering.</strong></p>
+<div class="mermaid">
+flowchart LR
+    geven[&quot;Presentatie 3/12&quot;]:::lokaal
+    slides[&quot;Slidebestand&quot;]:::lokaal
+    maxim[&quot;Maxim&quot;]:::lokaal
+    geven --&gt;|prov:used| slides
+    geven --&gt;|prov:wasAssociatedWith| maxim
+    classDef lokaal fill:#f2d785,stroke:#705a1b,color:#25221a
+
+</div>
+        <aside class="notes">
+            De vakjes zijn individuele objecten met elk een eigen URI, geen klassen zoals op de vorige slides.
+            De data bevat hier alleen de relaties, geen expliciete rdf:type-triples. De labels Presentatie 3/12, Slidebestand en Maxim bepalen het type niet.
+            Presentatie 3/12 is de concrete uitvoering van deze sessie, niet het plan om later een presentatie te geven. Het slidebestand is de gebruikte documentversie; Maxim is de spreker.
+            Vraag deelnemers welke types ze verwachten. De ontologie maakt die verwachting formeel via domein en bereik.
+        </aside>
+    </section>
+    <section id="ontologie-relaties-documentatie">
+    <h2 id="standardisaties-en-modellen" tabindex="-1">Standardisaties en modellen</h2>
+<h3 id="ontologie-relaties-als-hulp-..." tabindex="-1">Ontologie relaties als hulp ...</h3>
+<p><img src="./images/documentatie-prov-used.png" alt="Uittreksel uit de PROV-O-documentatie van prov:used met definitie, beschrijving, domain prov:Activity en range prov:Entity" class="slide-screenshot" style="width: 1050px; height: auto;"></p>
+<p class="medium"><strong>Domain</strong>: type van het subject · <strong>Range</strong>: type van het object</p>
+
+        <aside class="notes">
+            Toon de definitie en beschrijving, gevolgd door has domain en has range in de documentatie van prov:used.
+            Het screenshot is een uittreksel: het codevoorbeeld en de overige eigenschappen zijn weggelaten.
+            PROV-O legt vast: het subject van prov:used is een prov:Activity en het object een prov:Entity.
+            Bron screenshot: https://www.w3.org/TR/prov-o/#used
+        </aside>
+    </section>
+    <section id="ontologie-relaties-documentatie-associatie">
+    <h2 id="standardisaties-en-modellen" tabindex="-1">Standardisaties en modellen</h2>
+<h3 id="ontologie-relaties-als-hulp-..." tabindex="-1">Ontologie relaties als hulp ...</h3>
+<p><img src="./images/documentatie-prov-was-associated-with.png" alt="Uittreksel uit de PROV-O-documentatie van prov:wasAssociatedWith met definitie, beschrijving, domain prov:Activity en range prov:Agent" class="slide-screenshot" style="width: 1050px; height: auto;"></p>
+<p class="medium"><strong>Domain</strong>: type van het subject · <strong>Range</strong>: type van het object</p>
+
+        <aside class="notes">
+            Toon de definitie en beschrijving: de agent draagt verantwoordelijkheid voor de activiteit.
+            Het screenshot is een uittreksel: het codevoorbeeld en de overige eigenschappen zijn weggelaten.
+            Het domein van prov:wasAssociatedWith is prov:Activity en het bereik is prov:Agent.
+            In ons voorbeeld is het geven van de presentatie de activiteit en Maxim de betrokken agent.
+            Bron screenshot: https://www.w3.org/TR/prov-o/#wasAssociatedWith
+        </aside>
+    </section>
+    <section id="ontologie-relaties-afgeleid" class="ontologie-model">
+    <h2 id="standardisaties-en-modellen" tabindex="-1">Standardisaties en modellen</h2>
+<h3 id="ontologie-relaties-als-hulp-..." tabindex="-1">Ontologie relaties als hulp ...</h3>
+<div class="mermaid">
+flowchart LR
+    geven[&quot;Presentatie 3/12&lt;br/&gt;prov:Activity&quot;]:::lokaal
+    slides[&quot;Slidebestand&lt;br/&gt;prov:Entity&quot;]:::lokaal
+    maxim[&quot;Maxim&lt;br/&gt;prov:Agent&quot;]:::lokaal
+    geven --&gt;|prov:used| slides
+    geven --&gt;|prov:wasAssociatedWith| maxim
+    classDef lokaal fill:#f2d785,stroke:#705a1b,color:#25221a
+
+</div>
+        <aside class="notes">
+            Het domein van beide relaties levert prov:Activity voor het geven van deze presentatie op.
+            Het bereik van prov:used levert prov:Entity voor het slidebestand op; het bereik van prov:wasAssociatedWith levert prov:Agent voor Maxim op.
+            Een reasoner die deze ontologie en RDFS-afleiding gebruikt, kan zo de drie types afleiden uit de twee relaties.
+            Domein en bereik zijn geen validatieregels en beperken een object niet tot één type: ze voegen types toe op basis van de relatie.
+            Bron: https://www.w3.org/TR/prov-o/#used en https://www.w3.org/TR/prov-o/#wasAssociatedWith
+        </aside>
+    </section>
+    <section>
+    <h2 id="standardisaties-en-modellen" tabindex="-1">Standardisaties en modellen</h2>
+<h3 id="piramide" tabindex="-1">Piramide</h3>
+
+        <img src="./images/standaarden-piramide.svg" alt="Piramide met van onder naar boven: internationale standaarden, Vlaamse overheid (OSLO), entiteit, beleidsdomein en toepassing" style="height: 400px">
+        <aside class="notes">
+            Standaarden voor datamodellering worden laag per laag opgebouwd. Helemaal onderaan staan internationale standaarden die heel generiek zijn.
+        </aside>
+    </section>
+</section>
+
+<section>
+    <section id="model-overzicht">
+        <h2 id="standaardmodellen" tabindex="-1">Standaardmodellen</h2>
+<h3 id="overzicht" tabindex="-1">Overzicht</h3>
+<table>
+<thead>
+<tr>
+<th>Vraag</th>
+<th>Herbruikbaar model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wat is gemeten, waarover en waarmee?</td>
+<td>SOSA/SSN</td>
+</tr>
+<tr>
+<td>Waar komt het rapport vandaan en wie was betrokken?</td>
+<td>PROV-O</td>
+</tr>
+<tr>
+<td>Welke stappen waren voorzien?</td>
+<td>P-Plan</td>
+</tr>
+<tr>
+<td>Wat betekenen onze begrippen en codes?</td>
+<td>SKOS</td>
+</tr>
+<tr>
+<td>Wie zegt iets over wat?</td>
+<td>Web Annotations</td>
+</tr>
+<tr>
+<td>Eenheden, grootheden en numerieke waarden</td>
+<td>QUDT</td>
+</tr>
+<tr>
+<td class="sosa-patroon"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+        <aside class="notes">
+            Alle voorbeelden zijn fictief en gebruiken https://example.org/ als namespace. De zes modellen vullen elkaar aan; je hoeft niet alles met één standaard op te lossen.
+            Per model volgt een voorbeeld en een korte oefening. Reserveer samen ongeveer 15 minuten voor de oefeningen; de uitbreidingen zijn optioneel.
+            Turtle kennen is geen vereiste. Laat deelnemers ook vakjes met benoemde pijlen tekenen en bespreek welke betekenis en afspraken nog ontbreken.
+            Dezelfde URI kan in meerdere modellen terugkomen. Een meetgebeurtenis kan bijvoorbeeld zowel een sosa:Observation als een prov:Activity zijn.
+            De voorbeelden zijn kleine fragmenten, geen volledige toepassingsprofielen of productieklare datasets.
+        </aside>
+    </section>
+    <section id="documentatie-sosa">
+        <h2 id="standaardmodellen" tabindex="-1">Standaardmodellen</h2>
+<h3 id="sosa%2Fssn" tabindex="-1">SOSA/SSN</h3>
+<p><img src="./images/model-sosa.png" alt="Officieel SOSA-diagram met Observation, Sensor, FeatureOfInterest, ObservableProperty, Procedure en Result" class="model-diagram"></p>
+
+        <aside class="notes">
+            Officieel diagram uit de W3C/OGC Recommendation Semantic Sensor Network Ontology (2017).
+            Bron: https://www.w3.org/TR/2017/REC-vocab-ssn-20171019/images/SOSA-Observation.png
+            Begin bij Observation en volg madeBySensor, hasFeatureOfInterest en observedProperty.
+            Het diagram toont de SOSA-kern voor waarnemingen; SSN breidt die uit met onder andere systemen en capaciteiten.
+        </aside>
+    </section>
+    <section id="documentatie-prov">
+        <h2 id="standaardmodellen" tabindex="-1">Standaardmodellen</h2>
+<h3 id="prov-o" tabindex="-1">PROV-O</h3>
+<p><img src="./images/model-prov.svg" alt="Officieel PROV-O-overzicht van Entity, Activity en Agent met hun onderlinge relaties" class="model-diagram"></p>
+
+        <aside class="notes">
+            Officieel diagram met de starting-point terms uit de W3C Recommendation PROV-O.
+            Bron: https://www.w3.org/TR/prov-o/diagrams/starting-points.svg
+            Toon Entity, Activity en Agent. Volg used, wasGeneratedBy en wasAssociatedWith om de herkomstketen uit het voorbeeld te herkennen.
+        </aside>
+    </section>
+    <section id="documentatie-p-plan">
+        <h2 id="standaardmodellen" tabindex="-1">Standaardmodellen</h2>
+<h3 id="p-plan" tabindex="-1">P-Plan</h3>
+<p class="small"><img src="./images/model-p-plan.png" alt="Officieel P-Plan-diagram dat Plan, Step en Variable verbindt met Activity en Entity in PROV" class="model-diagram" style="height: 420px;"></p>
+
+        <aside class="notes">
+            Officieel overzichtsdiagram: https://www.opmw.org/model/p-plan/img/overview.png
+            Daniel Garijo en Yolanda Gil, P-Plan. Licentie: https://creativecommons.org/licenses/by-nc-sa/2.0/
+            Onderscheid bovenaan het herbruikbare plan en onderaan de concrete uitvoering.
+            De relaties correspondsToStep en correspondsToVariable verbinden beide niveaus.
+        </aside>
+    </section>
+    <section id="documentatie-skos">
+        <h2 id="standaardmodellen" tabindex="-1">Standaardmodellen</h2>
+<h3 id="skos" tabindex="-1">SKOS</h3>
+<p><img src="./images/model-skos.png" alt="SKOS-diagram uit de Core Guide: Economic cooperation met voorkeurslabels, alternatieve labels, een toelichting en bredere, nauwere en gerelateerde begrippen" class="model-diagram"></p>
+
+        <aside class="notes">
+            Bron: https://www.w3.org/TR/2005/WD-swbp-skos-core-guide-20051102/
+            Origineel diagram: https://www.w3.org/TR/2005/WD-swbp-skos-core-guide-20051102/img/ex-ukat.png
+            Het UKAT-voorbeeld komt uit de SKOS Core Guide Working Draft van 2005.
+            De cirkels stellen begrippen voor; de tekstvakken bevatten labels en een toelichting.
+            Toon prefLabel, altLabel en scopeNote bij Economic cooperation. Volg daarna broader, narrower en related naar de andere begrippen.
+        </aside>
+    </section>
+    <section id="documentatie-web-annotations">
+        <h2 id="standaardmodellen" tabindex="-1">Standaardmodellen</h2>
+<h3 id="web-annotations" tabindex="-1">Web Annotations</h3>
+<p><img src="./images/model-web-annotations.png" alt="Officieel Web Annotation-basismodel: een Annotation verbindt een Body met een Target" class="model-diagram"></p>
+
+        <aside class="notes">
+            Officieel basisdiagram uit het W3C Web Annotation Data Model.
+            Bron: https://www.w3.org/TR/annotation-model/images/intro_model.png
+            De annotatie verbindt de inhoud (body) met het doel waarover die inhoud gaat (target).
+            Het vocabularium gebruikt daarvoor oa:hasBody en oa:hasTarget.
+        </aside>
+    </section>
+</section>
+
+    <section id="begrippenquiz" data-claper-activate="quiz:7">
+        <section id="begrippenquiz-casus">
+            <h2 id="workshop-%C2%B7-kies-het-modelbegrip" tabindex="-1">Workshop · kies het modelbegrip</h2>
+<h3 id="van-waterstaal-tot-rapport" tabindex="-1">Van waterstaal tot rapport</h3>
+<p class="medium">Een labo meet nitraat met een <strong>fotometer</strong>, plant <strong>kwaliteitscontrole</strong> en bewaart een <strong>PDF-rapport</strong> met een eigen versie-URI.</p>
+<p class="medium">Kies voor elke situatie de <strong>best passende klasse voor de beschreven rol</strong>.<br>
+De opties bevatten Nederlandse vertalingen van officiële klassedefinities.</p>
+<p class="medium"><strong>3 vragen · 3 minuten</strong></p>
+
+            
+            
+            <div class="claper-join claper-join--large begrippen-join">
+                <div class="claper-qr"><svg class="qr" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 33 33" shape-rendering="crispEdges" role="img" aria-label="QR-code naar https://claper.maximvdw.be/e/q6tdq"><rect x="-2" y="-2" width="33" height="33" fill="#fff"/><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM15 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM13 1h1v1h-1zM16 1h1v1h-1zM18 1h1v1h-1zM20 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM16 2h1v1h-1zM18 2h1v1h-1zM19 2h1v1h-1zM20 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM17 3h1v1h-1zM18 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM11 4h1v1h-1zM14 4h1v1h-1zM16 4h1v1h-1zM19 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM15 5h1v1h-1zM16 5h1v1h-1zM17 5h1v1h-1zM18 5h1v1h-1zM19 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM8 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM16 7h1v1h-1zM17 7h1v1h-1zM19 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM13 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM25 8h1v1h-1zM27 8h1v1h-1zM28 8h1v1h-1zM4 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM13 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM18 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM24 9h1v1h-1zM28 9h1v1h-1zM2 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM10 10h1v1h-1zM11 10h1v1h-1zM12 10h1v1h-1zM13 10h1v1h-1zM16 10h1v1h-1zM21 10h1v1h-1zM23 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM3 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM10 11h1v1h-1zM11 11h1v1h-1zM16 11h1v1h-1zM19 11h1v1h-1zM20 11h1v1h-1zM21 11h1v1h-1zM22 11h1v1h-1zM28 11h1v1h-1zM1 12h1v1h-1zM2 12h1v1h-1zM4 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM11 12h1v1h-1zM14 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM19 12h1v1h-1zM23 12h1v1h-1zM25 12h1v1h-1zM26 12h1v1h-1zM3 13h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM10 13h1v1h-1zM11 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM17 13h1v1h-1zM19 13h1v1h-1zM21 13h1v1h-1zM22 13h1v1h-1zM26 13h1v1h-1zM27 13h1v1h-1zM28 13h1v1h-1zM0 14h1v1h-1zM1 14h1v1h-1zM3 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM8 14h1v1h-1zM10 14h1v1h-1zM11 14h1v1h-1zM12 14h1v1h-1zM13 14h1v1h-1zM16 14h1v1h-1zM18 14h1v1h-1zM19 14h1v1h-1zM20 14h1v1h-1zM22 14h1v1h-1zM23 14h1v1h-1zM26 14h1v1h-1zM27 14h1v1h-1zM28 14h1v1h-1zM3 15h1v1h-1zM4 15h1v1h-1zM7 15h1v1h-1zM10 15h1v1h-1zM11 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM16 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM27 15h1v1h-1zM0 16h1v1h-1zM1 16h1v1h-1zM2 16h1v1h-1zM3 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM7 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM23 16h1v1h-1zM24 16h1v1h-1zM25 16h1v1h-1zM27 16h1v1h-1zM1 17h1v1h-1zM3 17h1v1h-1zM4 17h1v1h-1zM7 17h1v1h-1zM11 17h1v1h-1zM14 17h1v1h-1zM15 17h1v1h-1zM17 17h1v1h-1zM20 17h1v1h-1zM23 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM27 17h1v1h-1zM0 18h1v1h-1zM2 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM7 18h1v1h-1zM9 18h1v1h-1zM10 18h1v1h-1zM13 18h1v1h-1zM14 18h1v1h-1zM15 18h1v1h-1zM17 18h1v1h-1zM22 18h1v1h-1zM24 18h1v1h-1zM26 18h1v1h-1zM2 19h1v1h-1zM3 19h1v1h-1zM4 19h1v1h-1zM5 19h1v1h-1zM7 19h1v1h-1zM10 19h1v1h-1zM12 19h1v1h-1zM13 19h1v1h-1zM14 19h1v1h-1zM16 19h1v1h-1zM17 19h1v1h-1zM18 19h1v1h-1zM20 19h1v1h-1zM22 19h1v1h-1zM24 19h1v1h-1zM26 19h1v1h-1zM1 20h1v1h-1zM2 20h1v1h-1zM4 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM12 20h1v1h-1zM13 20h1v1h-1zM14 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM25 20h1v1h-1zM26 20h1v1h-1zM8 21h1v1h-1zM12 21h1v1h-1zM16 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM25 21h1v1h-1zM26 21h1v1h-1zM27 21h1v1h-1zM28 21h1v1h-1zM0 22h1v1h-1zM1 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM8 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM14 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM27 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h1v1h-1zM9 23h1v1h-1zM13 23h1v1h-1zM14 23h1v1h-1zM15 23h1v1h-1zM18 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM25 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM15 24h1v1h-1zM16 24h1v1h-1zM17 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM26 24h1v1h-1zM27 24h1v1h-1zM0 25h1v1h-1zM2 25h1v1h-1zM3 25h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM8 25h1v1h-1zM11 25h1v1h-1zM13 25h1v1h-1zM15 25h1v1h-1zM19 25h1v1h-1zM20 25h1v1h-1zM21 25h1v1h-1zM23 25h1v1h-1zM24 25h1v1h-1zM25 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM9 26h1v1h-1zM10 26h1v1h-1zM17 26h1v1h-1zM18 26h1v1h-1zM19 26h1v1h-1zM23 26h1v1h-1zM26 26h1v1h-1zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM10 27h1v1h-1zM13 27h1v1h-1zM15 27h1v1h-1zM20 27h1v1h-1zM22 27h1v1h-1zM23 27h1v1h-1zM25 27h1v1h-1zM27 27h1v1h-1zM0 28h1v1h-1zM1 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM9 28h1v1h-1zM10 28h1v1h-1zM13 28h1v1h-1zM14 28h1v1h-1zM16 28h1v1h-1zM18 28h1v1h-1zM19 28h1v1h-1zM20 28h1v1h-1zM21 28h1v1h-1zM23 28h1v1h-1zM27 28h1v1h-1z" fill="#000"/></svg></div>
+                <p class="claper-join-url">claper.maximvdw.be/e/<strong>q6tdq</strong></p>
+            </div>
+            
+            <aside class="notes">
+                De definities zijn Nederlandse vertalingen, geen officiële Nederlandstalige versies. De klassennamen en prefixes blijven die van de ontologie.
+                Elke vraag noemt het te gebruiken model en vraagt naar een specifieke rol. Een object kan immers in meer dan één model en met meerdere types beschreven worden.
+                Laat deelnemers de definities lezen voordat je de antwoorden bespreekt. Bij de lokale versie en bij de Claper-resultaten markeert de volgende klik het juiste antwoord.
+                Een Claper-quiz verloopt in eigen tempo: het wisselen van resultaatslide stuurt deelnemers niet naar een volgende quizvraag.
+            </aside>
+        </section>
+        <section id="begrippenquiz-definities">
+            <h2 id="workshop-%C2%B7-de-klassen" tabindex="-1">Workshop · de klassen</h2>
+<h3 id="wat-betekenen-de-opties%3F" tabindex="-1">Wat betekenen de opties?</h3>
+<p><strong>sosa:Sample</strong>: representatieve afspiegeling van een onderzoeksobject, waarop waarnemingen gebeuren.</p>
+<p><strong>sosa:Sensor</strong>: apparaat, agent of software die een waarneming uitvoert en een resultaat geeft.</p>
+<p><strong>sosa:ObservableProperty</strong>: een waarneembare eigenschap van een onderzoeksobject.</p>
+<p><strong>p-plan:Plan</strong>: een prov:Plan dat uit stappen bestaat die variabelen gebruiken en produceren.</p>
+<p><strong>p-plan:Activity</strong>: het uitvoeringsproces dat in een p-plan:Step gepland is.</p>
+<p><strong>p-plan:Step</strong>: een geplande uitvoeringsactiviteit.</p>
+<p><strong>prov:Entity</strong>: een fysiek, digitaal of conceptueel ding met vaste aspecten.</p>
+<p><strong>prov:Activity</strong>: iets dat in de tijd plaatsvindt en werkt op of met entiteiten.</p>
+<p><strong>prov:Agent</strong>: iets dat verantwoordelijk is voor een activiteit of entiteit.</p>
+
+        </section>
+        
+            
+                <section class="claper-slide claper-slide--poll claper-slide--quiz" data-claper-event="q6tdq" data-claper-kind="quiz" data-claper-poll="" data-claper-api="https://claper.maximvdw.be/public-api" data-claper-control="https://claper.maximvdw.be/control" data-claper-quiz="7" data-claper-question="1">
+    <h2 class="claper-poll-title">De fotometer bepaalt het nitraatgehalte van waterstaal 42. Welke SOSA-klasse past het best bij de rol van dit meetapparaat?</h2>
+    <span class="fragment claper-reveal" aria-hidden="true"></span>
+    <div class="claper-live">
+        <div class="claper-results" aria-live="polite"></div>
+        <div class="claper-join claper-join--small">
+            <div class="claper-qr"><svg class="qr" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 33 33" shape-rendering="crispEdges" role="img" aria-label="QR-code naar https://claper.maximvdw.be/e/q6tdq"><rect x="-2" y="-2" width="33" height="33" fill="#fff"/><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM15 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM13 1h1v1h-1zM16 1h1v1h-1zM18 1h1v1h-1zM20 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM16 2h1v1h-1zM18 2h1v1h-1zM19 2h1v1h-1zM20 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM17 3h1v1h-1zM18 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM11 4h1v1h-1zM14 4h1v1h-1zM16 4h1v1h-1zM19 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM15 5h1v1h-1zM16 5h1v1h-1zM17 5h1v1h-1zM18 5h1v1h-1zM19 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM8 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM16 7h1v1h-1zM17 7h1v1h-1zM19 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM13 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM25 8h1v1h-1zM27 8h1v1h-1zM28 8h1v1h-1zM4 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM13 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM18 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM24 9h1v1h-1zM28 9h1v1h-1zM2 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM10 10h1v1h-1zM11 10h1v1h-1zM12 10h1v1h-1zM13 10h1v1h-1zM16 10h1v1h-1zM21 10h1v1h-1zM23 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM3 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM10 11h1v1h-1zM11 11h1v1h-1zM16 11h1v1h-1zM19 11h1v1h-1zM20 11h1v1h-1zM21 11h1v1h-1zM22 11h1v1h-1zM28 11h1v1h-1zM1 12h1v1h-1zM2 12h1v1h-1zM4 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM11 12h1v1h-1zM14 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM19 12h1v1h-1zM23 12h1v1h-1zM25 12h1v1h-1zM26 12h1v1h-1zM3 13h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM10 13h1v1h-1zM11 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM17 13h1v1h-1zM19 13h1v1h-1zM21 13h1v1h-1zM22 13h1v1h-1zM26 13h1v1h-1zM27 13h1v1h-1zM28 13h1v1h-1zM0 14h1v1h-1zM1 14h1v1h-1zM3 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM8 14h1v1h-1zM10 14h1v1h-1zM11 14h1v1h-1zM12 14h1v1h-1zM13 14h1v1h-1zM16 14h1v1h-1zM18 14h1v1h-1zM19 14h1v1h-1zM20 14h1v1h-1zM22 14h1v1h-1zM23 14h1v1h-1zM26 14h1v1h-1zM27 14h1v1h-1zM28 14h1v1h-1zM3 15h1v1h-1zM4 15h1v1h-1zM7 15h1v1h-1zM10 15h1v1h-1zM11 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM16 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM27 15h1v1h-1zM0 16h1v1h-1zM1 16h1v1h-1zM2 16h1v1h-1zM3 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM7 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM23 16h1v1h-1zM24 16h1v1h-1zM25 16h1v1h-1zM27 16h1v1h-1zM1 17h1v1h-1zM3 17h1v1h-1zM4 17h1v1h-1zM7 17h1v1h-1zM11 17h1v1h-1zM14 17h1v1h-1zM15 17h1v1h-1zM17 17h1v1h-1zM20 17h1v1h-1zM23 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM27 17h1v1h-1zM0 18h1v1h-1zM2 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM7 18h1v1h-1zM9 18h1v1h-1zM10 18h1v1h-1zM13 18h1v1h-1zM14 18h1v1h-1zM15 18h1v1h-1zM17 18h1v1h-1zM22 18h1v1h-1zM24 18h1v1h-1zM26 18h1v1h-1zM2 19h1v1h-1zM3 19h1v1h-1zM4 19h1v1h-1zM5 19h1v1h-1zM7 19h1v1h-1zM10 19h1v1h-1zM12 19h1v1h-1zM13 19h1v1h-1zM14 19h1v1h-1zM16 19h1v1h-1zM17 19h1v1h-1zM18 19h1v1h-1zM20 19h1v1h-1zM22 19h1v1h-1zM24 19h1v1h-1zM26 19h1v1h-1zM1 20h1v1h-1zM2 20h1v1h-1zM4 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM12 20h1v1h-1zM13 20h1v1h-1zM14 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM25 20h1v1h-1zM26 20h1v1h-1zM8 21h1v1h-1zM12 21h1v1h-1zM16 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM25 21h1v1h-1zM26 21h1v1h-1zM27 21h1v1h-1zM28 21h1v1h-1zM0 22h1v1h-1zM1 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM8 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM14 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM27 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h1v1h-1zM9 23h1v1h-1zM13 23h1v1h-1zM14 23h1v1h-1zM15 23h1v1h-1zM18 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM25 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM15 24h1v1h-1zM16 24h1v1h-1zM17 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM26 24h1v1h-1zM27 24h1v1h-1zM0 25h1v1h-1zM2 25h1v1h-1zM3 25h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM8 25h1v1h-1zM11 25h1v1h-1zM13 25h1v1h-1zM15 25h1v1h-1zM19 25h1v1h-1zM20 25h1v1h-1zM21 25h1v1h-1zM23 25h1v1h-1zM24 25h1v1h-1zM25 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM9 26h1v1h-1zM10 26h1v1h-1zM17 26h1v1h-1zM18 26h1v1h-1zM19 26h1v1h-1zM23 26h1v1h-1zM26 26h1v1h-1zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM10 27h1v1h-1zM13 27h1v1h-1zM15 27h1v1h-1zM20 27h1v1h-1zM22 27h1v1h-1zM23 27h1v1h-1zM25 27h1v1h-1zM27 27h1v1h-1zM0 28h1v1h-1zM1 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM9 28h1v1h-1zM10 28h1v1h-1zM13 28h1v1h-1zM14 28h1v1h-1zM16 28h1v1h-1zM18 28h1v1h-1zM19 28h1v1h-1zM20 28h1v1h-1zM21 28h1v1h-1zM23 28h1v1h-1zM27 28h1v1h-1z" fill="#000"/></svg></div>
+            <p class="claper-join-url">claper.maximvdw.be/e/<strong>q6tdq</strong></p>
+        </div>
+    </div>
+</section>
+            
+        
+            
+                <section class="claper-slide claper-slide--poll claper-slide--quiz" data-claper-event="q6tdq" data-claper-kind="quiz" data-claper-poll="" data-claper-api="https://claper.maximvdw.be/public-api" data-claper-control="https://claper.maximvdw.be/control" data-claper-quiz="7" data-claper-question="2">
+    <h2 class="claper-poll-title">Het herbruikbare analyseplan bevat de taak 'kwaliteitscontrole uitvoeren'. Er is nog geen uitvoering gestart. Welke P-Plan-klasse beschrijft deze geplande taak?</h2>
+    <span class="fragment claper-reveal" aria-hidden="true"></span>
+    <div class="claper-live">
+        <div class="claper-results" aria-live="polite"></div>
+        <div class="claper-join claper-join--small">
+            <div class="claper-qr"><svg class="qr" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 33 33" shape-rendering="crispEdges" role="img" aria-label="QR-code naar https://claper.maximvdw.be/e/q6tdq"><rect x="-2" y="-2" width="33" height="33" fill="#fff"/><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM15 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM13 1h1v1h-1zM16 1h1v1h-1zM18 1h1v1h-1zM20 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM16 2h1v1h-1zM18 2h1v1h-1zM19 2h1v1h-1zM20 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM17 3h1v1h-1zM18 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM11 4h1v1h-1zM14 4h1v1h-1zM16 4h1v1h-1zM19 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM15 5h1v1h-1zM16 5h1v1h-1zM17 5h1v1h-1zM18 5h1v1h-1zM19 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM8 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM16 7h1v1h-1zM17 7h1v1h-1zM19 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM13 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM25 8h1v1h-1zM27 8h1v1h-1zM28 8h1v1h-1zM4 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM13 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM18 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM24 9h1v1h-1zM28 9h1v1h-1zM2 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM10 10h1v1h-1zM11 10h1v1h-1zM12 10h1v1h-1zM13 10h1v1h-1zM16 10h1v1h-1zM21 10h1v1h-1zM23 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM3 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM10 11h1v1h-1zM11 11h1v1h-1zM16 11h1v1h-1zM19 11h1v1h-1zM20 11h1v1h-1zM21 11h1v1h-1zM22 11h1v1h-1zM28 11h1v1h-1zM1 12h1v1h-1zM2 12h1v1h-1zM4 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM11 12h1v1h-1zM14 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM19 12h1v1h-1zM23 12h1v1h-1zM25 12h1v1h-1zM26 12h1v1h-1zM3 13h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM10 13h1v1h-1zM11 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM17 13h1v1h-1zM19 13h1v1h-1zM21 13h1v1h-1zM22 13h1v1h-1zM26 13h1v1h-1zM27 13h1v1h-1zM28 13h1v1h-1zM0 14h1v1h-1zM1 14h1v1h-1zM3 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM8 14h1v1h-1zM10 14h1v1h-1zM11 14h1v1h-1zM12 14h1v1h-1zM13 14h1v1h-1zM16 14h1v1h-1zM18 14h1v1h-1zM19 14h1v1h-1zM20 14h1v1h-1zM22 14h1v1h-1zM23 14h1v1h-1zM26 14h1v1h-1zM27 14h1v1h-1zM28 14h1v1h-1zM3 15h1v1h-1zM4 15h1v1h-1zM7 15h1v1h-1zM10 15h1v1h-1zM11 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM16 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM27 15h1v1h-1zM0 16h1v1h-1zM1 16h1v1h-1zM2 16h1v1h-1zM3 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM7 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM23 16h1v1h-1zM24 16h1v1h-1zM25 16h1v1h-1zM27 16h1v1h-1zM1 17h1v1h-1zM3 17h1v1h-1zM4 17h1v1h-1zM7 17h1v1h-1zM11 17h1v1h-1zM14 17h1v1h-1zM15 17h1v1h-1zM17 17h1v1h-1zM20 17h1v1h-1zM23 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM27 17h1v1h-1zM0 18h1v1h-1zM2 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM7 18h1v1h-1zM9 18h1v1h-1zM10 18h1v1h-1zM13 18h1v1h-1zM14 18h1v1h-1zM15 18h1v1h-1zM17 18h1v1h-1zM22 18h1v1h-1zM24 18h1v1h-1zM26 18h1v1h-1zM2 19h1v1h-1zM3 19h1v1h-1zM4 19h1v1h-1zM5 19h1v1h-1zM7 19h1v1h-1zM10 19h1v1h-1zM12 19h1v1h-1zM13 19h1v1h-1zM14 19h1v1h-1zM16 19h1v1h-1zM17 19h1v1h-1zM18 19h1v1h-1zM20 19h1v1h-1zM22 19h1v1h-1zM24 19h1v1h-1zM26 19h1v1h-1zM1 20h1v1h-1zM2 20h1v1h-1zM4 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM12 20h1v1h-1zM13 20h1v1h-1zM14 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM25 20h1v1h-1zM26 20h1v1h-1zM8 21h1v1h-1zM12 21h1v1h-1zM16 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM25 21h1v1h-1zM26 21h1v1h-1zM27 21h1v1h-1zM28 21h1v1h-1zM0 22h1v1h-1zM1 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM8 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM14 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM27 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h1v1h-1zM9 23h1v1h-1zM13 23h1v1h-1zM14 23h1v1h-1zM15 23h1v1h-1zM18 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM25 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM15 24h1v1h-1zM16 24h1v1h-1zM17 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM26 24h1v1h-1zM27 24h1v1h-1zM0 25h1v1h-1zM2 25h1v1h-1zM3 25h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM8 25h1v1h-1zM11 25h1v1h-1zM13 25h1v1h-1zM15 25h1v1h-1zM19 25h1v1h-1zM20 25h1v1h-1zM21 25h1v1h-1zM23 25h1v1h-1zM24 25h1v1h-1zM25 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM9 26h1v1h-1zM10 26h1v1h-1zM17 26h1v1h-1zM18 26h1v1h-1zM19 26h1v1h-1zM23 26h1v1h-1zM26 26h1v1h-1zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM10 27h1v1h-1zM13 27h1v1h-1zM15 27h1v1h-1zM20 27h1v1h-1zM22 27h1v1h-1zM23 27h1v1h-1zM25 27h1v1h-1zM27 27h1v1h-1zM0 28h1v1h-1zM1 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM9 28h1v1h-1zM10 28h1v1h-1zM13 28h1v1h-1zM14 28h1v1h-1zM16 28h1v1h-1zM18 28h1v1h-1zM19 28h1v1h-1zM20 28h1v1h-1zM21 28h1v1h-1zM23 28h1v1h-1zM27 28h1v1h-1z" fill="#000"/></svg></div>
+            <p class="claper-join-url">claper.maximvdw.be/e/<strong>q6tdq</strong></p>
+        </div>
+    </div>
+</section>
+            
+        
+            
+                <section class="claper-slide claper-slide--poll claper-slide--quiz" data-claper-event="q6tdq" data-claper-kind="quiz" data-claper-poll="" data-claper-api="https://claper.maximvdw.be/public-api" data-claper-control="https://claper.maximvdw.be/control" data-claper-quiz="7" data-claper-question="3">
+    <h2 class="claper-poll-title">De meetresultaten zijn vastgelegd in een ongewijzigd PDF-rapport met een eigen versie-URI. Welke PROV-O-klasse beschrijft dit bewaarde document?</h2>
+    <span class="fragment claper-reveal" aria-hidden="true"></span>
+    <div class="claper-live">
+        <div class="claper-results" aria-live="polite"></div>
+        <div class="claper-join claper-join--small">
+            <div class="claper-qr"><svg class="qr" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 33 33" shape-rendering="crispEdges" role="img" aria-label="QR-code naar https://claper.maximvdw.be/e/q6tdq"><rect x="-2" y="-2" width="33" height="33" fill="#fff"/><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM15 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM13 1h1v1h-1zM16 1h1v1h-1zM18 1h1v1h-1zM20 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM16 2h1v1h-1zM18 2h1v1h-1zM19 2h1v1h-1zM20 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM17 3h1v1h-1zM18 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM11 4h1v1h-1zM14 4h1v1h-1zM16 4h1v1h-1zM19 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM15 5h1v1h-1zM16 5h1v1h-1zM17 5h1v1h-1zM18 5h1v1h-1zM19 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM8 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM16 7h1v1h-1zM17 7h1v1h-1zM19 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM13 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM25 8h1v1h-1zM27 8h1v1h-1zM28 8h1v1h-1zM4 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM13 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM18 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM24 9h1v1h-1zM28 9h1v1h-1zM2 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM10 10h1v1h-1zM11 10h1v1h-1zM12 10h1v1h-1zM13 10h1v1h-1zM16 10h1v1h-1zM21 10h1v1h-1zM23 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM3 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM10 11h1v1h-1zM11 11h1v1h-1zM16 11h1v1h-1zM19 11h1v1h-1zM20 11h1v1h-1zM21 11h1v1h-1zM22 11h1v1h-1zM28 11h1v1h-1zM1 12h1v1h-1zM2 12h1v1h-1zM4 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM11 12h1v1h-1zM14 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM19 12h1v1h-1zM23 12h1v1h-1zM25 12h1v1h-1zM26 12h1v1h-1zM3 13h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM10 13h1v1h-1zM11 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM17 13h1v1h-1zM19 13h1v1h-1zM21 13h1v1h-1zM22 13h1v1h-1zM26 13h1v1h-1zM27 13h1v1h-1zM28 13h1v1h-1zM0 14h1v1h-1zM1 14h1v1h-1zM3 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM8 14h1v1h-1zM10 14h1v1h-1zM11 14h1v1h-1zM12 14h1v1h-1zM13 14h1v1h-1zM16 14h1v1h-1zM18 14h1v1h-1zM19 14h1v1h-1zM20 14h1v1h-1zM22 14h1v1h-1zM23 14h1v1h-1zM26 14h1v1h-1zM27 14h1v1h-1zM28 14h1v1h-1zM3 15h1v1h-1zM4 15h1v1h-1zM7 15h1v1h-1zM10 15h1v1h-1zM11 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM16 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM27 15h1v1h-1zM0 16h1v1h-1zM1 16h1v1h-1zM2 16h1v1h-1zM3 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM7 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM23 16h1v1h-1zM24 16h1v1h-1zM25 16h1v1h-1zM27 16h1v1h-1zM1 17h1v1h-1zM3 17h1v1h-1zM4 17h1v1h-1zM7 17h1v1h-1zM11 17h1v1h-1zM14 17h1v1h-1zM15 17h1v1h-1zM17 17h1v1h-1zM20 17h1v1h-1zM23 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM27 17h1v1h-1zM0 18h1v1h-1zM2 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM7 18h1v1h-1zM9 18h1v1h-1zM10 18h1v1h-1zM13 18h1v1h-1zM14 18h1v1h-1zM15 18h1v1h-1zM17 18h1v1h-1zM22 18h1v1h-1zM24 18h1v1h-1zM26 18h1v1h-1zM2 19h1v1h-1zM3 19h1v1h-1zM4 19h1v1h-1zM5 19h1v1h-1zM7 19h1v1h-1zM10 19h1v1h-1zM12 19h1v1h-1zM13 19h1v1h-1zM14 19h1v1h-1zM16 19h1v1h-1zM17 19h1v1h-1zM18 19h1v1h-1zM20 19h1v1h-1zM22 19h1v1h-1zM24 19h1v1h-1zM26 19h1v1h-1zM1 20h1v1h-1zM2 20h1v1h-1zM4 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM12 20h1v1h-1zM13 20h1v1h-1zM14 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM25 20h1v1h-1zM26 20h1v1h-1zM8 21h1v1h-1zM12 21h1v1h-1zM16 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM25 21h1v1h-1zM26 21h1v1h-1zM27 21h1v1h-1zM28 21h1v1h-1zM0 22h1v1h-1zM1 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM8 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM14 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM27 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h1v1h-1zM9 23h1v1h-1zM13 23h1v1h-1zM14 23h1v1h-1zM15 23h1v1h-1zM18 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM25 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM15 24h1v1h-1zM16 24h1v1h-1zM17 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM26 24h1v1h-1zM27 24h1v1h-1zM0 25h1v1h-1zM2 25h1v1h-1zM3 25h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM8 25h1v1h-1zM11 25h1v1h-1zM13 25h1v1h-1zM15 25h1v1h-1zM19 25h1v1h-1zM20 25h1v1h-1zM21 25h1v1h-1zM23 25h1v1h-1zM24 25h1v1h-1zM25 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM9 26h1v1h-1zM10 26h1v1h-1zM17 26h1v1h-1zM18 26h1v1h-1zM19 26h1v1h-1zM23 26h1v1h-1zM26 26h1v1h-1zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM10 27h1v1h-1zM13 27h1v1h-1zM15 27h1v1h-1zM20 27h1v1h-1zM22 27h1v1h-1zM23 27h1v1h-1zM25 27h1v1h-1zM27 27h1v1h-1zM0 28h1v1h-1zM1 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM9 28h1v1h-1zM10 28h1v1h-1zM13 28h1v1h-1zM14 28h1v1h-1zM16 28h1v1h-1zM18 28h1v1h-1zM19 28h1v1h-1zM20 28h1v1h-1zM21 28h1v1h-1zM23 28h1v1h-1zM27 28h1v1h-1z" fill="#000"/></svg></div>
+            <p class="claper-join-url">claper.maximvdw.be/e/<strong>q6tdq</strong></p>
+        </div>
+    </div>
+</section>
+            
+        
+        <section id="begrippenquiz-nabespreking">
+            <h2 id="workshop-%C2%B7-nabespreking" tabindex="-1">Workshop · nabespreking</h2>
+<h3 id="de-rol-bepaalt-het-begrip" tabindex="-1">De rol bepaalt het begrip</h3>
+<table class="sosa-patroon">
+<thead>
+<tr>
+<th>Onderdeel uit de casus</th>
+<th>Klasse</th>
+<th>Waarom?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fotometer als meetapparaat</td>
+<td><code>sosa:Sensor</code></td>
+<td>Voert de meetprocedure uit</td>
+</tr>
+<tr>
+<td>Geplande kwaliteitscontrole</td>
+<td><code>p-plan:Step</code></td>
+<td>Beschrijft een voorziene taak</td>
+</tr>
+<tr>
+<td>Bewaarde rapportversie</td>
+<td><code>prov:Entity</code></td>
+<td>Een digitaal object met vaste aspecten</td>
+</tr>
+</tbody>
+</table>
+<p class="medium"><strong>Wat verandert er als de kwaliteitscontrole echt uitgevoerd wordt?</strong></p>
+
+            <aside class="notes">
+                Antwoord 1: sosa:Sensor. Het waterstaal is de Sample en de nitraatconcentratie is de ObservableProperty. De fotometer vervult hier de rol van meetapparaat.
+                Antwoord 2: p-plan:Step. Het volledige analyseplan is een Plan. De concrete uitvoering van de controle is een p-plan:Activity, die je met correspondsToStep aan de geplande Step koppelt.
+                Antwoord 3: prov:Entity. Het maken of corrigeren van het rapport is een Activity. Het verantwoordelijke labo of de medewerker kan een Agent zijn.
+                Een planstap en een uitvoering krijgen een afzonderlijke identiteit. Je vervangt de Step dus niet door een Activity zodra de taak uitgevoerd wordt.
+                Dezelfde concrete uitvoering kan ook een prov:Activity zijn: p-plan:Activity is daarvan een subklasse. Dit is geen keuze tussen elkaar uitsluitende modellen.
+                SOSA-vertalingen: de skos:definition van Sample, Sensor en ObservableProperty in https://www.w3.org/ns/sosa/sosa.ttl.
+                FeatureOfInterest is in deze opties vertaald als onderzoeksobject. De Sensor-definitie is volledig vertaald, inclusief de zinnen over prikkels, invoer en platforms.
+                P-Plan-vertalingen: prov:definition voor Plan en Step en rdfs:comment voor Activity in https://www.opmw.org/p-plan.owl.
+                PROV-O-vertalingen: prov:definition voor Entity, Activity en Agent in https://www.w3.org/ns/prov-o.ttl.
+                Documentatie: https://www.w3.org/TR/vocab-ssn/, https://www.opmw.org/model/p-plan/ en https://www.w3.org/TR/prov-o/.
+            </aside>
+        </section>
+    </section>
+
+<section>
+    <section>
+        <h2 id="uitdagingen" tabindex="-1">Uitdagingen</h2>
+<p><img src="./images/loud.png" alt="" width="60%"></p>
+<p class="small">Tekening Patrick Hochstenbach</p>
+
+        <aside class="notes">
+            Ik had beloofd om ook de uitdagingen aan te kaarten. En dit is waarschijnlijk het belangrijkste stuk van heel deze presentatie. Want we hebben drie soorten gebruikers:
+            de business, die vooral wil dat alles wat volgens de regelgeving verplicht is, wordt bevraagd. Aan het andere uiterste staan de afnemers, die willen dat alles nauwkeurig is, zeker met het oog op
+            rapportering toe bijvoorbeeld of handhaving.
+
+            Maar daartussen zitten ontwikkelaars die iets werkbaars willen hebben.
+        </aside>
+    </section>
+    <section data-claper-activate="form:2">
+        <h2>Welke uitdagingen ervaar jij bij gegevensuitwisseling?</h2>
+        <div class="row" style="align-items: center;">
+            <div class="col-half">
+            <p class="medium">Deel een uitdaging uit je eigen praktijk via het <strong>formulier in Claper</strong>.</p>
+<p class="medium">Denk aan begrippen, techniek, samenwerking of beheer.</p>
+
+            </div>
+            <div class="col-half">
+                <div class="claper-join claper-join--large">
+                    <div class="claper-qr"><svg class="qr" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 33 33" shape-rendering="crispEdges" role="img" aria-label="QR-code naar https://claper.maximvdw.be/e/q6tdq"><rect x="-2" y="-2" width="33" height="33" fill="#fff"/><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM15 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM13 1h1v1h-1zM16 1h1v1h-1zM18 1h1v1h-1zM20 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM16 2h1v1h-1zM18 2h1v1h-1zM19 2h1v1h-1zM20 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM17 3h1v1h-1zM18 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM11 4h1v1h-1zM14 4h1v1h-1zM16 4h1v1h-1zM19 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM15 5h1v1h-1zM16 5h1v1h-1zM17 5h1v1h-1zM18 5h1v1h-1zM19 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM8 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM16 7h1v1h-1zM17 7h1v1h-1zM19 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM13 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM25 8h1v1h-1zM27 8h1v1h-1zM28 8h1v1h-1zM4 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM13 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM18 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM24 9h1v1h-1zM28 9h1v1h-1zM2 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM10 10h1v1h-1zM11 10h1v1h-1zM12 10h1v1h-1zM13 10h1v1h-1zM16 10h1v1h-1zM21 10h1v1h-1zM23 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM3 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM10 11h1v1h-1zM11 11h1v1h-1zM16 11h1v1h-1zM19 11h1v1h-1zM20 11h1v1h-1zM21 11h1v1h-1zM22 11h1v1h-1zM28 11h1v1h-1zM1 12h1v1h-1zM2 12h1v1h-1zM4 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM11 12h1v1h-1zM14 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM19 12h1v1h-1zM23 12h1v1h-1zM25 12h1v1h-1zM26 12h1v1h-1zM3 13h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM10 13h1v1h-1zM11 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM17 13h1v1h-1zM19 13h1v1h-1zM21 13h1v1h-1zM22 13h1v1h-1zM26 13h1v1h-1zM27 13h1v1h-1zM28 13h1v1h-1zM0 14h1v1h-1zM1 14h1v1h-1zM3 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM8 14h1v1h-1zM10 14h1v1h-1zM11 14h1v1h-1zM12 14h1v1h-1zM13 14h1v1h-1zM16 14h1v1h-1zM18 14h1v1h-1zM19 14h1v1h-1zM20 14h1v1h-1zM22 14h1v1h-1zM23 14h1v1h-1zM26 14h1v1h-1zM27 14h1v1h-1zM28 14h1v1h-1zM3 15h1v1h-1zM4 15h1v1h-1zM7 15h1v1h-1zM10 15h1v1h-1zM11 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM16 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM27 15h1v1h-1zM0 16h1v1h-1zM1 16h1v1h-1zM2 16h1v1h-1zM3 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM7 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM23 16h1v1h-1zM24 16h1v1h-1zM25 16h1v1h-1zM27 16h1v1h-1zM1 17h1v1h-1zM3 17h1v1h-1zM4 17h1v1h-1zM7 17h1v1h-1zM11 17h1v1h-1zM14 17h1v1h-1zM15 17h1v1h-1zM17 17h1v1h-1zM20 17h1v1h-1zM23 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM27 17h1v1h-1zM0 18h1v1h-1zM2 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM7 18h1v1h-1zM9 18h1v1h-1zM10 18h1v1h-1zM13 18h1v1h-1zM14 18h1v1h-1zM15 18h1v1h-1zM17 18h1v1h-1zM22 18h1v1h-1zM24 18h1v1h-1zM26 18h1v1h-1zM2 19h1v1h-1zM3 19h1v1h-1zM4 19h1v1h-1zM5 19h1v1h-1zM7 19h1v1h-1zM10 19h1v1h-1zM12 19h1v1h-1zM13 19h1v1h-1zM14 19h1v1h-1zM16 19h1v1h-1zM17 19h1v1h-1zM18 19h1v1h-1zM20 19h1v1h-1zM22 19h1v1h-1zM24 19h1v1h-1zM26 19h1v1h-1zM1 20h1v1h-1zM2 20h1v1h-1zM4 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM12 20h1v1h-1zM13 20h1v1h-1zM14 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM25 20h1v1h-1zM26 20h1v1h-1zM8 21h1v1h-1zM12 21h1v1h-1zM16 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM25 21h1v1h-1zM26 21h1v1h-1zM27 21h1v1h-1zM28 21h1v1h-1zM0 22h1v1h-1zM1 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM8 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM14 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM27 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h1v1h-1zM9 23h1v1h-1zM13 23h1v1h-1zM14 23h1v1h-1zM15 23h1v1h-1zM18 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM25 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM15 24h1v1h-1zM16 24h1v1h-1zM17 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM26 24h1v1h-1zM27 24h1v1h-1zM0 25h1v1h-1zM2 25h1v1h-1zM3 25h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM8 25h1v1h-1zM11 25h1v1h-1zM13 25h1v1h-1zM15 25h1v1h-1zM19 25h1v1h-1zM20 25h1v1h-1zM21 25h1v1h-1zM23 25h1v1h-1zM24 25h1v1h-1zM25 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM9 26h1v1h-1zM10 26h1v1h-1zM17 26h1v1h-1zM18 26h1v1h-1zM19 26h1v1h-1zM23 26h1v1h-1zM26 26h1v1h-1zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM10 27h1v1h-1zM13 27h1v1h-1zM15 27h1v1h-1zM20 27h1v1h-1zM22 27h1v1h-1zM23 27h1v1h-1zM25 27h1v1h-1zM27 27h1v1h-1zM0 28h1v1h-1zM1 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM9 28h1v1h-1zM10 28h1v1h-1zM13 28h1v1h-1zM14 28h1v1h-1zM16 28h1v1h-1zM18 28h1v1h-1zM19 28h1v1h-1zM20 28h1v1h-1zM21 28h1v1h-1zM23 28h1v1h-1zM27 28h1v1h-1z" fill="#000"/></svg></div>
+                    <p class="claper-join-url">claper.maximvdw.be/e/<strong>q6tdq</strong></p>
+                </div>
+            </div>
+        </div>
+        <aside class="notes">
+            Geef deelnemers even tijd om een concrete uitdaging te beschrijven.
+            Antwoorden op dit formulier zijn alleen in het beheer van Claper zichtbaar, niet live op deze slide.
+            Bespreek enkele voorbeelden voordat je doorgaat naar de uitdagingen.
+        </aside>
+    </section>
+    <section>
+        <h2 id="uitdagingen" tabindex="-1">Uitdagingen</h2>
+<h3 id="toekomstbestendigheid-is-(vaak)-geen-use-case" tabindex="-1">Toekomstbestendigheid is (vaak) geen use case</h3>
+<p class="medium">Om interoperabiliteit te bereiken bij overheidsapplicaties moet je de problemen en use cases van vandaag oplossen en nadenken over de problemen en use cases van morgen.</p>
+<p>... er is geen beloning vandaag voor het oplossen van toekomstige problemen.</p>
+
+    </section>
+    <section id="uitdaging-analyse">
+        <h2 id="uitdagingen" tabindex="-1">Uitdagingen</h2>
+<h3 id="bijkomend-analysewerk" tabindex="-1">Bijkomend analysewerk</h3>
+<p>Een bestaand model hergebruiken vraagt eerst <strong>inhoudelijke keuzes</strong>.</p>
+<ul>
+<li>Welke standaard past bij de betekenis van onze gegevens?</li>
+<li>Welke lokale afspraken en uitbreidingen zijn echt nodig?</li>
+<li>Wie betaalt de eerste uitwerking als anderen later mee profiteren?</li>
+</ul>
+<p><strong>Aanpak:</strong> budgetteer analyse en beheer; bewijs de meerwaarde met één concrete gegevensuitwisseling.</p>
+
+        <aside class="notes">
+            Een veld aan een term koppelen is geen puur technische omzetting. De inhoudelijke expert moet bijvoorbeeld bevestigen dat een meetresultaat niet hetzelfde is als een goedkeuringsbeslissing.
+            Zoek eerst het patroon en de betekenis, pas daarna de eigenschap of klasse. Leg keuzes vast in een klein toepassingsprofiel met voorbeelden.
+            De eerste toepassing draagt vaak kosten waarvan volgende toepassingen profiteren. Voorzie daarvoor expliciet gezamenlijke tijd of financiering.
+            Vergelijk de investering met de huidige kosten van mappings, foutcorrecties en wijzigingen aan koppelingen, niet alleen met de ontwikkelkost van één applicatie.
+        </aside>
+    </section>
+    <section id="uitdaging-complexiteit">
+        <h2 id="uitdagingen" tabindex="-1">Uitdagingen</h2>
+<h3 id="complexiteit-en-overmodellering" tabindex="-1">Complexiteit en overmodellering</h3>
+<p><strong>Een standaard gebruiken betekent niet alles ervan implementeren.</strong></p>
+<ul>
+<li>Generieke modellen vragen een vertaalslag naar de eigen werking.</li>
+<li>Extra abstracties maken ontwikkeling en uitleg moeilijker.</li>
+<li>Automatische afleidingen zijn alleen nuttig als je ze nodig hebt.</li>
+</ul>
+<p><strong>Aanpak:</strong> kies een klein profiel met concrete voorbeelden. Breid uit zodra een echte usecase dat vraagt.</p>
+
+        <aside class="notes">
+            De zes modellen uit de casus zijn een gereedschapskist, geen verplichte checklist voor elke toepassing.
+            Voor een gedeelde statuslijst kunnen SKOS en duidelijke definities volstaan. Niet elk project heeft een redeneerlaag met OWL nodig.
+            Een toepassingsprofiel beschrijft welke termen je gebruikt, welke beperkingen gelden en hoe je uitbreidt. Het vervangt de betekenis van de onderliggende standaard niet.
+            Vermijd zowel alles vooraf modelleren als lokale varianten bouwen die alleen een andere naam hebben voor hetzelfde standaardbegrip.
+        </aside>
+    </section>
+    <section id="uitdaging-kwaliteit">
+        <h2 id="uitdagingen" tabindex="-1">Uitdagingen</h2>
+<h3 id="het-gebruik-van-standaarden-garandeert-geen-kwaliteitsvolle-data" tabindex="-1">Het gebruik van standaarden garandeert geen kwaliteitsvolle data</h3>
+<p><strong>Een herkenbaar model is nog geen geldig meetrapport.</strong></p>
+<ul>
+<li>Zijn resultaat, eenheid en meettijdstip aanwezig?</li>
+<li>Gebruiken we dezelfde types en afgesproken statusbegrippen?</li>
+<li>Zijn onze definities inhoudelijk echt gelijkwaardig?</li>
+</ul>
+<p><strong>Aanpak:</strong> maak afspraken toetsbaar, bijvoorbeeld met <strong>SHACL</strong>, en valideer bij invoer en uitwisseling.</p>
+
+        <aside class="notes">
+            RDF laat toe gegevens flexibel te beschrijven, maar legt niet vanzelf alle verplichte velden of bedrijfsregels op.
+            SHACL is een W3C-standaard om voorwaarden te beschrijven en een RDF-graaf ertegen te valideren: aantallen, datatypes, waardebereiken en andere beperkingen.
+            Een validator kan een ontbrekende eenheid signaleren als het profiel die vereist. Hij bewijst niet dat het labo de juiste eenheid heeft geregistreerd of correct heeft gemeten.
+            Valideer zo dicht mogelijk bij de bron en geef fouten terug aan een verantwoordelijke. Ook een mapping zoals exactMatch moet inhoudelijk worden beoordeeld.
+        </aside>
+    </section>
+    <section id="uitdaging-integratie">
+        <h2 id="uitdagingen" tabindex="-1">Uitdagingen</h2>
+<h3 id="bestaande-systemen-en-performantie" tabindex="-1">Bestaande systemen en performantie</h3>
+<p><strong>Linked Data verplicht je niet om je databank te vervangen.</strong></p>
+<ul>
+<li>Bestaande applicaties hebben eigen modellen en koppelingen.</li>
+<li>Conversies, validatie en queries kosten rekentijd.</li>
+<li>Een extra publicatielaag vraagt synchronisatie en beheer.</li>
+</ul>
+<p><strong>Aanpak:</strong> migreer stapsgewijs, meet met echte workloads en gebruik gerichte API's of caching waar dat helpt.</p>
+
+        <aside class="notes">
+            Het gedeelde model is een afspraak over betekenis en uitwisseling, niet automatisch een keuze voor een triple store.
+            Je kan een relationele databank behouden en via een expliciete mapping Linked Data aanbieden. Maak daarbij de mapping testbaar, anders verplaats je alleen het oorspronkelijke probleem.
+            Een aparte publicatielaag kan nuttig zijn, maar vraagt afspraken over actualiteit, foutafhandeling en herstel wanneer synchronisatie faalt.
+            Er bestaat geen algemene garantie dat een graph sneller of trager is. Meet representatieve lees- en schrijfoperaties, datavolumes en responstijden.
+            Bied niet zonder noodzaak een onbeperkt query-endpoint aan. Een gerichte interface of vooraf berekende publicatie kan beter aansluiten bij de afnemers.
+        </aside>
+    </section>
+    <section id="uitdaging-adoptie">
+        <h2 id="uitdagingen" tabindex="-1">Uitdagingen</h2>
+<h3 id="mensen%2C-kennis-en-afhankelijkheden" tabindex="-1">Mensen, kennis en afhankelijkheden</h3>
+<p><strong>Een werkende lokale oplossing vervangen voelt eerst als extra werk.</strong></p>
+<ul>
+<li>Het team moet nieuwe begrippen en tools leren.</li>
+<li>Een eigen variant lijkt soms eenvoudiger dan gedeelde afspraken.</li>
+<li>Leveranciersafhankelijkheid verdwijnt niet door alleen RDF te gebruiken.</li>
+<li>Verwijzen naar andere applicaties is moeilijker als die zelf geen Linked Data aanbieden.</li>
+</ul>
+<p><strong>Aanpak:</strong> werk samen aan een kleine proef, deel voorbeelden en vraag overdraagbare modellen, data en mappings.</p>
+
+        <aside class="notes">
+            Weerstand kan een terecht signaal zijn: de kosten zijn direct zichtbaar, de baten van hergebruik vaak pas bij een tweede afnemer.
+            Voorzie begeleiding en samen modelleren met een ervaren collega. Laat niet één specialist alle kennis vasthouden.
+            Bespreek ontbrekende termen met de beheerders van de standaard in plaats van ongemerkt een eigen concurrerende variant te maken.
+            Een open formaat alleen voorkomt geen lock-in. Ook exporteerbaarheid, documentatie, toegang tot mappings en contractuele overdracht moeten geregeld zijn.
+            Je kan zelf Linked Data aanbieden, maar voor verwijzingen naar gegevens uit andere applicaties blijf je afhankelijk van hun identificatoren en publicatieafspraken.
+            Zonder stabiele URI's en machineleesbare beschrijvingen bij de bron zijn extra mappings of een tussenlaag nodig. Spreek dan samen identiteit, betekenis en actualisatie af; ken niet zomaar een eigen identiteit toe aan andermans gegevens.
+            Toon bij de proef of een andere toepassing de gegevens werkelijk kan begrijpen en gebruiken zonder maatwerk door de oorspronkelijke leverancier.
+        </aside>
+    </section>
+    <section id="uitdaging-tools">
+        <h2 id="uitdagingen" tabindex="-1">Uitdagingen</h2>
+<h3 id="(te)-veel-technische-tools" tabindex="-1">(Te) veel technische tools</h3>
+<ul>
+<li>SPARQL</li>
+<li>LDES</li>
+<li>Triple stores (Virtuoso, Oxygraph, ...)</li>
+<li>SHACL</li>
+<li>...</li>
+</ul>
+<p><strong>Aanpak:</strong> gebruik die tools alleen als je er nut in ziet. Zolang je datamodel interoperabel is, zijn je tools dat ook.</p>
+
+        <aside class="notes">
+
+        </aside>
+    </section>
+</section>
+
+<section class="claper-slide claper-slide--poll" data-claper-event="q6tdq" data-claper-kind="poll" data-claper-poll="8" data-claper-api="https://claper.maximvdw.be/public-api" data-claper-control="https://claper.maximvdw.be/control">
+    <h2 class="claper-poll-title"></h2>
+    <div class="claper-live">
+        <div class="claper-results" aria-live="polite"></div>
+        <div class="claper-join claper-join--small">
+            <div class="claper-qr"><svg class="qr" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 33 33" shape-rendering="crispEdges" role="img" aria-label="QR-code naar https://claper.maximvdw.be/e/q6tdq"><rect x="-2" y="-2" width="33" height="33" fill="#fff"/><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM15 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM13 1h1v1h-1zM16 1h1v1h-1zM18 1h1v1h-1zM20 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM16 2h1v1h-1zM18 2h1v1h-1zM19 2h1v1h-1zM20 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM17 3h1v1h-1zM18 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM11 4h1v1h-1zM14 4h1v1h-1zM16 4h1v1h-1zM19 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM15 5h1v1h-1zM16 5h1v1h-1zM17 5h1v1h-1zM18 5h1v1h-1zM19 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM8 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM16 7h1v1h-1zM17 7h1v1h-1zM19 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM13 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM25 8h1v1h-1zM27 8h1v1h-1zM28 8h1v1h-1zM4 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM13 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM18 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM24 9h1v1h-1zM28 9h1v1h-1zM2 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM10 10h1v1h-1zM11 10h1v1h-1zM12 10h1v1h-1zM13 10h1v1h-1zM16 10h1v1h-1zM21 10h1v1h-1zM23 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM3 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM10 11h1v1h-1zM11 11h1v1h-1zM16 11h1v1h-1zM19 11h1v1h-1zM20 11h1v1h-1zM21 11h1v1h-1zM22 11h1v1h-1zM28 11h1v1h-1zM1 12h1v1h-1zM2 12h1v1h-1zM4 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM11 12h1v1h-1zM14 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM19 12h1v1h-1zM23 12h1v1h-1zM25 12h1v1h-1zM26 12h1v1h-1zM3 13h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM10 13h1v1h-1zM11 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM17 13h1v1h-1zM19 13h1v1h-1zM21 13h1v1h-1zM22 13h1v1h-1zM26 13h1v1h-1zM27 13h1v1h-1zM28 13h1v1h-1zM0 14h1v1h-1zM1 14h1v1h-1zM3 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM8 14h1v1h-1zM10 14h1v1h-1zM11 14h1v1h-1zM12 14h1v1h-1zM13 14h1v1h-1zM16 14h1v1h-1zM18 14h1v1h-1zM19 14h1v1h-1zM20 14h1v1h-1zM22 14h1v1h-1zM23 14h1v1h-1zM26 14h1v1h-1zM27 14h1v1h-1zM28 14h1v1h-1zM3 15h1v1h-1zM4 15h1v1h-1zM7 15h1v1h-1zM10 15h1v1h-1zM11 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM16 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM27 15h1v1h-1zM0 16h1v1h-1zM1 16h1v1h-1zM2 16h1v1h-1zM3 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM7 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM23 16h1v1h-1zM24 16h1v1h-1zM25 16h1v1h-1zM27 16h1v1h-1zM1 17h1v1h-1zM3 17h1v1h-1zM4 17h1v1h-1zM7 17h1v1h-1zM11 17h1v1h-1zM14 17h1v1h-1zM15 17h1v1h-1zM17 17h1v1h-1zM20 17h1v1h-1zM23 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM27 17h1v1h-1zM0 18h1v1h-1zM2 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM7 18h1v1h-1zM9 18h1v1h-1zM10 18h1v1h-1zM13 18h1v1h-1zM14 18h1v1h-1zM15 18h1v1h-1zM17 18h1v1h-1zM22 18h1v1h-1zM24 18h1v1h-1zM26 18h1v1h-1zM2 19h1v1h-1zM3 19h1v1h-1zM4 19h1v1h-1zM5 19h1v1h-1zM7 19h1v1h-1zM10 19h1v1h-1zM12 19h1v1h-1zM13 19h1v1h-1zM14 19h1v1h-1zM16 19h1v1h-1zM17 19h1v1h-1zM18 19h1v1h-1zM20 19h1v1h-1zM22 19h1v1h-1zM24 19h1v1h-1zM26 19h1v1h-1zM1 20h1v1h-1zM2 20h1v1h-1zM4 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM12 20h1v1h-1zM13 20h1v1h-1zM14 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM25 20h1v1h-1zM26 20h1v1h-1zM8 21h1v1h-1zM12 21h1v1h-1zM16 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM25 21h1v1h-1zM26 21h1v1h-1zM27 21h1v1h-1zM28 21h1v1h-1zM0 22h1v1h-1zM1 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM8 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM14 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM27 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h1v1h-1zM9 23h1v1h-1zM13 23h1v1h-1zM14 23h1v1h-1zM15 23h1v1h-1zM18 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM25 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM15 24h1v1h-1zM16 24h1v1h-1zM17 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM26 24h1v1h-1zM27 24h1v1h-1zM0 25h1v1h-1zM2 25h1v1h-1zM3 25h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM8 25h1v1h-1zM11 25h1v1h-1zM13 25h1v1h-1zM15 25h1v1h-1zM19 25h1v1h-1zM20 25h1v1h-1zM21 25h1v1h-1zM23 25h1v1h-1zM24 25h1v1h-1zM25 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM9 26h1v1h-1zM10 26h1v1h-1zM17 26h1v1h-1zM18 26h1v1h-1zM19 26h1v1h-1zM23 26h1v1h-1zM26 26h1v1h-1zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM10 27h1v1h-1zM13 27h1v1h-1zM15 27h1v1h-1zM20 27h1v1h-1zM22 27h1v1h-1zM23 27h1v1h-1zM25 27h1v1h-1zM27 27h1v1h-1zM0 28h1v1h-1zM1 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM9 28h1v1h-1zM10 28h1v1h-1zM13 28h1v1h-1zM14 28h1v1h-1zM16 28h1v1h-1zM18 28h1v1h-1zM19 28h1v1h-1zM20 28h1v1h-1zM21 28h1v1h-1zM23 28h1v1h-1zM27 28h1v1h-1z" fill="#000"/></svg></div>
+            <p class="claper-join-url">claper.maximvdw.be/e/<strong>q6tdq</strong></p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2 id="om-te-onthouden" tabindex="-1">Om te onthouden</h2>
+<ol class="medium">
+<li>Veel datamodellen zijn <strong>varianten van hetzelfde patroon</strong></li>
+<li>Hergebruik <strong>bestaande standaarden</strong> in plaats van een eigen model</li>
+<li>Wanneer je geen bestaand patroon vindt <strong>breid je bestaande onderliggende standaarden uit</strong></li>
+<li>Maak <strong>afspraken</strong> over hoe je de standaard toepast en gebruikt binnen je toepassing</li>
+<li>Standaarden gebruiken betekent denken <strong>over de toekomst</strong></li>
+</ol>
+
+</section>
+
+<section>
+    <section>
+        <h2 id="meer-leren-over-linked-data" tabindex="-1">Meer leren over Linked Data</h2>
+<p><strong>Knowledge Graphs - UGent</strong><br>
+Gericht op industrie en de Vlaamse Overheid<br>
+<a href="https://www.ugain.ugent.be/MCKG2026.htm">https://www.ugain.ugent.be/MCKG2026.htm</a></p>
+<p class="medium"><img src="./images/ugent.png" alt="Opleiding Knowledge Graphs van UGent" class="slide-screenshot slide-screenshot--resource"></p>
+
+    </section>
+    <section>
+        <h2 id="meer-leren-over-linked-data-..." tabindex="-1">Meer leren over Linked Data ...</h2>
+<p><strong>Naslagwerk SOSA/SSN in Vlaanderen</strong><br>
+<a href="https://informatievlaanderen.github.io/OSLOthema-SSNSOSA-VL/">https://informatievlaanderen.github.io/OSLOthema-SSNSOSA-VL/</a></p>
+<p class="medium"><img src="./images/sosassnvl.png" alt="Vlaams naslagwerk voor SOSA/SSN" class="slide-screenshot slide-screenshot--resource"></p>
+
+    </section>
+</section>
+
+<section data-claper-activate="form:1" data-claper-reactions="clap">
+    <h2>Vragen en feedback</h2>
+    <div class="row" style="align-items: center;">
+        <div class="col-half">
+        <ul class="medium">
+<li>Stel je <strong>vragen</strong> via Claper, ook na de sessie</li>
+<li>Laat weten wat je <strong>meeneemt</strong> en wat je nog <strong>mist</strong></li>
+</ul>
+
+        </div>
+        <div class="col-half">
+            <div class="claper-join claper-join--large">
+                <div class="claper-qr"><svg class="qr" xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 33 33" shape-rendering="crispEdges" role="img" aria-label="QR-code naar https://claper.maximvdw.be/e/q6tdq"><rect x="-2" y="-2" width="33" height="33" fill="#fff"/><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM15 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM13 1h1v1h-1zM16 1h1v1h-1zM18 1h1v1h-1zM20 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM16 2h1v1h-1zM18 2h1v1h-1zM19 2h1v1h-1zM20 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM17 3h1v1h-1zM18 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM11 4h1v1h-1zM14 4h1v1h-1zM16 4h1v1h-1zM19 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM15 5h1v1h-1zM16 5h1v1h-1zM17 5h1v1h-1zM18 5h1v1h-1zM19 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM8 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM16 7h1v1h-1zM17 7h1v1h-1zM19 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM13 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM25 8h1v1h-1zM27 8h1v1h-1zM28 8h1v1h-1zM4 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM13 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM18 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM24 9h1v1h-1zM28 9h1v1h-1zM2 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM8 10h1v1h-1zM10 10h1v1h-1zM11 10h1v1h-1zM12 10h1v1h-1zM13 10h1v1h-1zM16 10h1v1h-1zM21 10h1v1h-1zM23 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM3 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM10 11h1v1h-1zM11 11h1v1h-1zM16 11h1v1h-1zM19 11h1v1h-1zM20 11h1v1h-1zM21 11h1v1h-1zM22 11h1v1h-1zM28 11h1v1h-1zM1 12h1v1h-1zM2 12h1v1h-1zM4 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM11 12h1v1h-1zM14 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM19 12h1v1h-1zM23 12h1v1h-1zM25 12h1v1h-1zM26 12h1v1h-1zM3 13h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM10 13h1v1h-1zM11 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM17 13h1v1h-1zM19 13h1v1h-1zM21 13h1v1h-1zM22 13h1v1h-1zM26 13h1v1h-1zM27 13h1v1h-1zM28 13h1v1h-1zM0 14h1v1h-1zM1 14h1v1h-1zM3 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM8 14h1v1h-1zM10 14h1v1h-1zM11 14h1v1h-1zM12 14h1v1h-1zM13 14h1v1h-1zM16 14h1v1h-1zM18 14h1v1h-1zM19 14h1v1h-1zM20 14h1v1h-1zM22 14h1v1h-1zM23 14h1v1h-1zM26 14h1v1h-1zM27 14h1v1h-1zM28 14h1v1h-1zM3 15h1v1h-1zM4 15h1v1h-1zM7 15h1v1h-1zM10 15h1v1h-1zM11 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM16 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM27 15h1v1h-1zM0 16h1v1h-1zM1 16h1v1h-1zM2 16h1v1h-1zM3 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM7 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM23 16h1v1h-1zM24 16h1v1h-1zM25 16h1v1h-1zM27 16h1v1h-1zM1 17h1v1h-1zM3 17h1v1h-1zM4 17h1v1h-1zM7 17h1v1h-1zM11 17h1v1h-1zM14 17h1v1h-1zM15 17h1v1h-1zM17 17h1v1h-1zM20 17h1v1h-1zM23 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM27 17h1v1h-1zM0 18h1v1h-1zM2 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM7 18h1v1h-1zM9 18h1v1h-1zM10 18h1v1h-1zM13 18h1v1h-1zM14 18h1v1h-1zM15 18h1v1h-1zM17 18h1v1h-1zM22 18h1v1h-1zM24 18h1v1h-1zM26 18h1v1h-1zM2 19h1v1h-1zM3 19h1v1h-1zM4 19h1v1h-1zM5 19h1v1h-1zM7 19h1v1h-1zM10 19h1v1h-1zM12 19h1v1h-1zM13 19h1v1h-1zM14 19h1v1h-1zM16 19h1v1h-1zM17 19h1v1h-1zM18 19h1v1h-1zM20 19h1v1h-1zM22 19h1v1h-1zM24 19h1v1h-1zM26 19h1v1h-1zM1 20h1v1h-1zM2 20h1v1h-1zM4 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM12 20h1v1h-1zM13 20h1v1h-1zM14 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM25 20h1v1h-1zM26 20h1v1h-1zM8 21h1v1h-1zM12 21h1v1h-1zM16 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM25 21h1v1h-1zM26 21h1v1h-1zM27 21h1v1h-1zM28 21h1v1h-1zM0 22h1v1h-1zM1 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM8 22h1v1h-1zM10 22h1v1h-1zM11 22h1v1h-1zM14 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM27 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h1v1h-1zM9 23h1v1h-1zM13 23h1v1h-1zM14 23h1v1h-1zM15 23h1v1h-1zM18 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM25 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM15 24h1v1h-1zM16 24h1v1h-1zM17 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM26 24h1v1h-1zM27 24h1v1h-1zM0 25h1v1h-1zM2 25h1v1h-1zM3 25h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM8 25h1v1h-1zM11 25h1v1h-1zM13 25h1v1h-1zM15 25h1v1h-1zM19 25h1v1h-1zM20 25h1v1h-1zM21 25h1v1h-1zM23 25h1v1h-1zM24 25h1v1h-1zM25 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM9 26h1v1h-1zM10 26h1v1h-1zM17 26h1v1h-1zM18 26h1v1h-1zM19 26h1v1h-1zM23 26h1v1h-1zM26 26h1v1h-1zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM10 27h1v1h-1zM13 27h1v1h-1zM15 27h1v1h-1zM20 27h1v1h-1zM22 27h1v1h-1zM23 27h1v1h-1zM25 27h1v1h-1zM27 27h1v1h-1zM0 28h1v1h-1zM1 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM9 28h1v1h-1zM10 28h1v1h-1zM13 28h1v1h-1zM14 28h1v1h-1zM16 28h1v1h-1zM18 28h1v1h-1zM19 28h1v1h-1zM20 28h1v1h-1zM21 28h1v1h-1zM23 28h1v1h-1zM27 28h1v1h-1z" fill="#000"/></svg></div>
+                <p class="claper-join-url">claper.maximvdw.be/e/<strong>q6tdq</strong></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+      </div>
+    </div>
+
+    <script src="/presentaties-vo/reveal.js/dist/reveal.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/notes/notes.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/zoom/zoom.js"></script>
+    <script src="/presentaties-vo/reveal.js/plugin/search/search.js"></script>
+    
+    <!-- Expose Reveal globally for decktape compatibility -->
+    <script>
+      window.Reveal = Reveal;
+    </script>
+    
+    <script type="module">
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1795788639';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1795788639';
+      import { initClaper } from '/presentaties-vo/js/claper.js?1795788639';
+      
+      // Make mermaid available globally
+      window.mermaidInstance = Mermaid;
+      
+      Mermaid.initialize({ 
+        startOnLoad: false, 
+        theme: 'default',
+        securityLevel: 'loose',
+        fontFamily: 'Flanders Art Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif',
+        fontSize: 12,
+        flowchart: {
+          useMaxWidth: true
+        },
+        themeVariables: {
+          fontFamily: 'Flanders Art Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif',
+          fontSize: '12px'
+        }
+      });
+
+      const options = {
+        center: false,
+        margin: 0.08,
+        transition: 'slide',
+        slideNumber: true,
+        width: 1280,
+        height: 720,
+        controls: true,
+        progress: true,
+        history: true,
+        plugins: [ 
+          RevealMarkdown, 
+          RevealHighlight, 
+          RevealNotes,
+          RevealZoom,
+          RevealSearch
+        ],
+        
+      };
+
+      // Initialize presentation
+      const urlParams = new URLSearchParams(window.location.search);
+
+      if (urlParams.has('presenter') || window.location.search.indexOf('presenter') > -1) {
+        // Presenter mode: linear navigation, hide controls and use compact slide numbering
+        const presenterOptions = Object.assign({}, options, {
+          navigationMode: 'linear',
+          slideNumber: 'c',
+          controls: false
+        });
+
+        console.log('Starting in presenter mode');
+        initPresentation({ initialize: () => Reveal.initialize(presenterOptions) });
+
+        // Add presenter-specific behavior after Reveal ready
+        Reveal.on('ready', () => {
+          // When generating PDF, remove uncounted pages
+          Reveal.on && Reveal.on('pdf-ready', () => {
+            document.querySelectorAll(`.pdf-page section[data-visibility="uncounted"]`).forEach(e => e.closest('.pdf-page').remove());
+          });
+
+          // Ensure linear navigation for slides marked with data-visibility
+          Reveal.on('slidechanged', (event) => {
+            if (!event.currentSlide) return;
+            if (event.currentSlide.hasAttribute('data-visibility') && !Reveal.isOverview()) {
+              const prevIndices = Reveal.getIndices(event.previousSlide);
+              const currentIndices = Reveal.getIndices(event.currentSlide);
+              if (prevIndices.h < currentIndices.h || (prevIndices.h === currentIndices.h && prevIndices.v < currentIndices.v)) {
+                Reveal.next();
+              } else if (prevIndices.h > currentIndices.h || (prevIndices.h === currentIndices.h && prevIndices.v > currentIndices.v)) {
+                Reveal.prev();
+              }
+            }
+          });
+        });
+      } else {
+        initPresentation({ initialize: () => Reveal.initialize(options) });
+      }
+
+      initClaper(Reveal);
+      
+      // Initialize Mermaid configuration first
+      if (window.mermaidInstance) {
+        initMermaid(window.mermaidInstance);
+        
+        // Assign unique IDs to all mermaid diagrams
+        let diagramCounter = 0;
+        document.querySelectorAll('.mermaid').forEach(diagram => {
+          if (!diagram.id) {
+            diagram.id = `mermaid-${diagramCounter++}`;
+          }
+        });
+        
+        const renderedDiagrams = new Set();
+        
+        // Render diagrams when a slide is shown
+        const renderDiagramsOnSlide = async () => {
+          const currentSlide = Reveal.getCurrentSlide();
+          if (!currentSlide) return;
+          
+          const diagrams = currentSlide.querySelectorAll('.mermaid');
+          
+          for (const diagram of diagrams) {
+            const diagramId = diagram.id;
+            
+            // Only render if not already rendered
+            if (!renderedDiagrams.has(diagramId)) {
+              renderedDiagrams.add(diagramId);
+              
+              // Wait a tick to ensure layout is ready
+              await new Promise(resolve => setTimeout(resolve, 50));
+              
+              try {
+                await window.mermaidInstance.run({
+                  nodes: [diagram],
+                });
+                
+                // Setup pan/zoom after rendering
+                if (window.setupMermaidPanZoom) {
+                  window.setupMermaidPanZoom();
+                }
+              } catch (error) {
+                console.error('Mermaid rendering error for ' + diagramId + ':', error);
+              }
+            }
+          }
+        };
+        
+        // Render on ready and on slide changes
+        Reveal.on('ready', renderDiagramsOnSlide);
+        Reveal.on('slidechanged', renderDiagramsOnSlide);
+      }
+    </script>
+  </body>
+</html>

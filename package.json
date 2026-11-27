@@ -6,10 +6,11 @@
   "scripts": {
     "build:css": "npx sass css/vlaanderen-theme.scss:css/vlaanderen-theme.css css/index.scss:css/index.css css/hljs.scss:css/hljs.css css/omgeving-theme.scss:css/omgeving-theme.css css/vlaanderen-icons.scss:css/vlaanderen-icons.css css/vlaanderen-international-theme.scss:css/vlaanderen-international-theme.css --no-source-map",
     "watch:css": "npx sass --watch css/vlaanderen-theme.scss:css/vlaanderen-theme.css css/index.scss:css/index.css css/hljs.scss:css/hljs.css css/omgeving-theme.scss:css/omgeving-theme.css css/vlaanderen-icons.scss:css/vlaanderen-icons.css css/vlaanderen-international-theme.scss:css/vlaanderen-international-theme.css --no-source-map",
-    "start": "npm run build:css && eleventy --serve --config=.eleventy.js",
+    "start": "npm run build:css && eleventy --serve --config=.eleventy.js --port=${PORT:-8088}",
     "build": "npm run build:css && eleventy --config=.eleventy.js",
     "ncu:update": "npx npm-check-updates -u",
-    "export": "npm run build && node scripts/export-pdf.js"
+    "export": "npm run build && node scripts/export-pdf.js",
+    "claper:sync": "node scripts/claper-sync.mjs"
   },
   "author": "Maxim Van de Wynckel",
   "license": "MIT",
@@ -20,6 +21,7 @@
     "markdown-it-mermaid": "^0.2.5",
     "nunjucks-markdown": "^2.0.1",
     "puppeteer": "^24.37.5",
+    "qrcode": "^1.5.4",
     "serve-handler": "^6.1.6"
   },
   "dependencies": {

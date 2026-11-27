@@ -1,0 +1,408 @@
+/* Claper live results — see js/claper.js and the claperSlide / claperPoll shortcodes */
+
+.reveal .claper-live {
+  display: flex;
+  gap: 48px;
+  align-items: center;
+  height: 420px;
+}
+
+/* Join block: QR code + short URL */
+.claper-join {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.claper-join--large .claper-qr {
+  width: 330px;
+  height: 330px;
+}
+
+.claper-join--small .claper-qr {
+  width: 170px;
+  height: 170px;
+}
+
+.claper-qr svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.reveal .claper-join-url {
+  margin: 10px 0 0;
+  font-size: 0.9em;
+  text-align: center;
+  color: var(--vl-grijs-donker, #333332);
+}
+
+.reveal .claper-join--small .claper-join-url {
+  font-size: 0.5em;
+}
+
+.claper-join-url strong {
+  font-size: 1.4em;
+  letter-spacing: 0.08em;
+}
+
+/* Results */
+.reveal .claper-results {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.reveal .slides section ol.claper-bars {
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  list-style: none;
+}
+
+.reveal .claper-bar {
+  display: grid;
+  grid-template-columns: minmax(0, 34%) 1fr 5.5em;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 14px;
+  font-size: 0.75em;
+  line-height: 1.2;
+}
+
+.reveal .claper-bar::before {
+  content: none;
+}
+
+.claper-bar-label {
+  color: var(--vl-zwart, #3c3d3c);
+}
+
+.claper-bar-track {
+  height: 34px;
+  background: var(--vl-blauw-licht, #E8EBEE);
+}
+
+.claper-bar-fill {
+  display: block;
+  height: 100%;
+  background: var(--vl-blauw, #0055CC);
+  border-radius: 0 4px 4px 0;
+  transition: width 0.6s ease;
+}
+
+.claper-bar-value {
+  font-weight: bold;
+  color: var(--vl-zwart, #3c3d3c);
+  text-align: right;
+}
+
+.claper-bar-value small {
+  display: block;
+  font-weight: normal;
+  font-size: 0.7em;
+  color: var(--vl-grijs, #687483);
+}
+
+.reveal .claper-total,
+.reveal .claper-empty {
+  margin: 8px 0 0;
+  font-size: 0.55em;
+  color: var(--vl-grijs, #687483);
+}
+
+.reveal .claper-empty {
+  font-size: 0.75em;
+}
+
+.reveal .claper-poll-name {
+  margin: 0 0 18px;
+  font-size: 0.9em;
+  font-weight: bold;
+  line-height: 1.25;
+  color: var(--vl-zwart, #3c3d3c);
+}
+
+/* Corner widget: outside .slides, so it is sized in viewport pixels */
+.claper-corner {
+  position: absolute;
+  right: 16px;
+  bottom: 76px;
+  z-index: 30;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  width: 400px;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid var(--vl-grijs-licht, #CBD2DA);
+  border-top: 4px solid var(--vl-geel, #FFED00);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.claper-corner[hidden] {
+  display: none;
+}
+
+.claper-corner.is-expanded {
+  width: 640px;
+  font-size: 24px;
+}
+
+.claper-corner .claper-results {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.claper-corner .claper-poll-name {
+  margin: 0 0 6px;
+  font-size: 0.8em;
+  font-weight: bold;
+  line-height: 1.2;
+  color: var(--vl-zwart, #3c3d3c);
+}
+
+.claper-corner .claper-bars {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.claper-corner .claper-bar {
+  display: grid;
+  grid-template-columns: minmax(0, 40%) 1fr 2.6em;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 4px;
+  font-size: 0.65em;
+  line-height: 1.2;
+}
+
+.claper-corner .claper-bar-label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.claper-corner .claper-bar-track {
+  height: 10px;
+}
+
+.claper-corner .claper-bar-value small,
+.claper-corner .claper-total {
+  display: none;
+}
+
+.claper-corner .claper-empty {
+  margin: 0;
+  font-size: 0.7em;
+  color: var(--vl-grijs, #687483);
+}
+
+.claper-corner .claper-qr {
+  width: 90px;
+  height: 90px;
+}
+
+.claper-corner.is-expanded .claper-qr {
+  width: 150px;
+  height: 150px;
+}
+
+.claper-corner .claper-join-url {
+  margin: 4px 0 0;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+/* Presenter-only feedback when the deck opens a poll in Claper (only with ?claper-token) */
+.claper-control-toast {
+  position: absolute;
+  left: 50%;
+  top: 12px;
+  z-index: 40;
+  transform: translateX(-50%);
+  padding: 6px 14px;
+  background: var(--vl-grijs-donker, #333332);
+  color: #fff;
+  font-size: 14px;
+  border-radius: 4px;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.claper-control-toast[hidden] {
+  display: none;
+}
+
+.claper-token-dialog {
+  width: min(420px, 90vw);
+  border: 0;
+  border-radius: 8px;
+  padding: 24px;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--vl-grijs-donker, #333332);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.claper-token-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.claper-token-dialog h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+
+.claper-token-dialog label {
+  display: block;
+  margin: 12px 0;
+  font-weight: 600;
+}
+
+.claper-token-dialog input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 4px;
+  padding: 8px;
+  font: inherit;
+}
+
+.claper-token-error {
+  color: #db3434;
+  margin: 0 0 8px;
+}
+
+.claper-token-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.claper-token-actions button {
+  padding: 8px 14px;
+  font: inherit;
+  border-radius: 4px;
+  border: 1px solid var(--vl-grijs-donker, #333332);
+  background: #fff;
+  cursor: pointer;
+}
+
+.claper-token-actions .claper-token-save {
+  background: var(--vl-grijs-donker, #333332);
+  color: #fff;
+}
+
+.claper-control-toast.is-error {
+  background: #db3434;
+  opacity: 1;
+}
+
+.reveal.print-pdf .claper-corner,
+html.print-pdf .claper-corner {
+  display: none;
+}
+
+/* Quiz results (claperQuiz): the correct answer is marked once the .claper-reveal fragment shows */
+.claper-reveal.visible ~ .claper-live .claper-bar .claper-bar-fill {
+  background: var(--vl-grijs-licht, #CBD2DA);
+}
+
+.claper-reveal.visible ~ .claper-live .claper-bar.is-correct .claper-bar-fill {
+  background: #2e7d32;
+}
+
+.claper-reveal.visible ~ .claper-live .claper-bar.is-correct .claper-bar-label {
+  font-weight: bold;
+}
+
+.claper-reveal.visible ~ .claper-live .claper-bar.is-correct .claper-bar-label::after {
+  content: " ✓";
+  color: #2e7d32;
+}
+
+/* Message wall (claperWall): messages pinned in Claper */
+.reveal .claper-slide--wall .claper-live {
+  align-items: flex-start;
+}
+
+.reveal .claper-wall-intro {
+  margin: 0 0 0.6em;
+  font-size: 0.8em;
+}
+
+.reveal .slides section ul.claper-wall {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reveal .claper-message {
+  position: relative;
+  padding: 12px 16px 14px;
+  background: var(--vl-blauw-licht, #E8EBEE);
+  border-left: 6px solid var(--vl-geel, #FFED00);
+  font-size: 0.6em;
+  line-height: 1.3;
+  text-align: left;
+  animation: claper-pop 0.4s ease;
+}
+
+.reveal .claper-message::before {
+  content: none;
+}
+
+.reveal .claper-message p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.claper-message-reactions {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.8em;
+  color: var(--vl-grijs, #687483);
+}
+
+@keyframes claper-pop {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Live reactions (presenter token only): emoji floating up on the right */
+.claper-reactions {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 220px;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 40;
+}
+
+.claper-reaction {
+  position: absolute;
+  bottom: -60px;
+  font-size: 46px;
+  opacity: 0;
+  animation: claper-float 3.2s ease-out forwards;
+}
+
+@keyframes claper-float {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  12% { opacity: 1; transform: translateY(-60px) scale(1); }
+  100% { transform: translateY(-560px) scale(1.1); opacity: 0; }
+}
+
+@media print {
+  .claper-reactions { display: none; }
+}

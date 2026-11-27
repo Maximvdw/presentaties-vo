@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "claper": {
+      "type": "local",
+      "command": ["node", "scripts/claper-mcp.mjs"],
+      "enabled": true
+    }
+  }
+}

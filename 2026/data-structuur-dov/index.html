@@ -25,11 +25,12 @@
     <link rel="stylesheet" href="/presentaties-vo/reveal.js/plugin/highlight/monokai.css">
     
     
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1788333482">
-    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1788333482">
-    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1788333482">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-theme.css?1795788639">
+    <link rel="stylesheet" href="/presentaties-vo/css/omgeving-theme.css?1795788639">
+    <link rel="stylesheet" href="/presentaties-vo/css/vlaanderen-icons.css?1795788639">
     
     
+    <link rel="stylesheet" href="/presentaties-vo/css/claper.css?1795788639">
     
 
     <div class="reveal omgeving">
@@ -408,8 +409,9 @@ flowchart LR
     </script>
     
     <script type="module">
-      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1788333482';
-      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1788333482';
+      import { default as Mermaid } from '/presentaties-vo/js/mermaid/mermaid.esm.min.mjs?1795788639';
+      import { initPresentation, initMermaid } from '/presentaties-vo/js/presentation.js?1795788639';
+      import { initClaper } from '/presentaties-vo/js/claper.js?1795788639';
       
       // Make mermaid available globally
       window.mermaidInstance = Mermaid;
@@ -487,6 +489,8 @@ flowchart LR
       } else {
         initPresentation({ initialize: () => Reveal.initialize(options) });
       }
+
+      initClaper(Reveal);
       
       // Initialize Mermaid configuration first
       if (window.mermaidInstance) {

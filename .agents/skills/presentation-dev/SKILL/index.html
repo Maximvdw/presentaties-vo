@@ -1,0 +1,17 @@
+<h1 id="presentation-dev-server" tabindex="-1">Presentation dev server</h1>
+<h2 id="starten" tabindex="-1">Starten</h2>
+<p><code>npm start</code> runt <code>build:css</code> en daarna <code>eleventy --serve</code>. De server blijft draaien, dus start hem als achtergrondproces (async, geen blokkerende shell).</p>
+<ol>
+<li>Start: <code>npm start</code> (async). Standaardpoort is 8088. Andere poort: <code>PORT=&lt;poort&gt; npm start</code>. Kies geen 8080 of 8081, die zijn vaak bezet.</li>
+<li>Verifieer: <code>curl -s -o /dev/null -w &quot;%{http_code}\n&quot; http://localhost:8088/</code> moet <code>200</code> geven.</li>
+</ol>
+<p><strong>Let op:</strong> een <code>200</code> kan van een andere app komen. Controleer dat de log <code>Server at http://localhost:&lt;poort&gt;/</code> toont met jouw poort. Controleer vóór het starten met <code>ss -ltn | grep :&lt;poort&gt;</code> of de poort vrij is.</p>
+<h2 id="stoppen" tabindex="-1">Stoppen</h2>
+<ul>
+<li>Stop alleen het proces dat je zelf startte, met een specifiek PID (<code>kill &lt;pid&gt;</code>). Gebruik geen <code>pkill</code> of <code>killall</code>.</li>
+<li>Zoek het PID met <code>ss -ltnp | grep :&lt;poort&gt;</code> en controleer met <code>readlink /proc/&lt;pid&gt;/fd/1</code> of het jouw logbestand is.</li>
+<li>Het proces is een <code>sh -c npm run build:css &amp;&amp; eleventy --serve</code> met een <code>eleventy</code>-kind. Stop de hele keten (sh + eleventy).</li>
+<li>Verifieer dat de poort dicht is: <code>curl</code> moet <code>000</code> geven.</li>
+</ul>
+<h2 id="output" tabindex="-1">Output</h2>
+<p>De dev-server schrijft naar <code>_site/</code>. Die map is gitignored, dus er is niets op te ruimen.</p>

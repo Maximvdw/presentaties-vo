@@ -1,0 +1,46 @@
+<h1 id="claper" tabindex="-1">Claper</h1>
+<p>Live vragen per presentatie. De bron van waarheid is <code>&lt;jaar&gt;/&lt;presentatie&gt;/claper-polls.json</code>. Het Claper-event heeft een code (bv. <code>q6tdq</code>) die in de JSON en in de slides staat.</p>
+<h2 id="token" tabindex="-1">Token</h2>
+<ul>
+<li><code>CLAPER_CONTROL_TOKEN</code> staat in <code>.env</code> in de repo root (gitignored).</li>
+<li>Print of commit de token nooit. Controleer alleen of hij bestaat (<code>grep -c CLAPER_CONTROL_TOKEN .env</code>).</li>
+</ul>
+<h2 id="tools" tabindex="-1">Tools</h2>
+<p>Twee manieren, dezelfde backend:</p>
+<ol>
+<li><strong>MCP-server</strong> <code>scripts/claper-mcp.mjs</code> (geconfigureerd in <code>.mcp.json</code> en <code>opencode.json</code>). Tools:
+<ul>
+<li><code>claper_status</code>: controleert public API en control API.</li>
+<li><code>claper_sync</code> (<code>file</code>): synct een polls-JSON naar Claper.</li>
+<li><code>claper_results</code> (<code>event</code>): live resultaten.</li>
+<li><code>claper_open</code> / <code>claper_close</code> (<code>event</code>, <code>kind</code>, <code>id</code>): poll, quiz of form activeren/deactiveren. <code>kind</code> is <code>poll</code>, <code>quiz</code> of <code>form</code>.</li>
+<li><code>claper_start</code> (<code>event</code>): start het event.</li>
+<li><code>claper_reactions</code> (<code>event</code>): reacties tellen.</li>
+</ul>
+</li>
+<li><strong>CLI</strong>: <code>npm run claper:sync -- 2026/&lt;presentatie&gt;/claper-polls.json</code></li>
+</ol>
+<h2 id="sync-workflow" tabindex="-1">Sync-workflow</h2>
+<ol>
+<li>Bewerk <code>claper-polls.json</code>. Elke poll, quiz en form krijgt een <code>id</code> zodra die bestaat in Claper.</li>
+<li>Run de sync (<code>claper_sync</code> of de CLI).</li>
+<li>Resultaat per item: <code>created</code>, <code>updated</code> of <code>kept</code>.
+<ul>
+<li>Een quiz met antwoorden wordt niet aangepast (<code>kept</code>).</li>
+<li>Een optie verwijderen met stemmen geeft 409.</li>
+<li>Opties matchen op positie. Een hernoemde optie behoudt zijn stemmen.</li>
+</ul>
+</li>
+<li>Nieuwe items krijgen een <code>id</code>. Zet die in de JSON, anders maakt de volgende sync een duplicaat.</li>
+<li>Bouw de slides opnieuw (<code>npm run build</code>). De slides verwijzen naar quiz-id's (<code>data-claper-quiz=&quot;&lt;id&gt;&quot;</code>).</li>
+</ol>
+<h2 id="gotchas" tabindex="-1">Gotchas</h2>
+<ul>
+<li><strong>502 Bad Gateway bij aanmaken van een quiz</strong>: vrijwel altijd te lange optietekst. De server heeft waarschijnlijk een kolomlimiet (~255 tekens, nog niet bevestigd). Houd opties kort en zet de volledige definitie op een slide. Dit gebeurde bij de quiz &quot;Welk modelbegrip past bij de waterkwaliteitscasus?&quot;.</li>
+<li><strong>Quiz-titel is de sleutel</strong> voor <code>2026/vc-event/vc-event.11tydata.js</code>. Hernoem de titel niet zonder de 11ty-data aan te passen.</li>
+<li>Controleer met <code>claper_results</code> wat er actief is voordat je opent of sluit.</li>
+<li><code>GET /control/health</code> werkt niet via de proxy. Gebruik <code>claper_status</code>.</li>
+<li><strong>CORS-fout op <code>/control/start</code> in de browser</strong>: de control-API staat origins toe uit <code>CLAPER_CONTROL_ORIGINS</code> (stack <code>configs/stacks/ovh/claper.yml</code> in de Servers-repo) plus alle <code>http://192.168.1.0–255</code> origins met optionele poort (sinds 2026-11-09, docker config <code>claper_control_v6</code>). Andere origins (bv. een publiek IP of een andere domein) krijgen geen toegang; de slides werken dan wel read-only. Oplossing: de origin in de lijst zetten (<code>docker service update --env-add CLAPER_CONTROL_ORIGINS=...</code>), of vanaf het LAN openen.</li>
+</ul>
+<h2 id="publieke-read-only-api" tabindex="-1">Publieke read-only API</h2>
+<p><code>https://claper.maximvdw.be/public-api/polls?event=eq.&lt;code&gt;&amp;order=id</code> (anoniem). Velden van de quiz-view: <code>event, quiz, quiz_title, active, id, number, title, total, options, updated_at</code>.</p>
