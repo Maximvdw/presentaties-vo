@@ -19,7 +19,7 @@ jobs:
       with:
         node-version: '24'
     - name: Install dependencies
-      run: npm install
+      run: npm ci --registry=https://registry.npmjs.org/
     - name: Build presentation
       run: npm run build
     - name: Deploy to GitHub Pages
